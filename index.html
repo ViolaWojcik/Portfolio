@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wioleta Wójcik — Architect &amp; Service Designer</title>
+<meta name="description" content="Interactive portfolio of Wioleta Maria Wójcik, an Architect turned Service Designer based in Oslo, Norway.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Wioleta Wójcik — Architect &amp; Service Designer">
+<meta property="og:description" content="Interactive portfolio of Wioleta Maria Wójcik, an Architect turned Service Designer based in Oslo, Norway.">
+<meta property="og:image" content="my photo.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23FCFBF8'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' text-anchor='middle' fill='%237A6BA8'%3EW%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   TOKENS — everything tweakable lives here
+   ========================================================= */
+:root{
+  /* surface */
+  --surface:      #F3F0EA;
+  --paper:        #FCFBF8;
+  --paper-warm:   #F7F4EE;
+
+  /* ink */
+  --ink:          #1A1917;
+  --ink-soft:     #4A463F;
+  --ink-mute:     #8E887C;
+  --hair:         #E0DACE;
+
+  /* accent — dusty lilac, max 5 places at once */
+  --accent:       #7A6BA8;
+  --accent-tint:  #E4DDF1;   /* the sheet inside a folder, icon hover disc */
+
+  /* shadow: three warm layers, three states.
+     --sh-off matches the layer count so it interpolates cleanly. */
+  --sh-off:
+      0 0px 0px    rgba(58,50,38,0),
+      0 0px 0px    rgba(58,50,38,0),
+      0 0px 0px    rgba(58,50,38,0);
+  --sh-rest:
+      0 1px 1.5px  rgba(58,50,38,.05),
+      0 4px 8px   -3px rgba(58,50,38,.07),
+      0 14px 30px -12px rgba(58,50,38,.13);
+  --sh-hover:
+      0 1px 2px    rgba(58,50,38,.05),
+      0 8px 16px  -5px rgba(58,50,38,.09),
+      0 24px 48px -16px rgba(58,50,38,.17);
+  --sh-lift:
+      0 2px 4px    rgba(58,50,38,.06),
+      0 18px 34px -10px rgba(58,50,38,.13),
+      0 48px 90px -28px rgba(58,50,38,.26);
+
+  /* folders use filter drop-shadow so the tab silhouette casts correctly */
+  --fs-off:   drop-shadow(0 0 0 rgba(58,50,38,0));
+  --fs-rest:  drop-shadow(0 1px 1.5px rgba(58,50,38,.05)) drop-shadow(0 6px 12px rgba(58,50,38,.08)) drop-shadow(0 18px 34px rgba(58,50,38,.10));
+  --fs-hover: drop-shadow(0 1px 2px rgba(58,50,38,.05))   drop-shadow(0 10px 18px rgba(58,50,38,.10)) drop-shadow(0 28px 48px rgba(58,50,38,.14));
+  --fs-lift:  drop-shadow(0 2px 4px rgba(58,50,38,.07))   drop-shadow(0 20px 34px rgba(58,50,38,.13)) drop-shadow(0 52px 80px rgba(58,50,38,.22));
+
+  /* motion */
+  --ease:   cubic-bezier(.22,.61,.36,1);
+  --settle: cubic-bezier(.16,.84,.44,1);
+  --t-lift: .45s;
+
+  /* folder fan geometry — a descending staircase, back-left to front-right */
+  --fold-w:      186px;
+  --fan-step:     92px;  /* horizontal step at rest  (~50% overlap) */
+  --fan-step-y:   44px;  /* vertical step at rest    */
+  --fan-step-x:  130px;  /* horizontal step on hover */
+  --fan-step-yx:  52px;  /* vertical step on hover   */
+
+  --font-display:'Instrument Serif','Iowan Old Style',Georgia,serif;
+  --font-ui:'Inter',ui-sans-serif,-apple-system,'Segoe UI',sans-serif;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{
+  font-family:var(--font-ui);
+  color:var(--ink);
+  background:var(--surface);
+  overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* =========================================================
+   SURFACE
+   ========================================================= */
+#board{
+  position:relative;
+  width:100vw;height:100vh;overflow:hidden;
+  background:
+    radial-gradient(120% 90% at 50% 8%,  rgba(255,255,255,.60) 0%, rgba(255,255,255,0) 55%),
+    radial-gradient(140% 110% at 50% 100%, rgba(120,105,80,.07) 0%, rgba(120,105,80,0) 60%),
+    var(--surface);
+}
+#board::after{                       /* fine paper tooth */
+  content:'';position:absolute;inset:0;pointer-events:none;opacity:.35;
+  background-image:radial-gradient(rgba(120,105,80,.16) .5px,transparent .5px);
+  background-size:3px 3px;
+}
+
+/* the light that travels across the board and wakes the shadows */
+#sweep{
+  position:fixed;inset:0;pointer-events:none;z-index:800;
+  background:linear-gradient(100deg,
+    rgba(255,255,255,0)   0%,
+    rgba(255,255,255,.42) 42%,
+    rgba(255,255,255,0)   68%);
+  transform:translateX(-105%);
+  animation:sweep 1.9s cubic-bezier(.36,.05,.3,1) 1.70s forwards;
+}
+@keyframes sweep{to{transform:translateX(105%);}}
+
+/* =========================================================
+   OBJECTS — three nested layers:
+   .obj    position + entrance
+   .inner  rotation, hover lift, shadow
+   ========================================================= */
+.obj{
+  position:absolute;
+  opacity:0;
+  animation:enter .95s var(--settle) forwards;
+  animation-delay:var(--d,0s);
+  transition:left .45s var(--ease), top .45s var(--ease);
+  touch-action:none;
+}
+@keyframes enter{
+  0%{opacity:0;transform:translateY(-20px);}
+  60%{opacity:1;}
+  100%{opacity:1;transform:translateY(0);}
+}
+.obj .inner{
+  transform:rotate(var(--rot,0deg));
+  box-shadow:var(--sh-off);
+  transition:transform var(--t-lift) var(--ease),
+             box-shadow .85s var(--ease);
+  transition-delay:0s, var(--lit,0s);   /* shadow arrives with the light */
+  will-change:transform;
+}
+.obj.lit .inner{box-shadow:var(--sh-rest);}
+
+.grab{cursor:grab;}
+.grab:active{cursor:grabbing;}
+/* a clickable object (opens a case study) shows a focus ring for keyboard users */
+.obj[data-href]:focus-visible{outline:none;}
+.obj[data-href]:focus-visible .folder{
+  outline:2px solid var(--accent);outline-offset:4px;border-radius:6px;
+}
+.ready .grab:hover .inner{
+  transition-delay:0s;
+  transform:rotate(var(--rot,0deg)) translateY(-3px);
+  box-shadow:var(--sh-hover);
+}
+.obj.dragging{z-index:900!important;transition:none;}
+.obj.dragging .inner{
+  transition:box-shadow .25s var(--ease),transform .25s var(--ease);
+  transition-delay:0s;
+  transform:rotate(calc(var(--rot,0deg) * .2)) scale(1.025);
+  box-shadow:var(--sh-lift);
+}
+
+/* =========================================================
+   HEADLINE — fixed anchor. No shadow, no rotation, no drag.
+   ========================================================= */
+#headline{
+  position:absolute;left:9vw;top:24vh;max-width:560px;
+  z-index:2;user-select:none;
+}
+.hl{
+  font-family:var(--font-display);
+  font-size:clamp(46px,5.4vw,80px);
+  line-height:.98;letter-spacing:-.028em;color:var(--ink);
+  font-weight:400;
+}
+.hl .w{
+  display:inline-block;opacity:0;
+  animation:word .8s var(--settle) forwards;
+  animation-delay:var(--d,0s);
+}
+@keyframes word{
+  from{opacity:0;transform:translateY(8px);}
+  to  {opacity:1;transform:translateY(0);}
+}
+.hl .w3{color:var(--accent);font-style:italic;}
+.hl-swap{transition:opacity .3s var(--ease);}
+
+/* =========================================================
+   POLAROID
+   ========================================================= */
+.polaroid{width:204px;background:var(--paper);padding:11px 11px 0;border-radius:1px;}
+.polaroid img{
+  display:block;width:100%;height:212px;
+  object-fit:cover;object-position:50% 22%;
+  background:#EBE7DF;filter:saturate(.92) contrast(1.02);
+  user-select:none;-webkit-user-drag:none;pointer-events:none;
+}
+.polaroid figcaption{padding:14px 4px 16px;text-align:center;}
+.polaroid .nm{font-family:var(--font-display);font-size:20px;line-height:1;color:var(--ink);}
+.polaroid .rl{margin-top:8px;font-size:8.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink-mute);}
+
+/* =========================================================
+   CONTACT CARD — compact block, never rotated
+   ========================================================= */
+.card{
+  position:relative;width:238px;min-height:132px;
+  background:var(--paper-warm);border-radius:3px;overflow:hidden;
+  padding:22px 22px 22px 24px;
+  display:flex;flex-direction:column;justify-content:center;gap:18px;
+}
+.card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);opacity:.85;}
+.icons{display:flex;gap:2px;margin-left:-8px;}
+.ic{
+  position:relative;width:40px;height:40px;display:grid;place-items:center;
+  color:var(--ink-mute);
+  transition:color .3s var(--ease);
+}
+/* hover: a soft lilac disc grows behind the glyph, then the glyph takes the accent */
+.ic::before{
+  content:'';position:absolute;inset:2px;border-radius:50%;
+  background:var(--accent);opacity:0;transform:scale(.55);
+  transition:opacity .32s var(--ease),transform .32s var(--ease);
+}
+.ic svg{position:relative;z-index:1;width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.ic:hover{color:var(--accent);}
+.ic:hover::before{opacity:.15;transform:scale(1);}
+.ic:focus-visible{outline:1.5px solid var(--accent);outline-offset:1px;border-radius:50%;}
+.info{display:grid;gap:4px;}
+/* location + live weather share one line: "[icon] 25° · Oslo, Norway" */
+.place{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink-soft);}
+.info a{width:fit-content;border-bottom:1px solid transparent;transition:color .3s,border-color .3s;}
+.info a:hover{color:var(--accent);border-bottom-color:var(--accent);}
+
+/* live weather — a footnote, never a headline; prepends to the location */
+.wx{
+  display:inline-flex;align-items:center;gap:6px;
+  color:var(--ink-mute);
+  opacity:0;transition:opacity .6s var(--ease);
+}
+.wx.in{opacity:1;}
+.wx-icon{display:block;width:15px;height:15px;}
+.wx-icon svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.wx-sep{opacity:.5;}
+
+/* =========================================================
+   FOLDER FAN
+   ========================================================= */
+#fan{
+  position:absolute;left:9vw;bottom:11vh;
+  width:calc(var(--fold-w) + var(--fan-step-x)*2);
+  height:calc(128px + var(--fan-step-yx)*2);
+}
+#fan .obj{transition:left .45s var(--ease),top .45s var(--ease);}
+/* back → front: Oncology sits highest and furthest left, RepApp on top */
+#fan .obj[data-k="f3"]{left:0;                            top:0;                        z-index:1;}
+#fan .obj[data-k="f2"]{left:var(--fan-step);              top:var(--fan-step-y);        z-index:2;}
+#fan .obj[data-k="f1"]{left:calc(var(--fan-step)*2);      top:calc(var(--fan-step-y)*2);z-index:3;}
+.ready #fan:hover .obj[data-k="f2"]{left:var(--fan-step-x);              top:var(--fan-step-yx);}
+.ready #fan:hover .obj[data-k="f1"]{left:calc(var(--fan-step-x)*2);      top:calc(var(--fan-step-yx)*2);}
+.ready #fan:hover .obj .inner{transform:rotate(var(--rot,0deg)) translateY(-4px);}
+
+.folder{
+  position:relative;width:var(--fold-w);height:128px;
+  filter:var(--fs-off);
+  transition:filter .85s var(--ease);
+  transition-delay:var(--lit,0s);
+}
+.obj.lit .folder{filter:var(--fs-rest);}
+.ready .grab:hover .folder{transition-delay:0s;filter:var(--fs-hover);}
+.obj.dragging .folder{transition-delay:0s;filter:var(--fs-lift);}
+/* folders carry their shadow on .folder, not .inner */
+#fan .obj .inner,.obj[data-k^="f"] .inner{box-shadow:none!important;}
+
+.folder .tab{position:absolute;top:0;left:0;width:78px;height:15px;background:var(--paper);border-radius:4px 7px 0 0;}
+.folder .tab i{
+  position:absolute;left:13px;top:6px;width:26px;height:2px;border-radius:2px;
+  background:var(--accent);opacity:.55;
+  transition:width .5s var(--ease),opacity .5s var(--ease);
+}
+.ready .grab:hover .folder .tab i{width:50px;opacity:1;}
+.folder .sheet{
+  position:absolute;left:14px;right:14px;top:9px;height:70px;
+  background:var(--accent-tint);
+  border:1px solid rgba(122,107,168,.32);
+  border-radius:2px;
+  transform:translateY(14px);opacity:0;z-index:0;
+  transition:transform .55s var(--ease),opacity .45s var(--ease);
+}
+.ready .grab:hover .folder .sheet{transform:translateY(-11px);opacity:1;}
+.folder .body{
+  position:absolute;left:0;right:0;top:15px;bottom:0;z-index:1;
+  background:var(--paper);border-radius:0 4px 4px 4px;padding:17px 18px;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.folder .ttl{font-family:var(--font-display);font-size:22px;line-height:1.05;letter-spacing:-.01em;font-weight:400;}
+.folder .mt{font-size:8.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-mute);}
+
+/* the one small invitation at the end of the entrance */
+@keyframes nudge{
+  0%,100%{transform:translateX(0);}
+  50%    {transform:translateX(3px);}
+}
+.invite .inner{animation:nudge 1.1s var(--ease) 1;}
+
+/* =========================================================
+   LANGUAGE TOGGLE — fixed, top right
+   ========================================================= */
+#lang{
+  position:fixed;top:26px;right:26px;z-index:950;
+  display:flex;gap:2px;padding:4px;border-radius:22px;
+  background:var(--paper);box-shadow:var(--sh-rest);
+  opacity:0;animation:enter .8s var(--settle) 2.2s forwards;
+}
+#lang::before{
+  content:'';position:absolute;left:4px;top:4px;
+  width:calc(50% - 4px);height:calc(100% - 8px);
+  background:var(--accent);border-radius:18px;
+  transition:transform .3s var(--ease);
+}
+#lang[data-l="no"]::before{transform:translateX(100%);}
+#lang button{
+  position:relative;z-index:1;border:0;background:none;cursor:pointer;
+  font-family:var(--font-ui);font-size:10.5px;font-weight:500;
+  letter-spacing:.13em;padding:6px 13px;border-radius:18px;
+  color:var(--ink-mute);transition:color .3s var(--ease);
+}
+#lang button[aria-pressed="true"]{color:var(--paper);}
+#lang button:focus-visible{outline:1.5px solid var(--accent);outline-offset:3px;}
+
+/* =========================================================
+   RESET
+   ========================================================= */
+#reset{
+  position:fixed;left:26px;bottom:22px;z-index:940;
+  font-family:var(--font-ui);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-mute);background:none;border:0;cursor:pointer;
+  opacity:0;animation:enter .8s var(--settle) 2.65s forwards;
+  transition:color .3s;
+}
+#reset:hover{color:var(--accent);}
+
+/* =========================================================
+   HINT — one subtle invitation to start playing.
+   Same visual language as the other micro-labels (uppercase,
+   tracked). Fades in after the whole board has arrived and
+   dismisses itself the moment the first object is dragged.
+   ========================================================= */
+#hint{
+  position:fixed;top:24px;left:50%;z-index:940;
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--font-ui);font-size:10px;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-mute);white-space:nowrap;pointer-events:none;
+  opacity:0;transform:translateX(-50%) translateY(-6px);
+  animation:hint-in 1s var(--settle) 3s forwards;
+}
+#hint svg{
+  display:block;width:15px;height:15px;fill:none;stroke:currentColor;
+  stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;
+}
+/* the arrows drift a touch — a whisper of "these things move" */
+#hint .hint-ico{animation:hint-drift 3.4s var(--ease) 4s infinite;}
+@keyframes hint-in{
+  from{opacity:0;transform:translateX(-50%) translateY(-6px);}
+  to  {opacity:.55;transform:translateX(-50%) translateY(0);}
+}
+@keyframes hint-drift{
+  0%,100%{transform:translate(0,0);}
+  50%    {transform:translate(2px,2px);}
+}
+/* once the user grabs anything, the hint has done its job */
+#hint.gone{
+  animation:none;opacity:0;transform:translateX(-50%) translateY(-6px);
+  transition:opacity .5s var(--ease),transform .5s var(--ease);
+}
+
+/* =========================================================
+   CURSOR TOOLTIP — a lilac pill that trails the pointer and
+   names what each object does ("About me" / "Contact" /
+   "View project"). Desktop only, appears after the entrance.
+   ========================================================= */
+#tip{
+  position:fixed;left:0;top:0;z-index:960;pointer-events:none;
+  padding:7px 14px;border-radius:999px;
+  background:var(--accent);color:#fff;
+  font-family:var(--font-ui);font-size:11.5px;font-weight:500;letter-spacing:.01em;
+  white-space:nowrap;box-shadow:var(--sh-hover);
+  opacity:0;transform:translate(-50%,calc(-100% - 8px)) scale(.92);
+  transform-origin:50% 100%;
+  transition:opacity .16s var(--ease),transform .2s var(--settle);
+}
+#tip.show{opacity:1;transform:translate(-50%,calc(-100% - 14px)) scale(1);}
+
+/* =========================================================
+   MOBILE — stack, no drag, no fan
+   ========================================================= */
+@media (max-width:760px){
+  body{overflow:auto;}
+  #board{height:auto;min-height:100vh;padding:96px 22px 96px;
+         display:flex;flex-direction:column;align-items:center;gap:40px;}
+  #sweep{display:none;}
+  .obj,#headline,#fan{position:static!important;width:auto!important;height:auto!important;}
+  .obj .inner{transform:none!important;}
+  .obj.lit .inner{box-shadow:var(--sh-rest);}
+  .obj.lit .folder{filter:var(--fs-rest);}
+  .grab{cursor:default;}
+  #headline{order:-2;max-width:100%;}
+  .obj[data-k="pol"]{order:-1;}
+  #fan{order:1;display:flex;flex-direction:column;align-items:center;gap:26px;}
+  .obj[data-k="card"]{order:2;}
+  .folder,.card{width:100%;max-width:300px;}
+  .folder{height:128px;}
+  #lang{top:18px;right:18px;}
+  #reset,#hint{display:none;}
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+@media (prefers-reduced-motion:reduce){
+  #sweep{display:none;}
+  .obj,#lang,#reset{animation:none;opacity:1;}
+  .hl .w{animation:none;opacity:1;}
+  .obj .inner,.folder{transition-delay:0s!important;}
+  .invite .inner{animation:none;}
+  #hint{animation:none;opacity:.55;transform:translateX(-50%);}
+  #hint .hint-ico{animation:none;}
+  *{transition-duration:.01ms!important;}
+}
+</style>
+</head>
+<body>
+
+<div id="sweep" aria-hidden="true"></div>
+
+<main id="board">
+
+  <!-- ── headline: fixed anchor, never draggable ───────────── -->
+  <div id="headline">
+    <h1 class="hl hl-swap">
+      <span class="w w1" style="--d:.15s"></span>
+      <span class="w w2" style="--d:.49s"></span><br>
+      <span class="w w3" style="--d:.83s"></span>
+    </h1>
+  </div>
+
+  <!-- ── polaroid ──────────────────────────────────────────── -->
+  <div class="obj grab" data-k="pol" data-tip="about"
+       style="right:8vw;top:12vh;--rot:2.6deg;--d:2.20s;--lit:2.82s;">
+    <div class="inner">
+      <figure class="polaroid">
+        <img src="my%20photo.png" alt="Wioleta Maria Wójcik" draggable="false">
+        <figcaption>
+          <div class="nm">Wioleta Maria Wójcik</div>
+          <div class="rl" data-t="role"></div>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- ── contact card: icons + location + phone, no name ───── -->
+  <div class="obj grab" data-k="card" data-tip="contact"
+       style="right:8vw;bottom:10vh;--rot:0deg;--d:2.06s;--lit:2.68s;">
+    <div class="inner">
+      <div class="card">
+        <div class="icons">
+          <a class="ic" href="mailto:wioleta.maria.wojcik@gmail.com" data-a="mail">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="1.5"/><path d="M2.5 6.5 12 13l9.5-6.5"/></svg>
+          </a>
+          <a class="ic" href="https://www.linkedin.com/in/wioleta-w%C3%B3jcik-7512a389/" target="_blank" rel="noopener" data-a="li">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7.5 10.5V17M7.5 7.6v.1M11.5 17v-3.6a2.1 2.1 0 0 1 4.2 0V17"/></svg>
+          </a>
+          <a class="ic" href="Wioleta-Wojcik-CV.pdf" target="_blank" rel="noopener" data-a="cv">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V7.5z"/><path d="M14 3v4.5h4.5M9 13h6M9 16.5h4"/></svg>
+          </a>
+        </div>
+        <div class="info">
+          <!-- one line: weather (if it loads) prepends to the location, which is always shown -->
+          <span class="place">
+            <span id="wx" class="wx" hidden>
+              <span id="wx-icon" class="wx-icon"></span>
+              <span id="wx-temp"></span>
+              <span class="wx-sep">·</span>
+            </span>
+            <span data-t="loc"></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── folder fan ────────────────────────────────────────── -->
+  <div id="fan">
+    <div class="obj grab" data-k="f1" data-tip="project" data-href="repapp.html"
+         role="link" tabindex="0" aria-label="RepApp — open case study"
+         style="--rot:3.4deg;--d:1.94s;--lit:2.54s;">
+      <div class="inner"><div class="folder">
+        <span class="tab"><i></i></span><span class="sheet"></span>
+        <div class="body"><div class="ttl">RepApp</div><div class="mt" data-t="m1"></div></div>
+      </div></div>
+    </div>
+    <div class="obj grab" data-k="f2" data-tip="project" style="--rot:4.4deg;--d:1.82s;--lit:2.42s;">
+      <div class="inner"><div class="folder">
+        <span class="tab"><i></i></span><span class="sheet"></span>
+        <div class="body"><div class="ttl">Itaka 3.0</div><div class="mt" data-t="m2"></div></div>
+      </div></div>
+    </div>
+    <div class="obj grab" data-k="f3" data-tip="project" style="--rot:3.2deg;--d:1.70s;--lit:2.30s;">
+      <div class="inner"><div class="folder">
+        <span class="tab"><i></i></span><span class="sheet"></span>
+        <div class="body"><div class="ttl" data-t="t3"></div><div class="mt" data-t="m3"></div></div>
+      </div></div>
+    </div>
+  </div>
+
+</main>
+
+<div id="lang" role="group" data-l="en">
+  <button type="button" data-lang="en" aria-pressed="true">EN</button>
+  <button type="button" data-lang="no" aria-pressed="false">NO</button>
+</div>
+
+<div id="hint" aria-hidden="true">
+  <svg class="hint-ico" viewBox="0 0 24 24">
+    <path d="M12 3v18M3 12h18M12 3 9.6 5.4M12 3l2.4 2.4M12 21l-2.4-2.4M12 21l2.4-2.4M3 12l2.4-2.4M3 12l2.4 2.4M21 12l-2.4-2.4M21 12l-2.4 2.4"/>
+  </svg>
+  <span data-t="hint"></span>
+</div>
+
+<div id="tip" aria-hidden="true"></div>
+
+<button id="reset" data-t="reset"></button>
+
+<script>
+/* =========================================================
+   1. CONTENT — both languages live here.
+      Norwegian is a first draft, pending native review.
+   ========================================================= */
+const T = {
+  en:{
+    words:['Spaces,','systems,','people.'],
+    role :'Architect &amp; Service Designer',
+    loc  :'Oslo, Norway',
+    t3   :'Oncology<br>wayfinding',
+    m1   :'Service design · Field research',
+    m2   :'Research · Platform redesign',
+    m3   :'Patient journeys · Space',
+    hint :'Grab, click and explore',
+    reset:'Reset layout',
+    tips :{about:'About me',contact:'Say hi',project:'Read case study'},
+    aria :{mail:'Send an email',li:'LinkedIn profile',cv:'Open CV as PDF'}
+  },
+  no:{
+    words:['Rom,','systemer,','mennesker.'],
+    role :'Arkitekt &amp; tjenestedesigner',
+    loc  :'Oslo, Norge',
+    t3   :'Kreftomsorg<br>veifinning',
+    m1   :'Tjenestedesign · Feltarbeid',
+    m2   :'Brukerinnsikt · Plattformredesign',
+    m3   :'Pasientreiser · Rom',
+    hint :'Ta tak, klikk og utforsk',
+    reset:'Tilbakestill',
+    tips :{about:'Om meg',contact:'Si hei',project:'Les case study'},
+    aria :{mail:'Send e-post',li:'LinkedIn-profil',cv:'Åpne CV som PDF'}
+  }
+};
+
+const LANG_KEY = 'wiola-board:lang';
+const POS_KEY  = 'wiola-board:v1';
+
+const board  = document.getElementById('board');
+const fan    = document.getElementById('fan');
+const langEl = document.getElementById('lang');
+const h1     = document.querySelector('.hl');
+let z = 10;
+let dragging = false;   // true while an object is being dragged (mutes the tooltip)
+let suppressClick = false; // set right after a drag so it isn't read as a click-through
+
+/* ---------- language ---------- */
+function paint(l, animate){
+  const t = T[l];
+  const apply = ()=>{
+    h1.querySelector('.w1').innerHTML = t.words[0];
+    h1.querySelector('.w2').innerHTML = t.words[1];
+    h1.querySelector('.w3').innerHTML = t.words[2];
+    document.querySelectorAll('[data-t]').forEach(el=>{
+      const k = el.dataset.t;
+      if(t[k] !== undefined) el.innerHTML = t[k];
+    });
+    document.querySelectorAll('[data-a]').forEach(el=>{
+      el.setAttribute('aria-label', t.aria[el.dataset.a]);
+    });
+    document.documentElement.lang = l;
+    langEl.dataset.l = l;
+    langEl.querySelectorAll('button').forEach(b=>{
+      b.setAttribute('aria-pressed', String(b.dataset.lang === l));
+    });
+  };
+  /* switching language crossfades the text — it never replays the entrance */
+  if(animate){
+    h1.style.opacity = '0';
+    setTimeout(()=>{ apply(); h1.style.opacity = '1'; }, 200);
+  } else {
+    apply();
+  }
+  try{ localStorage.setItem(LANG_KEY, l); }catch(e){}
+}
+
+let lang = 'en';
+try{ lang = localStorage.getItem(LANG_KEY) || 'en'; }catch(e){}
+paint(lang, false);
+
+langEl.addEventListener('click', e=>{
+  const b = e.target.closest('button'); if(!b) return;
+  if(b.dataset.lang === langEl.dataset.l) return;
+  paint(b.dataset.lang, true);
+});
+
+/* =========================================================
+   2. LIGHT → SHADOW
+      Each object carries its own --lit delay, so the shadows
+      arrive in step with the sweep crossing the board.
+      Once the entrance is over, .ready zeroes those delays.
+   ========================================================= */
+const objs = [...document.querySelectorAll('.obj')];
+requestAnimationFrame(()=> objs.forEach(o=> o.classList.add('lit')));
+
+setTimeout(()=>{
+  document.body.classList.add('ready');
+  const inv = document.querySelector('[data-k="f2"]');
+  if(inv && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+    inv.classList.add('invite');
+    setTimeout(()=> inv.classList.remove('invite'), 1300);
+  }
+}, 3600);
+
+/* the hint retires the moment the board is actually touched */
+const hintEl = document.getElementById('hint');
+function dismissHint(){ if(hintEl) hintEl.classList.add('gone'); }
+
+/* =========================================================
+   3. DRAG
+   ========================================================= */
+const mobile = ()=> matchMedia('(max-width:760px)').matches;
+
+/* pull a folder out of the fan: it becomes an independent object
+   on the board and stops taking part in the spread mechanic */
+function detach(o){
+  if(o.dataset.free) return;
+  const b = board.getBoundingClientRect();
+  const r = o.getBoundingClientRect();
+  o.dataset.free = '1';
+  board.appendChild(o);
+  o.style.left = (r.left - b.left) + 'px';
+  o.style.top  = (r.top  - b.top ) + 'px';
+}
+
+/* turn the CSS-authored vw/vh positions into pixels so dragging is absolute */
+function freeze(){
+  const b = board.getBoundingClientRect();
+  objs.filter(o=> o.parentElement === board).forEach(o=>{
+    const r = o.getBoundingClientRect();
+    o.style.left = (r.left - b.left) + 'px';
+    o.style.top  = (r.top  - b.top ) + 'px';
+    o.style.right = 'auto'; o.style.bottom = 'auto';
+    o.style.zIndex = o.style.zIndex || (++z);
+  });
+}
+
+function restore(){
+  let saved = {};
+  try{ saved = JSON.parse(localStorage.getItem(POS_KEY)) || {}; }catch(e){}
+  objs.forEach(o=>{
+    const s = saved[o.dataset.k]; if(!s) return;
+    if(o.parentElement === fan) detach(o);
+    o.style.left = s.x + 'px';
+    o.style.top  = s.y + 'px';
+    o.style.zIndex = ++z;
+  });
+}
+
+function save(){
+  const out = {};
+  objs.forEach(o=>{
+    if(o.parentElement !== board) return;      // still tucked in the fan
+    out[o.dataset.k] = {x:parseFloat(o.style.left)||0, y:parseFloat(o.style.top)||0};
+  });
+  try{ localStorage.setItem(POS_KEY, JSON.stringify(out)); }catch(e){}
+}
+
+function clamp(o,x,y){
+  const pad = 34;                              // how far an object may hang off
+  return [
+    Math.min(Math.max(x,-pad), board.clientWidth  - o.offsetWidth  + pad),
+    Math.min(Math.max(y,-pad), board.clientHeight - o.offsetHeight + pad)
+  ];
+}
+
+objs.forEach(o=>{
+  o.addEventListener('pointerdown', e=>{
+    if(mobile()) return;
+    if(e.target.closest('a')) return;           // links stay clickable
+    const sx = e.clientX, sy = e.clientY;
+    let ox, oy, moved = false;
+
+    o.setPointerCapture(e.pointerId);
+
+    const move = ev=>{
+      const dx = ev.clientX - sx, dy = ev.clientY - sy;
+      if(!moved){
+        if(Math.hypot(dx,dy) <= 3) return;      // 3px threshold, so clicks survive
+        moved = true;
+        dragging = true;                        // mute the hover tooltip
+        dismissHint();                          // they get it now — hide the hint
+        detach(o);                              // leaves the fan on first real move
+        ox = parseFloat(o.style.left)||0;
+        oy = parseFloat(o.style.top )||0;
+        o.style.zIndex = ++z;
+        o.classList.add('dragging');
+      }
+      const [nx,ny] = clamp(o, ox+dx, oy+dy);
+      o.style.left = nx+'px'; o.style.top = ny+'px';
+    };
+    const up = ()=>{
+      o.removeEventListener('pointermove',move);
+      o.removeEventListener('pointerup',up);
+      o.removeEventListener('pointercancel',up);
+      if(moved){
+        o.classList.remove('dragging'); dragging = false; save();
+        suppressClick = true;                     // the click that follows a drag is not a click
+        requestAnimationFrame(()=>{ suppressClick = false; });
+      }
+    };
+    o.addEventListener('pointermove',move);
+    o.addEventListener('pointerup',up);
+    o.addEventListener('pointercancel',up);
+  });
+});
+
+/* objects that carry a data-href open a page — but only on a real click/tap,
+   never at the end of a drag. Works on desktop and mobile alike, plus keyboard. */
+function openObj(o){ if(o.dataset.href) location.href = o.dataset.href; }
+objs.filter(o=> o.dataset.href).forEach(o=>{
+  o.addEventListener('click', e=>{
+    if(suppressClick || dragging) return;         // just finished dragging — ignore
+    if(e.target.closest('a')) return;             // real links inside win
+    openObj(o);
+  });
+  o.addEventListener('keydown', e=>{
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openObj(o); }
+  });
+});
+
+document.getElementById('reset').addEventListener('click', ()=>{
+  try{ localStorage.removeItem(POS_KEY); }catch(e){}
+  location.reload();
+});
+
+/* =========================================================
+   3b. CURSOR TOOLTIP
+       A lilac pill trails the pointer and names each object.
+       Desktop only, and only once the entrance is over so it
+       never labels an object that hasn't arrived yet.
+   ========================================================= */
+const tipEl = document.getElementById('tip');
+board.addEventListener('pointermove', e=>{
+  if(mobile() || dragging || !document.body.classList.contains('ready')){
+    tipEl.classList.remove('show'); return;
+  }
+  const g = e.target.closest('.obj.grab');
+  const key = g && g.dataset.tip;
+  const label = key && (T[langEl.dataset.l] || T.en).tips[key];
+  if(!label){ tipEl.classList.remove('show'); return; }
+  tipEl.textContent = label;
+  tipEl.style.left = e.clientX + 'px';
+  tipEl.style.top  = e.clientY + 'px';
+  tipEl.classList.add('show');
+});
+board.addEventListener('pointerleave', ()=> tipEl.classList.remove('show'));
+
+/* =========================================================
+   4. KEEP-CLEAR ZONE AROUND THE HEADLINE
+      The headline is the anchor, so nothing may cover it on load.
+      The user is free to drag objects over it afterwards — that is
+      their board to mess up. This only governs default positions.
+   ========================================================= */
+const KEEP_CLEAR = 48;   /* breathing room around the headline box */
+
+function placeFan(){
+  const b  = board.getBoundingClientRect();
+  const hl = document.getElementById('headline').getBoundingClientRect();
+  const fh = fan.offsetHeight || 150;
+  const fw = fan.offsetWidth  || 414;
+
+  fan.style.bottom = 'auto';
+  let top = (hl.bottom - b.top) + KEEP_CLEAR;
+  const maxTop = board.clientHeight - fh - 40;
+
+  if(top > maxTop){
+    /* not enough height below the headline — step the fan sideways instead */
+    top = maxTop;
+    const left = Math.min(hl.right - b.left + KEEP_CLEAR,
+                          board.clientWidth - fw - 40);
+    fan.style.left = Math.max(left, 24) + 'px';
+  }
+  fan.style.top = top + 'px';
+}
+
+/* last-resort nudge: if any default position still overlaps the headline,
+   push the object straight down until it clears */
+function clearHeadline(){
+  const b  = board.getBoundingClientRect();
+  const hl = document.getElementById('headline').getBoundingClientRect();
+  const zone = {
+    l: hl.left - b.left - KEEP_CLEAR, t: hl.top  - b.top - KEEP_CLEAR,
+    r: hl.right - b.left + KEEP_CLEAR, bt: hl.bottom - b.top + KEEP_CLEAR
+  };
+  objs.forEach(o=>{
+    if(o.parentElement !== board) return;    /* folders are handled by placeFan */
+    const x = parseFloat(o.style.left)||0, y = parseFloat(o.style.top)||0;
+    const w = o.offsetWidth, h = o.offsetHeight;
+    const hits = x < zone.r && x + w > zone.l && y < zone.bt && y + h > zone.t;
+    if(!hits) return;
+    const [, ny] = clamp(o, x, Math.min(zone.bt, board.clientHeight - h - 24));
+    o.style.top = ny + 'px';
+  });
+}
+
+/* =========================================================
+   5. LIVE WEATHER — Open-Meteo, no key, no geolocation.
+      Oslo is hard-coded; we never ask the visitor where they are.
+      If anything fails, the line simply never appears.
+   ========================================================= */
+const WX = {
+  lat:59.9139, lon:10.7522,
+  /* one minimal line icon per weather family */
+  icons:{
+    clear:'<circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4 17 7M7 17l-1.6 1.6"/>',
+    partly:'<circle cx="9" cy="8.4" r="3.1"/><path d="M9 2.6v1.6M3.6 8.4h1.6M5.2 4.6 6.3 5.7"/><path d="M7.6 19.4h9.6a3.3 3.3 0 0 0 .3-6.6 4.6 4.6 0 0 0-8.8-.9 3.3 3.3 0 0 0-1.1 7.5z"/>',
+    cloud:'<path d="M7.2 19h9.9a3.5 3.5 0 0 0 .3-7 4.9 4.9 0 0 0-9.4-1 3.5 3.5 0 0 0-.8 8z"/>',
+    rain:'<path d="M7.4 15.4h9.4a3.3 3.3 0 0 0 .3-6.6 4.7 4.7 0 0 0-9-.9 3.3 3.3 0 0 0-.7 7.5z"/><path d="M9 18.2 8.2 20.6M13 18.2l-.8 2.4M17 18.2l-.8 2.4"/>',
+    snow:'<path d="M7.4 14.6h9.4a3.3 3.3 0 0 0 .3-6.6 4.7 4.7 0 0 0-9-.9 3.3 3.3 0 0 0-.7 7.5z"/><path d="M9 18.4v.1M12.6 20.2v.1M16.2 18.4v.1"/>',
+    fog:'<path d="M4 9.5h16M6 13h12M4.5 16.5h15M7.5 20h9"/>',
+    storm:'<path d="M7.4 15.2h9.4a3.3 3.3 0 0 0 .3-6.6 4.7 4.7 0 0 0-9-.9 3.3 3.3 0 0 0-.7 7.5z"/><path d="m12.4 17-2.2 3.2h2.6L11.4 23"/>'
+  },
+  /* WMO code → icon family */
+  family(c){
+    if(c === 0) return 'clear';
+    if(c <= 2) return 'partly';
+    if(c === 3) return 'cloud';
+    if(c <= 48) return 'fog';
+    if(c <= 67) return 'rain';
+    if(c <= 77) return 'snow';
+    if(c <= 82) return 'rain';
+    if(c <= 86) return 'snow';
+    return 'storm';
+  }
+};
+
+(async function weather(){
+  const box = document.getElementById('wx');
+  try{
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${WX.lat}&longitude=${WX.lon}`
+              + `&current=temperature_2m,weather_code&timezone=Europe%2FOslo`;
+    const res = await fetch(url, {cache:'no-store'});
+    if(!res.ok) throw 0;
+    const d = (await res.json()).current;
+    if(d == null || d.temperature_2m == null) throw 0;
+
+    document.getElementById('wx-temp').textContent = Math.round(d.temperature_2m) + '°';
+    document.getElementById('wx-icon').innerHTML =
+      `<svg viewBox="0 0 24 24" aria-hidden="true">${WX.icons[WX.family(d.weather_code)]}</svg>`;
+
+    box.hidden = false;
+    requestAnimationFrame(()=> box.classList.add('in'));
+  }catch(e){
+    /* no network, no data, no problem — the card is complete without it */
+    box.remove();
+  }
+})();
+
+/* wait for fonts and the photo so the frozen positions are accurate */
+const go = ()=>{
+  if(mobile()) return;
+  placeFan();
+  freeze();
+  clearHeadline();
+  restore();
+};
+if(document.fonts && document.fonts.ready){
+  document.fonts.ready.then(()=> setTimeout(go,80));
+}else{
+  window.addEventListener('load', go);
+}
+</script>
+</body>
+</html>

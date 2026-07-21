@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RepApp — Case study · Wioleta Wójcik</title>
+<meta name="description" content="RepApp replaced the paper list travel reps carried into every airport arrival. A service-design case study by Wioleta Maria Wójcik.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RepApp — Service design case study · Wioleta Wójcik">
+<meta property="og:description" content="RepApp replaced the paper list travel reps carried into every airport arrival.">
+<meta property="og:image" content="RepApp/assets/checkin-attendance-states.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23FCFBF8'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' text-anchor='middle' fill='%237A6BA8'%3EW%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   TOKENS — shared with index.html. Any change to the board's
+   look should be mirrored here (single source of truth is :root).
+   ========================================================= */
+:root{
+  --surface:      #F3F0EA;
+  --paper:        #FCFBF8;
+  --paper-warm:   #F7F4EE;
+
+  --ink:          #1A1917;
+  --ink-soft:     #4A463F;
+  --ink-mute:     #8E887C;
+  --hair:         #E0DACE;
+
+  --accent:       #7A6BA8;
+  --accent-tint:  #E4DDF1;
+
+  --sh-rest:
+      0 1px 1.5px  rgba(58,50,38,.05),
+      0 4px 8px   -3px rgba(58,50,38,.07),
+      0 14px 30px -12px rgba(58,50,38,.13);
+  --sh-card:
+      0 1px 2px    rgba(58,50,38,.05),
+      0 10px 24px -10px rgba(58,50,38,.14),
+      0 30px 60px -30px rgba(58,50,38,.20);
+
+  --ease:   cubic-bezier(.22,.61,.36,1);
+  --settle: cubic-bezier(.16,.84,.44,1);
+
+  --font-display:'Instrument Serif','Iowan Old Style',Georgia,serif;
+  --font-ui:'Inter',ui-sans-serif,-apple-system,'Segoe UI',sans-serif;
+
+  --side-w: 250px;
+  --read:   680px;   /* reading measure for body text */
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--font-ui);
+  color:var(--ink);
+  background:var(--surface);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.5;
+}
+/* the same fine paper tooth the board uses, kept very quiet under long text */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.28;
+  background-image:radial-gradient(rgba(120,105,80,.15) .5px,transparent .5px);
+  background-size:3px 3px;
+}
+
+/* reading-progress hairline, top of viewport */
+#progress{
+  position:fixed;left:0;top:0;height:2px;width:100%;transform:scaleX(0);
+  transform-origin:0 50%;background:var(--accent);opacity:.85;z-index:970;
+  transition:transform .1s linear;
+}
+
+/* =========================================================
+   LANGUAGE TOGGLE — identical component to the board
+   ========================================================= */
+#lang{
+  position:fixed;top:24px;right:24px;z-index:960;
+  display:flex;gap:2px;padding:4px;border-radius:22px;
+  background:var(--paper);box-shadow:var(--sh-rest);
+}
+#lang::before{
+  content:'';position:absolute;left:4px;top:4px;
+  width:calc(50% - 4px);height:calc(100% - 8px);
+  background:var(--accent);border-radius:18px;
+  transition:transform .3s var(--ease);
+}
+#lang[data-l="no"]::before{transform:translateX(100%);}
+#lang button{
+  position:relative;z-index:1;border:0;background:none;cursor:pointer;
+  font-family:var(--font-ui);font-size:10.5px;font-weight:500;
+  letter-spacing:.13em;padding:6px 13px;border-radius:18px;
+  color:var(--ink-mute);transition:color .3s var(--ease);
+}
+#lang button[aria-pressed="true"]{color:var(--paper);}
+#lang button:focus-visible{outline:1.5px solid var(--accent);outline-offset:3px;}
+
+/* =========================================================
+   SIDEBAR — back link, wordmark, section table of contents
+   that doubles as the progress indicator (active section lit)
+   ========================================================= */
+.side{
+  position:fixed;left:0;top:0;width:var(--side-w);height:100vh;z-index:5;
+  padding:38px 30px 36px;
+  display:flex;flex-direction:column;gap:30px;
+  border-right:1px solid var(--hair);
+  background:linear-gradient(180deg, rgba(247,244,238,.6), rgba(243,240,234,.6));
+}
+.back{
+  display:inline-flex;align-items:center;gap:8px;width:fit-content;
+  font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-mute);text-decoration:none;transition:color .3s var(--ease);
+}
+.back svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.5;
+  stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--ease);}
+.back:hover{color:var(--accent);}
+.back:hover svg{transform:translateX(-3px);}
+
+.mark{line-height:1.2;}
+.mark .nm{font-family:var(--font-display);font-size:26px;color:var(--ink);}
+.mark .sub{margin-top:4px;font-size:11px;letter-spacing:.05em;color:var(--ink-mute);}
+
+.toc{margin-top:2px;overflow-y:auto;flex:1;}
+.toc ol{list-style:none;display:flex;flex-direction:column;gap:2px;}
+.toc a{
+  display:flex;gap:10px;align-items:baseline;
+  padding:5px 0;text-decoration:none;
+  font-size:12.5px;color:var(--ink-mute);
+  transition:color .25s var(--ease);
+}
+.toc a .n{font-size:9.5px;letter-spacing:.05em;color:var(--ink-mute);opacity:.6;
+  min-width:15px;font-variant-numeric:tabular-nums;transition:color .25s;}
+.toc a:hover{color:var(--ink-soft);}
+.toc a.on{color:var(--accent);}
+.toc a.on .n{color:var(--accent);opacity:1;}
+
+/* =========================================================
+   MAIN COLUMN
+   ========================================================= */
+.main{position:relative;z-index:1;margin-left:var(--side-w);padding:0 6vw 12vh;}
+.col{max-width:var(--read);margin:0 auto;}
+/* full-bleed figures may run wider than the reading measure */
+.wide{max-width:920px;margin-left:auto;margin-right:auto;}
+
+/* header ------------------------------------------------- */
+header.head{padding:14vh 0 0;}
+.kicker{
+  font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:20px;
+}
+h1.title{
+  font-family:var(--font-display);font-weight:400;
+  font-size:clamp(52px,8vw,104px);line-height:.94;letter-spacing:-.02em;color:var(--ink);
+}
+.dek{
+  margin-top:24px;max-width:34ch;
+  font-family:var(--font-display);font-size:clamp(21px,2.4vw,27px);
+  line-height:1.28;color:var(--ink-soft);
+}
+.meta{
+  margin-top:40px;padding-top:26px;border-top:1px solid var(--hair);
+  display:flex;flex-wrap:wrap;gap:34px 44px;
+}
+.meta .m{display:flex;flex-direction:column;gap:6px;}
+.meta .m .k{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute);}
+.meta .m .v{font-size:14px;color:var(--ink-soft);}
+
+/* sections ----------------------------------------------- */
+section.sec{padding:9vh 0 0;scroll-margin-top:40px;}
+.eyebrow{
+  font-size:10.5px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-mute);margin-bottom:18px;
+}
+.eyebrow b{color:var(--accent);font-weight:500;}
+h2.h{
+  font-family:var(--font-display);font-weight:400;
+  font-size:clamp(30px,4vw,48px);line-height:1.04;letter-spacing:-.012em;color:var(--ink);
+  max-width:20ch;
+}
+.sec p{margin-top:22px;font-size:17px;line-height:1.62;color:var(--ink-soft);}
+.sec p:first-of-type{margin-top:26px;}
+h3.sh{
+  margin-top:38px;font-family:var(--font-display);font-weight:400;
+  font-size:clamp(22px,2.6vw,28px);line-height:1.1;color:var(--ink);
+}
+
+/* lists -------------------------------------------------- */
+ul.pts,ol.steps{margin-top:26px;display:flex;flex-direction:column;gap:2px;list-style:none;}
+ul.pts li,ol.steps li{
+  position:relative;padding:15px 0 15px 34px;
+  font-size:16.5px;line-height:1.55;color:var(--ink-soft);
+  border-bottom:1px solid var(--hair);
+}
+ul.pts li:first-child,ol.steps li:first-child{border-top:1px solid var(--hair);}
+ul.pts li strong,ol.steps li strong{color:var(--ink);font-weight:500;}
+ul.pts li::before{
+  content:'';position:absolute;left:6px;top:23px;width:7px;height:7px;
+  border-radius:50%;background:var(--accent-tint);border:1px solid var(--accent);
+}
+ol.steps{counter-reset:s;}
+ol.steps li::before{
+  counter-increment:s;content:counter(s);position:absolute;left:0;top:14px;
+  font-family:var(--font-display);font-size:19px;color:var(--accent);
+  width:22px;text-align:left;
+}
+
+/* figures ------------------------------------------------ */
+figure.fig{margin-top:44px;}
+figure.fig img{
+  display:block;width:100%;height:auto;border-radius:4px;
+  box-shadow:var(--sh-card);background:var(--paper-warm);
+}
+figcaption{
+  margin-top:14px;font-size:12px;line-height:1.5;color:var(--ink-mute);
+  display:flex;flex-wrap:wrap;gap:5px 8px;align-items:baseline;
+}
+figcaption .tag{
+  font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+  border:1px solid var(--accent-tint);border-radius:20px;padding:3px 9px;white-space:nowrap;
+}
+figcaption em{font-style:italic;color:var(--ink-mute);}
+figure.fig img{cursor:zoom-in;transition:box-shadow .3s var(--ease);}
+figure.fig img:hover{box-shadow:0 18px 40px -22px rgba(26,25,23,.5);}
+
+/* lightbox — click any figure image to enlarge it -------- */
+.lb{
+  position:fixed;inset:0;z-index:2000;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:18px;padding:clamp(20px,4vw,56px);
+  background:rgba(20,18,16,.86);backdrop-filter:blur(3px);
+  opacity:0;visibility:hidden;transition:opacity .28s var(--ease),visibility .28s var(--ease);
+  cursor:zoom-out;
+}
+.lb.open{opacity:1;visibility:visible;}
+.lb img{
+  max-width:min(1400px,94vw);max-height:82vh;width:auto;height:auto;
+  border-radius:6px;box-shadow:0 40px 90px -30px rgba(0,0,0,.7);
+  background:var(--paper-warm);cursor:default;
+  transform:scale(.985);transition:transform .28s var(--ease);
+}
+.lb.open img{transform:scale(1);}
+.lb .lb-cap{
+  max-width:min(1000px,90vw);font-size:12.5px;line-height:1.55;color:rgba(252,251,248,.72);
+  text-align:center;letter-spacing:.01em;cursor:default;
+}
+.lb .lb-close{
+  position:absolute;top:clamp(16px,2.5vw,28px);right:clamp(16px,2.5vw,28px);
+  width:42px;height:42px;border-radius:50%;border:1px solid rgba(252,251,248,.28);
+  background:rgba(252,251,248,.06);color:var(--paper);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:background .2s var(--ease),transform .2s var(--ease);
+}
+.lb .lb-close:hover{background:rgba(252,251,248,.16);transform:scale(1.06);}
+.lb .lb-close:focus-visible{outline:2px solid var(--accent-tint);outline-offset:3px;}
+.lb .lb-close svg{width:20px;height:20px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;}
+@media (prefers-reduced-motion:reduce){
+  .lb,.lb img,.lb .lb-close{transition:none;}
+  .lb img{transform:none;}
+}
+
+/* placeholder figure — a spec for the mockup still being made.
+   Reads as deliberately unfinished, never as a broken image. */
+.ph{
+  position:relative;width:100%;border-radius:4px;
+  background:
+    linear-gradient(135deg, rgba(228,221,241,.35), rgba(247,244,238,.6));
+  border:1px solid var(--hair);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:40px 30px;gap:14px;overflow:hidden;
+}
+.ph[data-ratio="wide"]{aspect-ratio:16/9;}
+.ph[data-ratio="land"]{aspect-ratio:4/3;}
+.ph[data-ratio="tall"]{aspect-ratio:3/4;max-width:440px;margin-inline:auto;}
+.ph::after{ /* faint corner grid so it reads as a frame in progress */
+  content:'';position:absolute;inset:12px;border:1px dashed rgba(122,107,168,.28);
+  border-radius:3px;pointer-events:none;
+}
+.ph .lab{
+  position:relative;z-index:1;
+  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);
+  display:inline-flex;align-items:center;gap:7px;
+}
+.ph .lab svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;
+  stroke-linecap:round;stroke-linejoin:round;}
+.ph .desc{
+  position:relative;z-index:1;max-width:42ch;
+  font-family:var(--font-display);font-size:19px;line-height:1.3;color:var(--ink-soft);
+}
+.ph .fmt{position:relative;z-index:1;font-size:11px;color:var(--ink-mute);}
+
+/* stat card (native "metric visual") --------------------- */
+.stats{
+  margin-top:44px;position:relative;overflow:hidden;
+  background:var(--paper);border-radius:6px;box-shadow:var(--sh-card);
+  padding:34px 36px;
+}
+.stats::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);opacity:.85;}
+.stats .src{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:26px;}
+.stats .row{display:flex;flex-wrap:wrap;gap:30px 48px;}
+.stats .stat{flex:1;min-width:150px;}
+.stats .fig{font-family:var(--font-display);font-size:clamp(38px,5vw,56px);line-height:.95;color:var(--accent);letter-spacing:-.01em;}
+.stats .lab{margin-top:10px;font-size:13px;line-height:1.45;color:var(--ink-soft);}
+
+/* pull quote / closing note ------------------------------ */
+.close{
+  margin-top:40px;padding-top:30px;border-top:1px solid var(--hair);
+  font-family:var(--font-display);font-size:clamp(20px,2.3vw,25px);
+  line-height:1.32;color:var(--ink-soft);max-width:30ch;
+}
+
+/* footer ------------------------------------------------- */
+footer.foot{
+  margin-top:14vh;padding-top:34px;border-top:1px solid var(--hair);
+  display:flex;flex-wrap:wrap;gap:18px 30px;align-items:baseline;justify-content:space-between;
+}
+footer.foot a{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;color:var(--ink-soft);text-decoration:none;
+  border-bottom:1px solid transparent;transition:color .3s,border-color .3s;
+}
+footer.foot a:hover{color:var(--accent);border-bottom-color:var(--accent);}
+footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:46ch;line-height:1.5;}
+
+/* =========================================================
+   ENTRANCE + SCROLL REVEAL
+   ========================================================= */
+.reveal{opacity:0;transform:translateY(16px);
+  transition:opacity .7s var(--settle),transform .7s var(--settle);}
+.reveal.in{opacity:1;transform:none;}
+
+/* =========================================================
+   RESPONSIVE — collapse the sidebar into a top bar
+   ========================================================= */
+@media (max-width:980px){
+  :root{--side-w:0px;}
+  .side{
+    position:sticky;top:0;flex-direction:row;align-items:center;justify-content:space-between;
+    width:100%;height:auto;padding:16px 20px;gap:16px;
+    border-right:0;border-bottom:1px solid var(--hair);
+    background:rgba(247,244,238,.9);backdrop-filter:saturate(1.2) blur(8px);z-index:40;
+  }
+  .side .mark,.toc{display:none;}
+  .main{margin-left:0;padding:0 24px 12vh;}
+  header.head{padding:8vh 0 0;}
+  #lang{top:11px;right:70px;box-shadow:none;background:transparent;}
+  #lang::before{background:var(--accent);}
+}
+@media (max-width:560px){
+  .meta{gap:22px 30px;}
+  #lang{right:16px;top:auto;bottom:16px;position:fixed;background:var(--paper);box-shadow:var(--sh-rest);}
+  .side{justify-content:flex-start;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  .reveal{opacity:1;transform:none;transition:none;}
+  *{transition-duration:.01ms!important;}
+}
+</style>
+</head>
+<body>
+
+<div id="progress" aria-hidden="true"></div>
+
+<!-- ── sidebar ─────────────────────────────────────────────── -->
+<aside class="side">
+  <a class="back" href="index.html">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+    <span>All projects</span>
+  </a>
+  <div class="mark">
+    <div class="nm">RepApp</div>
+    <div class="sub" data-t="markSub">Service design case study</div>
+  </div>
+  <nav class="toc" aria-label="Sections"><ol id="toc"></ol></nav>
+</aside>
+
+<!-- ── language toggle ─────────────────────────────────────── -->
+<div id="lang" role="group" data-l="en">
+  <button type="button" data-lang="en" aria-pressed="true">EN</button>
+  <button type="button" data-lang="no" aria-pressed="false">NO</button>
+</div>
+
+<!-- ── main ────────────────────────────────────────────────── -->
+<main class="main">
+  <div class="col">
+    <header class="head reveal">
+      <div class="kicker" data-t="kicker">Case study · Service design</div>
+      <h1 class="title">RepApp</h1>
+      <p class="dek" data-t="dek"></p>
+      <div class="meta" id="meta"></div>
+    </header>
+  </div>
+
+  <div id="hero"></div>
+
+  <article id="article"></article>
+
+  <div class="col">
+    <footer class="foot reveal">
+      <a href="index.html">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+        <span data-t="footBack">Back to all projects</span>
+      </a>
+      <p class="note" data-t="footNote"></p>
+    </footer>
+  </div>
+</main>
+
+<!-- lightbox: enlarges any figure image on click -->
+<div class="lb" id="lightbox" role="dialog" aria-modal="true" hidden>
+  <button class="lb-close" id="lbClose" type="button" aria-label="Close">
+    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <img id="lbImg" alt="">
+  <div class="lb-cap" id="lbCap"></div>
+</div>
+
+<script>
+/* =========================================================
+   CONTENT MODEL — the whole case study, both languages.
+   English is Wioleta's finished copy; Norwegian is a first
+   draft, pending review by a native speaker (same status as
+   the board's NO strings). Editing content = editing here.
+
+   Each section: { id, nav, eyebrow, h, body[], sub?, list?,
+   listType?, asset(s)?, close? }. Assets reference ASSETS by id.
+   ========================================================= */
+const T = {
+  en:{
+    back:'All projects',
+    markSub:'Service design case study',
+    kicker:'Case study · Service design',
+    dek:'RepApp replaced the paper list travel reps carried into every airport arrival.',
+    footBack:'Back to all projects',
+    footNote:'Interface reconstructions redrawn in 2026 — the original design files are not in my possession. The live product has since evolved with the in-house team.',
+    meta:[
+      {k:'Role',        v:'Service Designer'},
+      {k:'Discipline',  v:'Service design · Field research'},
+      {k:'Context',     v:'Itaka · Travel'},
+      {k:'Year',        v:'2020 — 2023'},
+      {k:'Platform',    v:'Offline-first tablet'}
+    ]
+  },
+  no:{
+    back:'Alle prosjekter',
+    markSub:'Tjenestedesign — case study',
+    kicker:'Case study · Tjenestedesign',
+    dek:'RepApp erstattet papirlista reiselivsvertene bar med inn i hver eneste ankomst på flyplassen.',
+    footBack:'Tilbake til alle prosjekter',
+    footNote:'Grensesnittene er tegnet på nytt i 2026 — de originale designfilene er ikke i min besittelse. Det live produktet har siden utviklet seg videre med det interne teamet.',
+    meta:[
+      {k:'Rolle',       v:'Tjenestedesigner'},
+      {k:'Fagfelt',     v:'Tjenestedesign · Feltarbeid'},
+      {k:'Kontekst',    v:'Itaka · Reiseliv'},
+      {k:'År',          v:'2020 — 2023'},
+      {k:'Plattform',   v:'Offline-nettbrett'}
+    ]
+  }
+};
+
+/* ---- assets: three redrawn mockups exist; the rest are
+   styled placeholders that double as a brief for the mockup
+   work happening in a separate session. ---- */
+const ASSETS = {
+  hero:{ type:'ph', ratio:'wide',
+    desc:{en:'A rep’s hands holding the tablet with the Attendance list open — the two-handed gesture kept from the paper A4.',
+          no:'En verts hender som holder nettbrettet med oppmøtelista åpen — tohåndsgrepet beholdt fra papir-A4-en.'},
+    fmt:{en:'Hero mockup · prepared separately', no:'Hero-mockup · lages separat'} },
+
+  states:{ type:'img', src:'RepApp/assets/checkin-attendance-states.png', wide:true,
+    cap:{en:'Checked in as a group by default, opened traveller-by-traveller only when the field needs it.',
+         no:'Sjekket inn som gruppe som standard, åpnet reisende for reisende bare når feltet krever det.'} },
+
+  context:{ type:'img', src:'RepApp/assets/photo-context.jpg',
+    cap:{en:'A destination rep with the printed Itaka clipboard and pen — the guest-facing job, and the paper tool, that no one had yet designed for.',
+         no:'En destinasjonsvert med den trykte Itaka-permen og pennen — den gjestevendte jobben, og papirverktøyet, som ingen ennå hadde designet for.'} },
+
+  before:{ type:'img', src:'RepApp/assets/before-paper-list.png', wide:true,
+    cap:{en:'The printed A4 arrivals list — ticked by hand at the gate, then keyed into Excel and re-keyed into the enterprise system. The same data, entered three times. Reconstruction, 2026.',
+         no:'Den utskrevne A4-ankomstlista — huket av for hånd ved gaten, så tastet inn i Excel og tastet på nytt inn i bedriftssystemet. Samme data, lagt inn tre ganger. Rekonstruksjon, 2026.'} },
+
+  offline:{ type:'img', src:'RepApp/assets/offline-architecture.png', wide:true,
+    cap:{en:'Offline-first: the airport had no signal, so every action was captured on the device, queued, and reconciled with the enterprise system only on reconnection. Diagram, 2026.',
+         no:'Offline-først: flyplassen hadde ingen dekning, så hver handling ble fanget opp på enheten, lagt i kø og synkronisert med bedriftssystemet først ved gjenoppkobling. Diagram, 2026.'} },
+
+  slide:{ type:'img', src:'RepApp/assets/slide.png', wide:true,
+    cap:{en:'The competitive slide from the winning pitch — every operator already equips its reps; Itaka was the last one on paper. Reframed from “efficiency for the reps” to a gap the room could see. Reconstruction, redrawn 2026; competitors anonymised, grid illustrative.',
+         no:'Konkurrent-sliden fra pitchen som gikk gjennom — alle operatører utstyrer allerede vertene sine; Itaka var den siste på papir. Omformulert fra «effektivitet for vertene» til et gap rommet kunne se. Rekonstruksjon, tegnet på nytt 2026; konkurrenter anonymisert, rutenett illustrativt.'} },
+
+  matrix:{ type:'img', src:'RepApp/assets/priorities-matrix.png', wide:true,
+    cap:{en:'The MVP rule as a 2×2 — a feature had to help the rep and earn money to ship. Only the top-right quadrant survived; reporting, the one I wanted most, was cut for later. Redrawn 2026.',
+         no:'MVP-regelen som en 2×2 — en funksjon måtte både hjelpe verten og tjene penger for å bli lansert. Bare øvre høyre kvadrant overlevde; rapportering, den jeg ville ha mest, ble kuttet til senere. Tegnet på nytt 2026.'} },
+
+  scale:{ type:'ph', ratio:'wide',
+    desc:{en:'A4 sheet, tablet and phone side by side at true relative size.',
+          no:'A4-ark, nettbrett og telefon side om side i riktig relativ størrelse.'},
+    fmt:{en:'Scale comparison', no:'Størrelsessammenligning'} },
+
+  screens:{ type:'img', src:'RepApp/assets/screens.png', wide:true,
+    cap:{en:'The three-tab MVP in sequence — Attendance, Hotels, Transfers — built to follow the arrival in the order it actually happens, on one offline app. Interface reconstruction, redrawn 2026.',
+         no:'Tre-fane-MVP-en i rekkefølge — Oppmøte, Hoteller, Transport — bygd for å følge ankomsten i den rekkefølgen den faktisk skjer, i én offline-app. Grensesnitt tegnet på nytt, 2026.'} },
+
+  contrast:{ type:'img', src:'RepApp/assets/contrast-comparison.png', wide:true,
+    cap:{en:'The same list indoors and in direct sun — contrast as a functional decision, written into the hardware spec. Interface reconstruction, 2026.',
+         no:'Samme liste innendørs og i direkte sol — kontrast som en funksjonell beslutning, skrevet inn i maskinvarespesifikasjonen. Grensesnitt tegnet på nytt, 2026.'} },
+
+  showcase:{ type:'img', src:'RepApp/assets/photo-showcase.jpg', wide:true,
+    cap:{en:'The shipped app in a rep’s hands at destination — excursions browsed and sold from the tablet, offline. Design as shipped, 2020.',
+         no:'Den lanserte appen i en verts hender på destinasjonen — utflukter vist og solgt fra nettbrettet, offline. Design som lansert, 2020.'} },
+
+  team:{ type:'img', src:'RepApp/assets/team.png', wide:true,
+    cap:{en:'The gamified team-standings view — points and a monthly ranking of who sold most, individual figures visible to the whole team. It lifted sales sharply, and named a loser every month. Interface reconstruction, redrawn 2026; names and figures illustrative.',
+         no:'Den gamifiserte lagstatistikk-visningen — poeng og en månedlig rangering av hvem som solgte mest, med individuelle tall synlige for hele laget. Den løftet salget kraftig, og kåret en taper hver måned. Grensesnitt tegnet på nytt 2026; navn og tall er illustrative.'} }
+};
+
+const SECTIONS = [
+  {
+    id:'origin', nav:{en:'The find',no:'Funnet'},
+    eyebrow:{en:'01 · Origin',no:'01 · Opphav'},
+    h:{en:'I found this project myself, while redesigning something else',
+       no:'Jeg fant dette prosjektet selv, mens jeg redesignet noe annet'},
+    body:{
+      en:['I was on Itaka’s platform redesign when I came across the destination reps. They meet flights, run transfers and sell excursions across more than 100 destinations, and nobody had designed anything for them. I went and got a brief made.'],
+      no:['Jeg jobbet med redesignet av Itakas plattform da jeg kom over destinasjonsvertene. De møter fly, kjører transport og selger utflukter på over 100 destinasjoner, og ingen hadde designet noe for dem. Jeg sørget for å få laget en brief.']
+    },
+    assets:['context']
+  },
+  {
+    id:'paper', nav:{en:'The paper list',no:'Papirlista'},
+    eyebrow:{en:'02 · The problem',no:'02 · Problemet'},
+    h:{en:'A rep met every flight with a printed A4 list and over 100 names to check',
+       no:'En vert møtte hvert fly med en utskrevet A4-liste og over 100 navn å sjekke av'},
+    body:{
+      en:['Everything on that paper was typed into Excel that evening, then retyped by the department manager into our enterprise system. The same information was entered three times.'],
+      no:['Alt på det arket ble tastet inn i Excel samme kveld, og deretter tastet inn på nytt av avdelingslederen i bedriftssystemet vårt. Den samme informasjonen ble lagt inn tre ganger.']
+    },
+    assets:['before'],
+    sub:{
+      h:{en:'Nothing could assume a signal',no:'Ingenting kunne forutsette dekning'},
+      body:{
+        en:['Destination airports frequently had no working internet. Offline was not a fallback, it was the condition the whole architecture sat on.'],
+        no:['Destinasjonsflyplassene hadde ofte ikke fungerende internett. Offline var ikke en reserveløsning — det var forutsetningen hele arkitekturen hvilte på.']
+      },
+      assets:['offline']
+    }
+  },
+  {
+    id:'pitch', nav:{en:'The pitch',no:'Pitchen'},
+    eyebrow:{en:'03 · Buy-in',no:'03 · Forankring'},
+    h:{en:'Management said no, because I had argued the wrong case',
+       no:'Ledelsen sa nei, fordi jeg hadde argumentert for feil sak'},
+    body:{
+      en:['I pitched efficiency for the reps. The room was deciding on budget, and travel had just stopped. I came back with research and with what competitors were doing, and it passed. My argument had been correct and irrelevant at once.'],
+      no:['Jeg pitchet effektivitet for vertene. Rommet skulle bestemme budsjett, og reiselivet hadde nettopp stoppet opp. Jeg kom tilbake med research og med hva konkurrentene gjorde, og det gikk gjennom. Argumentet mitt hadde vært riktig og irrelevant på én gang.']
+    },
+    assets:['slide']
+  },
+  {
+    id:'research', nav:{en:'Research window',no:'Innsiktsvindu'},
+    eyebrow:{en:'04 · Research',no:'04 · Innsikt'},
+    h:{en:'The pandemic emptied the destinations and gave me my research window',
+       no:'Pandemien tømte destinasjonene og ga meg innsiktsvinduet mitt'},
+    body:{
+      en:['Reps are normally impossible to reach, abroad and in motion through peak season. In 2020 they were employed with almost no guests. I spent two to three months interviewing around ten, then designed the observation instrument our Product Owner used at destination airports.'],
+      no:['Verter er normalt umulige å få tak i — i utlandet og i bevegelse gjennom høysesongen. I 2020 var de ansatt med nesten ingen gjester. Jeg brukte to til tre måneder på å intervjue rundt ti, og designet deretter observasjonsverktøyet vår Product Owner brukte på destinasjonsflyplassene.']
+    }
+  },
+  {
+    id:'scope', nav:{en:'The MVP rule',no:'MVP-regelen'},
+    eyebrow:{en:'05 · Scope',no:'05 · Omfang'},
+    h:{en:'I only built features that helped the rep and earned money at the same time',
+       no:'Jeg bygde bare funksjoner som hjalp verten og tjente penger samtidig'},
+    body:{
+      en:['With no budget, anything doing only one of those jobs could not survive review. That rule decided the scope, and cost me the feature I most wanted.'],
+      no:['Uten budsjett kunne ingenting som bare gjorde én av de jobbene overleve vurderingen. Den regelen avgjorde omfanget, og kostet meg funksjonen jeg ønsket meg mest.']
+    },
+    sub:{
+      h:{en:'What I scoped out',no:'Det jeg tok ut av omfanget'},
+      list:{
+        en:['<strong>Reporting and system integration.</strong> What reps needed most. It shipped later.',
+            '<strong>Contactless check-in.</strong> Blocked on the consumer app’s backlog, not on us.',
+            '<strong>Anything that could not defend itself commercially.</strong>'],
+        no:['<strong>Rapportering og systemintegrasjon.</strong> Det vertene trengte mest. Det kom senere.',
+            '<strong>Kontaktløs innsjekk.</strong> Blokkert av backloggen til forbrukerappen, ikke av oss.',
+            '<strong>Alt som ikke kunne forsvare seg kommersielt.</strong>'],
+        type:'ul'
+      },
+      assets:['matrix']
+    }
+  },
+  {
+    id:'tablet', nav:{en:'The tablet',no:'Nettbrettet'},
+    eyebrow:{en:'06 · Device',no:'06 · Enhet'},
+    h:{en:'The reps chose the tablet, and their reasoning was about their hands',
+       no:'Vertene valgte nettbrettet, og begrunnelsen deres handlet om hendene'},
+    body:{
+      en:['I brought both options to them. They had worked from A4 held in both hands and turned toward the guest. A phone would have changed the format and the tool in one week. The tablet kept the gesture, and let them show excursion video while selling.'],
+      no:['Jeg tok med begge alternativene til dem. De hadde jobbet fra A4 holdt i begge hender og vendt mot gjesten. En telefon ville ha endret formatet og verktøyet på én uke. Nettbrettet beholdt bevegelsen, og lot dem vise utfluktsvideo mens de solgte.']
+    },
+    assets:['scale']
+  },
+  {
+    id:'mvp', nav:{en:'The MVP',no:'MVP-en'},
+    eyebrow:{en:'07 · The build',no:'07 · Løsningen'},
+    h:{en:'The MVP followed the arrival in the order it actually happens',
+       no:'MVP-en fulgte ankomsten i den rekkefølgen den faktisk skjer'},
+    body:{
+      en:['Three tabs, matching what a rep does between gate and coach.'],
+      no:['Tre faner, i takt med det en vert gjør mellom gate og buss.']
+    },
+    list:{
+      en:['<strong>Attendance</strong> — search by surname or reservation number',
+          '<strong>Hotels</strong> — which group goes where',
+          '<strong>Transfers</strong> — which coach, what time, both directions'],
+      no:['<strong>Oppmøte</strong> — søk på etternavn eller reservasjonsnummer',
+          '<strong>Hoteller</strong> — hvilken gruppe skal hvor',
+          '<strong>Transport</strong> — hvilken buss, hvilket tidspunkt, begge retninger'],
+      type:'ol'
+    },
+    body2:{
+      en:['Excursion sales sat alongside, also offline.'],
+      no:['Utfluktssalg lå ved siden av, også offline.']
+    },
+    assets:['screens']
+  },
+  {
+    id:'checkin', nav:{en:'Check-in rebuilt',no:'Innsjekk bygd om'},
+    eyebrow:{en:'08 · The decision',no:'08 · Avgjørelsen'},
+    h:{en:'We built check-in around the passenger, and field testing proved that wrong',
+       no:'Vi bygde innsjekken rundt passasjeren, og felttesting viste at det var feil'},
+    body:{
+      en:['Our database stores people individually, so that is how I built it. In the field a family of five walked up as one group and the rep tapped five times. On paper, one stroke of a pen covered all five. Digitising our data model would have made the job slower than paper. We rebuilt check-in around the reservation.'],
+      no:['Databasen vår lagrer mennesker enkeltvis, så det var slik jeg bygde det. I felt kom en familie på fem opp som én gruppe, og verten trykket fem ganger. På papir dekket ett pennestrøk alle fem. Å digitalisere datamodellen vår ville gjort jobben tregere enn papir. Vi bygde innsjekken om rundt reservasjonen.']
+    },
+    assets:['states']
+  },
+  {
+    id:'sunlight', nav:{en:'Sunlight',no:'Sollys'},
+    eyebrow:{en:'09 · Constraint',no:'09 · Begrensning'},
+    h:{en:'The reps warned us about sunlight before we built anything',
+       no:'Vertene advarte oss om sollyset før vi bygde noe som helst'},
+    body:{
+      en:['They warned us in interviews that nothing would be readable in full sun, and testing confirmed it. Across 100 destinations we could not solve this for one climate, so contrast went into the hardware specification.'],
+      no:['De advarte oss i intervjuene om at ingenting ville være leselig i full sol, og testingen bekreftet det. På tvers av 100 destinasjoner kunne vi ikke løse dette for ett klima, så kontrast gikk inn i maskinvarespesifikasjonen.']
+    },
+    assets:['contrast']
+  },
+  {
+    id:'results', nav:{en:'Results',no:'Resultater'},
+    eyebrow:{en:'10 · Outcome',no:'10 · Resultat'},
+    h:{en:'Over 50% less time at the airport, and a whole layer of retyping gone',
+       no:'Over 50 % mindre tid på flyplassen, og et helt lag med dobbeltarbeid borte'},
+    body:{
+      en:['Once reporting connected to the enterprise system, the rep’s Excel work and the manager’s re-entry disappeared.'],
+      no:['Da rapporteringen ble koblet til bedriftssystemet, forsvant vertens Excel-arbeid og lederens dobbeltregistrering.']
+    },
+    stats:{
+      src:{en:'Reported by Resabee Travel Tech',no:'Rapportert av Resabee Travel Tech'},
+      items:[
+        {fig:'50%+', lab:{en:'less time at the airport',no:'mindre tid på flyplassen'}},
+        {fig:'30%+', lab:{en:'less back-office work',no:'mindre backoffice-arbeid'}},
+        {fig:'1 442 793', lab:{en:'passengers handled in 2023, three years after launch',no:'passasjerer håndtert i 2023, tre år etter lansering'}}
+      ]
+    },
+    assets:['showcase']
+  },
+  {
+    id:'gamification', nav:{en:'Gamification',no:'Gamifisering'},
+    eyebrow:{en:'11 · The tension',no:'11 · Dilemmaet'},
+    h:{en:'Gamification lifted sales, and I am still uneasy about it',
+       no:'Gamifisering løftet salget, og jeg er fortsatt urolig for det'},
+    body:{
+      en:['When reporting shipped we added points and team rankings showing who sold most each month. Sales rose sharply. The pressure to repay the hardware was real, and so is my discomfort with publishing individual figures inside a team that lives and works together.'],
+      no:['Da rapporteringen ble lansert la vi til poeng og lagrangeringer som viste hvem som solgte mest hver måned. Salget steg kraftig. Presset for å tjene inn maskinvaren var reelt, og det er også ubehaget mitt ved å publisere individuelle tall i et team som lever og jobber sammen.']
+    },
+    assets:['team']
+  },
+  {
+    id:'reflection', nav:{en:'Reflection',no:'Refleksjon'},
+    eyebrow:{en:'12 · Lessons',no:'12 · Lærdom'},
+    h:{en:'What I learned and what I would do differently',
+       no:'Hva jeg lærte og hva jeg ville gjort annerledes'},
+    list:{
+      en:['<strong>A correct argument is not a persuasive one.</strong> I had to find the criteria the room used.',
+          '<strong>Both product-changing findings came from watching, not asking.</strong>',
+          '<strong>Systems carry assumptions about their users.</strong> Passenger-level check-in came from the schema, not a choice.',
+          '<strong>I would negotiate resources before saying yes</strong>, not after.',
+          '<strong>I never tested whether reps trusted the sync.</strong> A rep who does not keeps a paper backup, and the paper stays.'],
+      no:['<strong>Et riktig argument er ikke et overbevisende ett.</strong> Jeg måtte finne kriteriene rommet brukte.',
+          '<strong>Begge de produktendrende funnene kom fra å se på, ikke å spørre.</strong>',
+          '<strong>Systemer bærer antakelser om brukerne sine.</strong> Innsjekk på passasjernivå kom fra skjemaet, ikke fra et valg.',
+          '<strong>Jeg ville forhandlet om ressurser før jeg sa ja</strong>, ikke etterpå.',
+          '<strong>Jeg testet aldri om vertene stolte på synkroniseringen.</strong> En vert som ikke gjør det, beholder en papirkopi, og papiret blir værende.'],
+      type:'ul'
+    },
+    close:{
+      en:'Today I would prototype before the first pitch rather than after the rejection, though GDPR limits how far a throwaway build with guest data can go.',
+      no:'I dag ville jeg prototypet før den første pitchen i stedet for etter avslaget, selv om GDPR begrenser hvor langt et engangsbygg med gjestedata kan gå.'
+    }
+  }
+];
+
+/* =========================================================
+   RENDER
+   ========================================================= */
+const article = document.getElementById('article');
+const tocOl   = document.getElementById('toc');
+const langEl  = document.getElementById('lang');
+const LANG_KEY = 'wiola-board:lang';
+
+const esc = s => s; /* content is trusted, authored copy — HTML allowed */
+
+function assetHTML(id, L){
+  const a = ASSETS[id]; if(!a) return '';
+  const wideCls = a.wide ? ' wide' : '';
+  if(a.type === 'img'){
+    return `<figure class="fig reveal${wideCls}">
+      <img src="${a.src}" alt="${a.cap[L].replace(/"/g,'&quot;')}" loading="lazy">
+      <figcaption><span>${a.cap[L]}</span></figcaption>
+    </figure>`;
+  }
+  /* placeholder */
+  const clock = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>';
+  const tag = L==='no' ? 'Makett underveis' : 'Mockup in progress';
+  return `<figure class="fig reveal${wideCls}">
+    <div class="ph" data-ratio="${a.ratio}">
+      <span class="lab">${clock}${tag}</span>
+      <span class="desc">${a.desc[L]}</span>
+      <span class="fmt">${a.fmt[L]}</span>
+    </div>
+  </figure>`;
+}
+
+function listHTML(list, L){
+  const tag = list.type === 'ol' ? 'ol' : 'ul';
+  const cls = list.type === 'ol' ? 'steps' : 'pts';
+  const items = list[L].map(i=>`<li>${i}</li>`).join('');
+  return `<${tag} class="${cls}">${items}</${tag}>`;
+}
+
+function statsHTML(s, L){
+  const items = s.items.map(it=>
+    `<div class="stat"><div class="fig">${it.fig}</div><div class="lab">${it.lab[L]}</div></div>`).join('');
+  return `<div class="stats reveal"><div class="src">${s.src[L]}</div><div class="row">${items}</div></div>`;
+}
+
+function render(L){
+  const t = T[L];
+
+  /* header text */
+  document.querySelectorAll('[data-t]').forEach(el=>{
+    const k = el.dataset.t; if(t[k] !== undefined) el.innerHTML = t[k];
+  });
+  document.querySelector('.back span').textContent = t.back;
+
+  /* meta chips */
+  document.getElementById('meta').innerHTML = t.meta.map(m=>
+    `<div class="m"><span class="k">${m.k}</span><span class="v">${m.v}</span></div>`).join('');
+
+  /* hero image, wider than the reading column, under the header */
+  document.getElementById('hero').innerHTML = assetHTML('hero', L);
+
+  /* article */
+  article.innerHTML = SECTIONS.map(s=>{
+    let inner = `<div class="col">
+      <div class="eyebrow">${s.eyebrow[L].replace(/(\d+)/,'<b>$1</b>')}</div>
+      <h2 class="h">${s.h[L]}</h2>`;
+    if(s.body)  inner += s.body[L].map(p=>`<p>${p}</p>`).join('');
+    if(s.list)  inner += listHTML(s.list, L);
+    if(s.body2) inner += s.body2[L].map(p=>`<p>${p}</p>`).join('');
+    inner += `</div>`;
+    /* primary assets */
+    if(s.assets) inner += s.assets.map(id=>assetHTML(id, L)).join('');
+    /* subsection */
+    if(s.sub){
+      inner += `<div class="col"><h3 class="sh">${s.sub.h[L]}</h3>`;
+      if(s.sub.body) inner += s.sub.body[L].map(p=>`<p>${p}</p>`).join('');
+      if(s.sub.list) inner += listHTML(s.sub.list, L);
+      inner += `</div>`;
+      if(s.sub.assets) inner += s.sub.assets.map(id=>assetHTML(id, L)).join('');
+    }
+    /* stats + closing note */
+    if(s.stats) inner += `<div class="col">${statsHTML(s.stats, L)}</div>`;
+    if(s.close) inner += `<div class="col"><p class="close">${s.close[L]}</p></div>`;
+    return `<section class="sec" id="${s.id}">${inner}</section>`;
+  }).join('');
+
+  /* table of contents */
+  tocOl.innerHTML = SECTIONS.map((s,i)=>
+    `<li><a href="#${s.id}" data-to="${s.id}"><span class="n">${String(i+1).padStart(2,'0')}</span><span>${s.nav[L]}</span></a></li>`
+  ).join('');
+
+  document.documentElement.lang = L;
+  langEl.dataset.l = L;
+  langEl.querySelectorAll('button').forEach(b=> b.setAttribute('aria-pressed', String(b.dataset.lang===L)));
+
+  setupReveal();
+  setupSpy();
+  try{ localStorage.setItem(LANG_KEY, L); }catch(e){}
+}
+
+/* ---- scroll reveal ---- */
+let revealObs;
+function setupReveal(){
+  if(revealObs) revealObs.disconnect();
+  const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const els = document.querySelectorAll('.reveal');
+  if(reduce){ els.forEach(e=>e.classList.add('in')); return; }
+  revealObs = new IntersectionObserver((ents)=>{
+    ents.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); revealObs.unobserve(e.target); } });
+  }, {rootMargin:'0px 0px -12% 0px', threshold:.08});
+  els.forEach(e=>{
+    /* anything already on screen at load reveals immediately */
+    const r = e.getBoundingClientRect();
+    if(r.top < innerHeight*0.9) e.classList.add('in'); else revealObs.observe(e);
+  });
+}
+
+/* ---- active-section spy (drives the TOC + progress bar) ---- */
+let spyObs;
+function setupSpy(){
+  if(spyObs) spyObs.disconnect();
+  const links = new Map([...tocOl.querySelectorAll('a')].map(a=>[a.dataset.to, a]));
+  const secs = [...document.querySelectorAll('section.sec')];
+  spyObs = new IntersectionObserver((ents)=>{
+    ents.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.remove('on'));
+        const a = links.get(e.target.id); if(a) a.classList.add('on');
+      }
+    });
+  }, {rootMargin:'-45% 0px -50% 0px', threshold:0});
+  secs.forEach(s=> spyObs.observe(s));
+}
+
+/* ---- progress bar ---- */
+const bar = document.getElementById('progress');
+addEventListener('scroll', ()=>{
+  const h = document.documentElement;
+  const p = h.scrollTop / (h.scrollHeight - h.clientHeight || 1);
+  bar.style.transform = `scaleX(${Math.min(Math.max(p,0),1)})`;
+}, {passive:true});
+
+/* ---- language toggle ---- */
+langEl.addEventListener('click', e=>{
+  const b = e.target.closest('button'); if(!b) return;
+  if(b.dataset.lang === langEl.dataset.l) return;
+  render(b.dataset.lang);
+});
+
+/* ---- lightbox: click any figure image to enlarge ---- */
+(function(){
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  const lbCap = document.getElementById('lbCap');
+  const lbClose = document.getElementById('lbClose');
+  const CLOSE_LABEL = {en:'Close', no:'Lukk'};
+  let lastFocus = null, hideTimer = null;
+
+  function open(img){
+    const fig = img.closest('figure.fig');
+    const cap = fig ? fig.querySelector('figcaption') : null;
+    lbImg.src = img.currentSrc || img.src;
+    lbImg.alt = img.alt || '';
+    lbCap.textContent = cap ? cap.textContent.trim() : (img.alt || '');
+    lbClose.setAttribute('aria-label', CLOSE_LABEL[document.documentElement.lang] || 'Close');
+    lastFocus = document.activeElement;
+    clearTimeout(hideTimer);
+    lb.hidden = false;
+    document.body.style.overflow = 'hidden';
+    void lb.offsetWidth;              /* force reflow so the transition runs */
+    lb.classList.add('open');
+    lbClose.focus();
+  }
+  function close(){
+    if(!lb.classList.contains('open')) return;
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+    hideTimer = setTimeout(()=>{ lb.hidden = true; lbImg.removeAttribute('src'); }, 300);
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  /* delegation — survives article re-render on language switch */
+  document.addEventListener('click', e=>{
+    const img = e.target.closest('figure.fig img');
+    if(img){ open(img); }
+  });
+  lb.addEventListener('click', e=>{ if(e.target !== lbImg) close(); });
+  lbClose.addEventListener('click', close);
+  document.addEventListener('keydown', e=>{ if(e.key === 'Escape') close(); });
+})();
+
+/* ---- boot: honour the language chosen on the board ---- */
+let lang = 'en';
+try{ lang = localStorage.getItem(LANG_KEY) || 'en'; }catch(e){}
+render(lang);
+</script>
+</body>
+</html>
