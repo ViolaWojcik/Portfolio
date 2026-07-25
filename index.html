@@ -738,13 +738,19 @@ objs.forEach(o=>{
     if(e.target.closest('a')) return;           // links stay clickable
     const sx = e.clientX, sy = e.clientY;
     let ox, oy, lastX, lastY, moved = false;
+    let pending = null, rafId = 0;              // newest pointer delta awaiting a paint
 
     o.setPointerCapture(e.pointerId);
 
-    const move = ev=>{
-      const dx = ev.clientX - sx, dy = ev.clientY - sy;
+    /* one transform write per animation frame — decoupled from the pointermove
+       rate. High-Hz mice/displays fire many pointermoves per frame; writing the
+       transform on each one desyncs from vsync and micro-stutters. Coalescing to
+       a single rAF-timed update keeps the motion locked to the refresh = smooth. */
+    const apply = ()=>{
+      rafId = 0;
+      if(!pending) return;
+      const {dx, dy} = pending; pending = null;
       if(!moved){
-        if(Math.hypot(dx,dy) <= 3) return;      // 3px threshold, so clicks survive
         moved = true;
         dragging = true;                        // mute the hover tooltip
         dismissHint();                          // they get it now — hide the hint
@@ -755,15 +761,22 @@ objs.forEach(o=>{
         o.classList.add('dragging');
       }
       [lastX, lastY] = clamp(o, ox+dx, oy+dy);
-      /* drive the drag with a GPU-composited transform, not left/top: the object
-         and its heavy layered shadow then track the cursor in lockstep, instead
-         of the shadow trailing a per-frame relayout + shadow repaint */
+      /* GPU-composited transform (not left/top): object + heavy shadow move as
+         one layer, no per-frame relayout/shadow repaint */
       o.style.transform = `translate(${lastX-ox}px, ${lastY-oy}px)`;
+    };
+    const move = ev=>{
+      const dx = ev.clientX - sx, dy = ev.clientY - sy;
+      if(!moved && Math.hypot(dx,dy) <= 3) return;   // 3px threshold, so clicks survive
+      pending = {dx, dy};
+      if(!rafId) rafId = requestAnimationFrame(apply);
     };
     const up = ()=>{
       o.removeEventListener('pointermove',move);
       o.removeEventListener('pointerup',up);
       o.removeEventListener('pointercancel',up);
+      if(rafId){ cancelAnimationFrame(rafId); rafId = 0; }
+      apply();                                  // flush any last pending position
       if(moved){
         /* bake the transform offset back into left/top, then drop the transform */
         o.style.left = lastX+'px'; o.style.top = lastY+'px';
