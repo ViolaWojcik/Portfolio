@@ -215,6 +215,53 @@ body{
 .polaroid .nm{font-family:var(--font-display);font-size:20px;line-height:1;color:var(--ink);}
 .polaroid .rl{margin-top:8px;font-size:8.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink-mute);}
 
+/* ── flip: photo (front) ⇄ about note (back) ──────────────────
+   The 3D flip lives INSIDE .inner, so .inner keeps owning the tilt
+   (--rot), hover-lift and shadow in 2D; only .flipper turns. */
+.obj[data-k="pol"] .inner{perspective:1200px;}
+.flipper{
+  position:relative;width:204px;
+  transform-style:preserve-3d;
+  transition:transform .7s var(--ease);
+}
+.obj[data-k="pol"].flipped .flipper{transform:rotateY(180deg);}
+.face{backface-visibility:hidden;-webkit-backface-visibility:hidden;}
+.face-front{position:relative;}
+.face-back{position:absolute;inset:0;transform:rotateY(180deg);}
+/* the note on the reverse — same paper and tilt as the photo, warm + legible */
+.polanote{
+  width:204px;height:100%;
+  background:var(--paper);border-radius:1px;
+  padding:22px 18px;
+  display:flex;flex-direction:column;justify-content:center;gap:13px;
+}
+.polanote .lead{
+  font-family:var(--font-display);font-size:19px;line-height:1.16;color:var(--ink);
+  position:relative;padding-bottom:12px;
+}
+.polanote .lead::after{
+  content:'';position:absolute;left:0;bottom:0;width:34px;height:2px;
+  background:var(--accent);opacity:.7;border-radius:2px;
+}
+.polanote .body{
+  font-family:var(--font-ui);font-size:11px;line-height:1.5;color:var(--ink-soft);
+}
+.polanote .flipback{
+  position:absolute;right:13px;bottom:11px;
+  font-size:13px;color:var(--ink-mute);opacity:.55;
+}
+/* desktop signals "flip me" via the hover tooltip; mobile has no hover,
+   so a small language-neutral "i" badge marks the photo as tappable */
+.flip-cue{display:none;}
+@media (max-width:760px){
+  .flip-cue{
+    display:grid;place-items:center;position:absolute;top:15px;right:15px;z-index:2;
+    width:22px;height:22px;border-radius:50%;
+    background:var(--accent-tint);color:var(--accent);
+    font-family:var(--font-display);font-style:italic;font-size:14px;line-height:1;
+  }
+}
+
 /* =========================================================
    CONTACT CARD — compact block, never rotated
    ========================================================= */
@@ -472,17 +519,27 @@ body{
     </h1>
   </div>
 
-  <!-- ── polaroid ──────────────────────────────────────────── -->
-  <div class="obj grab" data-k="pol" data-tip="about"
+  <!-- ── polaroid — click/tap flips it to a short "about" note on the back ─ -->
+  <div class="obj grab" data-k="pol" data-tip="about" data-a="about"
+       role="button" tabindex="0" aria-expanded="false"
        style="right:8vw;top:12vh;--rot:2.6deg;--d:2.20s;--lit:2.82s;">
     <div class="inner">
-      <figure class="polaroid">
-        <img src="my%20photo.png" alt="Wioleta Maria Wójcik" draggable="false">
-        <figcaption>
-          <div class="nm">Wioleta Maria Wójcik</div>
-          <div class="rl" data-t="role"></div>
-        </figcaption>
-      </figure>
+      <div class="flipper">
+        <figure class="polaroid face face-front">
+          <img src="my%20photo.png" alt="Wioleta Maria Wójcik" draggable="false">
+          <figcaption>
+            <div class="nm">Wioleta Maria Wójcik</div>
+            <div class="rl" data-t="role"></div>
+          </figcaption>
+          <span class="flip-cue" aria-hidden="true">i</span>
+        </figure>
+        <!-- reverse: the "about me" note (copy lives in the T model) -->
+        <div class="polanote face face-back" aria-hidden="true">
+          <p class="lead" data-t="aboutLead"></p>
+          <p class="body" data-t="aboutBody"></p>
+          <span class="flipback" aria-hidden="true">↩</span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -589,10 +646,13 @@ const T = {
     reset:'Reset layout',
     copied:'Copied',                           /* mail label after a successful copy */
     cvfile:'Wioleta-Wojcik-CV.pdf',            /* English résumé */
+    /* the "about" note on the back of the polaroid (her own CV copy) */
+    aboutLead:'I design where space, systems, and people meet.',
+    aboutBody:'I bring an architect\'s background to service design for social and public challenges. It\'s grounded in seven years of research-first, end-to-end product design. AI is central to how I work: it turns research into working products.',
     tips :{about:'About me',contact:'Say hi',project:'Read case study'},
     /* verb shown under each icon on hover/focus — the action, not the name */
     act  :{mail:'Copy',li:'Open',cv:'Open PDF'},
-    aria :{mail:'Email Wioleta',li:'LinkedIn profile',cv:'Open CV as PDF'}
+    aria :{mail:'Email Wioleta',li:'LinkedIn profile',cv:'Open CV as PDF',about:'About me. Flip the photo to read.'}
   },
   no:{
     words:['Rom,','systemer,','mennesker.'],
@@ -608,9 +668,12 @@ const T = {
     reset:'Tilbakestill',
     copied:'Kopiert',                          /* mail label after a successful copy */
     cvfile:'Wioleta-Wojcik-CV-NO.pdf',         /* Norwegian résumé */
+    /* "om meg"-notat på baksiden av polaroiden (utkast, avventer native review) */
+    aboutLead:'Jeg designer der rom, systemer og mennesker møtes.',
+    aboutBody:'Jeg tar med meg en arkitektbakgrunn inn i tjenestedesign for sosiale og offentlige utfordringer. Det hviler på syv år med innsiktsdrevet, helhetlig produktdesign. KI er sentralt i måten jeg jobber på: det gjør research om til fungerende produkter.',
     tips :{about:'Om meg',contact:'Si hei',project:'Les case study'},
     act  :{mail:'Kopier',li:'Åpne',cv:'Åpne PDF'},
-    aria :{mail:'Send e-post',li:'LinkedIn-profil',cv:'Åpne CV som PDF'}
+    aria :{mail:'Send e-post',li:'LinkedIn-profil',cv:'Åpne CV som PDF',about:'Om meg. Snu bildet for å lese.'}
   }
 };
 
@@ -808,6 +871,36 @@ objs.filter(o=> o.dataset.href).forEach(o=>{
     if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openObj(o); }
   });
 });
+
+/* the polaroid flips to reveal a short "about" note on its back. It rides the
+   same drag system as every object, so the existing suppressClick/3px guard
+   means a drag never turns into a flip. */
+const pol = document.querySelector('.obj[data-k="pol"]');
+if(pol){
+  const setAbout = open=>{
+    pol.classList.toggle('flipped', open);
+    pol.setAttribute('aria-expanded', String(open));
+    const front = pol.querySelector('.face-front');
+    const back  = pol.querySelector('.face-back');
+    if(front) front.setAttribute('aria-hidden', String(open));   // hide the photo face from AT when flipped
+    if(back)  back.setAttribute('aria-hidden', String(!open));
+  };
+  const toggleAbout = ()=> setAbout(!pol.classList.contains('flipped'));
+  pol.addEventListener('click', e=>{
+    if(suppressClick || dragging) return;        // just finished a drag — not a click
+    toggleAbout();
+  });
+  pol.addEventListener('keydown', e=>{
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggleAbout(); }
+  });
+  /* a pointer down anywhere off the polaroid, or Escape, turns it back to the photo */
+  board.addEventListener('pointerdown', e=>{
+    if(pol.classList.contains('flipped') && !e.target.closest('.obj[data-k="pol"]')) setAbout(false);
+  });
+  document.addEventListener('keydown', e=>{
+    if(e.key === 'Escape' && pol.classList.contains('flipped')) setAbout(false);
+  });
+}
 
 /* the mail icon is device-aware. On a phone the mailto: link is honoured, so
    the native mail app opens. On desktop — where mailto: often dead-ends on a
