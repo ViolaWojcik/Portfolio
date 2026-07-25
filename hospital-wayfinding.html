@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paths, not plans — Case study · Wioleta Wójcik</title>
+<meta name="description" content="I read a heritage hospital as a service in motion and redrew how patients and staff move through it. A service-design case study by Wioleta Maria Wójcik.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Paths, not plans — Service design case study · Wioleta Wójcik">
+<meta property="og:description" content="Reading a heritage hospital as a service in motion, and redrawing how patients and staff move through it.">
+<meta property="og:image" content="hospital-wayfinding/assets/hero-sketch.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%237A6BA8'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-weight='bold' font-size='21' text-anchor='middle' fill='%23FFFFFF'%3EW%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   TOKENS — shared with index.html / repapp.html. Single
+   source of truth is :root; mirror any board change here.
+   ========================================================= */
+:root{
+  --surface:      #F3F0EA;
+  --paper:        #FCFBF8;
+  --paper-warm:   #F7F4EE;
+
+  --ink:          #1A1917;
+  --ink-soft:     #4A463F;
+  --ink-mute:     #8E887C;
+  --hair:         #E0DACE;
+
+  --accent:       #7A6BA8;
+  --accent-tint:  #E4DDF1;
+
+  --sh-rest:
+      0 1px 1.5px  rgba(58,50,38,.05),
+      0 4px 8px   -3px rgba(58,50,38,.07),
+      0 14px 30px -12px rgba(58,50,38,.13);
+  --sh-card:
+      0 1px 2px    rgba(58,50,38,.05),
+      0 10px 24px -10px rgba(58,50,38,.14),
+      0 30px 60px -30px rgba(58,50,38,.20);
+
+  --ease:   cubic-bezier(.22,.61,.36,1);
+  --settle: cubic-bezier(.16,.84,.44,1);
+
+  --font-display:'Instrument Serif','Iowan Old Style',Georgia,serif;
+  --font-ui:'Inter',ui-sans-serif,-apple-system,'Segoe UI',sans-serif;
+
+  --side-w: 250px;
+  --read:   680px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--font-ui);
+  color:var(--ink);
+  background:var(--surface);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.5;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.28;
+  background-image:radial-gradient(rgba(120,105,80,.15) .5px,transparent .5px);
+  background-size:3px 3px;
+}
+
+#progress{
+  position:fixed;left:0;top:0;height:2px;width:100%;transform:scaleX(0);
+  transform-origin:0 50%;background:var(--accent);opacity:.85;z-index:970;
+  transition:transform .1s linear;
+}
+
+#lang{
+  position:fixed;top:24px;right:24px;z-index:960;
+  display:flex;gap:2px;padding:4px;border-radius:22px;
+  background:var(--paper);box-shadow:var(--sh-rest);
+}
+#lang::before{
+  content:'';position:absolute;left:4px;top:4px;
+  width:calc(50% - 4px);height:calc(100% - 8px);
+  background:var(--accent);border-radius:18px;
+  transition:transform .3s var(--ease);
+}
+#lang[data-l="no"]::before{transform:translateX(100%);}
+#lang button{
+  position:relative;z-index:1;border:0;background:none;cursor:pointer;
+  font-family:var(--font-ui);font-size:10.5px;font-weight:500;
+  letter-spacing:.13em;padding:6px 13px;border-radius:18px;
+  color:var(--ink-mute);transition:color .3s var(--ease);
+}
+#lang button[aria-pressed="true"]{color:var(--paper);}
+#lang button:focus-visible{outline:1.5px solid var(--accent);outline-offset:3px;}
+
+.side{
+  position:fixed;left:0;top:0;width:var(--side-w);height:100vh;z-index:5;
+  padding:38px 30px 36px;
+  display:flex;flex-direction:column;gap:30px;
+  border-right:1px solid var(--hair);
+  background:linear-gradient(180deg, rgba(247,244,238,.6), rgba(243,240,234,.6));
+}
+.back{
+  display:inline-flex;align-items:center;gap:8px;width:fit-content;
+  font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-mute);text-decoration:none;transition:color .3s var(--ease);
+}
+.back svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.5;
+  stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--ease);}
+.back:hover{color:var(--accent);}
+.back:hover svg{transform:translateX(-3px);}
+
+.mark{line-height:1.2;}
+.mark .nm{font-family:var(--font-display);font-size:26px;color:var(--ink);}
+.mark .sub{margin-top:4px;font-size:11px;letter-spacing:.05em;color:var(--ink-mute);}
+
+.toc{margin-top:2px;overflow-y:auto;flex:1;}
+.toc ol{list-style:none;display:flex;flex-direction:column;gap:2px;}
+.toc a{
+  display:flex;gap:10px;align-items:baseline;
+  padding:5px 0;text-decoration:none;
+  font-size:12.5px;color:var(--ink-mute);
+  transition:color .25s var(--ease);
+}
+.toc a .n{font-size:9.5px;letter-spacing:.05em;color:var(--ink-mute);opacity:.6;
+  min-width:15px;font-variant-numeric:tabular-nums;transition:color .25s;}
+.toc a:hover{color:var(--ink-soft);}
+.toc a.on{color:var(--accent);}
+.toc a.on .n{color:var(--accent);opacity:1;}
+
+.main{position:relative;z-index:1;margin-left:var(--side-w);padding:0 6vw 12vh;}
+.col{max-width:var(--read);margin:0 auto;}
+.wide{max-width:920px;margin-left:auto;margin-right:auto;}
+
+header.head{padding:14vh 0 0;}
+.kicker{
+  font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:20px;
+}
+h1.title{
+  font-family:var(--font-display);font-weight:400;
+  font-size:clamp(52px,8vw,104px);line-height:.94;letter-spacing:-.02em;color:var(--ink);
+}
+.dek{
+  margin-top:24px;max-width:34ch;
+  font-family:var(--font-display);font-size:clamp(21px,2.4vw,27px);
+  line-height:1.28;color:var(--ink-soft);
+}
+.meta{
+  margin-top:40px;padding-top:26px;border-top:1px solid var(--hair);
+  display:flex;flex-wrap:wrap;gap:34px 44px;
+}
+.meta .m{display:flex;flex-direction:column;gap:6px;}
+.meta .m .k{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute);}
+.meta .m .v{font-size:14px;color:var(--ink-soft);}
+
+section.sec{padding:9vh 0 0;scroll-margin-top:40px;}
+.eyebrow{
+  font-size:10.5px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-mute);margin-bottom:18px;
+}
+.eyebrow b{color:var(--accent);font-weight:500;}
+h2.h{
+  font-family:var(--font-display);font-weight:400;
+  font-size:clamp(30px,4vw,48px);line-height:1.04;letter-spacing:-.012em;color:var(--ink);
+  max-width:20ch;
+}
+.sec p{margin-top:22px;font-size:17px;line-height:1.62;color:var(--ink-soft);}
+.sec p:first-of-type{margin-top:26px;}
+h3.sh{
+  margin-top:38px;font-family:var(--font-display);font-weight:400;
+  font-size:clamp(22px,2.6vw,28px);line-height:1.1;color:var(--ink);
+}
+
+ul.pts,ol.steps{margin-top:26px;display:flex;flex-direction:column;gap:2px;list-style:none;}
+ul.pts li,ol.steps li{
+  position:relative;padding:15px 0 15px 34px;
+  font-size:16.5px;line-height:1.55;color:var(--ink-soft);
+  border-bottom:1px solid var(--hair);
+}
+ul.pts li:first-child,ol.steps li:first-child{border-top:1px solid var(--hair);}
+ul.pts li strong,ol.steps li strong{color:var(--ink);font-weight:500;}
+ul.pts li::before{
+  content:'';position:absolute;left:6px;top:23px;width:7px;height:7px;
+  border-radius:50%;background:var(--accent-tint);border:1px solid var(--accent);
+}
+ol.steps{counter-reset:s;}
+ol.steps li::before{
+  counter-increment:s;content:counter(s);position:absolute;left:0;top:14px;
+  font-family:var(--font-display);font-size:19px;color:var(--accent);
+  width:22px;text-align:left;
+}
+
+figure.fig{margin-top:44px;}
+figure.fig img{
+  display:block;width:100%;height:auto;border-radius:4px;
+  box-shadow:var(--sh-card);background:var(--paper-warm);
+}
+figcaption{
+  margin-top:14px;font-size:12px;line-height:1.5;color:var(--ink-mute);
+  display:flex;flex-wrap:wrap;gap:5px 8px;align-items:baseline;
+}
+figcaption .tag{
+  font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+  border:1px solid var(--accent-tint);border-radius:20px;padding:3px 9px;white-space:nowrap;
+}
+figcaption em{font-style:italic;color:var(--ink-mute);}
+figure.fig img{cursor:zoom-in;transition:box-shadow .3s var(--ease);}
+figure.fig img:hover{box-shadow:0 18px 40px -22px rgba(26,25,23,.5);}
+
+.lb{
+  position:fixed;inset:0;z-index:2000;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:18px;padding:clamp(20px,4vw,56px);
+  background:rgba(20,18,16,.86);backdrop-filter:blur(3px);
+  opacity:0;visibility:hidden;transition:opacity .28s var(--ease),visibility .28s var(--ease);
+  cursor:zoom-out;
+}
+.lb.open{opacity:1;visibility:visible;}
+.lb img{
+  max-width:min(1400px,94vw);max-height:82vh;width:auto;height:auto;
+  border-radius:6px;box-shadow:0 40px 90px -30px rgba(0,0,0,.7);
+  background:var(--paper-warm);cursor:default;
+  transform:scale(.985);transition:transform .28s var(--ease);
+}
+.lb.open img{transform:scale(1);}
+.lb .lb-cap{
+  max-width:min(1000px,90vw);font-size:12.5px;line-height:1.55;color:rgba(252,251,248,.72);
+  text-align:center;letter-spacing:.01em;cursor:default;
+}
+.lb .lb-close{
+  position:absolute;top:clamp(16px,2.5vw,28px);right:clamp(16px,2.5vw,28px);
+  width:42px;height:42px;border-radius:50%;border:1px solid rgba(252,251,248,.28);
+  background:rgba(252,251,248,.06);color:var(--paper);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:background .2s var(--ease),transform .2s var(--ease);
+}
+.lb .lb-close:hover{background:rgba(252,251,248,.16);transform:scale(1.06);}
+.lb .lb-close:focus-visible{outline:2px solid var(--accent-tint);outline-offset:3px;}
+.lb .lb-close svg{width:20px;height:20px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;}
+@media (prefers-reduced-motion:reduce){
+  .lb,.lb img,.lb .lb-close{transition:none;}
+  .lb img{transform:none;}
+}
+
+.ph{
+  position:relative;width:100%;border-radius:4px;
+  background:
+    linear-gradient(135deg, rgba(228,221,241,.35), rgba(247,244,238,.6));
+  border:1px solid var(--hair);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:40px 30px;gap:14px;overflow:hidden;
+}
+.ph[data-ratio="wide"]{aspect-ratio:16/9;}
+.ph[data-ratio="land"]{aspect-ratio:4/3;}
+.ph[data-ratio="tall"]{aspect-ratio:3/4;max-width:440px;margin-inline:auto;}
+.ph::after{
+  content:'';position:absolute;inset:12px;border:1px dashed rgba(122,107,168,.28);
+  border-radius:3px;pointer-events:none;
+}
+.ph .lab{
+  position:relative;z-index:1;
+  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);
+  display:inline-flex;align-items:center;gap:7px;
+}
+.ph .lab svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;
+  stroke-linecap:round;stroke-linejoin:round;}
+.ph .desc{
+  position:relative;z-index:1;max-width:42ch;
+  font-family:var(--font-display);font-size:19px;line-height:1.3;color:var(--ink-soft);
+}
+.ph .fmt{position:relative;z-index:1;font-size:11px;color:var(--ink-mute);}
+
+.stats{
+  margin-top:44px;position:relative;overflow:hidden;
+  background:var(--paper);border-radius:6px;box-shadow:var(--sh-card);
+  padding:34px 36px;
+}
+.stats::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);opacity:.85;}
+.stats .src{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:26px;}
+.stats .row{display:flex;flex-wrap:wrap;gap:30px 48px;}
+.stats .stat{flex:1;min-width:150px;}
+.stats .fig{font-family:var(--font-display);font-size:clamp(34px,4.4vw,50px);line-height:.95;color:var(--accent);letter-spacing:-.01em;}
+.stats .lab{margin-top:10px;font-size:13px;line-height:1.45;color:var(--ink-soft);}
+
+.close{
+  margin-top:40px;padding-top:30px;border-top:1px solid var(--hair);
+  font-family:var(--font-display);font-size:clamp(20px,2.3vw,25px);
+  line-height:1.32;color:var(--ink-soft);max-width:32ch;
+}
+
+footer.foot{
+  margin-top:14vh;padding-top:34px;border-top:1px solid var(--hair);
+  display:flex;flex-wrap:wrap;gap:18px 30px;align-items:baseline;justify-content:space-between;
+}
+footer.foot a{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;color:var(--ink-soft);text-decoration:none;
+  border-bottom:1px solid transparent;transition:color .3s,border-color .3s;
+}
+footer.foot a:hover{color:var(--accent);border-bottom-color:var(--accent);}
+footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:52ch;line-height:1.5;}
+
+.reveal{opacity:0;transform:translateY(16px);
+  transition:opacity .7s var(--settle),transform .7s var(--settle);}
+.reveal.in{opacity:1;transform:none;}
+
+@media (max-width:980px){
+  :root{--side-w:0px;}
+  .side{
+    position:sticky;top:0;flex-direction:row;align-items:center;justify-content:space-between;
+    width:100%;height:auto;padding:16px 20px;gap:16px;
+    border-right:0;border-bottom:1px solid var(--hair);
+    background:rgba(247,244,238,.9);backdrop-filter:saturate(1.2) blur(8px);z-index:40;
+  }
+  .side .mark,.toc{display:none;}
+  .main{margin-left:0;padding:0 24px 12vh;}
+  header.head{padding:8vh 0 0;}
+  #lang{top:11px;right:70px;box-shadow:none;background:transparent;}
+  #lang::before{background:var(--accent);}
+}
+@media (max-width:560px){
+  .meta{gap:22px 30px;}
+  #lang{right:16px;top:auto;bottom:16px;position:fixed;background:var(--paper);box-shadow:var(--sh-rest);}
+  .side{justify-content:flex-start;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  .reveal{opacity:1;transform:none;transition:none;}
+  *{transition-duration:.01ms!important;}
+}
+</style>
+</head>
+<body>
+
+<div id="progress" aria-hidden="true"></div>
+
+<aside class="side">
+  <a class="back" href="index.html">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+    <span>All projects</span>
+  </a>
+  <div class="mark">
+    <div class="nm" data-t="wordmark">Paths, not plans</div>
+    <div class="sub" data-t="markSub">Service design case study</div>
+  </div>
+  <nav class="toc" aria-label="Sections"><ol id="toc"></ol></nav>
+</aside>
+
+<div id="lang" role="group" data-l="en">
+  <button type="button" data-lang="en" aria-pressed="true">EN</button>
+  <button type="button" data-lang="no" aria-pressed="false">NO</button>
+</div>
+
+<main class="main">
+  <div class="col">
+    <header class="head reveal">
+      <div class="kicker" data-t="kicker">Case study · Service design</div>
+      <h1 class="title" data-t="title">Paths, not plans</h1>
+      <p class="dek" data-t="dek"></p>
+      <div class="meta" id="meta"></div>
+    </header>
+  </div>
+
+  <div id="hero"></div>
+
+  <article id="article"></article>
+
+  <div class="col">
+    <footer class="foot reveal">
+      <a href="index.html">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+        <span data-t="footBack">Back to all projects</span>
+      </a>
+      <p class="note" data-t="footNote"></p>
+    </footer>
+  </div>
+</main>
+
+<div class="lb" id="lightbox" role="dialog" aria-modal="true" hidden>
+  <button class="lb-close" id="lbClose" type="button" aria-label="Close">
+    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <img id="lbImg" alt="">
+  <div class="lb-cap" id="lbCap"></div>
+</div>
+
+<script>
+/* =========================================================
+   CONTENT MODEL — the whole case study, both languages.
+   English is the finished copy; Norwegian is a first draft,
+   pending review by a native speaker (same status as the
+   board's NO strings).
+
+   INTEGRITY: real client work, shown only through anonymised,
+   illustrative reconstructions. No hospital/firm named, no
+   original drawings reproduced, impact described qualitatively.
+   ========================================================= */
+const T = {
+  en:{
+    back:'All projects',
+    wordmark:'Paths, not plans',
+    markSub:'Service design case study',
+    kicker:'Case study · Service design',
+    title:'Paths, not plans',
+    dek:'A hospital should carry its own complexity, not pass it to the people moving through it.',
+    footBack:'Back to all projects',
+    footNote:'Real client work, shown through anonymised, illustrative reconstructions. The hospital and firm are not named and no original drawings are reproduced. Diagrams redrawn 2026; impact described qualitatively.',
+    meta:[
+      {k:'Role',        v:'Architect · Service designer'},
+      {k:'Discipline',  v:'Functional-spatial audit'},
+      {k:'Context',     v:'Heritage hospital (anonymised)'},
+      {k:'Year',        v:'2016'},
+      {k:'Scope',       v:'Patient & staff flows, zoning'}
+    ]
+  },
+  no:{
+    back:'Alle prosjekter',
+    wordmark:'Stier, ikke planer',
+    markSub:'Tjenestedesign — case study',
+    kicker:'Case study · Tjenestedesign',
+    title:'Stier, ikke planer',
+    dek:'Et sykehus bør bære sin egen kompleksitet, ikke gi den videre til menneskene som beveger seg gjennom det.',
+    footBack:'Tilbake til alle prosjekter',
+    footNote:'Ekte klientarbeid, vist kun gjennom anonymiserte, illustrerende rekonstruksjoner. Sykehuset og firmaet er ikke navngitt, og ingen originaltegninger gjengis. Diagrammer tegnet på nytt 2026; effekt beskrevet kvalitativt.',
+    meta:[
+      {k:'Rolle',       v:'Arkitekt · Tjenestedesigner'},
+      {k:'Fagfelt',     v:'Funksjonell-romlig revisjon'},
+      {k:'Kontekst',    v:'Vernet sykehus (anonymisert)'},
+      {k:'År',          v:'2016'},
+      {k:'Omfang',      v:'Pasient- og personalflyt, soner'}
+    ]
+  }
+};
+
+const ASSETS = {
+  hero:{ type:'img', src:'hospital-wayfinding/assets/hero-sketch.png', wide:true,
+    cap:{en:'The complex at a glance: two wings around a garden, a separate diagnostics building, and a chapel out of scope. Illustrative reconstruction, 2026; complex anonymised.',
+         no:'Komplekset ved et øyekast: to fløyer rundt en hage, et eget diagnostikkbygg, og et kapell utenfor omfanget. Illustrerende rekonstruksjon, 2026; komplekset anonymisert.'} },
+
+  context:{ type:'img', src:'hospital-wayfinding/assets/context.png', wide:true,
+    cap:{en:'The hospital as it opened in 1896: a convent hospital on a legible U-plan, with its own church. Illustration after period views, not a real elevation.',
+         no:'Sykehuset slik det åpnet i 1896: et klostersykehus på en lesbar U-plan, med egen kirke. Illustrasjon etter tidsbilder, ikke en faktisk oppriss.'} },
+
+  legibility:{ type:'img', src:'hospital-wayfinding/assets/legibility.png', wide:true,
+    cap:{en:'The original U was legible; a century of extensions buried it. Illustrative reconstruction, 2026.',
+         no:'Den opprinnelige U-en var lesbar; et århundre med tilbygg begravde den. Illustrerende rekonstruksjon, 2026.'} },
+
+  journey:{ type:'img', src:'hospital-wayfinding/assets/journey-before-after.png', wide:true,
+    cap:{en:'The chemotherapy day before and after, two cross-campus legs removed once the rooms sat together. Illustrative reconstruction, 2026.',
+         no:'Cellegift-dagen før og etter, to reiser på tvers av området fjernet da rommene lå samlet. Illustrerende rekonstruksjon, 2026.'} },
+
+  findings:{ type:'img', src:'hospital-wayfinding/assets/findings.png', wide:true,
+    cap:{en:'The same problems, mapped by who pays for them: outpatient, inpatient, staff. Illustrative reconstruction, 2026.',
+         no:'De samme problemene, kartlagt etter hvem som betaler for dem: poliklinisk, innlagt, ansatte. Illustrerende rekonstruksjon, 2026.'} },
+
+  constraint:{ type:'img', src:'hospital-wayfinding/assets/constraint.png', wide:true,
+    cap:{en:'A protected door frame too narrow for a hospital bed, no widening without the conservator. Illustrative reconstruction; dimensions illustrative, 2026.',
+         no:'En fredet dørkarm for smal for en sykehusseng, ingen utvidelse uten vernemyndigheten. Illustrerende rekonstruksjon; mål er illustrative, 2026.'} },
+
+  paths:{ type:'img', src:'hospital-wayfinding/assets/paths-service-map-sketch.png', wide:true,
+    cap:{en:'Three layers over one complex: patient journeys by treatment, staff routes by specialism, and the ambulance approach. Illustrative reconstruction, 2026.',
+         no:'Tre lag over ett kompleks: pasientreiser etter behandling, personalruter etter spesialisering, og ambulanseadkomsten. Illustrerende rekonstruksjon, 2026.'} },
+
+  zoning:{ type:'img', src:'hospital-wayfinding/assets/zoning.png', wide:true,
+    cap:{en:'The guiding policy as a plan: three access zones with controlled entry, so wards stop being through-corridors. Illustrative reconstruction, 2026.',
+         no:'Den styrende policyen som en plan: tre soner med kontrollert adkomst, så avdelinger slutter å være gjennomgangskorridorer. Illustrerende rekonstruksjon, 2026.'} },
+
+  principle:{ type:'img', src:'hospital-wayfinding/assets/principle.png', wide:true,
+    cap:{en:'Two ways to change a room; demolition was blocked, so the answer stayed inside the existing shell. Illustrative reconstruction, 2026.',
+         no:'To måter å endre et rom; riving var blokkert, så svaret ble inne i det eksisterende skallet. Illustrerende rekonstruksjon, 2026.'} },
+
+  laundry:{ type:'img', src:'hospital-wayfinding/assets/laundry-before-after.png', wide:true,
+    cap:{en:'The quick win: a laundry beside chemotherapy became registration and consulting rooms, using partition walls and no demolition. Illustrative reconstruction, 2026.',
+         no:'Det raske grepet: et vaskeri ved siden av cellegiftavdelingen ble resepsjon og konsultasjonsrom, med lettvegger og uten riving. Illustrerende rekonstruksjon, 2026.'} },
+
+  future:{ type:'img', src:'hospital-wayfinding/assets/future.png', wide:true,
+    cap:{en:'A concept for the patient profile: one timeline for the whole journey, plus a companion for the hardest moments. Forward-looking concept, not a shipped product.',
+         no:'Et konsept for pasientprofilen: én tidslinje for hele forløpet, pluss en følgesvenn for de tyngste øyeblikkene. Fremtidskonsept, ikke et lansert produkt.'} }
+};
+
+const SECTIONS = [
+  {
+    id:'roundtrip', nav:{en:'The round trip',no:'Runden'},
+    eyebrow:{en:'01 · The pattern',no:'01 · Mønsteret'},
+    h:{en:'A cancer patient walked between buildings before every chemotherapy session',
+       no:'En kreftpasient gikk mellom bygg før hver eneste cellegiftbehandling'},
+    body:{
+      en:['Before one session, a patient went to a separate building for tests, back to the doctor, then on to chemotherapy. A single appointment, scattered across the campus, repeated every cycle.'],
+      no:['Før én behandling gikk pasienten til et eget bygg for prøver, tilbake til legen, og så videre til cellegift. Én time, spredt over hele området, gjentatt hver runde.']
+    },
+    assets:['journey']
+  },
+  {
+    id:'grew', nav:{en:'How it got this way',no:'Hvordan det ble slik'},
+    eyebrow:{en:'02 · The building',no:'02 · Bygget'},
+    h:{en:'The hospital was never built to work like this. It grew into it, wing by wing.',
+       no:'Sykehuset ble aldri bygd for å fungere slik. Det vokste inn i det, fløy for fløy.'},
+    body:{
+      en:['It opened in 1896 as a convent hospital on a clear U-shaped plan with a monumental central stair. A century of extensions buried that logic, until the space no longer matched the busy cancer hospital it had become.'],
+      no:['Det åpnet i 1896 som et klostersykehus på en tydelig U-formet plan med en monumental hovedtrapp. Et århundre med tilbygg begravde den logikken, til rommet ikke lenger passet det travle kreftsykehuset det var blitt.']
+    },
+    assets:['context','legibility']
+  },
+  {
+    id:'diagnosis', nav:{en:'Cost on people',no:'Kostnaden på folk'},
+    eyebrow:{en:'03 · The diagnosis',no:'03 · Diagnosen'},
+    h:{en:'When the layout failed, a person absorbed the cost, never the institution',
+       no:'Når planløsningen sviktet, tok et menneske kostnaden, aldri institusjonen'},
+    body:{
+      en:['The audit ran for three months of walking the hospital at different hours and interviewing staff. The failures always landed on someone. Patients lost their way with no signage and registration scattered everywhere, wards ran as open corridors anyone could wander through, and nurses walked the long way round to reach a bed.'],
+      no:['Revisjonen gikk over tre måneder med å gå gjennom sykehuset til ulike tider og intervjue ansatte. Sviktene landet alltid på noen. Pasienter gikk seg vill uten skilting og med resepsjon spredt overalt, avdelinger fungerte som åpne korridorer hvem som helst kunne vandre gjennom, og sykepleiere gikk den lange veien for å nå en seng.']
+    },
+    assets:['findings'],
+    sub:{
+      h:{en:'And the building could not simply be rebuilt',no:'Og bygget kunne ikke bare bygges om'},
+      body:{
+        en:['The building is a protected monument, so the easy answers were off the table.'],
+        no:['Bygget er et fredet kulturminne, så de enkle svarene var utelukket.']
+      },
+      list:{
+        en:['<strong>No demolition</strong>, and conservator approval for any structural change',
+            '<strong>A near-zero budget</strong>',
+            '<strong>Historic door frames</strong> too narrow to move a hospital bed through'],
+        no:['<strong>Ingen riving</strong>, og godkjenning fra vernemyndigheten for enhver strukturell endring',
+            '<strong>Nær null budsjett</strong>',
+            '<strong>Historiske dørkarmer</strong> for smale til å trille en sykehusseng gjennom'],
+        type:'ul'
+      },
+      assets:['constraint']
+    }
+  },
+  {
+    id:'method', nav:{en:'Paths, not rooms',no:'Stier, ikke rom'},
+    eyebrow:{en:'04 · The move',no:'04 · Grepet'},
+    h:{en:'The redesign followed the people, not the rooms',
+       no:'Redesignet fulgte menneskene, ikke rommene'},
+    body:{
+      en:['We traced movement, not floor area. Patient journeys split by treatment, chemotherapy, radiotherapy and combined. Staff routes by specialism. Even the ambulances. Each layer showed where the service broke, and where it could be rejoined.'],
+      no:['Vi sporet bevegelse, ikke gulvareal. Pasientreiser delt etter behandling, cellegift, stråling og kombinert. Personalruter etter spesialisering. Til og med ambulansene. Hvert lag viste hvor tjenesten brøt sammen, og hvor den kunne settes sammen igjen.']
+    },
+    assets:['paths']
+  },
+  {
+    id:'rule', nav:{en:'One rule',no:'Én regel'},
+    eyebrow:{en:'05 · The rule',no:'05 · Regelen'},
+    h:{en:'One rule shaped everything: zone the hospital by who uses it',
+       no:'Én regel formet alt: sonedel sykehuset etter hvem som bruker det'},
+    body:{
+      en:['Three zones, one for each kind of user: outpatient, inpatient and visitor, each with its own controlled way in. Everything else reorganised around the original U-plan rather than patching problems one by one.'],
+      no:['Tre soner, én for hver type bruker: poliklinisk, innlagt og besøkende, hver med sin egen kontrollerte inngang. Alt annet omorganisert rundt den opprinnelige U-planen i stedet for å lappe problemer ett for ett.']
+    },
+    assets:['zoning'],
+    sub:{
+      h:{en:'What that ruled out',no:'Det regelen utelukket'},
+      list:{
+        en:['Cosmetic point fixes that left the broken zoning in place',
+            'Any move that fought the historic plan instead of using it',
+            'The structural demolition the monument would never allow'],
+        no:['Kosmetiske punktfikser som lot den ødelagte soneinndelingen stå',
+            'Ethvert grep som kjempet mot den historiske planen i stedet for å bruke den',
+            'Den strukturelle rivingen kulturminnet aldri ville tillate'],
+        type:'ul'
+      }
+    }
+  },
+  {
+    id:'leverage', nav:{en:'No walls to move',no:'Ingen vegger å flytte'},
+    eyebrow:{en:'06 · The leverage',no:'06 · Fordelen'},
+    h:{en:'Not one wall could be moved, and the constraint made the work sharper',
+       no:'Ikke én vegg kunne flyttes, og begrensningen gjorde arbeidet skarpere'},
+    body:{
+      en:['The building is a protected monument, and heritage conservation is my field, so its limits were clear from the start. No demolition meant the answer had to be surgical and low-cost, the kind of move that could actually be built.'],
+      no:['Bygget er et fredet kulturminne, og vern av kulturminner er fagfeltet mitt, så grensene var klare fra starten. Ingen riving betød at svaret måtte være kirurgisk og rimelig, den typen grep som faktisk kunne bygges.']
+    },
+    assets:['principle']
+  },
+  {
+    id:'laundry', nav:{en:'The laundry',no:'Vaskeriet'},
+    eyebrow:{en:'07 · The quick win',no:'07 · Det raske grepet'},
+    h:{en:'The biggest fix was a laundry no one had looked at twice',
+       no:'Det største grepet var et vaskeri ingen hadde sett to ganger på'},
+    body:{
+      en:['A large room sat right beside chemotherapy, holding a laundry. With partition walls alone and no demolition, it became the registration desk and the consulting rooms, next to treatment. The walk between buildings disappeared from the patient’s day, and the hospital built it almost at once.'],
+      no:['Et stort rom lå rett ved cellegiftavdelingen og rommet et vaskeri. Med bare lettvegger og uten riving ble det resepsjonen og konsultasjonsrommene, ved siden av behandlingen. Turen mellom byggene forsvant fra pasientens dag, og sykehuset bygde det nesten med en gang.']
+    },
+    assets:['laundry'],
+    stats:{
+      src:{en:'Outcome described qualitatively · confidential project, anonymised',
+           no:'Resultat beskrevet kvalitativt · konfidensielt prosjekt, anonymisert'},
+      items:[
+        {fig:'−1 trip', lab:{en:'inter-building round trip removed from every chemotherapy visit',no:'rundtur mellom bygg fjernet fra hvert cellegiftbesøk'}},
+        {fig:'0', lab:{en:'walls demolished, partition walls only and heritage-safe',no:'vegger revet, kun lettvegger og trygt for kulturminnet'}},
+        {fig:'Same week', lab:{en:'the hospital adopted the change almost immediately',no:'sykehuset tok i bruk endringen nesten umiddelbart'}}
+      ]
+    }
+  },
+  {
+    id:'reflection', nav:{en:'What I learned',no:'Det jeg lærte'},
+    eyebrow:{en:'08 · Reflection',no:'08 · Refleksjon'},
+    h:{en:'What the project showed, and where it could go next',
+       no:'Det prosjektet viste, og hvor det kan gå videre'},
+    body:{
+      en:['A system should carry its own complexity, instead of quietly handing it to the people moving through it.'],
+      no:['Et system bør bære sin egen kompleksitet, i stedet for stille å gi den videre til menneskene som beveger seg gjennom det.']
+    },
+    list:{
+      en:['<strong>A building can offload its disorder</strong> onto patients and staff, and good design finds where the institution should take the load back',
+          '<strong>The insight lives in the paths, not the plans</strong>, so watch the real service move across days, hours and user types',
+          '<strong>Constraints sharpen design</strong>, and the heritage rules produced the best idea rather than blocking it',
+          '<strong>The biggest win was the cheapest one</strong>, worth remembering before reaching for a rebuild'],
+      no:['<strong>Et bygg kan skyve sin uorden</strong> over på pasienter og ansatte, og god design finner hvor institusjonen bør ta byrden tilbake',
+          '<strong>Innsikten bor i stiene, ikke planene</strong>, så se den faktiske tjenesten bevege seg over dager, timer og brukertyper',
+          '<strong>Begrensninger skjerper design</strong>, og vernereglene ga den beste ideen i stedet for å blokkere den',
+          '<strong>Det største grepet var det billigste</strong>, verdt å huske før man griper til en ombygging'],
+      type:'ul'
+    },
+    close:{
+      en:'If I ran this today I would pull each patient’s information into one profile, with referrals and prescriptions in the same place, so knowledge stops dying in the gaps between hands. I would add AI companions to answer patients’ questions and to support palliative patients through the hardest stretch, and give doctors a shared view of a patient’s notes, because their work is heavy enough already.',
+      no:'Hvis jeg gjorde dette i dag, ville jeg samlet hver pasients informasjon i én profil, med henvisninger og resepter på samme sted, slik at kunnskap slutter å dø i mellomrommene mellom hender. Jeg ville lagt til AI-følgesvenner som svarer på pasienters spørsmål og støtter palliative pasienter gjennom den tyngste tiden, og gitt legene et delt innsyn i en pasients notater, fordi arbeidet deres er tungt nok fra før.'
+    },
+    assets:['future']
+  }
+];
+
+/* =========================================================
+   RENDER
+   ========================================================= */
+const article = document.getElementById('article');
+const tocOl   = document.getElementById('toc');
+const langEl  = document.getElementById('lang');
+const LANG_KEY = 'wiola-board:lang';
+
+function assetHTML(id, L){
+  const a = ASSETS[id]; if(!a) return '';
+  const wideCls = a.wide ? ' wide' : '';
+  if(a.type === 'img'){
+    return `<figure class="fig reveal${wideCls}">
+      <img src="${a.src}" alt="${a.cap[L].replace(/"/g,'&quot;')}" loading="lazy">
+      <figcaption><span>${a.cap[L]}</span></figcaption>
+    </figure>`;
+  }
+  const clock = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>';
+  const tag = L==='no' ? 'Grafikk underveis' : 'Graphic in progress';
+  return `<figure class="fig reveal${wideCls}">
+    <div class="ph" data-ratio="${a.ratio}">
+      <span class="lab">${clock}${tag}</span>
+      <span class="desc">${a.desc[L]}</span>
+      <span class="fmt">${a.fmt[L]}</span>
+    </div>
+  </figure>`;
+}
+
+function listHTML(list, L){
+  const tag = list.type === 'ol' ? 'ol' : 'ul';
+  const cls = list.type === 'ol' ? 'steps' : 'pts';
+  const items = list[L].map(i=>`<li>${i}</li>`).join('');
+  return `<${tag} class="${cls}">${items}</${tag}>`;
+}
+
+function statsHTML(s, L){
+  const items = s.items.map(it=>
+    `<div class="stat"><div class="fig">${it.fig}</div><div class="lab">${it.lab[L]}</div></div>`).join('');
+  return `<div class="stats reveal"><div class="src">${s.src[L]}</div><div class="row">${items}</div></div>`;
+}
+
+function render(L){
+  const t = T[L];
+
+  document.querySelectorAll('[data-t]').forEach(el=>{
+    const k = el.dataset.t; if(t[k] !== undefined) el.innerHTML = t[k];
+  });
+  document.querySelector('.back span').textContent = t.back;
+
+  document.getElementById('meta').innerHTML = t.meta.map(m=>
+    `<div class="m"><span class="k">${m.k}</span><span class="v">${m.v}</span></div>`).join('');
+
+  document.getElementById('hero').innerHTML = assetHTML('hero', L);
+
+  article.innerHTML = SECTIONS.map(s=>{
+    let inner = `<div class="col">
+      <div class="eyebrow">${s.eyebrow[L].replace(/(\d+)/,'<b>$1</b>')}</div>
+      <h2 class="h">${s.h[L]}</h2>`;
+    if(s.body)  inner += s.body[L].map(p=>`<p>${p}</p>`).join('');
+    if(s.list)  inner += listHTML(s.list, L);
+    if(s.body2) inner += s.body2[L].map(p=>`<p>${p}</p>`).join('');
+    inner += `</div>`;
+    if(s.assets) inner += s.assets.map(id=>assetHTML(id, L)).join('');
+    if(s.sub){
+      inner += `<div class="col"><h3 class="sh">${s.sub.h[L]}</h3>`;
+      if(s.sub.body) inner += s.sub.body[L].map(p=>`<p>${p}</p>`).join('');
+      if(s.sub.list) inner += listHTML(s.sub.list, L);
+      inner += `</div>`;
+      if(s.sub.assets) inner += s.sub.assets.map(id=>assetHTML(id, L)).join('');
+    }
+    if(s.stats) inner += `<div class="col">${statsHTML(s.stats, L)}</div>`;
+    if(s.close) inner += `<div class="col"><p class="close">${s.close[L]}</p></div>`;
+    return `<section class="sec" id="${s.id}">${inner}</section>`;
+  }).join('');
+
+  tocOl.innerHTML = SECTIONS.map((s,i)=>
+    `<li><a href="#${s.id}" data-to="${s.id}"><span class="n">${String(i+1).padStart(2,'0')}</span><span>${s.nav[L]}</span></a></li>`
+  ).join('');
+
+  document.documentElement.lang = L;
+  langEl.dataset.l = L;
+  langEl.querySelectorAll('button').forEach(b=> b.setAttribute('aria-pressed', String(b.dataset.lang===L)));
+
+  setupReveal();
+  setupSpy();
+  try{ localStorage.setItem(LANG_KEY, L); }catch(e){}
+}
+
+let revealObs;
+function setupReveal(){
+  if(revealObs) revealObs.disconnect();
+  const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const els = document.querySelectorAll('.reveal');
+  if(reduce){ els.forEach(e=>e.classList.add('in')); return; }
+  revealObs = new IntersectionObserver((ents)=>{
+    ents.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); revealObs.unobserve(e.target); } });
+  }, {rootMargin:'0px 0px -12% 0px', threshold:.08});
+  els.forEach(e=>{
+    const r = e.getBoundingClientRect();
+    if(r.top < innerHeight*0.9) e.classList.add('in'); else revealObs.observe(e);
+  });
+}
+
+let spyObs;
+function setupSpy(){
+  if(spyObs) spyObs.disconnect();
+  const links = new Map([...tocOl.querySelectorAll('a')].map(a=>[a.dataset.to, a]));
+  const secs = [...document.querySelectorAll('section.sec')];
+  spyObs = new IntersectionObserver((ents)=>{
+    ents.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.remove('on'));
+        const a = links.get(e.target.id); if(a) a.classList.add('on');
+      }
+    });
+  }, {rootMargin:'-45% 0px -50% 0px', threshold:0});
+  secs.forEach(s=> spyObs.observe(s));
+}
+
+const bar = document.getElementById('progress');
+addEventListener('scroll', ()=>{
+  const h = document.documentElement;
+  const p = h.scrollTop / (h.scrollHeight - h.clientHeight || 1);
+  bar.style.transform = `scaleX(${Math.min(Math.max(p,0),1)})`;
+}, {passive:true});
+
+langEl.addEventListener('click', e=>{
+  const b = e.target.closest('button'); if(!b) return;
+  if(b.dataset.lang === langEl.dataset.l) return;
+  render(b.dataset.lang);
+});
+
+(function(){
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  const lbCap = document.getElementById('lbCap');
+  const lbClose = document.getElementById('lbClose');
+  const CLOSE_LABEL = {en:'Close', no:'Lukk'};
+  let lastFocus = null, hideTimer = null;
+
+  function open(img){
+    const fig = img.closest('figure.fig');
+    const cap = fig ? fig.querySelector('figcaption') : null;
+    lbImg.src = img.currentSrc || img.src;
+    lbImg.alt = img.alt || '';
+    lbCap.textContent = cap ? cap.textContent.trim() : (img.alt || '');
+    lbClose.setAttribute('aria-label', CLOSE_LABEL[document.documentElement.lang] || 'Close');
+    lastFocus = document.activeElement;
+    clearTimeout(hideTimer);
+    lb.hidden = false;
+    document.body.style.overflow = 'hidden';
+    void lb.offsetWidth;
+    lb.classList.add('open');
+    lbClose.focus();
+  }
+  function close(){
+    if(!lb.classList.contains('open')) return;
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+    hideTimer = setTimeout(()=>{ lb.hidden = true; lbImg.removeAttribute('src'); }, 300);
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  document.addEventListener('click', e=>{
+    const img = e.target.closest('figure.fig img');
+    if(img){ open(img); }
+  });
+  lb.addEventListener('click', e=>{ if(e.target !== lbImg) close(); });
+  lbClose.addEventListener('click', close);
+  document.addEventListener('keydown', e=>{ if(e.key === 'Escape') close(); });
+})();
+
+let lang = 'en';
+try{ lang = localStorage.getItem(LANG_KEY) || 'en'; }catch(e){}
+render(lang);
+</script>
+</body>
+</html>

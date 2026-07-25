@@ -599,8 +599,10 @@ body{
         <div class="body"><div class="ttl" data-t="t3"></div><div class="mt" data-t="m3"></div></div>
       </div></div>
     </div>
-    <!-- f4 Hospitals — not clickable yet (awaiting a publishable, original case study) -->
-    <div class="obj grab" data-k="f4" data-tip="project" style="--rot:-3.5deg;--d:1.58s;--lit:2.18s;">
+    <!-- f4 Hospitals — links to the "Paths, not plans" case study -->
+    <div class="obj grab" data-k="f4" data-tip="project" data-href="hospital-wayfinding.html"
+         role="link" tabindex="0" data-a="f4" aria-label="Moving through care — open case study"
+         style="--rot:-3.5deg;--d:1.58s;--lit:2.18s;">
       <div class="inner"><div class="folder">
         <span class="tab"><i></i></span><span class="sheet"></span>
         <div class="body"><div class="ttl" data-t="t4"></div><div class="mt" data-t="m4"></div></div>
@@ -653,7 +655,7 @@ const T = {
     tips :{about:'About me',contact:'Say hi',project:'Read case study'},
     /* verb shown under each icon on hover/focus — the action, not the name */
     act  :{mail:'Copy',li:'Open',cv:'Open PDF'},
-    aria :{mail:'Email Wioleta',li:'LinkedIn profile',cv:'Open CV as PDF',about:'About me. Flip the photo to read.',f1:'Guest check-in — open case study'}
+    aria :{mail:'Email Wioleta',li:'LinkedIn profile',cv:'Open CV as PDF',about:'About me. Flip the photo to read.',f1:'Guest check-in — open case study',f4:'Moving through care — open case study'}
   },
   no:{
     words:['Rom,','systemer,','mennesker.'],
@@ -675,7 +677,7 @@ const T = {
     aboutBody:'Jeg tar med meg en arkitektbakgrunn inn i tjenestedesign for sosiale og offentlige utfordringer. Det hviler på syv år med innsiktsdrevet, helhetlig produktdesign. KI er sentralt i måten jeg jobber på: det gjør research om til fungerende produkter.',
     tips :{about:'Om meg',contact:'Si hei',project:'Les case study'},
     act  :{mail:'Kopier',li:'Åpne',cv:'Åpne PDF'},
-    aria :{mail:'Send e-post',li:'LinkedIn-profil',cv:'Åpne CV som PDF',about:'Om meg. Snu bildet for å lese.',f1:'Gjesteinnsjekk — åpne case study'}
+    aria :{mail:'Send e-post',li:'LinkedIn-profil',cv:'Åpne CV som PDF',about:'Om meg. Snu bildet for å lese.',f1:'Gjesteinnsjekk — åpne case study',f4:'Gjennom omsorgen — åpne case study'}
   }
 };
 
