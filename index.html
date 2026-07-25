@@ -778,9 +778,14 @@ objs.forEach(o=>{
       if(rafId){ cancelAnimationFrame(rafId); rafId = 0; }
       apply();                                  // flush any last pending position
       if(moved){
-        /* bake the transform offset back into left/top, then drop the transform */
+        /* bake the transform offset back into left/top. Force a reflow while
+           .dragging still mutes transitions, so the new left/top is committed
+           with no animation — otherwise dropping re-fires .obj's left/top
+           transition and the folder snaps back to its start, then slides to
+           the drop point (the glitch on release). */
         o.style.left = lastX+'px'; o.style.top = lastY+'px';
         o.style.transform = '';
+        void o.offsetWidth;                       // commit position while transitions are muted
         o.classList.remove('dragging'); dragging = false; save();
         suppressClick = true;                     // the click that follows a drag is not a click
         requestAnimationFrame(()=>{ suppressClick = false; });
