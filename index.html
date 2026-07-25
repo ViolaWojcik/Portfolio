@@ -131,6 +131,12 @@ body{
   60%{opacity:1;}
   100%{opacity:1;transform:translateY(0);}
 }
+/* Once the entrance is over, retire the animation and pin the final state.
+   Dragging re-parents an object in the DOM (detach → board.appendChild), and a
+   re-parented node RESTARTS its CSS animation — which replays `enter`
+   (opacity:0 → 1), so the object blinks out and fades back in on every grab.
+   With the animation gone and opacity pinned, the drag stays smooth. */
+.ready .obj{animation:none;opacity:1;}
 .obj .inner{
   transform:rotate(var(--rot,0deg));
   box-shadow:var(--sh-off);
@@ -153,7 +159,7 @@ body{
   transform:rotate(var(--rot,0deg)) translateY(-3px);
   box-shadow:var(--sh-hover);
 }
-.obj.dragging{z-index:900!important;transition:none;}
+.obj.dragging{z-index:900!important;transition:none;animation:none;opacity:1;will-change:transform;}
 .obj.dragging .inner{
   transition:box-shadow .25s var(--ease),transform .25s var(--ease);
   transition-delay:0s;
@@ -225,16 +231,16 @@ body{
 .ic svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
 .ic .lbl{
   font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--ink-mute);transition:color .3s var(--ease);
+  color:var(--ink-mute);
 }
-/* hover / focus: the disc fills, the glyph goes white, the label wakes */
+/* hover / focus: only the disc responds — the grey label stays put, and the
+   purple cursor tooltip names the action (Copy / Open / Open PDF). */
 .ic:hover .disc{background:var(--accent);color:#fff;transform:translateY(-2px);}
-.ic:hover .lbl{color:var(--accent);}
 .ic:focus-visible{outline:none;}
 .ic:focus-visible .disc{outline:2px solid var(--accent);outline-offset:2px;}
 .info{display:grid;gap:4px;}
 /* location + live weather share one line: "[icon] 25° · Oslo, Norway" */
-.place{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink-soft);}
+.place{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink-soft);}
 .info a{width:fit-content;border-bottom:1px solid transparent;transition:color .3s,border-color .3s;}
 .info a:hover{color:var(--accent);border-bottom-color:var(--accent);}
 
@@ -245,8 +251,8 @@ body{
   opacity:0;transition:opacity .6s var(--ease);
 }
 .wx.in{opacity:1;}
-.wx-icon{display:block;width:15px;height:15px;}
-.wx-icon svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.wx-icon{display:block;width:18px;height:18px;}
+.wx-icon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
 .wx-sep{opacity:.5;}
 
 /* =========================================================
@@ -398,24 +404,6 @@ body{
 }
 #tip.show{opacity:1;transform:translate(-50%,calc(-100% - 14px)) scale(1);}
 
-/* "Email copied" pill — same lilac language as the tooltip, but anchored
-   to the bottom-centre and self-dismissing. Shown only on the desktop copy path. */
-#copied{
-  position:fixed;left:50%;bottom:34px;z-index:960;pointer-events:none;
-  display:flex;align-items:center;gap:7px;
-  padding:9px 16px;border-radius:999px;
-  background:var(--accent);color:#fff;
-  font-family:var(--font-ui);font-size:12px;font-weight:500;letter-spacing:.01em;
-  white-space:nowrap;box-shadow:var(--sh-hover);
-  opacity:0;transform:translate(-50%,8px) scale(.96);
-  transition:opacity .2s var(--ease),transform .28s var(--settle);
-}
-#copied svg{
-  display:block;width:15px;height:15px;fill:none;stroke:currentColor;
-  stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;
-}
-#copied.show{opacity:1;transform:translate(-50%,0) scale(1);}
-
 /* =========================================================
    MOBILE — stack, no drag, no fan
    ========================================================= */
@@ -435,6 +423,13 @@ body{
   .obj[data-k="card"]{order:2;}
   .folder,.card{width:100%;max-width:300px;}
   .folder{height:128px;}
+  /* folders are built entirely from absolutely-positioned parts, so a
+     shrink-to-fit parent collapses them to a sliver on mobile and the title
+     spills out. The contact card shrink-wraps too (clustering its icons so the
+     labels collide). Pin both objects to one definite width; .inner/.folder
+     then fill it, so the whole stack reads as clean, uniform cards. */
+  .obj[data-k^="f"],.obj[data-k="card"]{width:min(300px,calc(100vw - 44px))!important;}
+  .obj[data-k^="f"] .inner,.obj[data-k="card"] .inner{width:100%;}
   #lang{top:18px;right:18px;}
   #reset,#hint{display:none;}
 }
@@ -557,12 +552,6 @@ body{
 
 <div id="tip" aria-hidden="true"></div>
 
-<!-- confirmation pill: flashed after the e-mail address is copied (desktop) -->
-<div id="copied" role="status" aria-live="polite">
-  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5 10 17.5 19 7"/></svg>
-  <span></span>
-</div>
-
 <button id="reset" data-t="reset"></button>
 
 <script>
@@ -581,10 +570,12 @@ const T = {
     m3   :'Patient journeys · Space',
     hint :'Grab, click and explore',
     reset:'Reset layout',
-    copied:'Email copied',
+    copied:'Copied',                           /* mail label after a successful copy */
     cvfile:'Wioleta-Wojcik-CV.pdf',            /* English résumé */
     tips :{about:'About me',contact:'Say hi',project:'Read case study'},
-    aria :{mail:'Send an email',li:'LinkedIn profile',cv:'Open CV as PDF'}
+    /* verb shown under each icon on hover/focus — the action, not the name */
+    act  :{mail:'Copy',li:'Open',cv:'Open PDF'},
+    aria :{mail:'Email Wioleta',li:'LinkedIn profile',cv:'Open CV as PDF'}
   },
   no:{
     words:['Rom,','systemer,','mennesker.'],
@@ -596,9 +587,10 @@ const T = {
     m3   :'Pasientreiser · Rom',
     hint :'Ta tak, klikk og utforsk',
     reset:'Tilbakestill',
-    copied:'E-post kopiert',
+    copied:'Kopiert',                          /* mail label after a successful copy */
     cvfile:'Wioleta-Wojcik-CV-NO.pdf',         /* Norwegian résumé */
     tips :{about:'Om meg',contact:'Si hei',project:'Les case study'},
+    act  :{mail:'Kopier',li:'Åpne',cv:'Åpne PDF'},
     aria :{mail:'Send e-post',li:'LinkedIn-profil',cv:'Åpne CV som PDF'}
   }
 };
@@ -713,9 +705,11 @@ function restore(){
   try{ saved = JSON.parse(localStorage.getItem(POS_KEY)) || {}; }catch(e){}
   objs.forEach(o=>{
     const s = saved[o.dataset.k]; if(!s) return;
+    if(!s.x && !s.y) return;                 // (0,0) is the unset/bogus value — never a real drop
     if(o.parentElement === fan) detach(o);
-    o.style.left = s.x + 'px';
-    o.style.top  = s.y + 'px';
+    const [cx,cy] = clamp(o, s.x, s.y);       // never restore an object out of reach
+    o.style.left = cx + 'px';
+    o.style.top  = cy + 'px';
     o.style.zIndex = ++z;
   });
 }
@@ -724,6 +718,7 @@ function save(){
   const out = {};
   objs.forEach(o=>{
     if(o.parentElement !== board) return;      // still tucked in the fan
+    if(o.dataset.free !== '1') return;         // only remember what the user actually dragged
     out[o.dataset.k] = {x:parseFloat(o.style.left)||0, y:parseFloat(o.style.top)||0};
   });
   try{ localStorage.setItem(POS_KEY, JSON.stringify(out)); }catch(e){}
@@ -742,7 +737,7 @@ objs.forEach(o=>{
     if(mobile()) return;
     if(e.target.closest('a')) return;           // links stay clickable
     const sx = e.clientX, sy = e.clientY;
-    let ox, oy, moved = false;
+    let ox, oy, lastX, lastY, moved = false;
 
     o.setPointerCapture(e.pointerId);
 
@@ -759,14 +754,20 @@ objs.forEach(o=>{
         o.style.zIndex = ++z;
         o.classList.add('dragging');
       }
-      const [nx,ny] = clamp(o, ox+dx, oy+dy);
-      o.style.left = nx+'px'; o.style.top = ny+'px';
+      [lastX, lastY] = clamp(o, ox+dx, oy+dy);
+      /* drive the drag with a GPU-composited transform, not left/top: the object
+         and its heavy layered shadow then track the cursor in lockstep, instead
+         of the shadow trailing a per-frame relayout + shadow repaint */
+      o.style.transform = `translate(${lastX-ox}px, ${lastY-oy}px)`;
     };
     const up = ()=>{
       o.removeEventListener('pointermove',move);
       o.removeEventListener('pointerup',up);
       o.removeEventListener('pointercancel',up);
       if(moved){
+        /* bake the transform offset back into left/top, then drop the transform */
+        o.style.left = lastX+'px'; o.style.top = lastY+'px';
+        o.style.transform = '';
         o.classList.remove('dragging'); dragging = false; save();
         suppressClick = true;                     // the click that follows a drag is not a click
         requestAnimationFrame(()=>{ suppressClick = false; });
@@ -795,21 +796,13 @@ objs.filter(o=> o.dataset.href).forEach(o=>{
 /* the mail icon is device-aware. On a phone the mailto: link is honoured, so
    the native mail app opens. On desktop — where mailto: often dead-ends on a
    blank tab when no mail client is set — we copy the address instead and flash
-   a confirmation. Right-click "copy address" and keyboard focus still work,
-   because the href stays a real mailto:. The address itself is read from that
-   href, so there is only one place to change it. */
+   "Copied" in the cursor tooltip (see flashCopied below). Right-click "copy
+   address" and keyboard focus still work, because the href stays a real
+   mailto:. The address is read from that href — one place to change it. */
 const mailLink = document.querySelector('.ic[data-a="mail"]');
-const copied   = document.getElementById('copied');
-if(mailLink && copied){
-  const addr    = mailLink.getAttribute('href').replace(/^mailto:/, '');
-  const copyLbl = copied.querySelector('span');
-  let hideT;
-  const flash = ()=>{
-    copyLbl.textContent = (T[langEl.dataset.l] || T.en).copied;
-    copied.classList.add('show');
-    clearTimeout(hideT);
-    hideT = setTimeout(()=> copied.classList.remove('show'), 1900);
-  };
+if(mailLink){
+  const addr = mailLink.getAttribute('href').replace(/^mailto:/, '');
+  let pt = {x:0, y:0};
   /* older/insecure contexts lack the async Clipboard API — fall back to a
      throwaway textarea + execCommand so the copy still lands. */
   const fallbackCopy = ()=>{
@@ -817,14 +810,15 @@ if(mailLink && copied){
     ta.value = addr; ta.setAttribute('readonly', '');
     ta.style.position = 'fixed'; ta.style.top = '-1000px'; ta.style.opacity = '0';
     document.body.appendChild(ta); ta.select();
-    try{ document.execCommand('copy'); flash(); }catch(err){}
+    try{ document.execCommand('copy'); flashCopied(pt.x, pt.y); }catch(err){}
     document.body.removeChild(ta);
   };
   mailLink.addEventListener('click', e=>{
     if(mobile()) return;                      // phones: let mailto open the mail app
     e.preventDefault();
+    pt = {x:e.clientX, y:e.clientY};
     if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(addr).then(flash).catch(fallbackCopy);
+      navigator.clipboard.writeText(addr).then(()=>flashCopied(pt.x, pt.y)).catch(fallbackCopy);
     } else {
       fallbackCopy();
     }
@@ -843,18 +837,39 @@ document.getElementById('reset').addEventListener('click', ()=>{
        never labels an object that hasn't arrived yet.
    ========================================================= */
 const tipEl = document.getElementById('tip');
+let copiedFlash = false, copiedT;
+function showTip(text, x, y){
+  tipEl.textContent = text;
+  tipEl.style.left = x + 'px';
+  tipEl.style.top  = y + 'px';
+  tipEl.classList.add('show');
+}
+/* after a successful copy the tooltip flashes "Copied" over the mail icon,
+   pinned for a beat so it reads even if the pointer holds still */
+function flashCopied(x, y){
+  copiedFlash = true;
+  showTip((T[langEl.dataset.l] || T.en).copied, x, y);
+  clearTimeout(copiedT);
+  copiedT = setTimeout(()=>{ copiedFlash = false; }, 1900);
+}
 board.addEventListener('pointermove', e=>{
   if(mobile() || dragging || !document.body.classList.contains('ready')){
     tipEl.classList.remove('show'); return;
   }
-  const g = e.target.closest('.obj.grab');
-  const key = g && g.dataset.tip;
-  const label = key && (T[langEl.dataset.l] || T.en).tips[key];
+  const t = T[langEl.dataset.l] || T.en;
+  const ic = e.target.closest('.ic');
+  let label;
+  if(ic){
+    /* over a contact icon: name the action (Copy / Open / Open PDF),
+       or "Copied" in the moment right after a copy */
+    label = (copiedFlash && ic.dataset.a === 'mail') ? t.copied : t.act[ic.dataset.a];
+  } else {
+    const g = e.target.closest('.obj.grab');
+    const key = g && g.dataset.tip;
+    label = key && t.tips[key];             // otherwise the object's own tip (Say hi, …)
+  }
   if(!label){ tipEl.classList.remove('show'); return; }
-  tipEl.textContent = label;
-  tipEl.style.left = e.clientX + 'px';
-  tipEl.style.top  = e.clientY + 'px';
-  tipEl.classList.add('show');
+  showTip(label, e.clientX, e.clientY);
 });
 board.addEventListener('pointerleave', ()=> tipEl.classList.remove('show'));
 
