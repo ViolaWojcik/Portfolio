@@ -63,10 +63,18 @@
   --settle: cubic-bezier(.16,.84,.44,1);
   --t-lift: .45s;
 
-  /* folder fan geometry — a descending staircase, back-left to front-right */
-  --fold-w:      205px;
-  --fan-step:    126px;  /* horizontal step between stacked folders (titles stay readable) */
-  --fan-step-y:   50px;  /* vertical step between stacked folders */
+  /* folder scatter — a hand-placed constellation, not a mechanical staircase.
+     Each folder gets an explicit offset inside #fan; placeFan() anchors the
+     whole group under the headline. Left→right: Oncology, Hospitals, Itaka,
+     RepApp. Heights alternate high/low so it reads as "laid out by hand".
+     RepApp rides on top (front), Hospitals sits back-most. */
+  --fold-w:      228px;  /* folder card — sized to match the contact card, so the
+                            projects hold their own against photo + card */
+  --fold-h:      142px;
+  --fan-f3-x:      0px;  --fan-f3-y:  44px;  /* Oncology  — leftmost, mid */
+  --fan-f4-x:    220px;  --fan-f4-y:   8px;  /* Hospitals — high, back-most */
+  --fan-f2-x:    405px;  --fan-f2-y:  84px;  /* Itaka     — lowest */
+  --fan-f1-x:    560px;  --fan-f1-y:   0px;  /* RepApp    — high right, on top */
 
   --font-display:'Instrument Serif','Iowan Old Style',Georgia,serif;
   --font-ui:'Inter',ui-sans-serif,-apple-system,'Segoe UI',sans-serif;
@@ -252,8 +260,8 @@ body{
   opacity:0;transition:opacity .6s var(--ease);
 }
 .wx.in{opacity:1;}
-.wx-icon{display:block;width:18px;height:18px;}
-.wx-icon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.wx-icon{display:block;width:21px;height:21px;}
+.wx-icon svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
 .wx-sep{opacity:.5;}
 
 /* =========================================================
@@ -261,19 +269,19 @@ body{
    ========================================================= */
 #fan{
   position:absolute;left:8vw;bottom:11vh;
-  width:calc(var(--fold-w) + var(--fan-step)*3);
-  height:calc(128px + var(--fan-step-y)*3);
+  width:calc(var(--fold-w) + var(--fan-f1-x));
+  height:calc(var(--fold-h) + var(--fan-f2-y));
 }
 #fan .obj{transition:left .45s var(--ease),top .45s var(--ease);}
-/* back → front: a loose left-to-right cascade so each title stays readable.
+/* back → front: a scattered constellation so each title stays readable.
    RepApp sits on top; Hospitals is the back-most card. */
-#fan .obj[data-k="f4"]{left:0;                       top:0;                        z-index:1;}
-#fan .obj[data-k="f3"]{left:var(--fan-step);         top:var(--fan-step-y);        z-index:2;}
-#fan .obj[data-k="f2"]{left:calc(var(--fan-step)*2); top:calc(var(--fan-step-y)*2); z-index:3;}
-#fan .obj[data-k="f1"]{left:calc(var(--fan-step)*3); top:calc(var(--fan-step-y)*3); z-index:4;}
+#fan .obj[data-k="f4"]{left:var(--fan-f4-x); top:var(--fan-f4-y); z-index:1;}
+#fan .obj[data-k="f3"]{left:var(--fan-f3-x); top:var(--fan-f3-y); z-index:2;}
+#fan .obj[data-k="f2"]{left:var(--fan-f2-x); top:var(--fan-f2-y); z-index:3;}
+#fan .obj[data-k="f1"]{left:var(--fan-f1-x); top:var(--fan-f1-y); z-index:4;}
 
 .folder{
-  position:relative;width:var(--fold-w);height:128px;
+  position:relative;width:var(--fold-w);height:var(--fold-h);
   filter:var(--fs-off);
   transition:filter .85s var(--ease);
   transition-delay:var(--lit,0s);
@@ -422,7 +430,7 @@ body{
   #fan{order:1;display:flex;flex-direction:column;align-items:center;gap:26px;}
   .obj[data-k="card"]{order:2;}
   .folder,.card{width:100%;max-width:300px;}
-  .folder{height:128px;}
+  .folder{height:var(--fold-h);}
   /* folders are built entirely from absolutely-positioned parts, so a
      shrink-to-fit parent collapses them to a sliver on mobile and the title
      spills out. The contact card shrink-wraps too (clustering its icons so the
