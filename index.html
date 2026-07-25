@@ -64,11 +64,9 @@
   --t-lift: .45s;
 
   /* folder fan geometry — a descending staircase, back-left to front-right */
-  --fold-w:      186px;
-  --fan-step:     92px;  /* horizontal step at rest  (~50% overlap) */
-  --fan-step-y:   44px;  /* vertical step at rest    */
-  --fan-step-x:  130px;  /* horizontal step on hover */
-  --fan-step-yx:  52px;  /* vertical step on hover   */
+  --fold-w:      205px;
+  --fan-step:    126px;  /* horizontal step between stacked folders (titles stay readable) */
+  --fan-step-y:   50px;  /* vertical step between stacked folders */
 
   --font-display:'Instrument Serif','Iowan Old Style',Georgia,serif;
   --font-ui:'Inter',ui-sans-serif,-apple-system,'Segoe UI',sans-serif;
@@ -149,6 +147,9 @@ body{
 
 .grab{cursor:grab;}
 .grab:active{cursor:grabbing;}
+/* the board is an interactive canvas — dragging must never turn into a text
+   selection (the blue highlight), so nothing on it is user-selectable */
+.obj,#headline{user-select:none;-webkit-user-select:none;}
 /* a clickable object (opens a case study) shows a focus ring for keyboard users */
 .obj[data-href]:focus-visible{outline:none;}
 .obj[data-href]:focus-visible .folder{
@@ -259,18 +260,17 @@ body{
    FOLDER FAN
    ========================================================= */
 #fan{
-  position:absolute;left:9vw;bottom:11vh;
-  width:calc(var(--fold-w) + var(--fan-step-x)*2);
-  height:calc(128px + var(--fan-step-yx)*2);
+  position:absolute;left:8vw;bottom:11vh;
+  width:calc(var(--fold-w) + var(--fan-step)*3);
+  height:calc(128px + var(--fan-step-y)*3);
 }
 #fan .obj{transition:left .45s var(--ease),top .45s var(--ease);}
-/* back → front: Oncology sits highest and furthest left, RepApp on top */
-#fan .obj[data-k="f3"]{left:0;                            top:0;                        z-index:1;}
-#fan .obj[data-k="f2"]{left:var(--fan-step);              top:var(--fan-step-y);        z-index:2;}
-#fan .obj[data-k="f1"]{left:calc(var(--fan-step)*2);      top:calc(var(--fan-step-y)*2);z-index:3;}
-.ready #fan:hover .obj[data-k="f2"]{left:var(--fan-step-x);              top:var(--fan-step-yx);}
-.ready #fan:hover .obj[data-k="f1"]{left:calc(var(--fan-step-x)*2);      top:calc(var(--fan-step-yx)*2);}
-.ready #fan:hover .obj .inner{transform:rotate(var(--rot,0deg)) translateY(-4px);}
+/* back → front: a loose left-to-right cascade so each title stays readable.
+   RepApp sits on top; Hospitals is the back-most card. */
+#fan .obj[data-k="f4"]{left:0;                       top:0;                        z-index:1;}
+#fan .obj[data-k="f3"]{left:var(--fan-step);         top:var(--fan-step-y);        z-index:2;}
+#fan .obj[data-k="f2"]{left:calc(var(--fan-step)*2); top:calc(var(--fan-step-y)*2); z-index:3;}
+#fan .obj[data-k="f1"]{left:calc(var(--fan-step)*3); top:calc(var(--fan-step-y)*3); z-index:4;}
 
 .folder{
   position:relative;width:var(--fold-w);height:128px;
@@ -522,16 +522,23 @@ body{
         <div class="body"><div class="ttl">RepApp</div><div class="mt" data-t="m1"></div></div>
       </div></div>
     </div>
-    <div class="obj grab" data-k="f2" data-tip="project" style="--rot:4.4deg;--d:1.82s;--lit:2.42s;">
+    <div class="obj grab" data-k="f2" data-tip="project" style="--rot:-2.5deg;--d:1.82s;--lit:2.42s;">
       <div class="inner"><div class="folder">
         <span class="tab"><i></i></span><span class="sheet"></span>
         <div class="body"><div class="ttl">Itaka 3.0</div><div class="mt" data-t="m2"></div></div>
       </div></div>
     </div>
-    <div class="obj grab" data-k="f3" data-tip="project" style="--rot:3.2deg;--d:1.70s;--lit:2.30s;">
+    <div class="obj grab" data-k="f3" data-tip="project" style="--rot:4deg;--d:1.70s;--lit:2.30s;">
       <div class="inner"><div class="folder">
         <span class="tab"><i></i></span><span class="sheet"></span>
         <div class="body"><div class="ttl" data-t="t3"></div><div class="mt" data-t="m3"></div></div>
+      </div></div>
+    </div>
+    <!-- f4 Hospitals — not clickable yet (awaiting a publishable, original case study) -->
+    <div class="obj grab" data-k="f4" data-tip="project" style="--rot:-3.5deg;--d:1.58s;--lit:2.18s;">
+      <div class="inner"><div class="folder">
+        <span class="tab"><i></i></span><span class="sheet"></span>
+        <div class="body"><div class="ttl" data-t="t4"></div><div class="mt" data-t="m4"></div></div>
       </div></div>
     </div>
   </div>
@@ -565,9 +572,11 @@ const T = {
     role :'Architect &amp; Service Designer',
     loc  :'Oslo, Norway',
     t3   :'Oncology<br>wayfinding',
+    t4   :'Hospitals',
     m1   :'Service design · Field research',
     m2   :'Research · Platform redesign',
     m3   :'Patient journeys · Space',
+    m4   :'Service design',
     hint :'Grab, click and explore',
     reset:'Reset layout',
     copied:'Copied',                           /* mail label after a successful copy */
@@ -582,9 +591,11 @@ const T = {
     role :'Arkitekt &amp; tjenestedesigner',
     loc  :'Oslo, Norge',
     t3   :'Kreftomsorg<br>veifinning',
+    t4   :'Sykehus',
     m1   :'Tjenestedesign · Feltarbeid',
     m2   :'Brukerinnsikt · Plattformredesign',
     m3   :'Pasientreiser · Rom',
+    m4   :'Tjenestedesign',
     hint :'Ta tak, klikk og utforsk',
     reset:'Tilbakestill',
     copied:'Kopiert',                          /* mail label after a successful copy */
@@ -596,7 +607,6 @@ const T = {
 };
 
 const LANG_KEY = 'wiola-board:lang';
-const POS_KEY  = 'wiola-board:v1';
 
 const board  = document.getElementById('board');
 const fan    = document.getElementById('fan');
@@ -700,29 +710,9 @@ function freeze(){
   });
 }
 
-function restore(){
-  let saved = {};
-  try{ saved = JSON.parse(localStorage.getItem(POS_KEY)) || {}; }catch(e){}
-  objs.forEach(o=>{
-    const s = saved[o.dataset.k]; if(!s) return;
-    if(!s.x && !s.y) return;                 // (0,0) is the unset/bogus value — never a real drop
-    if(o.parentElement === fan) detach(o);
-    const [cx,cy] = clamp(o, s.x, s.y);       // never restore an object out of reach
-    o.style.left = cx + 'px';
-    o.style.top  = cy + 'px';
-    o.style.zIndex = ++z;
-  });
-}
-
-function save(){
-  const out = {};
-  objs.forEach(o=>{
-    if(o.parentElement !== board) return;      // still tucked in the fan
-    if(o.dataset.free !== '1') return;         // only remember what the user actually dragged
-    out[o.dataset.k] = {x:parseFloat(o.style.left)||0, y:parseFloat(o.style.top)||0};
-  });
-  try{ localStorage.setItem(POS_KEY, JSON.stringify(out)); }catch(e){}
-}
+/* positions are deliberately NOT persisted: every load starts from the same
+   composed layout (photo top-right, card bottom-right, folders fanned). The
+   user can rearrange within a session; a refresh resets to the default. */
 
 function clamp(o,x,y){
   const pad = 34;                              // how far an object may hang off
@@ -786,7 +776,7 @@ objs.forEach(o=>{
         o.style.left = lastX+'px'; o.style.top = lastY+'px';
         o.style.transform = '';
         void o.offsetWidth;                       // commit position while transitions are muted
-        o.classList.remove('dragging'); dragging = false; save();
+        o.classList.remove('dragging'); dragging = false;
         suppressClick = true;                     // the click that follows a drag is not a click
         requestAnimationFrame(()=>{ suppressClick = false; });
       }
@@ -844,8 +834,7 @@ if(mailLink){
 }
 
 document.getElementById('reset').addEventListener('click', ()=>{
-  try{ localStorage.removeItem(POS_KEY); }catch(e){}
-  location.reload();
+  location.reload();                           // positions aren't persisted — a reload is the reset
 });
 
 /* =========================================================
@@ -998,7 +987,6 @@ const go = ()=>{
   placeFan();
   freeze();
   clearHeadline();
-  restore();
 };
 if(document.fonts && document.fonts.ready){
   document.fonts.ready.then(()=> setTimeout(go,80));
