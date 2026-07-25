@@ -9,7 +9,7 @@
 <meta property="og:title" content="Wioleta Wójcik — Architect &amp; Service Designer">
 <meta property="og:description" content="Interactive portfolio of Wioleta Maria Wójcik, an Architect turned Service Designer based in Oslo, Norway.">
 <meta property="og:image" content="my photo.png">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23FCFBF8'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' text-anchor='middle' fill='%237A6BA8'%3EW%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%237A6BA8'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-weight='bold' font-size='21' text-anchor='middle' fill='%23FFFFFF'%3EW%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&display=swap" rel="stylesheet">
@@ -210,22 +210,28 @@ body{
   display:flex;flex-direction:column;justify-content:center;gap:18px;
 }
 .card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);opacity:.85;}
-.icons{display:flex;gap:2px;margin-left:-8px;}
+/* reach-out icons: a labelled lilac disc each, legible at rest —
+   not only on hover — so it's clear what each one is */
+.icons{display:flex;justify-content:space-between;gap:8px;margin:2px 2px 0;}
 .ic{
-  position:relative;width:40px;height:40px;display:grid;place-items:center;
-  color:var(--ink-mute);
-  transition:color .3s var(--ease);
+  position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:var(--ink-soft);text-decoration:none;
 }
-/* hover: a soft lilac disc grows behind the glyph, then the glyph takes the accent */
-.ic::before{
-  content:'';position:absolute;inset:2px;border-radius:50%;
-  background:var(--accent);opacity:0;transform:scale(.55);
-  transition:opacity .32s var(--ease),transform .32s var(--ease);
+.ic .disc{
+  width:46px;height:46px;display:grid;place-items:center;border-radius:50%;
+  background:var(--accent-tint);color:var(--accent);
+  transition:background .3s var(--ease),color .3s var(--ease),transform .3s var(--settle);
 }
-.ic svg{position:relative;z-index:1;width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
-.ic:hover{color:var(--accent);}
-.ic:hover::before{opacity:.15;transform:scale(1);}
-.ic:focus-visible{outline:1.5px solid var(--accent);outline-offset:1px;border-radius:50%;}
+.ic svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+.ic .lbl{
+  font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-mute);transition:color .3s var(--ease);
+}
+/* hover / focus: the disc fills, the glyph goes white, the label wakes */
+.ic:hover .disc{background:var(--accent);color:#fff;transform:translateY(-2px);}
+.ic:hover .lbl{color:var(--accent);}
+.ic:focus-visible{outline:none;}
+.ic:focus-visible .disc{outline:2px solid var(--accent);outline-offset:2px;}
 .info{display:grid;gap:4px;}
 /* location + live weather share one line: "[icon] 25° · Oslo, Norway" */
 .place{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink-soft);}
@@ -466,13 +472,16 @@ body{
       <div class="card">
         <div class="icons">
           <a class="ic" href="mailto:wioleta.maria.wojcik@gmail.com" data-a="mail">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="1.5"/><path d="M2.5 6.5 12 13l9.5-6.5"/></svg>
+            <span class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="1.5"/><path d="M2.5 6.5 12 13l9.5-6.5"/></svg></span>
+            <span class="lbl">Gmail</span>
           </a>
           <a class="ic" href="https://www.linkedin.com/in/wioleta-w%C3%B3jcik-7512a389/" target="_blank" rel="noopener" data-a="li">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7.5 10.5V17M7.5 7.6v.1M11.5 17v-3.6a2.1 2.1 0 0 1 4.2 0V17"/></svg>
+            <span class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7.5 10.5V17M7.5 7.6v.1M11.5 17v-3.6a2.1 2.1 0 0 1 4.2 0V17"/></svg></span>
+            <span class="lbl">LinkedIn</span>
           </a>
           <a class="ic" href="Wioleta-Wojcik-CV.pdf" target="_blank" rel="noopener" data-a="cv">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V7.5z"/><path d="M14 3v4.5h4.5M9 13h6M9 16.5h4"/></svg>
+            <span class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V7.5z"/><path d="M14 3v4.5h4.5M9 13h6M9 16.5h4"/></svg></span>
+            <span class="lbl">CV</span>
           </a>
         </div>
         <div class="info">

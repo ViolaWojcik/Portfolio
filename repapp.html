@@ -9,7 +9,7 @@
 <meta property="og:title" content="RepApp — Service design case study · Wioleta Wójcik">
 <meta property="og:description" content="RepApp replaced the paper list travel reps carried into every airport arrival.">
 <meta property="og:image" content="RepApp/assets/checkin-attendance-states.png">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23FCFBF8'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' text-anchor='middle' fill='%237A6BA8'%3EW%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%237A6BA8'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-weight='bold' font-size='21' text-anchor='middle' fill='%23FFFFFF'%3EW%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&display=swap" rel="stylesheet">
@@ -492,10 +492,9 @@ const ASSETS = {
     cap:{en:'The MVP rule as a 2×2 — a feature had to help the rep and earn money to ship. Only the top-right quadrant survived; reporting, the one I wanted most, was cut for later. Redrawn 2026.',
          no:'MVP-regelen som en 2×2 — en funksjon måtte både hjelpe verten og tjene penger for å bli lansert. Bare øvre høyre kvadrant overlevde; rapportering, den jeg ville ha mest, ble kuttet til senere. Tegnet på nytt 2026.'} },
 
-  scale:{ type:'ph', ratio:'wide',
-    desc:{en:'A4 sheet, tablet and phone side by side at true relative size.',
-          no:'A4-ark, nettbrett og telefon side om side i riktig relativ størrelse.'},
-    fmt:{en:'Scale comparison', no:'Størrelsessammenligning'} },
+  scale:{ type:'img', src:'RepApp/assets/scale.png', wide:true,
+    cap:{en:'A4, tablet and phone at true relative size. The tablet stayed close to the page, so the two-handed, guest-facing gesture survived — and left room to play excursion video; the phone was too small to show or to share. Reconstruction, redrawn 2026.',
+         no:'A4, nettbrett og telefon i riktig relativ størrelse. Nettbrettet lå nær arket, så det tohåndige, gjestevendte grepet overlevde — og ga plass til å vise utfluktsvideo; telefonen var for liten til å vise eller dele. Rekonstruksjon, tegnet på nytt 2026.'} },
 
   screens:{ type:'img', src:'RepApp/assets/screens.png', wide:true,
     cap:{en:'The three-tab MVP in sequence — Attendance, Hotels, Transfers — built to follow the arrival in the order it actually happens, on one offline app. Interface reconstruction, redrawn 2026.',
