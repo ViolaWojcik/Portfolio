@@ -167,6 +167,35 @@ h1.title{
 .meta .m .k{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute);}
 .meta .m .v{font-size:14px;color:var(--ink-soft);}
 
+/* at-a-glance summary — the skimmer's fast lane, under the header.
+   Problem → role → outcome, so impact and contribution read in seconds. */
+.glance{
+  margin-top:42px;padding:28px 32px;
+  background:var(--paper);border:1px solid var(--hair);border-radius:8px;
+  box-shadow:var(--sh-rest);
+}
+.glance .g-eyebrow{
+  font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:22px;
+}
+.glance .g-row{padding:18px 0;border-top:1px solid var(--hair);}
+.glance .g-row:first-of-type{padding-top:0;border-top:0;}
+.glance .g-row:last-child{padding-bottom:0;}
+.glance .g-k{
+  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-mute);margin-bottom:9px;
+}
+.glance .g-v{font-size:15.5px;line-height:1.55;color:var(--ink-soft);}
+.glance .g-v strong{color:var(--ink);font-weight:500;}
+.glance .g-out{display:flex;flex-wrap:wrap;gap:16px 34px;}
+.glance .g-out .o{min-width:116px;}
+.glance .g-out .of{
+  font-family:var(--font-display);font-size:clamp(30px,3.4vw,38px);
+  line-height:.95;color:var(--accent);letter-spacing:-.01em;
+}
+.glance .g-out .ol{margin-top:6px;font-size:11.5px;line-height:1.4;color:var(--ink-soft);}
+.glance .g-src{margin-top:16px;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);}
+
 /* sections ----------------------------------------------- */
 section.sec{padding:9vh 0 0;scroll-margin-top:40px;}
 .eyebrow{
@@ -390,6 +419,7 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:46ch;line-hei
       <p class="dek" data-t="dek"></p>
       <div class="meta" id="meta"></div>
     </header>
+    <div id="glance" class="glance reveal"></div>
   </div>
 
   <div id="hero"></div>
@@ -432,10 +462,24 @@ const T = {
     markSub:'Service design case study',
     kicker:'Case study · Service design',
     dek:'RepApp replaced the paper list travel reps carried into every airport arrival.',
+    glance:{
+      eyebrow:'At a glance',
+      problem:{k:'Problem', v:'A rep met every flight with a printed A4 list and 100+ names to check. The same data was entered three times, and the airports often had no signal.'},
+      role:{k:'My role', v:'<strong>UX &amp; Interface Designer.</strong> I spotted the unserved reps during another project and owned the service design from there: field research, MVP definition, interaction design and prototypes, and field testing at airports. Engineering by the in-house dev team, within a small design team.'},
+      outcome:{
+        k:'Outcome',
+        items:[
+          {f:'50%+',  l:'less time at the airport'},
+          {f:'30%+',  l:'less back-office work'},
+          {f:'1.44M', l:'passengers handled in 2023'}
+        ],
+        src:'Reported by Resabee Travel Tech'
+      }
+    },
     footBack:'Back to all projects',
     footNote:'Interface reconstructions redrawn in 2026 — the original design files are not in my possession. The live product has since evolved with the in-house team.',
     meta:[
-      {k:'Role',        v:'Service Designer'},
+      {k:'Role',        v:'UX &amp; Interface Designer'},
       {k:'Discipline',  v:'Service design · Field research'},
       {k:'Context',     v:'Itaka · Travel'},
       {k:'Year',        v:'2020 — 2023'},
@@ -447,10 +491,24 @@ const T = {
     markSub:'Tjenestedesign — case study',
     kicker:'Case study · Tjenestedesign',
     dek:'RepApp erstattet papirlista reiselivsvertene bar med inn i hver eneste ankomst på flyplassen.',
+    glance:{
+      eyebrow:'Kort fortalt',
+      problem:{k:'Problem', v:'En vert møtte hvert fly med en utskrevet A4-liste og 100+ navn å sjekke av. De samme dataene ble lagt inn tre ganger, og flyplassene hadde ofte ingen dekning.'},
+      role:{k:'Min rolle', v:'<strong>UX- og grensesnittdesigner.</strong> Jeg oppdaget de oversette vertene under et annet prosjekt og eide tjenestedesignet derfra: feltarbeid, MVP-definisjon, interaksjonsdesign og prototyper, og testing på flyplass. Utvikling av in-house-teamet, i et lite designteam.'},
+      outcome:{
+        k:'Resultat',
+        items:[
+          {f:'50%+',      l:'mindre tid på flyplassen'},
+          {f:'30%+',      l:'mindre backoffice-arbeid'},
+          {f:'1,44 mill.', l:'passasjerer håndtert i 2023'}
+        ],
+        src:'Rapportert av Resabee Travel Tech'
+      }
+    },
     footBack:'Tilbake til alle prosjekter',
     footNote:'Grensesnittene er tegnet på nytt i 2026 — de originale designfilene er ikke i min besittelse. Det live produktet har siden utviklet seg videre med det interne teamet.',
     meta:[
-      {k:'Rolle',       v:'Tjenestedesigner'},
+      {k:'Rolle',       v:'UX- og grensesnittdesigner'},
       {k:'Fagfelt',     v:'Tjenestedesign · Feltarbeid'},
       {k:'Kontekst',    v:'Itaka · Reiseliv'},
       {k:'År',          v:'2020 — 2023'},
@@ -489,8 +547,8 @@ const ASSETS = {
          no:'Konkurrent-sliden fra pitchen som gikk gjennom — alle operatører utstyrer allerede vertene sine; Itaka var den siste på papir. Omformulert fra «effektivitet for vertene» til et gap rommet kunne se. Rekonstruksjon, tegnet på nytt 2026; konkurrenter anonymisert, rutenett illustrativt.'} },
 
   matrix:{ type:'img', src:'RepApp/assets/priorities-matrix.png', wide:true,
-    cap:{en:'The MVP rule as a 2×2 — a feature had to help the rep and earn money to ship. Only the top-right quadrant survived; reporting, the one I wanted most, was cut for later. Redrawn 2026.',
-         no:'MVP-regelen som en 2×2 — en funksjon måtte både hjelpe verten og tjene penger for å bli lansert. Bare øvre høyre kvadrant overlevde; rapportering, den jeg ville ha mest, ble kuttet til senere. Tegnet på nytt 2026.'} },
+    cap:{en:'The MVP rule as a 2×2 — a feature had to help the rep and earn money to ship. Only the top-right quadrant survived; reporting, the feature the reps needed most, was cut for later. Redrawn 2026.',
+         no:'MVP-regelen som en 2×2 — en funksjon måtte både hjelpe verten og tjene penger for å bli lansert. Bare øvre høyre kvadrant overlevde; rapportering, funksjonen vertene trengte mest, ble kuttet til senere. Tegnet på nytt 2026.'} },
 
   scale:{ type:'img', src:'RepApp/assets/scale.png', wide:true,
     cap:{en:'A4, tablet and phone at true relative size. The tablet stayed close to the page, so the two-handed, guest-facing gesture survived — and left room to play excursion video; the phone was too small to show or to share. Reconstruction, redrawn 2026.',
@@ -517,11 +575,11 @@ const SECTIONS = [
   {
     id:'origin', nav:{en:'The find',no:'Funnet'},
     eyebrow:{en:'01 · Origin',no:'01 · Opphav'},
-    h:{en:'I found this project myself, while redesigning something else',
-       no:'Jeg fant dette prosjektet selv, mens jeg redesignet noe annet'},
+    h:{en:'Nobody had designed anything for the destination reps yet',
+       no:'Ingen hadde designet noe for destinasjonsvertene ennå'},
     body:{
-      en:['I was on Itaka’s platform redesign when I came across the destination reps. They meet flights, run transfers and sell excursions across more than 100 destinations, and nobody had designed anything for them. I went and got a brief made.'],
-      no:['Jeg jobbet med redesignet av Itakas plattform da jeg kom over destinasjonsvertene. De møter fly, kjører transport og selger utflukter på over 100 destinasjoner, og ingen hadde designet noe for dem. Jeg sørget for å få laget en brief.']
+      en:['The project surfaced during Itaka’s platform redesign. The destination reps meet flights, run transfers and sell excursions across more than 100 destinations, and no one had built a tool for them. That gap became a brief.'],
+      no:['Prosjektet dukket opp under redesignet av Itakas plattform. Destinasjonsvertene møter fly, kjører transport og selger utflukter på over 100 destinasjoner, og ingen hadde bygd et verktøy for dem. Det gapet ble til en brief.']
     },
     assets:['context']
   },
@@ -547,35 +605,35 @@ const SECTIONS = [
   {
     id:'pitch', nav:{en:'The pitch',no:'Pitchen'},
     eyebrow:{en:'03 · Buy-in',no:'03 · Forankring'},
-    h:{en:'Management said no, because I had argued the wrong case',
-       no:'Ledelsen sa nei, fordi jeg hadde argumentert for feil sak'},
+    h:{en:'The first pitch failed, because it made the wrong case',
+       no:'Den første pitchen strandet, fordi den la fram feil sak'},
     body:{
-      en:['I pitched efficiency for the reps. The room was deciding on budget, and travel had just stopped. I came back with research and with what competitors were doing, and it passed. My argument had been correct and irrelevant at once.'],
-      no:['Jeg pitchet effektivitet for vertene. Rommet skulle bestemme budsjett, og reiselivet hadde nettopp stoppet opp. Jeg kom tilbake med research og med hva konkurrentene gjorde, og det gikk gjennom. Argumentet mitt hadde vært riktig og irrelevant på én gang.']
+      en:['The first pitch led with efficiency for the reps. The room was deciding on budget, and travel had just stopped. A second pitch, built on research and on what competitors were already doing, passed. The first argument had been correct and irrelevant at once.'],
+      no:['Den første pitchen ledet med effektivitet for vertene. Rommet skulle bestemme budsjett, og reiselivet hadde nettopp stoppet opp. En ny pitch, bygd på research og på hva konkurrentene allerede gjorde, gikk gjennom. Det første argumentet hadde vært riktig og irrelevant på én gang.']
     },
     assets:['slide']
   },
   {
     id:'research', nav:{en:'Research window',no:'Innsiktsvindu'},
     eyebrow:{en:'04 · Research',no:'04 · Innsikt'},
-    h:{en:'The pandemic emptied the destinations and gave me my research window',
-       no:'Pandemien tømte destinasjonene og ga meg innsiktsvinduet mitt'},
+    h:{en:'The pandemic emptied the destinations and opened the research window',
+       no:'Pandemien tømte destinasjonene og åpnet innsiktsvinduet'},
     body:{
-      en:['Reps are normally impossible to reach, abroad and in motion through peak season. In 2020 they were employed with almost no guests. I spent two to three months interviewing around ten, then designed the observation instrument our Product Owner used at destination airports.'],
-      no:['Verter er normalt umulige å få tak i — i utlandet og i bevegelse gjennom høysesongen. I 2020 var de ansatt med nesten ingen gjester. Jeg brukte to til tre måneder på å intervjue rundt ti, og designet deretter observasjonsverktøyet vår Product Owner brukte på destinasjonsflyplassene.']
+      en:['Reps are normally impossible to reach, abroad and in motion through peak season. In 2020 they were employed with almost no guests. Two to three months went into interviewing around ten of them, and into building the observation instrument our Product Owner then used at destination airports.'],
+      no:['Verter er normalt umulige å få tak i — i utlandet og i bevegelse gjennom høysesongen. I 2020 var de ansatt med nesten ingen gjester. To til tre måneder gikk med til å intervjue rundt ti av dem, og til å bygge observasjonsverktøyet vår Product Owner deretter brukte på destinasjonsflyplassene.']
     }
   },
   {
     id:'scope', nav:{en:'The MVP rule',no:'MVP-regelen'},
     eyebrow:{en:'05 · Scope',no:'05 · Omfang'},
-    h:{en:'I only built features that helped the rep and earned money at the same time',
-       no:'Jeg bygde bare funksjoner som hjalp verten og tjente penger samtidig'},
+    h:{en:'Only features that helped the rep and earned money at once could ship',
+       no:'Bare funksjoner som både hjalp verten og tjente penger med en gang kunne lanseres'},
     body:{
-      en:['With no budget, anything doing only one of those jobs could not survive review. That rule decided the scope, and cost me the feature I most wanted.'],
-      no:['Uten budsjett kunne ingenting som bare gjorde én av de jobbene overleve vurderingen. Den regelen avgjorde omfanget, og kostet meg funksjonen jeg ønsket meg mest.']
+      en:['With no budget, anything doing only one of those jobs could not survive review. That rule decided the scope, and cut the feature the reps needed most.'],
+      no:['Uten budsjett kunne ingenting som bare gjorde én av de jobbene overleve vurderingen. Den regelen avgjorde omfanget, og kuttet funksjonen vertene trengte mest.']
     },
     sub:{
-      h:{en:'What I scoped out',no:'Det jeg tok ut av omfanget'},
+      h:{en:'What was scoped out',no:'Det som ble tatt ut av omfanget'},
       list:{
         en:['<strong>Reporting and system integration.</strong> What reps needed most. It shipped later.',
             '<strong>Contactless check-in.</strong> Blocked on the consumer app’s backlog, not on us.',
@@ -594,8 +652,8 @@ const SECTIONS = [
     h:{en:'The reps chose the tablet, and their reasoning was about their hands',
        no:'Vertene valgte nettbrettet, og begrunnelsen deres handlet om hendene'},
     body:{
-      en:['I brought both options to them. They had worked from A4 held in both hands and turned toward the guest. A phone would have changed the format and the tool in one week. The tablet kept the gesture, and let them show excursion video while selling.'],
-      no:['Jeg tok med begge alternativene til dem. De hadde jobbet fra A4 holdt i begge hender og vendt mot gjesten. En telefon ville ha endret formatet og verktøyet på én uke. Nettbrettet beholdt bevegelsen, og lot dem vise utfluktsvideo mens de solgte.']
+      en:['Both options went to the reps. They had worked from A4 held in both hands and turned toward the guest. A phone would have changed the format and the tool in one week. The tablet kept the gesture, and let them show excursion video while selling.'],
+      no:['Begge alternativene gikk til vertene. De hadde jobbet fra A4 holdt i begge hender og vendt mot gjesten. En telefon ville ha endret formatet og verktøyet på én uke. Nettbrettet beholdt bevegelsen, og lot dem vise utfluktsvideo mens de solgte.']
     },
     assets:['scale']
   },
@@ -629,8 +687,8 @@ const SECTIONS = [
     h:{en:'We built check-in around the passenger, and field testing proved that wrong',
        no:'Vi bygde innsjekken rundt passasjeren, og felttesting viste at det var feil'},
     body:{
-      en:['Our database stores people individually, so that is how I built it. In the field a family of five walked up as one group and the rep tapped five times. On paper, one stroke of a pen covered all five. Digitising our data model would have made the job slower than paper. We rebuilt check-in around the reservation.'],
-      no:['Databasen vår lagrer mennesker enkeltvis, så det var slik jeg bygde det. I felt kom en familie på fem opp som én gruppe, og verten trykket fem ganger. På papir dekket ett pennestrøk alle fem. Å digitalisere datamodellen vår ville gjort jobben tregere enn papir. Vi bygde innsjekken om rundt reservasjonen.']
+      en:['Our database stores people individually, so that is how the first build worked. In the field a family of five walked up as one group and the rep tapped five times. On paper, one stroke of a pen covered all five. Digitising the data model would have made the job slower than paper, so we rebuilt check-in around the reservation.'],
+      no:['Databasen vår lagrer mennesker enkeltvis, så det var slik den første versjonen fungerte. I felt kom en familie på fem opp som én gruppe, og verten trykket fem ganger. På papir dekket ett pennestrøk alle fem. Å digitalisere datamodellen ville gjort jobben tregere enn papir, så vi bygde innsjekken om rundt reservasjonen.']
     },
     assets:['states']
   },
@@ -667,30 +725,30 @@ const SECTIONS = [
   {
     id:'gamification', nav:{en:'Gamification',no:'Gamifisering'},
     eyebrow:{en:'11 · The tension',no:'11 · Dilemmaet'},
-    h:{en:'Gamification lifted sales, and I am still uneasy about it',
-       no:'Gamifisering løftet salget, og jeg er fortsatt urolig for det'},
+    h:{en:'Gamification lifted sales, and the unease it left has stayed',
+       no:'Gamifisering løftet salget, og ubehaget det etterlot har blitt værende'},
     body:{
-      en:['When reporting shipped we added points and team rankings showing who sold most each month. Sales rose sharply. The pressure to repay the hardware was real, and so is my discomfort with publishing individual figures inside a team that lives and works together.'],
-      no:['Da rapporteringen ble lansert la vi til poeng og lagrangeringer som viste hvem som solgte mest hver måned. Salget steg kraftig. Presset for å tjene inn maskinvaren var reelt, og det er også ubehaget mitt ved å publisere individuelle tall i et team som lever og jobber sammen.']
+      en:['When reporting shipped, we added points and team rankings showing who sold most each month. Sales rose sharply. The pressure to repay the hardware was real, and so is the discomfort of publishing individual figures inside a team that lives and works together.'],
+      no:['Da rapporteringen ble lansert, la vi til poeng og lagrangeringer som viste hvem som solgte mest hver måned. Salget steg kraftig. Presset for å tjene inn maskinvaren var reelt, og det samme er ubehaget ved å publisere individuelle tall i et team som lever og jobber sammen.']
     },
     assets:['team']
   },
   {
     id:'reflection', nav:{en:'Reflection',no:'Refleksjon'},
     eyebrow:{en:'12 · Lessons',no:'12 · Lærdom'},
-    h:{en:'What I learned and what I would do differently',
-       no:'Hva jeg lærte og hva jeg ville gjort annerledes'},
+    h:{en:'What the project taught, and what would change next time',
+       no:'Det prosjektet lærte bort, og hva som ville endret seg neste gang'},
     list:{
-      en:['<strong>A correct argument is not a persuasive one.</strong> I had to find the criteria the room used.',
+      en:['<strong>A correct argument is not a persuasive one.</strong> The criteria the room used had to be found first.',
           '<strong>Both product-changing findings came from watching, not asking.</strong>',
           '<strong>Systems carry assumptions about their users.</strong> Passenger-level check-in came from the schema, not a choice.',
-          '<strong>I would negotiate resources before saying yes</strong>, not after.',
-          '<strong>I never tested whether reps trusted the sync.</strong> A rep who does not keeps a paper backup, and the paper stays.'],
-      no:['<strong>Et riktig argument er ikke et overbevisende ett.</strong> Jeg måtte finne kriteriene rommet brukte.',
+          '<strong>Resources are worth negotiating before saying yes</strong>, not after.',
+          '<strong>Whether the reps trusted the sync went untested.</strong> A rep who does not keeps a paper backup, and the paper stays.'],
+      no:['<strong>Et riktig argument er ikke et overbevisende ett.</strong> Kriteriene rommet brukte måtte finnes først.',
           '<strong>Begge de produktendrende funnene kom fra å se på, ikke å spørre.</strong>',
           '<strong>Systemer bærer antakelser om brukerne sine.</strong> Innsjekk på passasjernivå kom fra skjemaet, ikke fra et valg.',
-          '<strong>Jeg ville forhandlet om ressurser før jeg sa ja</strong>, ikke etterpå.',
-          '<strong>Jeg testet aldri om vertene stolte på synkroniseringen.</strong> En vert som ikke gjør det, beholder en papirkopi, og papiret blir værende.'],
+          '<strong>Ressurser er verdt å forhandle om før man sier ja</strong>, ikke etterpå.',
+          '<strong>Om vertene stolte på synkroniseringen ble aldri testet.</strong> En vert som ikke gjør det, beholder en papirkopi, og papiret blir værende.'],
       type:'ul'
     },
     close:{
@@ -744,6 +802,19 @@ function statsHTML(s, L){
   return `<div class="stats reveal"><div class="src">${s.src[L]}</div><div class="row">${items}</div></div>`;
 }
 
+/* at-a-glance card: problem / role / outcome, built from T[L].glance */
+function glanceHTML(g){
+  const out = g.outcome.items.map(o=>
+    `<div class="o"><div class="of">${o.f}</div><div class="ol">${o.l}</div></div>`).join('');
+  return `<div class="g-eyebrow">${g.eyebrow}</div>
+    <div class="g-row"><div class="g-k">${g.problem.k}</div><div class="g-v">${g.problem.v}</div></div>
+    <div class="g-row"><div class="g-k">${g.role.k}</div><div class="g-v">${g.role.v}</div></div>
+    <div class="g-row"><div class="g-k">${g.outcome.k}</div>
+      <div class="g-out">${out}</div>
+      <div class="g-src">${g.outcome.src}</div>
+    </div>`;
+}
+
 function render(L){
   const t = T[L];
 
@@ -756,6 +827,9 @@ function render(L){
   /* meta chips */
   document.getElementById('meta').innerHTML = t.meta.map(m=>
     `<div class="m"><span class="k">${m.k}</span><span class="v">${m.v}</span></div>`).join('');
+
+  /* at-a-glance summary card */
+  document.getElementById('glance').innerHTML = glanceHTML(t.glance);
 
   /* hero image, wider than the reading column, under the header */
   document.getElementById('hero').innerHTML = assetHTML('hero', L);

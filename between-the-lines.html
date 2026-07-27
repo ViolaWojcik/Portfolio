@@ -8,7 +8,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Between the Lines — Product design case study · Wioleta Wójcik">
 <meta property="og:description" content="A self-knowledge journal that reflects your own patterns back to you, never as a diagnosis.">
-<meta property="og:image" content="between-the-lines/assets/hero.png">
+<meta property="og:image" content="between-the-lines/assets/hero-mobile-insights.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%237A6BA8'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-weight='bold' font-size='21' text-anchor='middle' fill='%23FFFFFF'%3EW%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -167,6 +167,47 @@ h1.title{
 .meta .m .k{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute);}
 .meta .m .v{font-size:14px;color:var(--ink-soft);}
 
+/* at-a-glance summary — the skimmer's fast lane, under the header.
+   Problem → role → a live product: try-it link + tech stack, so this card
+   sells "designed and shipped" and reads differently from the other cases. */
+.glance{
+  margin-top:42px;padding:28px 32px;
+  background:var(--paper);border:1px solid var(--hair);border-radius:8px;
+  box-shadow:var(--sh-rest);
+}
+.glance .g-eyebrow{
+  font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:22px;
+}
+.glance .g-row{padding:18px 0;border-top:1px solid var(--hair);}
+.glance .g-row:first-of-type{padding-top:0;border-top:0;}
+.glance .g-row:last-child{padding-bottom:0;}
+.glance .g-k{
+  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-mute);margin-bottom:9px;
+}
+.glance .g-v{font-size:15.5px;line-height:1.55;color:var(--ink-soft);}
+.glance .g-v strong{color:var(--ink);font-weight:500;}
+.glance .g-lead{font-size:15.5px;line-height:1.55;color:var(--ink-soft);}
+.glance .g-live-link{
+  display:inline-flex;align-items:center;gap:7px;margin-top:14px;
+  font-size:13px;font-weight:500;color:var(--paper);
+  background:var(--accent);border-radius:22px;padding:9px 16px;text-decoration:none;
+  transition:transform .2s var(--ease),box-shadow .2s var(--ease);
+}
+.glance .g-live-link:hover{transform:translateY(-1px);box-shadow:var(--sh-rest);}
+.glance .g-live-link:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+.glance .g-live-link svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+.glance .g-stack-k{
+  margin:20px 0 10px;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute);
+}
+.glance .g-chips{display:flex;flex-wrap:wrap;gap:7px;}
+.glance .g-chip{
+  font-size:11.5px;color:var(--ink-soft);background:var(--accent-tint);
+  border-radius:6px;padding:5px 10px;
+}
+.glance .g-src{margin-top:16px;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);}
+
 /* sections ----------------------------------------------- */
 section.sec{padding:9vh 0 0;scroll-margin-top:40px;}
 .eyebrow{
@@ -223,6 +264,11 @@ figcaption .tag{
 figcaption em{font-style:italic;color:var(--ink-mute);}
 figure.fig img{cursor:zoom-in;transition:box-shadow .3s var(--ease);}
 figure.fig img:hover{box-shadow:0 18px 40px -22px rgba(26,25,23,.5);}
+/* real screen captures: phone-portrait frames stay contained, a long
+   scroll capture is capped inline and opens in full via the lightbox */
+figure.fig.phone{max-width:340px;margin-left:auto;margin-right:auto;}
+figure.fig.scroll{max-width:340px;margin-left:auto;margin-right:auto;}
+figure.fig.scroll img{max-height:620px;object-fit:cover;object-position:top;}
 
 /* lightbox — click any figure image to enlarge it -------- */
 .lb{
@@ -390,6 +436,7 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:46ch;line-hei
       <p class="dek" data-t="dek"></p>
       <div class="meta" id="meta"></div>
     </header>
+    <div id="glance" class="glance reveal"></div>
   </div>
 
   <div id="hero"></div>
@@ -434,12 +481,25 @@ const T = {
     kicker:'Case study · Product design',
     title:'Between the Lines',
     dek:'A journal that reflects your own patterns back to you, in your own words and never as a diagnosis.',
+    glance:{
+      eyebrow:'At a glance',
+      problem:{k:'Problem', v:'Journaling tools sit at two extremes, a blank page or a mood emoji, and more people now take their inner life to a general chatbot that only agrees with them.'},
+      role:{k:'My role', v:'<strong>Product &amp; UX Designer, solo design and build.</strong> Made during the AI Product Masterclass (Nueve Design, 2026, five-week intensive) and taken past the brief into a working product, with AI as an accelerator throughout.'},
+      live:{
+        k:'Built &amp; shipped',
+        lead:'A real, clickable product, not a mockup, running end to end.',
+        link:{href:'https://between-the-lines-journal.vercel.app/', label:'Try it live'},
+        stackLabel:'Stack',
+        stack:['Vite','React','TypeScript','Tailwind','shadcn/ui','Tiptap','Vercel functions','xAI Grok','Groq Whisper'],
+        note:'On-device by default; text leaves the device only on “Reflect deeper”.'
+      }
+    },
     footBack:'Back to all projects',
-    footNote:'Self-initiated product, designed and built in 2026 on a mentored course and taken further as a working demo. No real users yet, so outcomes are qualitative, and any insight text shown is illustrative and labelled. A public link to try it is planned, so this case study is expected to keep growing.',
+    footNote:'Designed and built in 2026 during the AI Product Masterclass (Nueve Design), then taken further as a working demo. No real users yet, so outcomes are qualitative, and any insight text shown is illustrative and labelled. It runs as a live, clickable demo, and this case study will keep growing as real screenshots replace placeholders.',
     meta:[
       {k:'Role',       v:'Product & UX Designer'},
       {k:'Scope',      v:'Design and build, solo'},
-      {k:'Context',    v:'Self-initiated · Mentored course'},
+      {k:'Context',    v:'AI Product Masterclass · Nueve Design'},
       {k:'Year',       v:'2026'},
       {k:'Build',      v:'React · TypeScript · Vercel'}
     ]
@@ -451,12 +511,25 @@ const T = {
     kicker:'Case study · Produktdesign',
     title:'Mellom linjene',
     dek:'En dagbok som speiler dine egne mønstre tilbake til deg, med dine egne ord og aldri som en diagnose.',
+    glance:{
+      eyebrow:'Kort fortalt',
+      problem:{k:'Problem', v:'Dagbøker havner på to ytterpunkter, en blank side eller en humør-emoji, og flere tar nå innerlivet sitt til en generell chatbot som bare er enig med dem.'},
+      role:{k:'Min rolle', v:'<strong>Produkt- og UX-designer, design og bygg alene.</strong> Laget under AI Product Masterclass (Nueve Design, 2026, fem ukers intensiv) og tatt forbi oppgaven til et fungerende produkt, med KI som akselerator hele veien.'},
+      live:{
+        k:'Bygget og lansert',
+        lead:'Et ekte, klikkbart produkt, ikke en mockup, som kjører ende til ende.',
+        link:{href:'https://between-the-lines-journal.vercel.app/', label:'Prøv det live'},
+        stackLabel:'Teknologi',
+        stack:['Vite','React','TypeScript','Tailwind','shadcn/ui','Tiptap','Vercel functions','xAI Grok','Groq Whisper'],
+        note:'På enheten som standard; tekst forlater enheten kun ved «Reflect deeper».'
+      }
+    },
     footBack:'Tilbake til alle prosjekter',
-    footNote:'Eget initiativ, designet og bygget i 2026 på et mentorkurs og tatt videre som en fungerende demo. Ingen ekte brukere ennå, så resultatene er kvalitative, og all innsiktstekst som vises er illustrerende og merket. En offentlig lenke for å prøve produktet er planlagt, så denne case-studien vil trolig vokse videre.',
+    footNote:'Designet og bygget i 2026 under AI Product Masterclass (Nueve Design), og tatt videre som en fungerende demo. Ingen ekte brukere ennå, så resultatene er kvalitative, og all innsiktstekst som vises er illustrerende og merket. Den kjører som en live, klikkbar demo, og denne case-studien vil vokse videre etter hvert som ekte skjermbilder erstatter plassholdere.',
     meta:[
       {k:'Rolle',      v:'Produkt- og UX-designer'},
       {k:'Omfang',     v:'Design og bygg, alene'},
-      {k:'Kontekst',   v:'Eget initiativ · Mentorkurs'},
+      {k:'Kontekst',   v:'AI Product Masterclass · Nueve Design'},
       {k:'År',         v:'2026'},
       {k:'Bygg',       v:'React · TypeScript · Vercel'}
     ]
@@ -467,15 +540,13 @@ const T = {
    screen captures once the demo is recorded. Until then each is a styled
    placeholder that doubles as a brief for the capture session. ---- */
 const ASSETS = {
-  hero:{ type:'ph', ratio:'tall',
-    desc:{en:'The app on a phone with the Between the Lines card open, a calm mood-and-energy trend curve inside it.',
-          no:'Appen på en telefon med Mellom linjene-kortet åpent, en rolig humør- og energikurve inni.'},
-    fmt:{en:'Hero screen capture · from the running demo', no:'Hero-skjermbilde · fra den kjørende demoen'} },
+  hero:{ type:'img', src:'between-the-lines/assets/hero-mobile-insights.png', shape:'phone',
+    cap:{en:'Between the Lines on mobile — the insight card with the week\'s mood-and-energy trend.',
+         no:'Mellom linjene på mobil — innsiktskortet med ukens humør- og energitrend.'} },
 
-  context:{ type:'ph', ratio:'wide',
-    desc:{en:'The app running on desktop and phone side by side, a real, usable build rather than a static mockup.',
-          no:'Appen kjørende på desktop og telefon side om side, en ekte, brukbar build og ikke en statisk mockup.'},
-    fmt:{en:'Screen capture · from the running demo', no:'Skjermbilde · fra den kjørende demoen'} },
+  context:{ type:'img', src:'between-the-lines/assets/desktop-journal-insights.png', wide:true,
+    cap:{en:'The running build on desktop — the journal and its insights, not a static mockup.',
+         no:'Den kjørende buildet på desktop — dagboken og innsiktene, ikke en statisk mockup.'} },
 
   chatbot:{ type:'ph', ratio:'land',
     desc:{en:'A person confiding in a chat bubble that nods back at everything they say. Uneasy, not reassuring.',
@@ -497,30 +568,26 @@ const ASSETS = {
           no:'Kunnskapsgrunnlaget tegnet enkelt, med «ikke en diagnose» som løper under det hele.'},
     fmt:{en:'Diagram · to be produced', no:'Diagram · lages'} },
 
-  flow:{ type:'ph', ratio:'wide',
-    desc:{en:'The two-step flow: a clean editor, then the reflect step appearing after writing. Short motion capture.',
-          no:'To-stegs-flyten: en ren editor, så refleksjonssteget som dukker opp etter skriving. Kort videoopptak.'},
-    fmt:{en:'Screen recording · from the running demo', no:'Skjermopptak · fra den kjørende demoen'} },
+  flow:{ type:'img', src:'between-the-lines/assets/journey.webp', shape:'phone',
+    cap:{en:'The two-step entry in motion — write first, then the reflect step appears.',
+         no:'To-stegs-notatet i bevegelse — skriv først, så dukker refleksjonssteget opp.'} },
 
-  home:{ type:'ph', ratio:'tall',
-    desc:{en:'The clean Journal home: entry list, the insight card, and one primary New entry button.',
-          no:'Den rene dagbok-hjemmesiden: liste over notater, innsiktskortet, og én primær Nytt notat-knapp.'},
-    fmt:{en:'Screen capture · from the running demo', no:'Skjermbilde · fra den kjørende demoen'} },
+  home:{ type:'img', src:'between-the-lines/assets/mobile-timeline.png', shape:'scroll',
+    cap:{en:'The Journal home — the entry timeline with the insight card and a single New entry action.',
+         no:'Dagbok-hjemmesiden — notat-tidslinjen med innsiktskortet og én Nytt notat-handling.'} },
 
-  grid:{ type:'ph', ratio:'land',
-    desc:{en:'The Affect Grid with a dot placed and the live "Good · Steady" read-out, both axes labelled.',
-          no:'Affect Grid med en prikk plassert og den levende «Bra · Stødig»-avlesningen, begge akser merket.'},
-    fmt:{en:'Screen capture · from the running demo', no:'Skjermbilde · fra den kjørende demoen'} },
+  grid:{ type:'img', src:'between-the-lines/assets/flow-2-reflect-affectgrid.png', shape:'phone',
+    cap:{en:'The reflect step — the Affect Grid places one dot and reads it back as mood and energy.',
+         no:'Refleksjonssteget — Affect Grid plasserer én prikk og leser den tilbake som humør og energi.'} },
 
   dictation:{ type:'ph', ratio:'wide',
     desc:{en:'Left: the browser speech API, Chrome only. Right: record then transcribe with Whisper, working across browsers.',
           no:'Venstre: nettleserens tale-API, kun Chrome. Høyre: ta opp og transkriber med Whisper, fungerer på tvers av nettlesere.'},
     fmt:{en:'Diagram · to be produced', no:'Diagram · lages'} },
 
-  card:{ type:'ph', ratio:'tall',
-    desc:{en:'The Between the Lines card: on-device conclusion, trend chart, a Reflect deeper button, and the honest privacy microcopy.',
-          no:'Mellom linjene-kortet: konklusjon beregnet på enheten, trendgraf, en Reflekter dypere-knapp, og den ærlige personvern-mikroteksten.'},
-    fmt:{en:'Screen capture · from the running demo', no:'Skjermbilde · fra den kjørende demoen'} },
+  card:{ type:'img', src:'between-the-lines/assets/mobile-reflection-detail.png', shape:'phone',
+    cap:{en:'A reflection in detail — the on-device conclusion with the honest privacy note underneath.',
+         no:'En refleksjon i detalj — konklusjonen beregnet på enheten, med den ærlige personvern-teksten under.'} },
 
   trend:{ type:'ph', ratio:'land',
     desc:{en:'The mood-and-energy trend chart, two smooth curves running through the week.',
@@ -762,7 +829,7 @@ function assetHTML(id, L){
   const a = ASSETS[id]; if(!a) return '';
   const wideCls = a.wide ? ' wide' : '';
   if(a.type === 'img'){
-    return `<figure class="fig reveal${wideCls}">
+    return `<figure class="fig reveal${a.shape ? ' '+a.shape : wideCls}">
       <img src="${a.src}" alt="${a.cap[L].replace(/"/g,'&quot;')}" loading="lazy">
       <figcaption><span>${a.cap[L]}</span></figcaption>
     </figure>`;
@@ -792,6 +859,22 @@ function statsHTML(s, L){
   return `<div class="stats reveal"><div class="src">${s.src[L]}</div><div class="row">${items}</div></div>`;
 }
 
+/* at-a-glance card: problem / role / a shipped product (try-it link + stack) */
+function glanceHTML(g){
+  const chips = g.live.stack.map(s=>`<span class="g-chip">${s}</span>`).join('');
+  const arrow = '<svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>';
+  return `<div class="g-eyebrow">${g.eyebrow}</div>
+    <div class="g-row"><div class="g-k">${g.problem.k}</div><div class="g-v">${g.problem.v}</div></div>
+    <div class="g-row"><div class="g-k">${g.role.k}</div><div class="g-v">${g.role.v}</div></div>
+    <div class="g-row"><div class="g-k">${g.live.k}</div>
+      <div class="g-lead">${g.live.lead}</div>
+      <a class="g-live-link" href="${g.live.link.href}" target="_blank" rel="noopener">${g.live.link.label}${arrow}</a>
+      <div class="g-stack-k">${g.live.stackLabel}</div>
+      <div class="g-chips">${chips}</div>
+      <div class="g-src">${g.live.note}</div>
+    </div>`;
+}
+
 function render(L){
   const t = T[L];
 
@@ -804,6 +887,9 @@ function render(L){
   /* meta chips */
   document.getElementById('meta').innerHTML = t.meta.map(m=>
     `<div class="m"><span class="k">${m.k}</span><span class="v">${m.v}</span></div>`).join('');
+
+  /* at-a-glance summary card */
+  document.getElementById('glance').innerHTML = glanceHTML(t.glance);
 
   /* hero image, wider than the reading column, under the header */
   document.getElementById('hero').innerHTML = assetHTML('hero', L);

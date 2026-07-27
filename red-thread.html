@@ -32,6 +32,10 @@
   --accent:       #7A6BA8;
   --accent-tint:  #E4DDF1;
 
+  --thread:       #C23B2E;
+  --thread-deep:  #9E2F24;
+  --thread-tint:  #F4DCD7;
+
   --sh-rest:
       0 1px 1.5px  rgba(58,50,38,.05),
       0 4px 8px   -3px rgba(58,50,38,.07),
@@ -154,6 +158,53 @@ h1.title{
 .meta .m .k{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute);}
 .meta .m .v{font-size:14px;color:var(--ink-soft);}
 
+/* at-a-glance summary — the skimmer's fast lane, under the header.
+   Uses the red-thread accent (not violet) and an "outsider's read" row,
+   so this concept card reads distinctly from the other three cases. */
+.glance{
+  margin-top:42px;padding:28px 32px;
+  background:var(--paper);border:1px solid var(--hair);border-radius:8px;
+  box-shadow:var(--sh-rest);
+}
+.glance .g-eyebrow{
+  font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--thread);margin-bottom:22px;
+}
+.glance .g-row{padding:18px 0;border-top:1px solid var(--hair);}
+.glance .g-row:first-of-type{padding-top:0;border-top:0;}
+.glance .g-row:last-child{padding-bottom:0;}
+.glance .g-k{
+  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-mute);margin-bottom:9px;
+}
+.glance .g-v{font-size:15.5px;line-height:1.55;color:var(--ink-soft);}
+.glance .g-v strong{color:var(--ink);font-weight:500;}
+.glance .g-list{list-style:none;display:flex;flex-direction:column;gap:11px;}
+.glance .g-list li{position:relative;padding-left:20px;font-size:14.5px;line-height:1.5;color:var(--ink-soft);}
+.glance .g-list li::before{
+  content:'';position:absolute;left:2px;top:9px;width:6px;height:6px;
+  border-radius:50%;background:var(--thread-tint);border:1px solid var(--thread);
+}
+.glance .g-src{margin-top:16px;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);}
+
+/* thesis block — her outsider perspective, stated up front as a signature
+   beat. Thread-red, set apart from the white numbered sections. */
+.thesis{
+  position:relative;margin-top:9vh;padding:30px 34px 30px 36px;
+  background:linear-gradient(135deg, var(--thread-tint), rgba(244,220,215,.28));
+  border-radius:8px;overflow:hidden;
+}
+.thesis::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--thread);}
+.thesis .thesis-eyebrow{
+  font-size:10.5px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--thread-deep);margin-bottom:16px;
+}
+.thesis .thesis-h{
+  font-family:var(--font-display);font-weight:400;
+  font-size:clamp(24px,3vw,34px);line-height:1.08;letter-spacing:-.01em;color:var(--ink);margin-bottom:16px;
+}
+.thesis .thesis-p{font-size:16.5px;line-height:1.6;color:var(--ink-soft);}
+
 section.sec{padding:9vh 0 0;scroll-margin-top:40px;}
 .eyebrow{
   font-size:10.5px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
@@ -270,6 +321,70 @@ figure.fig img:hover{box-shadow:0 18px 40px -22px rgba(26,25,23,.5);}
 }
 .ph .fmt{position:relative;z-index:1;font-size:11px;color:var(--ink-mute);}
 
+/* scope: two-column in / out */
+.scope{
+  margin-top:44px;display:grid;grid-template-columns:1fr 1fr;gap:20px;
+}
+.scope-col{
+  border:1px solid var(--hair);border-radius:8px;padding:24px 26px 10px;
+  background:var(--paper-warm);
+}
+.scope-col.core{border-top:3px solid var(--thread);}
+.scope-col.later{border-top:3px solid var(--hair);}
+.scope-h{
+  font-family:var(--font-display);font-size:22px;line-height:1.1;color:var(--ink);
+  display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+  padding-bottom:14px;border-bottom:1px solid var(--hair);
+}
+.scope-h span{
+  font-family:var(--font-ui);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:500;color:var(--ink-mute);white-space:nowrap;
+}
+.scope-col.core .scope-h span{color:var(--thread);}
+.scope-col ul{list-style:none;margin:6px 0 0;}
+.scope-col li{
+  position:relative;padding:13px 0 13px 22px;font-size:15.5px;line-height:1.5;color:var(--ink-soft);
+  border-bottom:1px solid var(--hair);
+}
+.scope-col li:last-child{border-bottom:0;}
+.scope-col li::before{
+  content:'';position:absolute;left:2px;top:20px;width:7px;height:7px;border-radius:50%;
+}
+.scope-col.core li::before{background:var(--thread-tint);border:1px solid var(--thread);}
+.scope-col.later li::before{background:transparent;border:1px solid var(--ink-mute);}
+
+/* pilot card: the hypothesis */
+.pilot-card{
+  margin-top:44px;position:relative;overflow:hidden;
+  border:1px solid var(--hair);border-radius:10px;background:var(--paper-warm);
+  box-shadow:var(--sh-card);padding:34px 38px 30px;
+}
+.pilot-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--thread);}
+.pc-eyebrow{
+  font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--thread);
+}
+.pc-hyp{
+  margin-top:14px;font-family:var(--font-display);font-size:clamp(21px,2.5vw,27px);
+  line-height:1.28;color:var(--ink);max-width:30ch;
+}
+.pc-metrics{
+  margin-top:26px;display:flex;flex-wrap:wrap;gap:14px 40px;
+  padding-top:22px;border-top:1px solid var(--hair);
+}
+.pc-metric{flex:1 1 200px;}
+.pc-v{font-family:var(--font-display);font-size:22px;line-height:1.1;color:var(--thread-deep);}
+.pc-l{margin-top:6px;font-size:13.5px;line-height:1.45;color:var(--ink-soft);}
+.pc-step0{
+  margin-top:24px;padding:13px 16px;border-radius:6px;background:var(--thread-tint);
+  font-size:14px;line-height:1.45;color:var(--thread-deep);
+}
+.pc-note{
+  margin-top:16px;font-family:var(--font-display);font-style:italic;font-size:15px;color:var(--ink-mute);
+}
+@media (max-width:620px){
+  .scope{grid-template-columns:1fr;}
+}
+
 .close{
   margin-top:40px;padding-top:30px;border-top:1px solid var(--hair);
   font-family:var(--font-display);font-size:clamp(20px,2.3vw,25px);
@@ -348,6 +463,7 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:52ch;line-hei
       <p class="dek" data-t="dek"></p>
       <div class="meta" id="meta"></div>
     </header>
+    <div id="glance" class="glance reveal"></div>
   </div>
 
   <div id="hero"></div>
@@ -399,6 +515,25 @@ const T = {
     kicker:'Concept · Service design',
     title:'Red thread',
     dek:'A child moves through many systems. The record they carry should move with them.',
+    glance:{
+      eyebrow:'At a glance',
+      problem:{k:'Problem', v:'One child’s record scatters across school systems that do not talk to each other, and the counsellor meant to notice a struggling child is rationed to about half a post per 500 pupils.'},
+      role:{k:'My role', v:'<strong>Self-initiated concept.</strong> Built from a market brief and public Norwegian sources, the 2022 cooperation law, the BTI model and a national trial, and read through the eyes of a newcomer to the system.'},
+      outsider:{
+        k:'The outsider’s read',
+        items:[
+          'The child who moves between schools, districts and languages is the one whose record breaks first',
+          'A family still learning Norwegian is least able to carry that history by hand, so the system should hold it',
+          'Seeing the service from outside it surfaces the gaps its own designers have stopped noticing'
+        ],
+        note:'Self-initiated concept · a hypothesis to test, not a result'
+      }
+    },
+    thesis:{
+      eyebrow:'The perspective I bring',
+      h:'A newcomer sees the gaps a lifelong user has stopped noticing',
+      p:'I did not grow up inside the Norwegian school system, and my brother’s family met it from the outside, in another language. That is part of what drew me here. A newcomer notices what a lifelong user stops seeing: the system quietly assumes a shared history that a family arriving partway through never had. The child who moves between schools, districts and languages is the same child whose record breaks at every handover, and a family still learning Norwegian is the one least able to carry that history by hand. Designing for the pupil the system loses first is how you design continuity for everyone.'
+    },
     footBack:'Back to all projects',
     footNote:'Self-initiated concept, 2026. Built from a public market brief and public Norwegian sources, not a client project. No real users, schools, or data. Figures cited as references; the Norwegian localisation is pending native review.',
     meta:[
@@ -410,167 +545,262 @@ const T = {
     ]
   }
 };
-/* NO deferred (see header note): mirror EN until the Norwegian draft is written. */
-T.no = T.en;
+/* Norwegian draft — first pass, pending review by a native speaker. */
+T.no = {
+  back:'Alle prosjekter',
+  wordmark:'Rød tråd',
+  markSub:'Tjenestedesign-konsept',
+  kicker:'Konsept · Tjenestedesign',
+  title:'Rød tråd',
+  dek:'Et barn beveger seg gjennom mange systemer. Journalen de bærer, bør følge med dem.',
+  glance:{
+    eyebrow:'Kort fortalt',
+    problem:{k:'Problem', v:'Ett barns journal spres over skolesystemer som ikke snakker sammen, og rådgiveren som skal fange opp en elev som sliter, er rasjonert til omtrent et halvt årsverk per 500 elever.'},
+    role:{k:'Min rolle', v:'<strong>Selvinitiert konsept.</strong> Bygget fra en markedsbrief og offentlige norske kilder, samarbeidsloven fra 2022, BTI-modellen og en nasjonal studie, og lest med øynene til en som er ny i systemet.'},
+    outsider:{
+      k:'Utenfrablikket',
+      items:[
+        'Barnet som flytter mellom skoler, kommuner og språk, er det første som mister journalen sin',
+        'En familie som fortsatt lærer norsk, er minst i stand til å bære den historien selv, så systemet bør holde på den',
+        'Å se tjenesten utenfra avdekker hullene dens egne designere har sluttet å legge merke til'
+      ],
+      note:'Selvinitiert konsept · en hypotese å teste, ikke et resultat'
+    }
+  },
+  thesis:{
+    eyebrow:'Perspektivet jeg tar med',
+    h:'En nykommer ser hullene en livslang bruker har sluttet å legge merke til',
+    p:'Jeg vokste ikke opp i det norske skolesystemet, og min brors familie møtte det utenfra, på et annet språk. Det er en del av det som trakk meg hit. En nykommer legger merke til det en livslang bruker slutter å se: systemet antar stilltiende en felles historie som en familie som kommer inn underveis, aldri har hatt. Barnet som flytter mellom skoler, kommuner og språk, er det samme barnet hvis journal ryker ved hver overgang, og en familie som fortsatt lærer norsk, er den som er minst i stand til å bære den historien for hånd. Å designe for eleven systemet mister først, er måten du designer kontinuitet for alle på.'
+  },
+  footBack:'Tilbake til alle prosjekter',
+  footNote:'Selvinitiert konsept, 2026. Bygget fra en offentlig markedsbrief og offentlige norske kilder, ikke et klientprosjekt. Ingen ekte brukere, skoler eller data. Tall er sitert som referanser; den norske oversettelsen avventer gjennomgang av en morsmålsbruker.',
+  meta:[
+    {k:'Rolle',      v:'Tjenestedesigner (konsept)'},
+    {k:'Fagfelt',    v:'Tjenestedesign · Systemer'},
+    {k:'Kontekst',   v:'Norsk skole · selvinitiert'},
+    {k:'År',         v:'2026'},
+    {k:'Omfang',     v:'Kontinuitet på tvers av roller og overganger'}
+  ]
+};
 
 const ASSETS = {
-  hero:{ type:'ph', ratio:'wide', wide:true,
-    desc:{en:'One child walking an unbroken path from the first-grade door to the upper-secondary gate, over faint disconnected systems they keep having to re-cross.'},
-    fmt:{en:'Concept illustration · in progress'} },
+  hero:{ type:'img', wide:true, src:'red-thread/assets/hero.png',
+    cap:{en:'One child, one thread across thirteen years of school, over the separate systems the record keeps scattering into.',
+         no:'Ett barn, én tråd gjennom tretten skoleår, over de separate systemene journalen stadig spres i.'} },
 
   timeline:{ type:'ph', ratio:'wide',
-    desc:{en:'One pupil’s timeline from first grade to videregående, marking every adult and system that touches their file along the way.'},
-    fmt:{en:'Timeline sketch · in progress'} },
+    desc:{en:'One pupil’s timeline from first grade to videregående, marking every adult and system that touches their file along the way.',
+          no:'Én elevs tidslinje fra første klasse til videregående, som markerer hver voksen og hvert system som berører mappa deres underveis.'},
+    fmt:{en:'Timeline sketch · in progress', no:'Tidslinjeskisse · underveis'} },
 
   ratio:{ type:'ph', ratio:'land',
-    desc:{en:'Half a counsellor standing in front of 500 pupils, with the psychological-distress figure beside it.'},
-    fmt:{en:'Stat sketch · in progress'} },
+    desc:{en:'Half a counsellor standing in front of 500 pupils, with the psychological-distress figure beside it.',
+          no:'En halv rådgiver foran 500 elever, med tallet for psykiske plager ved siden av.'},
+    fmt:{en:'Stat sketch · in progress', no:'Tallskisse · underveis'} },
 
   fragments:{ type:'ph', ratio:'wide',
-    desc:{en:'One pupil at the centre; the named school systems around them, the links between drawn broken or missing.'},
-    fmt:{en:'System map · in progress'} },
+    desc:{en:'One pupil at the centre; the named school systems around them, the links between drawn broken or missing.',
+          no:'Én elev i midten; de navngitte skolesystemene rundt dem, koblingene mellom tegnet brutt eller manglende.'},
+    fmt:{en:'System map · in progress', no:'Systemkart · underveis'} },
 
   landscape:{ type:'ph', ratio:'wide',
-    desc:{en:'What Norway already has, laid out honestly: the 2022 duty and child coordinator, BTI stafettlogg, Conexus Elevate, each with a short note on where it stops.'},
-    fmt:{en:'Landscape map · in progress'} },
+    desc:{en:'What Norway already has, laid out honestly: the 2022 duty and child coordinator, BTI stafettlogg, Conexus Elevate, each with a short note on where it stops.',
+          no:'Det Norge allerede har, lagt fram ærlig: plikten og barnekoordinatoren fra 2022, BTI-stafettloggen, Conexus Elevate, hver med en kort merknad om hvor det stopper.'},
+    fmt:{en:'Landscape map · in progress', no:'Landskapskart · underveis'} },
 
   evidence:{ type:'ph', ratio:'land',
-    desc:{en:'Two arrows from the same randomised trial: the adults’ sense of collaboration rising, the pupil’s own environment holding flat.'},
-    fmt:{en:'Result diagram · in progress'} },
+    desc:{en:'Two arrows from the same randomised trial: the adults’ sense of collaboration rising, the pupil’s own environment holding flat.',
+          no:'To piler fra samme randomiserte studie: de voksnes opplevelse av samarbeid stiger, elevens eget miljø holder seg flatt.'},
+    fmt:{en:'Result diagram · in progress', no:'Resultatdiagram · underveis'} },
 
-  seams:{ type:'ph', ratio:'land',
-    desc:{en:'The concept placed in three gaps at once: the counsellor’s caseload, every pupil not only the flagged, and the school-to-health line it respects rather than crosses.'},
-    fmt:{en:'Positioning diagram · in progress'} },
+  seams:{ type:'img', wide:true, src:'red-thread/assets/seams.png',
+    cap:{en:'Three seams the country has not stitched: no caseload tool for the counsellor, continuity only for flagged pupils, and a school-to-health line the concept links rather than crosses.',
+         no:'Tre sømmer landet ikke har sydd: intet saksverktøy for rådgiveren, kontinuitet bare for flaggede elever, og en linje skole–helse som konseptet kobler i stedet for å krysse.'} },
 
-  blueprint:{ type:'ph', ratio:'wide',
-    desc:{en:'A pupil-journey lane with rådgiver and helsesykepleier lanes beneath it, a mark at each handover where the record drops.'},
-    fmt:{en:'Service blueprint · in progress'} },
-
-  priority:{ type:'ph', ratio:'land',
-    desc:{en:'The daily-touch workflows pulled into the core, the later extensions parked to one side for a second phase.'},
-    fmt:{en:'Prioritisation sketch · in progress'} },
+  blueprint:{ type:'img', wide:true, src:'red-thread/assets/blueprint.png',
+    cap:{en:'A pupil-journey lane over the rådgiver and helsesøster lanes. The record drops at every handover, and primary school has no counsellor at all.',
+         no:'Elevens reise over rådgiver- og helsesøster-sporene. Journalen faller ved hver overgang, og barneskolen har ingen rådgiver i det hele tatt.'} },
 
   permission:{ type:'ph', ratio:'wide',
-    desc:{en:'The same record seen by different roles, each with its consent state and a visible audit line; two state-changes marked: age 16, and the municipality-to-county handover.'},
-    fmt:{en:'Permission diagram · in progress'} },
+    desc:{en:'The same record seen by different roles, each with its consent state and a visible audit line; two state-changes marked: age 16, and the municipality-to-county handover.',
+          no:'Samme journal sett av ulike roller, hver med sin samtykkestatus og en synlig sporingslinje; to tilstandsendringer markert: 16 år, og overgangen kommune til fylkeskommune.'},
+    fmt:{en:'Permission diagram · in progress', no:'Tilgangsdiagram · underveis'} },
 
-  transfer:{ type:'ph', ratio:'wide',
-    desc:{en:'A handover as scattered emails and half-remembered context, beside one continuous file opening intact in a new counsellor’s hands.'},
-    fmt:{en:'Before / after · in progress'} },
+  transfer:{ type:'img', wide:true, src:'red-thread/assets/transfer.png',
+    cap:{en:'Before: the thread frays at the municipality-to-county boundary and the new counsellor starts from an empty file. After: one continuous record crosses intact.',
+         no:'Før: tråden ryker ved overgangen kommune til fylkeskommune, og den nye rådgiveren starter med en tom mappe. Etter: én sammenhengende journal krysser intakt.'} },
 
-  pilot:{ type:'ph', ratio:'land',
-    desc:{en:'The claim as one card: the hypothesis, the two metrics, the shape of a small pilot, with the data-protection assessment as step zero.'},
-    fmt:{en:'Pilot card · in progress'} },
-
-  closing:{ type:'ph', ratio:'wide',
-    desc:{en:'The opening line redrawn calm and unbroken: one child, one thread, from the first day to leaving.'},
-    fmt:{en:'Closing sketch · in progress'} }
+  closing:{ type:'img', wide:true, src:'red-thread/assets/closing.png',
+    cap:{en:'The opening line redrawn calm and unbroken: one child, one thread, from the first day to leaving.',
+         no:'Åpningslinjen tegnet på nytt, rolig og ubrutt: ett barn, én tråd, fra første dag til man går ut.'} }
 };
 
 const SECTIONS = [
   {
-    id:'origin', nav:{en:'The brief'},
-    eyebrow:{en:'01 · Origin'},
-    h:{en:'I did not have a client. I had a market brief and a hunch it belonged in Norway.'},
-    body:{en:['The brief was a generic SaaS idea for school counsellors, sold on its feature list against a US competitor. I kept the problem and threw the product away. Then I rebuilt it around one Norwegian child moving through thirteen years of school, and around the two adults meant to keep track of them: the rådgiver and the helsesykepleier.']},
+    id:'origin', nav:{en:'The brief', no:'Briefen'},
+    eyebrow:{en:'01 · Origin', no:'01 · Opphav'},
+    h:{en:'I did not have a client. I had a market brief and a hunch it belonged in Norway.',
+       no:'Jeg hadde ingen klient. Jeg hadde en markedsbrief og en anelse om at den hørte hjemme i Norge.'},
+    body:{en:['The brief was a generic SaaS idea for school counsellors, sold on its feature list against a US competitor. I kept the problem and threw the product away. Then I rebuilt it around one Norwegian child moving through thirteen years of school, and around the two adults meant to keep track of them: the rådgiver and the helsesykepleier.'],
+          no:['Briefen var en generisk SaaS-idé for skolerådgivere, solgt på funksjonslista si mot en amerikansk konkurrent. Jeg beholdt problemet og kastet produktet. Så bygde jeg det på nytt rundt ett norsk barn gjennom tretten skoleår, og rundt de to voksne som skal holde oversikt: rådgiveren og helsesykepleieren.']},
     assets:['timeline']
   },
   {
-    id:'counsellor', nav:{en:'The counsellor'},
-    eyebrow:{en:'02 · The problem'},
-    h:{en:'At the legal minimum, half a counsellor post serves 500 pupils'},
-    body:{en:['The rådgiver is the person a struggling student is meant to reach. Norway’s minimum sets roughly half a counsellor post per 500 pupils, split between careers guidance and social-pedagogical support. Primary school has no counsellor entitlement at all, and over half of school leaders already call the resource insufficient. Meanwhile about one in five lower-secondary girls reports a high level of psychological distress. The person meant to notice a child is rationed by design.']},
+    id:'counsellor', nav:{en:'The counsellor', no:'Rådgiveren'},
+    eyebrow:{en:'02 · The problem', no:'02 · Problemet'},
+    h:{en:'At the legal minimum, half a counsellor post serves 500 pupils',
+       no:'På lovens minimum betjener et halvt rådgiverårsverk 500 elever'},
+    body:{en:['The rådgiver is the person a struggling student is meant to reach. Norway’s minimum sets roughly half a counsellor post per 500 pupils, split between careers guidance and social-pedagogical support. Primary school has no counsellor entitlement at all, and over half of school leaders already call the resource insufficient. Meanwhile about one in five lower-secondary girls reports a high level of psychological distress. The person meant to notice a child is rationed by design.'],
+          no:['Rådgiveren er den en elev som sliter, skal kunne nå. Norges minimum setter omtrent et halvt rådgiverårsverk per 500 elever, delt mellom karriereveiledning og sosialpedagogisk støtte. Barneskolen har ingen rett til rådgiver i det hele tatt, og over halvparten av skolelederne kaller allerede ressursen utilstrekkelig. Samtidig rapporterer omtrent én av fem jenter på ungdomstrinnet et høyt nivå av psykiske plager. Den som skal legge merke til et barn, er rasjonert av design.']},
     assets:['ratio']
   },
   {
-    id:'fragments', nav:{en:'The fragments'},
-    eyebrow:{en:'03 · The fragmentation'},
-    h:{en:'The record on one child is scattered across systems that do not talk'},
-    body:{en:['Session notes sit in one place, the crisis log in another, parent messages in a third, and the school health service keeps its own. In Oslo that can mean Skoleplattform, itslearning, Visma InSchool, Vigilo and Skolemelding, running side by side. Oslo sees this and says so itself: its own digitalisation strategy describes overlapping platforms. Each tool was a sensible answer to its own question. The child is one person, and their record ended up in pieces.']},
+    id:'fragments', nav:{en:'The fragments', no:'Fragmentene'},
+    eyebrow:{en:'03 · The fragmentation', no:'03 · Fragmenteringen'},
+    h:{en:'The record on one child is scattered across systems that do not talk',
+       no:'Journalen om ett barn er spredt over systemer som ikke snakker sammen'},
+    body:{en:['Session notes sit in one place, the crisis log in another, parent messages in a third, and the school health service keeps its own. In Oslo that can mean Skoleplattform, itslearning, Visma InSchool, Vigilo and Skolemelding, running side by side. Oslo sees this and says so itself: its own digitalisation strategy describes overlapping platforms. Each tool was a sensible answer to its own question. The child is one person, and their record ended up in pieces.'],
+          no:['Samtalenotater ligger ett sted, kriseloggen et annet, foreldremeldinger et tredje, og skolehelsetjenesten har sin egen. I Oslo kan det bety Skoleplattformen, itslearning, Visma InSchool, Vigilo og Skolemelding, side om side. Oslo ser dette og sier det selv: kommunens egen digitaliseringsstrategi beskriver overlappende plattformer. Hvert verktøy var et fornuftig svar på sitt eget spørsmål. Barnet er én person, og journalen deres endte opp i biter.']},
     assets:['fragments']
   },
   {
-    id:'exists', nav:{en:'What exists'},
-    eyebrow:{en:'04 · The landscape'},
-    h:{en:'Norway had already built the team, the law, the model, and the software'},
-    body:{en:['This is where I expected to propose collaboration, and found Norway had thought about it harder than almost anywhere I know. A 2022 law made cooperation a legal duty and created a statutory child coordinator. There is a national model, BTI, with a shared relay log and a named person, the stafettholder, who owns the thread for a child the system has already flagged. Vendors sell continuity too: Conexus Elevate markets follow-up that survives staff changes. A country working this hard on the problem deserves a precise contribution, not a reinvention of what it has.']},
+    id:'exists', nav:{en:'What exists', no:'Det som finnes'},
+    eyebrow:{en:'04 · The landscape', no:'04 · Landskapet'},
+    h:{en:'Norway had already built the team, the law, the model, and the software',
+       no:'Norge hadde allerede bygget teamet, loven, modellen og programvaren'},
+    body:{en:['This is where I expected to propose collaboration, and found Norway had thought about it harder than almost anywhere I know. A 2022 law made cooperation a legal duty and created a statutory child coordinator. There is a national model, BTI, with a shared relay log and a named person, the stafettholder, who owns the thread for a child the system has already flagged. Vendors sell continuity too: Conexus Elevate markets follow-up that survives staff changes. A country working this hard on the problem deserves a precise contribution, not a reinvention of what it has.'],
+          no:['Det var her jeg ventet å foreslå samarbeid, og fant at Norge hadde tenkt hardere på det enn nesten noe sted jeg kjenner. En lov fra 2022 gjorde samarbeid til en lovpålagt plikt og opprettet en lovfestet barnekoordinator. Det finnes en nasjonal modell, BTI, med en delt stafettlogg og en navngitt person, stafettholderen, som eier tråden for et barn systemet allerede har fanget opp. Leverandører selger kontinuitet også: Conexus Elevate markedsfører oppfølging som overlever bytte av ansatte. Et land som jobber så hardt med problemet, fortjener et presist bidrag, ikke en gjenoppfinnelse av det det allerede har.']},
     assets:['landscape']
   },
   {
-    id:'evidence', nav:{en:'The evidence'},
-    eyebrow:{en:'05 · The evidence'},
-    h:{en:'Norway even measured it, and the honest result pointed somewhere new'},
-    body:{en:['Few countries test their own reforms this rigorously. Between 2017 and 2020 Norway trialled a structured model for the team around the pupil across 37 schools, with extra school-nurse time, as a randomised study. Collaboration between the adults improved on several measures. The effect on pupils’ own learning environment was not significant. That honesty is the gift here: the people around the child were working together better, and the thing the child carries had still not caught up.']},
+    id:'evidence', nav:{en:'The evidence', no:'Kunnskapsgrunnlaget'},
+    eyebrow:{en:'05 · The evidence', no:'05 · Evidensen'},
+    h:{en:'Norway even measured it, and the honest result pointed somewhere new',
+       no:'Norge målte det til og med, og det ærlige resultatet pekte et nytt sted'},
+    body:{en:['Few countries test their own reforms this rigorously. Between 2017 and 2020 Norway trialled a structured model for the team around the pupil across 37 schools, with extra school-nurse time, as a randomised study. Collaboration between the adults improved on several measures. The effect on pupils’ own learning environment was not significant. That honesty is the gift here: the people around the child were working together better, and the thing the child carries had still not caught up.'],
+          no:['Få land tester sine egne reformer så grundig. Mellom 2017 og 2020 prøvde Norge ut en strukturert modell for laget rundt eleven på 37 skoler, med ekstra helsesykepleiertid, som en randomisert studie. Samarbeidet mellom de voksne ble bedre på flere mål. Effekten på elevenes eget læringsmiljø var ikke signifikant. Den ærligheten er gaven her: menneskene rundt barnet samarbeidet bedre, og det barnet bærer med seg, hadde fortsatt ikke tatt igjen.']},
     assets:['evidence']
   },
   {
-    id:'reframe', nav:{en:'The reframe'},
-    eyebrow:{en:'06 · The reframe'},
-    h:{en:'What is missing is narrower, and more specific, than another tool'},
-    body:{en:['So I stopped hunting for a missing app and looked for the missing seam. Three gaps survive everything Norway has built. There is no tool made for the counsellor’s own caseload, the way one exists for a doctor’s. The continuity that does exist is only for flagged children, case by case and consent-gated, not for the ordinary pupil. And nothing legitimately joins the counsellor and the school nurse, because the health record is walled off by law.']},
+    id:'reframe', nav:{en:'The reframe', no:'Omformuleringen'},
+    eyebrow:{en:'06 · The reframe', no:'06 · Nytt blikk'},
+    h:{en:'What is missing is narrower, and more specific, than another tool',
+       no:'Det som mangler, er smalere og mer spesifikt enn enda et verktøy'},
+    body:{en:['So I stopped hunting for a missing app and looked for the missing seam. Three gaps survive everything Norway has built. There is no tool made for the counsellor’s own caseload, the way one exists for a doctor’s. The continuity that does exist is only for flagged children, case by case and consent-gated, not for the ordinary pupil, and least of all for a newcomer the system has not yet learned to see. And nothing legitimately joins the counsellor and the school nurse, because the health record is walled off by law.'],
+          no:['Så jeg sluttet å lete etter en manglende app og lette etter den manglende sømmen. Tre hull overlever alt Norge har bygget. Det finnes ikke noe verktøy laget for rådgiverens egen saksmengde, slik det finnes for en leges. Kontinuiteten som finnes, er bare for flaggede barn, sak for sak og samtykkestyrt, ikke for den vanlige eleven, og aller minst for en nykommer systemet ennå ikke har lært å se. Og ingenting kobler rådgiveren og helsesykepleieren lovlig, fordi helsejournalen er skjermet av loven.']},
     assets:['seams']
   },
   {
-    id:'method', nav:{en:'The method'},
-    eyebrow:{en:'07 · The method'},
-    h:{en:'I mapped the child’s path through the years, not the school’s org chart'},
-    body:{en:['I drew the journey the way a pupil lives it: lower school, lower secondary, upper secondary, changing buildings and changing counsellors, with the health nurse crossing in and out. Then I marked every point where the record stops and a person has to rebuild it from memory. The gaps clustered at the handovers.']},
+    id:'method', nav:{en:'The method', no:'Metoden'},
+    eyebrow:{en:'07 · The method', no:'07 · Metoden'},
+    h:{en:'The concept follows the child’s path through the years, not the school’s org chart',
+       no:'Konseptet følger barnets vei gjennom årene, ikke skolens organisasjonskart'},
+    body:{en:['I drew the journey the way a pupil lives it: lower school, lower secondary, upper secondary, changing buildings and changing counsellors, with the health nurse crossing in and out. Then I marked every point where the record stops and a person has to rebuild it from memory. The gaps clustered at the handovers.'],
+          no:['Jeg tegnet reisen slik en elev lever den: barneskole, ungdomsskole, videregående, med bytte av bygg og bytte av rådgivere, og med helsesykepleieren som krysser inn og ut. Så markerte jeg hvert punkt der journalen stopper og en person må bygge den opp igjen fra hukommelsen. Hullene samlet seg ved overgangene.']},
     assets:['blueprint']
   },
   {
-    id:'rule', nav:{en:'The rule'},
-    eyebrow:{en:'08 · The rule'},
-    h:{en:'One rule held the scope: the record is the product, the app is only a window onto it'},
-    body:{en:['Every decision ran through that rule. The value is the continuous record, and any interface is one view of it. So I started where counsellors already work every day, and deferred everything that could wait.']},
-    assets:['priority'],
-    sub:{
-      h:{en:'What I scoped out'},
-      list:{
-        en:['<strong>Mental-health screening tools.</strong> Later.',
-            '<strong>Referral routing to outside services.</strong> Later.',
-            '<strong>A parent portal.</strong> Later.',
-            '<strong>Anything that added a screen without adding to the record.</strong>'],
-        type:'ul'
+    id:'rule', nav:{en:'The rule', no:'Regelen'},
+    eyebrow:{en:'08 · The rule', no:'08 · Regelen'},
+    h:{en:'One rule held the scope: the record is the product, the app is only a window onto it',
+       no:'Én regel holdt omfanget: journalen er produktet, appen er bare et vindu inn til den'},
+    body:{en:['Every decision ran through that rule. The value is the continuous record, and any interface is one view of it. So I started where counsellors already work every day, and deferred everything that could wait.'],
+          no:['Hver beslutning gikk gjennom den regelen. Verdien er den sammenhengende journalen, og ethvert grensesnitt er ett blikk på den. Så jeg startet der rådgivere allerede jobber hver dag, og utsatte alt som kunne vente.']},
+    scope:{
+      core:{
+        h:{en:'Kept in the core', no:'Beholdt i kjernen'},
+        note:{en:'daily touch', no:'daglig bruk'},
+        items:{
+          en:['The counsellor’s own caseload',
+              'Session notes and the crisis log, in one place',
+              'The record that follows the pupil to the next school'],
+          no:['Rådgiverens egen saksmengde',
+              'Samtalenotater og kriseloggen, på ett sted',
+              'Journalen som følger eleven til neste skole']
+        }
+      },
+      later:{
+        h:{en:'Deferred to a later phase', no:'Utsatt til en senere fase'},
+        note:{en:'later', no:'senere'},
+        items:{
+          en:['Mental-health screening tools',
+              'Referral routing to outside services',
+              'A parent portal',
+              'Anything that adds a screen without adding to the record'],
+          no:['Kartleggingsverktøy for psykisk helse',
+              'Henvisning videre til eksterne tjenester',
+              'En foreldreportal',
+              'Alt som legger til en skjerm uten å legge til i journalen']
+        }
       }
     }
   },
   {
-    id:'constraint', nav:{en:'Confidentiality'},
-    eyebrow:{en:'09 · The constraint'},
-    h:{en:'The health record is walled off by law, and I designed for the wall, not around it'},
-    body:{en:['The school nurse’s notes sit under health-personnel confidentiality. The rule that lets health staff share, helsepersonelloven section 25, explicitly does not reach the school. The duty-to-cooperate reforms all operate inside taushetsplikt; none of them authorise a shared record. So merging the two records is not an option, and I did not design one. The concept links rather than merges, and it treats two hard moments as first-class: at sixteen the young person controls their own health data and a parent’s access falls away, and at the move to upper secondary the data controller itself changes from municipality to county. Anything real here needs a data-protection assessment, and probably a conversation with Datatilsynet, whose 2025 review of fifty municipalities found schools already struggling to govern the data they hold. Designing for that scrutiny is part of the design.']},
+    id:'constraint', nav:{en:'Confidentiality', no:'Taushetsplikt'},
+    eyebrow:{en:'09 · The constraint', no:'09 · Begrensningen'},
+    h:{en:'The health record is walled off by law, and the concept designs for the wall, not around it',
+       no:'Helsejournalen er skjermet av loven, og konseptet designer for veggen, ikke rundt den'},
+    body:{en:['The school nurse’s notes sit under health-personnel confidentiality. The rule that lets health staff share, helsepersonelloven section 25, explicitly does not reach the school. The duty-to-cooperate reforms all operate inside taushetsplikt; none of them authorise a shared record. So merging the two records is not an option, and I did not design one. The concept links rather than merges, and it treats two hard moments as first-class: at sixteen the young person controls their own health data and a parent’s access falls away, and at the move to upper secondary the data controller itself changes from municipality to county. Anything real here needs a data-protection assessment, and probably a conversation with Datatilsynet, whose 2025 review of fifty municipalities found schools already struggling to govern the data they hold. Designing for that scrutiny is part of the design.'],
+          no:['Helsesykepleierens notater ligger under helsepersonells taushetsplikt. Regelen som lar helsepersonell dele, helsepersonelloven § 25, når uttrykkelig ikke inn i skolen. Reformene om samarbeidsplikt opererer alle innenfor taushetsplikten; ingen av dem hjemler en delt journal. Så å slå sammen de to journalene er ikke et alternativ, og jeg designet ikke en. Konseptet kobler i stedet for å slå sammen, og det behandler to vanskelige øyeblikk som førsteklasses: ved seksten år styrer den unge sine egne helseopplysninger og en forelders tilgang faller bort, og ved overgangen til videregående endres selve behandlingsansvarlig fra kommune til fylkeskommune. Alt reelt her trenger en personvernkonsekvensvurdering, og trolig en samtale med Datatilsynet, som i sin gjennomgang av femti kommuner i 2025 fant at skoler allerede sliter med å styre dataene de har. Å designe for den granskingen er en del av designet.']},
     assets:['permission']
   },
   {
-    id:'transfer', nav:{en:'The transfer'},
-    eyebrow:{en:'10 · The wedge'},
-    h:{en:'The thread snaps at the move to upper secondary, where even the owner changes'},
-    body:{en:['The sharpest break is the step from lower to upper secondary. The municipality runs one, the county runs the other, and today a pupil’s history passes between them only by consent, by email, by an occasional meeting, if it passes at all. The government has a proposal out to widen sharing at a school change, which tells me the gap is real and officially felt. In the concept, the receiving counsellor opens a transfer and reads the thread from years earlier, on the first day rather than the first crisis.']},
+    id:'transfer', nav:{en:'The transfer', no:'Overgangen'},
+    eyebrow:{en:'10 · The wedge', no:'10 · Kilen'},
+    h:{en:'The thread snaps at the move to upper secondary, where even the owner changes',
+       no:'Tråden ryker ved overgangen til videregående, der til og med eieren endres'},
+    body:{en:['The sharpest break is the step from lower to upper secondary. The municipality runs one, the county runs the other, and today a pupil’s history passes between them only by consent, by email, by an occasional meeting, if it passes at all. The government has a proposal out to widen sharing at a school change, which tells me the gap is real and officially felt. In the concept, the receiving counsellor opens a transfer and reads the thread from years earlier, on the first day rather than the first crisis. The pupil who moves in from another district, or another country, meets this break with the least stored history, so the system loses the most exactly where it can least afford to.'],
+          no:['Det skarpeste bruddet er steget fra ungdomsskole til videregående. Kommunen driver den ene, fylkeskommunen den andre, og i dag går en elevs historie mellom dem bare ved samtykke, på e-post, i et sjeldent møte, om den går i det hele tatt. Regjeringen har et forslag ute om å utvide deling ved skolebytte, noe som forteller meg at hullet er reelt og offisielt merket. I konseptet åpner den mottakende rådgiveren en overføring og leser tråden fra år tilbake, på den første dagen i stedet for ved den første krisen. Eleven som flytter inn fra en annen kommune, eller et annet land, møter dette bruddet med minst lagret historie, så systemet mister mest nettopp der det har minst råd til det.']},
     assets:['transfer']
   },
   {
-    id:'proposition', nav:{en:'What I’d test'},
-    eyebrow:{en:'11 · The proposition'},
-    h:{en:'I have no results to show. I have a hypothesis worth testing.'},
+    id:'proposition', nav:{en:'What I’d test', no:'Det jeg ville testet'},
+    eyebrow:{en:'11 · The proposition', no:'11 · Forslaget'},
+    h:{en:'I have no results to show. I have a hypothesis worth testing.',
+       no:'Jeg har ingen resultater å vise. Jeg har en hypotese verdt å teste.'},
     body:{en:[
       'This is a concept, so I will not dress it up as an outcome. What I would put in front of Utdanningsetaten is a pilot with a claim attached, and it would open with the data-protection assessment, not the interface.',
       '<strong>The hypothesis: give counsellors one continuous record and you return counsellor minutes per pupil per week, and you keep those minutes when the pupil changes school.</strong>',
       'Where the earlier trial measured whether the adults felt collaboration had improved, I would measure the thing itself: time handed back to the counsellor, and context retained across a transfer.'
+    ],
+    no:[
+      'Dette er et konsept, så jeg vil ikke pynte det som et resultat. Det jeg ville lagt fram for Utdanningsetaten, er en pilot med en påstand knyttet til, og den ville åpnet med personvernkonsekvensvurderingen, ikke grensesnittet.',
+      '<strong>Hypotesen: gi rådgivere én sammenhengende journal, og du gir tilbake rådgiverminutter per elev per uke, og du beholder de minuttene når eleven bytter skole.</strong>',
+      'Der den tidligere studien målte om de voksne følte at samarbeidet var blitt bedre, ville jeg målt selve saken: tid gitt tilbake til rådgiveren, og kontekst bevart på tvers av en overgang.'
     ]},
-    assets:['pilot']
+    card:{
+      eyebrow:{en:'The pilot claim', no:'Pilotpåstanden'},
+      hypothesis:{en:'Give counsellors one continuous record and you return counsellor minutes per pupil per week, and you keep those minutes when the pupil changes school.',
+                  no:'Gi rådgivere én sammenhengende journal, og du gir tilbake rådgiverminutter per elev per uke, og du beholder de minuttene når eleven bytter skole.'},
+      metrics:[
+        {v:{en:'Counsellor minutes', no:'Rådgiverminutter'}, l:{en:'returned per pupil, each week', no:'gitt tilbake per elev, hver uke'}},
+        {v:{en:'Context retained', no:'Kontekst bevart'}, l:{en:'across a change of school', no:'på tvers av et skolebytte'}}
+      ],
+      step0:{en:'Step zero: a data-protection assessment, before a single screen.',
+             no:'Trinn null: en personvernkonsekvensvurdering, før en eneste skjerm.'},
+      note:{en:'Proposed, not measured.', no:'Foreslått, ikke målt.'}
+    }
   },
   {
-    id:'reflection', nav:{en:'Reflection'},
-    eyebrow:{en:'12 · Reflection'},
-    h:{en:'What a protected hospital taught me about a school'},
-    body:{en:['Years ago I audited a heritage hospital and met the same shape: a system quietly handing its own complexity to the people moving through it, until one person absorbs the cost. There I moved a laundry instead of a wall. Here I would move the record instead of buying another app.']},
+    id:'reflection', nav:{en:'Reflection', no:'Refleksjon'},
+    eyebrow:{en:'12 · Reflection', no:'12 · Refleksjon'},
+    h:{en:'What a protected hospital taught me about a school',
+       no:'Hva et fredet sykehus lærte meg om en skole'},
+    body:{en:['Years ago I audited a heritage hospital and met the same shape: a system quietly handing its own complexity to the people moving through it, until one person absorbs the cost. There I moved a laundry instead of a wall. Here I would move the record instead of buying another app.'],
+          no:['For noen år siden reviderte jeg et vernet sykehus og møtte den samme formen: et system som stille gir sin egen kompleksitet videre til menneskene som beveger seg gjennom det, helt til én person tar kostnaden. Der flyttet jeg et vaskeri i stedet for en vegg. Her ville jeg flyttet journalen i stedet for å kjøpe enda en app.']},
     sub:{
-      h:{en:'What I am holding onto, and what I am not'},
+      h:{en:'What I am holding onto, and what I am not', no:'Hva jeg holder fast ved, og hva jeg ikke gjør'},
       list:{
         en:['<strong>Fix the path, not the rooms.</strong> It is the insight I keep meeting in different rooms.',
+            '<strong>An outside reader finds the assumptions a system stops noticing.</strong> The gap here is one a lifelong user might never feel.',
             '<strong>The strongest idea is the least buildable.</strong> Continuity here is a governance problem before it is an interface.',
             '<strong>I have not spoken to a single Norwegian counsellor yet.</strong> That is the next step, and it will change things.',
             '<strong>A shared record can harm as well as help.</strong> Fieldwork would show where it protects a child, and where it could quietly expose one.'],
+        no:['<strong>Fiks stien, ikke rommene.</strong> Det er innsikten jeg stadig møter i ulike rom.',
+            '<strong>En leser utenfra finner antakelsene et system slutter å legge merke til.</strong> Hullet her er ett en livslang bruker kanskje aldri kjenner.',
+            '<strong>Den sterkeste ideen er den minst byggbare.</strong> Kontinuitet her er et styringsproblem før det er et grensesnitt.',
+            '<strong>Jeg har ennå ikke snakket med en eneste norsk rådgiver.</strong> Det er neste steg, og det vil endre ting.',
+            '<strong>En delt journal kan skade like mye som hjelpe.</strong> Feltarbeid ville vist hvor den beskytter et barn, og hvor den stille kunne blottstille ett.'],
         type:'ul'
       },
       assets:['closing']
@@ -616,6 +846,41 @@ function listHTML(list, L){
   return `<${tag} class="${cls}">${items}</${tag}>`;
 }
 
+/* at-a-glance card: problem / role / the outsider's read (a concept, no metrics) */
+function glanceHTML(g){
+  const items = g.outsider.items.map(v=>`<li>${v}</li>`).join('');
+  return `<div class="g-eyebrow">${g.eyebrow}</div>
+    <div class="g-row"><div class="g-k">${g.problem.k}</div><div class="g-v">${g.problem.v}</div></div>
+    <div class="g-row"><div class="g-k">${g.role.k}</div><div class="g-v">${g.role.v}</div></div>
+    <div class="g-row"><div class="g-k">${g.outsider.k}</div>
+      <ul class="g-list">${items}</ul>
+      <div class="g-src">${g.outsider.note}</div>
+    </div>`;
+}
+
+function scopeHTML(s, L){
+  const colHTML = (c, kind)=>{
+    const items = pick(c.items, L).map(i=>`<li>${i}</li>`).join('');
+    return `<div class="scope-col ${kind}">
+        <div class="scope-h">${pick(c.h, L)}<span>${pick(c.note, L)}</span></div>
+        <ul>${items}</ul>
+      </div>`;
+  };
+  return `<div class="scope reveal">${colHTML(s.core,'core')}${colHTML(s.later,'later')}</div>`;
+}
+
+function cardHTML(c, L){
+  const metrics = c.metrics.map(m=>
+    `<div class="pc-metric"><div class="pc-v">${pick(m.v, L)}</div><div class="pc-l">${pick(m.l, L)}</div></div>`).join('');
+  return `<div class="pilot-card reveal">
+      <div class="pc-eyebrow">${pick(c.eyebrow, L)}</div>
+      <p class="pc-hyp">${pick(c.hypothesis, L)}</p>
+      <div class="pc-metrics">${metrics}</div>
+      <div class="pc-step0">${pick(c.step0, L)}</div>
+      <div class="pc-note">${pick(c.note, L)}</div>
+    </div>`;
+}
+
 function render(L){
   const t = T[L] || T.en;
 
@@ -626,6 +891,8 @@ function render(L){
 
   document.getElementById('meta').innerHTML = t.meta.map(m=>
     `<div class="m"><span class="k">${m.k}</span><span class="v">${m.v}</span></div>`).join('');
+
+  document.getElementById('glance').innerHTML = glanceHTML(t.glance);
 
   document.getElementById('hero').innerHTML = assetHTML('hero', L);
 
@@ -638,6 +905,8 @@ function render(L){
     if(s.body2) inner += pick(s.body2, L).map(p=>`<p>${p}</p>`).join('');
     inner += `</div>`;
     if(s.assets) inner += s.assets.map(id=>assetHTML(id, L)).join('');
+    if(s.scope)  inner += scopeHTML(s.scope, L);
+    if(s.card)   inner += cardHTML(s.card, L);
     if(s.sub){
       inner += `<div class="col"><h3 class="sh">${pick(s.sub.h, L)}</h3>`;
       if(s.sub.body) inner += pick(s.sub.body, L).map(p=>`<p>${p}</p>`).join('');
@@ -648,6 +917,17 @@ function render(L){
     if(s.close) inner += `<div class="col"><p class="close">${pick(s.close, L)}</p></div>`;
     return `<section class="sec" id="${s.id}">${inner}</section>`;
   }).join('');
+
+  /* thesis block: her outsider perspective, stated right after the opening section */
+  const originSec = document.getElementById('origin');
+  if(originSec && t.thesis){
+    originSec.insertAdjacentHTML('afterend',
+      `<div class="col"><aside class="thesis reveal" aria-label="Perspective">
+        <div class="thesis-eyebrow">${t.thesis.eyebrow}</div>
+        <h2 class="thesis-h">${t.thesis.h}</h2>
+        <p class="thesis-p">${t.thesis.p}</p>
+      </aside></div>`);
+  }
 
   tocOl.innerHTML = SECTIONS.map((s,i)=>
     `<li><a href="#${s.id}" data-to="${s.id}"><span class="n">${String(i+1).padStart(2,'0')}</span><span>${pick(s.nav, L)}</span></a></li>`
