@@ -1,1 +1,56 @@
+# OS / editor cruft
 .DS_Store
+.claude/
+
+# --- Local git clones that used to live nested inside this folder ---
+# The real repository is now THIS folder. These are historical copies,
+# safe to delete once the merge is confirmed.
+/Portfolio/
+/Portfolio WW/
+
+# --- Source & workshop material (not part of the published site) ---
+/Case studies/
+/CLAUDE.md
+/PRD-portfolio.md
+/PRD-v2.md
+/prompt.md
+/4.jpg
+/optimize-assets.py
+
+# CV build pipeline — only the final Wioleta-Wojcik-CV.pdf / -NO.pdf are published
+/build-assets.sh
+/build-cv.sh
+/build-cv-1page.sh
+/build-cv-1page-no.sh
+/cv.html
+/cv-no.html
+/cv-1page.html
+/cv-1page-no.html
+/Wioleta-Wojcik-1page.pdf
+/Wioleta-Wojcik-1page-NO.pdf
+/Wioleta-Wojcik-CV-original.pdf
+/Wioleta-Wojcik-CV-styled.pdf
+
+# --- Asset-folder sources ---
+# The published PNG/WEBP in each */assets/ are committed; these are the
+# HTML mockup generators, raw screenshots and extras behind them.
+**/assets/*.html
+
+# Between the Lines: unused / heavy captures kept next to the published set
+between-the-lines/assets/journey.gif
+between-the-lines/assets/auth-signup.png
+between-the-lines/assets/auth-welcome.png
+between-the-lines/assets/flow-1-write.png
+between-the-lines/assets/mobile-entry-detail.png
+
+# RepApp: only the folio PNGs referenced by repapp.html are published
+/RepApp/screeny/
+/RepApp/zdjecia/
+/RepApp/*.png
+/RepApp/*.md
+RepApp/assets/attendance-screen-only.png
+RepApp/assets/hero-in-hands.png
+
+# Hospital wayfinding: source PNGs not referenced by the page
+hospital-wayfinding/assets/hero.png
+hospital-wayfinding/assets/paths-service-map.png
