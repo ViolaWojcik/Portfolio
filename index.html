@@ -321,11 +321,11 @@ body{
 }
 #fan .obj{transition:left .45s var(--ease),top .45s var(--ease);}
 /* back → front: a scattered constellation so each title stays readable.
-   RepApp sits on top; Hospitals is the back-most card. */
-#fan .obj[data-k="f4"]{left:var(--fan-f4-x); top:var(--fan-f4-y); z-index:1;}
-#fan .obj[data-k="f3"]{left:var(--fan-f3-x); top:var(--fan-f3-y); z-index:2;}
-#fan .obj[data-k="f2"]{left:var(--fan-f2-x); top:var(--fan-f2-y); z-index:3;}
-#fan .obj[data-k="f1"]{left:var(--fan-f1-x); top:var(--fan-f1-y); z-index:4;}
+   Cascade runs left → right: Between the lines sits back-most, Red thread on top. */
+#fan .obj[data-k="f3"]{left:var(--fan-f3-x); top:var(--fan-f3-y); z-index:1;}
+#fan .obj[data-k="f4"]{left:var(--fan-f4-x); top:var(--fan-f4-y); z-index:2;}
+#fan .obj[data-k="f1"]{left:var(--fan-f1-x); top:var(--fan-f1-y); z-index:3;}
+#fan .obj[data-k="f2"]{left:var(--fan-f2-x); top:var(--fan-f2-y); z-index:4;}
 
 .folder{
   position:relative;width:var(--fold-w);height:var(--fold-h);
