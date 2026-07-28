@@ -51,6 +51,13 @@ between-the-lines/assets/mobile-entry-detail.png
 /RepApp/*.md
 RepApp/assets/attendance-screen-only.png
 RepApp/assets/hero-in-hands.png
+RepApp/assets/photos-excursions/
+# standalone tablet renders for collages, not referenced by any page
+RepApp/assets/excursions-portrait.png
+RepApp/assets/excursions-landscape.png
+RepApp/assets/attendance-portrait.png
+# collage workshop (raw stock photos + working composites)
+RepApp/mockups/
 
 # Hospital wayfinding: source PNGs not referenced by the page
 hospital-wayfinding/assets/hero.png

@@ -188,7 +188,13 @@ h1.title{
 }
 .glance .g-v{font-size:15.5px;line-height:1.55;color:var(--ink-soft);}
 .glance .g-v strong{color:var(--ink);font-weight:500;}
-.glance .g-lead{font-size:15.5px;line-height:1.55;color:var(--ink-soft);}
+.glance .g-list{list-style:none;display:flex;flex-direction:column;gap:11px;}
+.glance .g-list li{position:relative;padding-left:20px;font-size:14.5px;line-height:1.5;color:var(--ink-soft);}
+.glance .g-list li::before{
+  content:'';position:absolute;left:2px;top:9px;width:6px;height:6px;
+  border-radius:50%;background:var(--accent-tint);border:1px solid var(--accent);
+}
+.glance .g-list li strong{color:var(--ink);font-weight:500;}
 .glance .g-live-link{
   display:inline-flex;align-items:center;gap:7px;margin-top:14px;
   font-size:13px;font-weight:500;color:var(--paper);
@@ -218,10 +224,12 @@ section.sec{padding:9vh 0 0;scroll-margin-top:40px;}
 h2.h{
   font-family:var(--font-display);font-weight:400;
   font-size:clamp(30px,4vw,48px);line-height:1.04;letter-spacing:-.012em;color:var(--ink);
-  max-width:20ch;
+  /* fill the reading column: long headings land in 2 lines here, collapsing further only on mobile */
+  max-width:none;
 }
 .sec p{margin-top:22px;font-size:17px;line-height:1.62;color:var(--ink-soft);}
 .sec p:first-of-type{margin-top:26px;}
+.sec p strong{color:var(--ink);font-weight:500;}
 h3.sh{
   margin-top:38px;font-family:var(--font-display);font-weight:400;
   font-size:clamp(22px,2.6vw,28px);line-height:1.1;color:var(--ink);
@@ -351,7 +359,8 @@ figure.fig.scroll img{max-height:620px;object-fit:cover;object-position:top;}
 .close{
   margin-top:40px;padding-top:30px;border-top:1px solid var(--hair);
   font-family:var(--font-display);font-size:clamp(20px,2.3vw,25px);
-  line-height:1.32;color:var(--ink-soft);max-width:30ch;
+  /* the puenta may run wider than the old 32ch cap, so it lands in one line on desktop */
+  line-height:1.32;color:var(--ink-soft);max-width:none;
 }
 
 /* footer ------------------------------------------------- */
@@ -483,15 +492,22 @@ const T = {
     dek:'A journal that reflects your own patterns back to you, in your own words and never as a diagnosis.',
     glance:{
       eyebrow:'At a glance',
-      problem:{k:'Problem', v:'Journaling tools sit at two extremes, a blank page or a mood emoji, and more people now take their inner life to a general chatbot that only agrees with them.'},
-      role:{k:'My role', v:'<strong>Product &amp; UX Designer, solo design and build.</strong> Made during the AI Product Masterclass (Nueve Design, 2026, five-week intensive) and taken past the brief into a working product, with AI as an accelerator throughout.'},
+      problem:{k:'Problem', v:'Journaling tools sit at two extremes, a blank page or a mood emoji. More and more people take their inner life to a general chatbot instead: in a 2025 US survey, <strong>~49%</strong> of people with an ongoing mental-health condition used one for support. The tool they confide in only agrees with them.'},
+      role:{k:'My role', v:'<strong>Product &amp; UX Designer, solo design and build.</strong> During the AI Product Masterclass (Nueve Design, 2026, five-week intensive) I designed the journal and built it into a working product: writing separated from rating, mood as a two-axis grid, dictation rebuilt around Whisper, insights computed on the device.'},
+      value:{
+        k:'Value',
+        items:[
+          '<strong>Shipped live:</strong> a working product you can open and try, not a clickable mockup',
+          '<strong>Write first, rate later:</strong> the flow separates writing from judging, and the clutter came out',
+          '<strong>On-device by default:</strong> text leaves the device only on an explicit “Reflect deeper”'
+        ]
+      },
       live:{
-        k:'Built &amp; shipped',
-        lead:'A real, clickable product, not a mockup, running end to end.',
+        k:'Try it',
         link:{href:'https://between-the-lines-journal.vercel.app/', label:'Try it live'},
         stackLabel:'Stack',
         stack:['Vite','React','TypeScript','Tailwind','shadcn/ui','Tiptap','Vercel functions','xAI Grok','Groq Whisper'],
-        note:'On-device by default; text leaves the device only on “Reflect deeper”.'
+        note:'Solo course project · working demo · no real users yet'
       }
     },
     footBack:'Back to all projects',
@@ -513,15 +529,22 @@ const T = {
     dek:'En dagbok som speiler dine egne mønstre tilbake til deg, med dine egne ord og aldri som en diagnose.',
     glance:{
       eyebrow:'Kort fortalt',
-      problem:{k:'Problem', v:'Dagbøker havner på to ytterpunkter, en blank side eller en humør-emoji, og flere tar nå innerlivet sitt til en generell chatbot som bare er enig med dem.'},
-      role:{k:'Min rolle', v:'<strong>Produkt- og UX-designer, design og bygg alene.</strong> Laget under AI Product Masterclass (Nueve Design, 2026, fem ukers intensiv) og tatt forbi oppgaven til et fungerende produkt, med KI som akselerator hele veien.'},
+      problem:{k:'Problem', v:'Dagbøker havner på to ytterpunkter, en blank side eller en humør-emoji. Flere og flere tar heller innerlivet sitt til en generell chatbot: i en amerikansk undersøkelse fra 2025 brukte <strong>~49%</strong> av personer med en pågående psykisk lidelse en slik til støtte. Verktøyet de betror seg til, er bare enig med dem.'},
+      role:{k:'Min rolle', v:'<strong>Produkt- og UX-designer, design og bygg alene.</strong> Under AI Product Masterclass (Nueve Design, 2026, fem ukers intensiv) designet jeg dagboken og bygde den til et fungerende produkt: skriving skilt fra vurdering, humør som et rutenett med to akser, diktering bygd om rundt Whisper, innsikt beregnet på enheten.'},
+      value:{
+        k:'Verdi',
+        items:[
+          '<strong>Lansert live:</strong> et fungerende produkt du kan åpne og prøve, ikke en klikkbar mockup',
+          '<strong>Skriv først, vurder etterpå:</strong> flyten skiller skriving fra vurdering, og rotet forsvant',
+          '<strong>På enheten som standard:</strong> tekst forlater enheten kun ved et bevisst «Reflect deeper»'
+        ]
+      },
       live:{
-        k:'Bygget og lansert',
-        lead:'Et ekte, klikkbart produkt, ikke en mockup, som kjører ende til ende.',
+        k:'Prøv det',
         link:{href:'https://between-the-lines-journal.vercel.app/', label:'Prøv det live'},
         stackLabel:'Teknologi',
         stack:['Vite','React','TypeScript','Tailwind','shadcn/ui','Tiptap','Vercel functions','xAI Grok','Groq Whisper'],
-        note:'På enheten som standard; tekst forlater enheten kun ved «Reflect deeper».'
+        note:'Solo kursprosjekt · fungerende demo · ingen reelle brukere ennå'
       }
     },
     footBack:'Tilbake til alle prosjekter',
@@ -612,8 +635,8 @@ const SECTIONS = [
     h:{en:'A course exercise became a product with a point of view',
        no:'En kursøvelse ble et produkt med et ståsted'},
     body:{
-      en:['The starting point was a course project, suggested by a mentor as a way to learn a more complex, technical toolchain. From the first sketch I steered it toward something I believed in, adding the features it actually needed. What could have stayed a throwaway exercise grew into a working tool for self-knowledge.'],
-      no:['Utgangspunktet var et kursprosjekt, foreslått av en mentor som en måte å lære en mer kompleks, teknisk verktøykjede på. Fra den første skissen styrte jeg det mot noe jeg trodde på, og la til funksjonene det faktisk trengte. Det som kunne blitt en øvelse til søpla, vokste til et fungerende verktøy for selvinnsikt.']
+      en:['The starting point was a course project, suggested by a mentor as a way to learn a more complex, technical toolchain. <strong>From the first sketch I steered it toward something I believed in</strong>, adding the features it actually needed. What could have stayed a throwaway exercise <strong>grew into a working tool for self-knowledge</strong>.'],
+      no:['Utgangspunktet var et kursprosjekt, foreslått av en mentor som en måte å lære en mer kompleks, teknisk verktøykjede på. <strong>Fra den første skissen styrte jeg det mot noe jeg trodde på</strong>, og la til funksjonene det faktisk trengte. Det som kunne blitt en øvelse til søpla, <strong>vokste til et fungerende verktøy for selvinnsikt</strong>.']
     },
     assets:['context']
   },
@@ -623,8 +646,8 @@ const SECTIONS = [
     h:{en:'People are already treating a chatbot as a therapist that only agrees with them',
        no:'Folk behandler allerede en chatbot som en terapeut som bare er enig med dem'},
     body:{
-      en:['Therapy is widely seen as expensive or hard to trust, so people improvise. More and more of them bring their mental health to a general-purpose chatbot, detached from any wider context. The risk is quiet. These tools tend to affirm rather than ground or challenge, and they can state things with unearned confidence.'],
-      no:['Terapi oppfattes ofte som dyrt eller vanskelig å stole på, så folk improviserer. Flere og flere tar den mentale helsen sin til en generell chatbot, løsrevet fra enhver bredere sammenheng. Faren er stille. Slike verktøy har en tendens til å bekrefte heller enn å jorde eller utfordre, og de kan uttale ting med en trygghet de ikke har dekning for.']
+      en:['Therapy is widely seen as expensive or hard to trust, so people improvise. More and more of them <strong>bring their mental health to a general-purpose chatbot</strong>, detached from any wider context. The risk is quiet. These tools tend to <strong>affirm rather than ground or challenge</strong>, and they can state things with unearned confidence.'],
+      no:['Terapi oppfattes ofte som dyrt eller vanskelig å stole på, så folk improviserer. Flere og flere tar <strong>den mentale helsen sin til en generell chatbot</strong>, løsrevet fra enhver bredere sammenheng. Faren er stille. Slike verktøy har en tendens til å <strong>bekrefte heller enn å jorde eller utfordre</strong>, og de kan uttale ting med en trygghet de ikke har dekning for.']
     },
     stats:{
       src:{en:'US survey of people with an ongoing mental health condition. Sentio University, 2025.',
@@ -642,8 +665,8 @@ const SECTIONS = [
     h:{en:'Most journaling apps are either an empty text box or a mood-emoji tracker',
        no:'De fleste dagbok-apper er enten en tom tekstboks eller en humør-emoji-teller'},
     body:{
-      en:['The tools meant for reflection sit at two unhelpful extremes. The blank page gives you nowhere to start. The mood tracker shrinks a whole day to one tapped face and never says anything back. Neither closes the loop between writing and understanding, which is the reason to keep a journal at all.'],
-      no:['Verktøyene som er ment for refleksjon havner på to lite nyttige ytterpunkter. Den blanke siden gir deg ingen steder å begynne. Humør-telleren krymper en hel dag til ett trykket ansikt og sier aldri noe tilbake. Ingen av dem lukker sløyfen mellom å skrive og å forstå, som er hele grunnen til å føre dagbok.']
+      en:['The tools meant for reflection sit at two unhelpful extremes. The blank page gives you nowhere to start. The mood tracker <strong>shrinks a whole day to one tapped face</strong> and never says anything back. <strong>Neither closes the loop between writing and understanding</strong>, which is the reason to keep a journal at all.'],
+      no:['Verktøyene som er ment for refleksjon havner på to lite nyttige ytterpunkter. Den blanke siden gir deg ingen steder å begynne. Humør-telleren <strong>krymper en hel dag til ett trykket ansikt</strong> og sier aldri noe tilbake. <strong>Ingen av dem lukker sløyfen mellom å skrive og å forstå</strong>, som er hele grunnen til å føre dagbok.']
     },
     assets:['landscape']
   },
@@ -653,8 +676,8 @@ const SECTIONS = [
     h:{en:'In a country that funds mental health heavily, it is still the costliest condition',
        no:'I et land som finansierer psykisk helse tungt, er den fortsatt den dyreste tilstanden'},
     body:{
-      en:['Norway invests in mental health more than almost anywhere, and it remains the single costliest condition there, close to three percent of GDP. Care exists, but access is uneven, and the everyday, low-stakes layer is thin. There is room, before and beside professional care, for something inexpensive and private that helps a person notice their own patterns.'],
-      no:['Norge investerer mer i psykisk helse enn nesten noe annet land, og den er likevel den enkeltvis dyreste tilstanden her, nær tre prosent av BNP. Hjelpen finnes, men tilgangen er ujevn, og det hverdagslige laget med lav innsats er tynt. Det er rom, før og ved siden av profesjonell hjelp, for noe rimelig og privat som hjelper et menneske å legge merke til sine egne mønstre.']
+      en:['Norway invests in mental health more than almost anywhere, and it remains <strong>the single costliest condition</strong> there, close to three percent of GDP. Care exists, but access is uneven, and the everyday, low-stakes layer is thin. <strong>There is room, before and beside professional care</strong>, for something inexpensive and private that helps a person notice their own patterns.'],
+      no:['Norge investerer mer i psykisk helse enn nesten noe annet land, og den er likevel <strong>den enkeltvis dyreste tilstanden</strong> her, nær tre prosent av BNP. Hjelpen finnes, men tilgangen er ujevn, og det hverdagslige laget med lav innsats er tynt. <strong>Det er rom, før og ved siden av profesjonell hjelp</strong>, for noe rimelig og privat som hjelper et menneske å legge merke til sine egne mønstre.']
     },
     stats:{
       src:{en:'Public Norwegian sources. Illustrative, 2026.',
@@ -673,8 +696,8 @@ const SECTIONS = [
     h:{en:'The first build made the same mistake it set out to fix',
        no:'Første versjon gjorde den samme feilen den skulle rette opp'},
     body:{
-      en:['The first version worked, but it had never really been designed. Writing, mood rating and tagging were crammed onto one screen, with no focus and no payoff for the effort. It was the exact shape of the problem, staring back.'],
-      no:['Den første versjonen fungerte, men den hadde egentlig aldri blitt designet. Skriving, humørvurdering og merking var klemt inn på én skjerm, uten fokus og uten belønning for innsatsen. Den var selve formen på problemet, som stirret tilbake.']
+      en:['The first version worked, but <strong>it had never really been designed</strong>. Writing, mood rating and tagging were crammed onto one screen, with no focus and no payoff for the effort. It was <strong>the exact shape of the problem</strong>, staring back.'],
+      no:['Den første versjonen fungerte, men <strong>den hadde egentlig aldri blitt designet</strong>. Skriving, humørvurdering og merking var klemt inn på én skjerm, uten fokus og uten belønning for innsatsen. Den var <strong>selve formen på problemet</strong>, som stirret tilbake.']
     },
     assets:['before']
   },
@@ -684,8 +707,8 @@ const SECTIONS = [
     h:{en:'One rule held the scope: an adjunct, never a replacement',
        no:'Én regel holdt omfanget: et supplement, aldri en erstatning'},
     body:{
-      en:['Every decision ran through a single commitment. Complement care and self-knowledge, and never impersonate a therapist. Each reflection carries the same line: patterns in your own words, not a diagnosis.'],
-      no:['Hver beslutning gikk gjennom én forpliktelse. Utfyll hjelp og selvinnsikt, og aldri utgi deg for å være en terapeut. Hver refleksjon bærer den samme linjen: mønstre med dine egne ord, ikke en diagnose.']
+      en:['Every decision ran through a single commitment. Complement care and self-knowledge, and <strong>never impersonate a therapist</strong>. Each reflection carries the same line: <strong>patterns in your own words, not a diagnosis</strong>.'],
+      no:['Hver beslutning gikk gjennom én forpliktelse. Utfyll hjelp og selvinnsikt, og <strong>aldri utgi deg for å være en terapeut</strong>. Hver refleksjon bærer den samme linjen: <strong>mønstre med dine egne ord, ikke en diagnose</strong>.']
     },
     sub:{
       h:{en:'The evidence base was the partner',no:'Kunnskapsgrunnlaget var partneren'},
@@ -713,8 +736,8 @@ const SECTIONS = [
     h:{en:'A focused two-step flow: write first, rate later',
        no:'En fokusert to-stegs-flyt: skriv først, vurder etterpå'},
     body:{
-      en:['Writing and judging are different mental modes, so they were separated. Step one is a distraction-free editor and nothing else. Only after writing does step two ask for mood and themes. With one home and one task, the navigation and the clutter came out, and nothing floats over the writing surface.'],
-      no:['Å skrive og å vurdere er ulike mentale modus, så de ble skilt. Steg én er en distraksjonsfri editor og ingenting annet. Først etter skrivingen ber steg to om humør og temaer. Med ett hjem og én oppgave forsvant navigasjonen og rotet, og ingenting flyter over skriveflaten.']
+      en:['<strong>Writing and judging are different mental modes, so they were separated.</strong> Step one is a distraction-free editor and nothing else. Only after writing does step two ask for mood and themes. With one home and one task, the navigation and the clutter came out, and <strong>nothing floats over the writing surface</strong>.'],
+      no:['<strong>Å skrive og å vurdere er ulike mentale modus, så de ble skilt.</strong> Steg én er en distraksjonsfri editor og ingenting annet. Først etter skrivingen ber steg to om humør og temaer. Med ett hjem og én oppgave forsvant navigasjonen og rotet, og <strong>ingenting flyter over skriveflaten</strong>.']
     },
     assets:['flow','home']
   },
@@ -724,8 +747,8 @@ const SECTIONS = [
     h:{en:'Mood became two axes, because calm and exhausted are not the same low',
        no:'Humør ble to akser, fordi rolig og utmattet ikke er det samme lave'},
     body:{
-      en:['A single sad-to-happy scale hides half of how a day feels. The emoji gave way to an Affect Grid, a square where one axis is mood and the other is energy, drawn from Russell’s circumplex. One placed dot captures pleasant or heavy and wired or worn out at once.'],
-      no:['En enkelt trist-til-glad-skala skjuler halvparten av hvordan en dag føles. Emojien vek for et Affect Grid, en firkant der den ene aksen er humør og den andre er energi, hentet fra Russells sirkumpleks. Én plassert prikk fanger behagelig eller tungt og oppspilt eller utslitt på én gang.']
+      en:['<strong>A single sad-to-happy scale hides half of how a day feels.</strong> The emoji gave way to <strong>an Affect Grid</strong>, a square where one axis is mood and the other is energy, drawn from Russell’s circumplex. One placed dot captures pleasant or heavy and wired or worn out at once.'],
+      no:['<strong>En enkelt trist-til-glad-skala skjuler halvparten av hvordan en dag føles.</strong> Emojien vek for <strong>et Affect Grid</strong>, en firkant der den ene aksen er humør og den andre er energi, hentet fra Russells sirkumpleks. Én plassert prikk fanger behagelig eller tungt og oppspilt eller utslitt på én gang.']
     },
     assets:['grid']
   },
@@ -735,8 +758,8 @@ const SECTIONS = [
     h:{en:'Dictation worked in Chrome and nowhere else, so it was rebuilt',
        no:'Diktering fungerte i Chrome og ingen andre steder, så den ble bygget om'},
     body:{
-      en:['Voice input was added to lower the barrier to writing, first on the browser’s built-in speech API. It failed silently outside Chrome. It was torn out and rebuilt to record audio and transcribe it server-side with Whisper, which works everywhere, including mobile. A small, honest loop of build, test and adapt, with a concrete cause.'],
-      no:['Taleinnput ble lagt til for å senke terskelen for å skrive, først på nettleserens innebygde tale-API. Den feilet stille utenfor Chrome. Den ble revet ut og bygget om til å ta opp lyd og transkribere den på serversiden med Whisper, som fungerer overalt, også på mobil. En liten, ærlig sløyfe av bygg, test og tilpass, med en konkret årsak.']
+      en:['Voice input was added to lower the barrier to writing, first on the browser’s built-in speech API. <strong>It failed silently outside Chrome.</strong> It was torn out and <strong>rebuilt to record audio and transcribe it server-side with Whisper</strong>, which works everywhere, including mobile. A small, honest loop of build, test and adapt, with a concrete cause.'],
+      no:['Taleinnput ble lagt til for å senke terskelen for å skrive, først på nettleserens innebygde tale-API. <strong>Den feilet stille utenfor Chrome.</strong> Den ble revet ut og <strong>bygget om til å ta opp lyd og transkribere den på serversiden med Whisper</strong>, som fungerer overalt, også på mobil. En liten, ærlig sløyfe av bygg, test og tilpass, med en konkret årsak.']
     },
     assets:['dictation']
   },
@@ -746,8 +769,8 @@ const SECTIONS = [
     h:{en:'It reads between the lines only when asked',
        no:'Den leser mellom linjene bare når den blir bedt om det'},
     body:{
-      en:['The reward for journaling is the Between the Lines card. By default it shows a plain-language conclusion computed entirely on the device, comparing this week to last, next to a swipeable mood-and-energy trend. The deeper AI reflection is one deliberate tap away, and only then does any text leave the device. Privacy stays on the writer’s terms, which is also how personvern and GDPR ask it to be.'],
-      no:['Belønningen for å føre dagbok er Mellom linjene-kortet. Som standard viser det en konklusjon i klarspråk, beregnet fullt og helt på enheten, som sammenligner denne uken med forrige, ved siden av en sveipbar humør- og energitrend. Den dypere KI-refleksjonen er ett bevisst trykk unna, og først da forlater noe tekst enheten. Personvernet blir på skribentens premisser, som også er slik personvern og GDPR ber om det.']
+      en:['The reward for journaling is the Between the Lines card. By default it shows <strong>a plain-language conclusion computed entirely on the device</strong>, comparing this week to last, next to a swipeable mood-and-energy trend. The deeper AI reflection is one deliberate tap away, and <strong>only then does any text leave the device</strong>. Privacy stays on the writer’s terms, which is also how personvern and GDPR ask it to be.'],
+      no:['Belønningen for å føre dagbok er Mellom linjene-kortet. Som standard viser det <strong>en konklusjon i klarspråk, beregnet fullt og helt på enheten</strong>, som sammenligner denne uken med forrige, ved siden av en sveipbar humør- og energitrend. Den dypere KI-refleksjonen er ett bevisst trykk unna, og <strong>først da forlater noe tekst enheten</strong>. Personvernet blir på skribentens premisser, som også er slik personvern og GDPR ber om det.']
     },
     assets:['card','trend']
   },
@@ -757,13 +780,13 @@ const SECTIONS = [
     h:{en:'From concept to a clickable product',
        no:'Fra konsept til et klikkbart produkt'},
     body:{
-      en:['The point of the technical layer is a design that ships, not just a mockup. It runs end to end on React and TypeScript, a Tiptap editor, Vercel serverless functions, Whisper for dictation and Grok for the on-demand reflections. These tools were new, learned under a mentor’s guidance, and the thing worth showing is the distance covered, from concept to a genuinely usable product, with AI as an accelerator throughout.'],
-      no:['Poenget med det tekniske laget er et design som lanseres, ikke bare en mockup. Det kjører ende til ende på React og TypeScript, en Tiptap-editor, Vercel serverless-funksjoner, Whisper for diktering og Grok for refleksjonene på forespørsel. Disse verktøyene var nye, lært under en mentors veiledning, og det som er verdt å vise er avstanden som er tilbakelagt, fra konsept til et genuint brukbart produkt, med KI som akselerator hele veien.']
+      en:['The point of the technical layer is <strong>a design that ships, not just a mockup</strong>. It runs end to end on React and TypeScript, a Tiptap editor, Vercel serverless functions, Whisper for dictation and Grok for the on-demand reflections. These tools were new, learned under a mentor’s guidance, and the thing worth showing is the distance covered, <strong>from concept to a genuinely usable product</strong>, with AI as an accelerator throughout.'],
+      no:['Poenget med det tekniske laget er <strong>et design som lanseres, ikke bare en mockup</strong>. Det kjører ende til ende på React og TypeScript, en Tiptap-editor, Vercel serverless-funksjoner, Whisper for diktering og Grok for refleksjonene på forespørsel. Disse verktøyene var nye, lært under en mentors veiledning, og det som er verdt å vise er avstanden som er tilbakelagt, <strong>fra konsept til et genuint brukbart produkt</strong>, med KI som akselerator hele veien.']
     },
     assets:['showcase'],
     close:{
-      en:'A real, clickable product: focused two-step writing, two-axis mood, on-device insights, and cloud reflection only on request. A public link to try it is planned.',
-      no:'Et ekte, klikkbart produkt: fokusert to-stegs-skriving, humør på to akser, innsikt på enheten, og skyrefleksjon kun på forespørsel. En offentlig lenke for å prøve det er planlagt.'
+      en:'Not a mockup to imagine, a product to open.',
+      no:'Ikke en mockup å forestille seg, et produkt å åpne.'
     }
   },
   {
@@ -772,8 +795,8 @@ const SECTIONS = [
     h:{en:'What the project taught, and where it goes next',
        no:'Hva prosjektet lærte, og hvor det går videre'},
     body:{
-      en:['Building it, rather than only drawing it, made every trade-off concrete.'],
-      no:['Å bygge det, i stedet for bare å tegne det, gjorde hver avveining konkret.']
+      en:['<strong>Building it, rather than only drawing it, made every trade-off concrete.</strong>'],
+      no:['<strong>Å bygge det, i stedet for bare å tegne det, gjorde hver avveining konkret.</strong>']
     },
     list:{
       en:['<strong>Subtraction did more than addition.</strong> Removing the navigation, the clutter and the crude single mood axis.',
@@ -787,8 +810,8 @@ const SECTIONS = [
       type:'ul'
     },
     close:{
-      en:'The product will keep developing, with a live link to try it and, later, deeper analysis of language over time.',
-      no:'Produktet vil fortsette å utvikle seg, med en levende lenke for å prøve det og, senere, dypere analyse av språk over tid.'
+      en:'The product will keep developing: real journalers first, then deeper analysis of language over time.',
+      no:'Produktet vil fortsette å utvikle seg: ekte dagbokskrivere først, deretter dypere analyse av språk over tid.'
     },
     assets:['roadmap']
   },
@@ -859,15 +882,20 @@ function statsHTML(s, L){
   return `<div class="stats reveal"><div class="src">${s.src[L]}</div><div class="row">${items}</div></div>`;
 }
 
-/* at-a-glance card: problem / role / a shipped product (try-it link + stack) */
+/* at-a-glance card: problem / role / value, then the live build (try-it link + stack).
+   Value = three bullets, each opening with a hard token, so the
+   line-starts alone tell a recruiter what was won. */
 function glanceHTML(g){
+  const items = g.value.items.map(v=>`<li>${v}</li>`).join('');
   const chips = g.live.stack.map(s=>`<span class="g-chip">${s}</span>`).join('');
   const arrow = '<svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>';
   return `<div class="g-eyebrow">${g.eyebrow}</div>
     <div class="g-row"><div class="g-k">${g.problem.k}</div><div class="g-v">${g.problem.v}</div></div>
     <div class="g-row"><div class="g-k">${g.role.k}</div><div class="g-v">${g.role.v}</div></div>
+    <div class="g-row"><div class="g-k">${g.value.k}</div>
+      <ul class="g-list">${items}</ul>
+    </div>
     <div class="g-row"><div class="g-k">${g.live.k}</div>
-      <div class="g-lead">${g.live.lead}</div>
       <a class="g-live-link" href="${g.live.link.href}" target="_blank" rel="noopener">${g.live.link.label}${arrow}</a>
       <div class="g-stack-k">${g.live.stackLabel}</div>
       <div class="g-chips">${chips}</div>
@@ -928,9 +956,23 @@ function render(L){
   langEl.dataset.l = L;
   langEl.querySelectorAll('button').forEach(b=> b.setAttribute('aria-pressed', String(b.dataset.lang===L)));
 
+  noRunts(document.querySelector('main.main'));
+
   setupReveal();
   setupSpy();
   try{ localStorage.setItem(LANG_KEY, L); }catch(e){}
+}
+
+// Kontrola „sierotek" na końcu wersu: krótkie spójniki nie zostają same na końcu linii.
+// Sklejamy „and"/„og" z następnym słowem nierozdzielającą spacją ( ), więc schodzą razem.
+function noRunts(root){
+  if(!root) return;
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const rx = /\b(and|og)\b[ \t ]+/gi;
+  let n;
+  while((n = walker.nextNode())){
+    n.nodeValue = n.nodeValue.replace(rx, '$1 ');
+  }
 }
 
 /* ---- scroll reveal ---- */
