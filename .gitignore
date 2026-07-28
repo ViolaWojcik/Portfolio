@@ -54,3 +54,12 @@ RepApp/assets/hero-in-hands.png
 # Hospital wayfinding: source PNGs not referenced by the page
 hospital-wayfinding/assets/hero.png
 hospital-wayfinding/assets/paths-service-map.png
+
+# Raw working sources for redraws — kept local, out of the public repo.
+# (Historical postcards carry identifying captions; the PL process diagrams
+#  and floor scans are references, not the anonymised assets on the page.)
+hospital-wayfinding/assets/photos/
+hospital-wayfinding/assets/rzuty/
+hospital-wayfinding/assets/pacjent.png
+hospital-wayfinding/assets/pacjent onkologiczny.png
+hospital-wayfinding/assets/rzut i diagram.png

@@ -8,7 +8,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Paths, not plans — Service design case study · Wioleta Wójcik">
 <meta property="og:description" content="Reading a heritage hospital as a service in motion, and redrawing how patients and staff move through it.">
-<meta property="og:image" content="hospital-wayfinding/assets/hero-sketch.png">
+<meta property="og:image" content="hospital-wayfinding/assets/hero-postcard.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%237A6BA8'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-weight='bold' font-size='21' text-anchor='middle' fill='%23FFFFFF'%3EW%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -141,7 +141,7 @@ h1.title{
   font-size:clamp(52px,8vw,104px);line-height:.94;letter-spacing:-.02em;color:var(--ink);
 }
 .dek{
-  margin-top:24px;max-width:34ch;
+  margin-top:24px;max-width:52ch;
   font-family:var(--font-display);font-size:clamp(21px,2.4vw,27px);
   line-height:1.28;color:var(--ink-soft);
 }
@@ -191,7 +191,8 @@ section.sec{padding:9vh 0 0;scroll-margin-top:40px;}
 h2.h{
   font-family:var(--font-display);font-weight:400;
   font-size:clamp(30px,4vw,48px);line-height:1.04;letter-spacing:-.012em;color:var(--ink);
-  max-width:20ch;
+  /* fill the reading column: long headings land in 2 lines here, collapsing further only on mobile */
+  max-width:none;
 }
 .sec p{margin-top:22px;font-size:17px;line-height:1.62;color:var(--ink-soft);}
 .sec p:first-of-type{margin-top:26px;}
@@ -387,10 +388,13 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:52ch;line-hei
       <p class="dek" data-t="dek"></p>
       <div class="meta" id="meta"></div>
     </header>
-    <div id="glance" class="glance reveal"></div>
   </div>
 
   <div id="hero"></div>
+
+  <div class="col">
+    <div id="glance" class="glance reveal"></div>
+  </div>
 
   <article id="article"></article>
 
@@ -429,12 +433,12 @@ const T = {
     back:'All projects',
     wordmark:'Paths, not plans',
     markSub:'Service design case study',
-    kicker:'Case study · Service design',
+    kicker:'Case study · Architecture · Service design',
     title:'Paths, not plans',
-    dek:'A hospital should carry its own complexity, not pass it to the people moving through it.',
+    dek:'A heritage hospital complex that couldn\'t be rebuilt.<br>So the audit followed the paths of patients and staff, not the plans, and that let us make it work better.',
     glance:{
       eyebrow:'At a glance',
-      problem:{k:'Problem', v:'Before every session, a cancer patient crossed the campus for tests, the doctor, then chemotherapy in turn. The layout passed its own complexity to patients and staff, inside a protected monument that could not be rebuilt.'},
+      problem:{k:'Problem', v:'The layout passed its own complexity to the people inside it. In a protected complex that couldn\'t be rebuilt, patients and staff lost time they never should have, walking farther than their visit ever needed.'},
       role:{k:'My role', v:'<strong>Architect.</strong> Part of a mixed specialist team at Vita Management, architects alongside HR and economics. The functional-spatial audit gave the hospital the basis to apply for renovation funding.'},
       value:{
         k:'Value',
@@ -451,7 +455,7 @@ const T = {
     meta:[
       {k:'Role',        v:'Architect · Service designer'},
       {k:'Discipline',  v:'Functional-spatial audit'},
-      {k:'Context',     v:'Heritage hospital (anonymised)'},
+      {k:'Context',     v:'Heritage hospital complex (anonymised)'},
       {k:'Year',        v:'2016'},
       {k:'Scope',       v:'Patient & staff flows, zoning'}
     ]
@@ -460,12 +464,12 @@ const T = {
     back:'Alle prosjekter',
     wordmark:'Stier, ikke planer',
     markSub:'Tjenestedesign — case study',
-    kicker:'Case study · Tjenestedesign',
+    kicker:'Case study · Arkitektur · Tjenestedesign',
     title:'Stier, ikke planer',
-    dek:'Et sykehus bør bære sin egen kompleksitet, ikke gi den videre til menneskene som beveger seg gjennom det.',
+    dek:'Et vernet sykehuskompleks som ikke kunne bygges om.<br>Så revisjonen fulgte pasientenes og helsepersonellets stier, ikke planene, og det fikk komplekset til å fungere bedre.',
     glance:{
       eyebrow:'Kort fortalt',
-      problem:{k:'Problem', v:'Før hver behandling krysset en kreftpasient området for prøver, lege og så cellegift etter tur. Planløsningen ga sin egen kompleksitet videre til pasienter og ansatte, i et fredet bygg som ikke kunne bygges om.'},
+      problem:{k:'Problem', v:'Planløsningen ga sin egen kompleksitet videre til menneskene inne i bygget. I et vernet kompleks som ikke kunne bygges om, mistet pasienter og ansatte tid de aldri skulle ha mistet, og gikk lengre enn besøket egentlig krevde.'},
       role:{k:'Min rolle', v:'<strong>Arkitekt.</strong> Del av et tverrfaglig spesialistteam hos Vita Management, arkitekter sammen med HR og økonomi. Den funksjonell-romlige revisjonen ga sykehuset grunnlaget for å søke om midler til oppgradering.'},
       value:{
         k:'Verdi',
@@ -482,7 +486,7 @@ const T = {
     meta:[
       {k:'Rolle',       v:'Arkitekt · Tjenestedesigner'},
       {k:'Fagfelt',     v:'Funksjonell-romlig revisjon'},
-      {k:'Kontekst',    v:'Vernet sykehus (anonymisert)'},
+      {k:'Kontekst',    v:'Vernet sykehuskompleks (anonymisert)'},
       {k:'År',          v:'2016'},
       {k:'Omfang',      v:'Pasient- og personalflyt, soner'}
     ]
@@ -490,9 +494,9 @@ const T = {
 };
 
 const ASSETS = {
-  hero:{ type:'img', src:'hospital-wayfinding/assets/hero-sketch.png', wide:true,
-    cap:{en:'The complex at a glance: two wings around a garden, a separate diagnostics building, and a chapel out of scope. Illustrative reconstruction, 2026; complex anonymised.',
-         no:'Komplekset ved et øyekast: to fløyer rundt en hage, et eget diagnostikkbygg, og et kapell utenfor omfanget. Illustrerende rekonstruksjon, 2026; komplekset anonymisert.'} },
+  hero:{ type:'img', src:'hospital-wayfinding/assets/hero-postcard.png', wide:true,
+    cap:{en:'The hospital not long after it opened: brick wings around a garden, and the church at its corner. Period postcard, early 1900s.',
+         no:'Sykehuset ikke lenge etter at det åpnet: teglfløyer rundt en hage, og kirken i hjørnet. Postkort fra tidlig 1900-tall.'} },
 
   context:{ type:'img', src:'hospital-wayfinding/assets/context.png', wide:true,
     cap:{en:'The hospital as it opened in 1896: a convent hospital on a legible U-plan, with its own church. Illustration after period views, not a real elevation.',
@@ -502,9 +506,9 @@ const ASSETS = {
     cap:{en:'The original U was legible; a century of extensions buried it. Illustrative reconstruction, 2026.',
          no:'Den opprinnelige U-en var lesbar; et århundre med tilbygg begravde den. Illustrerende rekonstruksjon, 2026.'} },
 
-  journey:{ type:'img', src:'hospital-wayfinding/assets/journey-before-after.png', wide:true,
-    cap:{en:'The chemotherapy day before and after, two cross-campus legs removed once the rooms sat together. Illustrative reconstruction, 2026.',
-         no:'Cellegift-dagen før og etter, to reiser på tvers av området fjernet da rommene lå samlet. Illustrerende rekonstruksjon, 2026.'} },
+  journey:{ type:'img', src:'hospital-wayfinding/assets/journey-diagnostic.png', wide:true,
+    cap:{en:'The diagnostic path, before and after: five visits and months of waiting, compressed to three visits and days once a coordinator held the thread. Illustrative reconstruction, 2026.',
+         no:'Diagnoseforløpet, før og etter: fem besøk og måneders venting, presset ned til tre besøk og dager da en koordinator holdt tråden. Illustrerende rekonstruksjon, 2026.'} },
 
   findings:{ type:'img', src:'hospital-wayfinding/assets/findings.png', wide:true,
     cap:{en:'The same problems, mapped by who pays for them: outpatient, inpatient, staff. Illustrative reconstruction, 2026.',
@@ -732,6 +736,18 @@ function glanceHTML(g){
     </div>`;
 }
 
+// Kontrola „sierotek" na końcu wersu: krótkie spójniki nie zostają same na końcu linii.
+// Sklejamy „and"/„og" z następnym słowem nierozdzielającą spacją ( ), więc schodzą razem.
+function noRunts(root){
+  if(!root) return;
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const rx = /\b(and|og)\b[ \t ]+/gi;
+  let n;
+  while((n = walker.nextNode())){
+    n.nodeValue = n.nodeValue.replace(rx, '$1 ');
+  }
+}
+
 function render(L){
   const t = T[L];
 
@@ -771,6 +787,8 @@ function render(L){
   tocOl.innerHTML = SECTIONS.map((s,i)=>
     `<li><a href="#${s.id}" data-to="${s.id}"><span class="n">${String(i+1).padStart(2,'0')}</span><span>${s.nav[L]}</span></a></li>`
   ).join('');
+
+  noRunts(document.querySelector('main.main'));
 
   document.documentElement.lang = L;
   langEl.dataset.l = L;
