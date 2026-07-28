@@ -363,15 +363,11 @@ body{
   background:var(--accent-tint) url("hospital-wayfinding/assets/folder-peek.jpg") center top/cover no-repeat;
 }
 .ready .obj[data-k="f4"].grab:hover .folder .sheet{transform:translateY(-30px);}
-/* f2 (Red thread): the sheet carries the case's red-thread doodle, winding
-   up and off the paper into a small ball of yarn that pokes over the edge.
-   Case colours live only on this print, as on the case's own plates. */
+/* f2 (Red thread): the sheet is a print like f4's — the walk-to-school
+   photo duotoned into the board's lilac, with the case's red thread
+   drawn over it. Case red lives only on this print. */
 .obj[data-k="f2"] .folder .sheet{
-  background:var(--paper) url("red-thread/assets/folder-peek.png") center top/cover no-repeat;
-}
-.obj[data-k="f2"] .folder .sheet::after{
-  content:'';position:absolute;top:-11px;right:19px;width:30px;height:28px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='28' viewBox='0 0 30 28'%3E%3Ccircle cx='14' cy='14' r='12' fill='%23C23B2E'/%3E%3Cg stroke='%239E2F24' stroke-width='1.4' fill='none' stroke-linecap='round'%3E%3Cpath d='M4 10 Q14 4 25 11'/%3E%3Cpath d='M3 16 Q14 10 26 17'/%3E%3Cpath d='M6 21 Q15 16 24 22'/%3E%3Cpath d='M9 4 Q4 14 10 24'/%3E%3Cpath d='M19 4 Q25 14 18 25'/%3E%3C/g%3E%3Cpath d='M23 22q4 4 6 3' stroke='%23C23B2E' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat;
+  background:var(--accent-tint) url("red-thread/assets/folder-peek.jpg") center top/cover no-repeat;
 }
 .ready .obj[data-k="f2"].grab:hover .folder .sheet{transform:translateY(-30px);}
 .folder .body{
