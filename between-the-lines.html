@@ -493,7 +493,7 @@ const T = {
     glance:{
       eyebrow:'At a glance',
       problem:{k:'Problem', v:'Journaling tools sit at two extremes, a blank page or a mood emoji. More and more people take their inner life to a general chatbot instead: in a 2025 US survey, <strong>~49%</strong> of people with an ongoing mental-health condition used one for support. The tool they confide in only agrees with them.'},
-      role:{k:'My role', v:'<strong>Product &amp; UX Designer, solo design and build.</strong> During the AI Product Masterclass (Nueve Design, 2026, five-week intensive) I designed the journal and built it into a working product: writing separated from rating, mood as a two-axis grid, dictation rebuilt around Whisper, insights computed on the device.'},
+      role:{k:'My role', v:'<strong>Product &amp; UX Designer, solo design and build.</strong> During the AI Product Masterclass (Nueve Design, 2026, five-week intensive) I designed the journal and built it into a working product: writing separated from rating, mood as a two-axis grid, dictation rebuilt around Whisper, insights computed on the device, and a Companion chat grounded in the journal.'},
       value:{
         k:'Value',
         items:[
@@ -511,7 +511,7 @@ const T = {
       }
     },
     footBack:'Back to all projects',
-    footNote:'Designed and built in 2026 during the AI Product Masterclass (Nueve Design), then taken further as a working demo. No real users yet, so outcomes are qualitative, and any insight text shown is illustrative and labelled. It runs as a live, clickable demo, and this case study will keep growing as real screenshots replace placeholders.',
+    footNote:'Designed and built in 2026 during the AI Product Masterclass (Nueve Design), then taken further as a working demo. No real users yet, so outcomes are qualitative, and any insight text shown is illustrative and labelled. It runs as a live, clickable demo, and every screen shown here is captured from the running build or drawn for this case.',
     meta:[
       {k:'Role',       v:'Product & UX Designer'},
       {k:'Scope',      v:'Design and build, solo'},
@@ -530,7 +530,7 @@ const T = {
     glance:{
       eyebrow:'Kort fortalt',
       problem:{k:'Problem', v:'Dagbøker havner på to ytterpunkter, en blank side eller en humør-emoji. Flere og flere tar heller innerlivet sitt til en generell chatbot: i en amerikansk undersøkelse fra 2025 brukte <strong>~49%</strong> av personer med en pågående psykisk lidelse en slik til støtte. Verktøyet de betror seg til, er bare enig med dem.'},
-      role:{k:'Min rolle', v:'<strong>Produkt- og UX-designer, design og bygg alene.</strong> Under AI Product Masterclass (Nueve Design, 2026, fem ukers intensiv) designet jeg dagboken og bygde den til et fungerende produkt: skriving skilt fra vurdering, humør som et rutenett med to akser, diktering bygd om rundt Whisper, innsikt beregnet på enheten.'},
+      role:{k:'Min rolle', v:'<strong>Produkt- og UX-designer, design og bygg alene.</strong> Under AI Product Masterclass (Nueve Design, 2026, fem ukers intensiv) designet jeg dagboken og bygde den til et fungerende produkt: skriving skilt fra vurdering, humør som et rutenett med to akser, diktering bygd om rundt Whisper, innsikt beregnet på enheten, og en Companion-chat forankret i dagboken.'},
       value:{
         k:'Verdi',
         items:[
@@ -548,7 +548,7 @@ const T = {
       }
     },
     footBack:'Tilbake til alle prosjekter',
-    footNote:'Designet og bygget i 2026 under AI Product Masterclass (Nueve Design), og tatt videre som en fungerende demo. Ingen ekte brukere ennå, så resultatene er kvalitative, og all innsiktstekst som vises er illustrerende og merket. Den kjører som en live, klikkbar demo, og denne case-studien vil vokse videre etter hvert som ekte skjermbilder erstatter plassholdere.',
+    footNote:'Designet og bygget i 2026 under AI Product Masterclass (Nueve Design), og tatt videre som en fungerende demo. Ingen ekte brukere ennå, så resultatene er kvalitative, og all innsiktstekst som vises er illustrerende og merket. Den kjører som en live, klikkbar demo, og hver skjerm som vises her er hentet fra den kjørende appen eller tegnet for denne casen.',
     meta:[
       {k:'Rolle',      v:'Produkt- og UX-designer'},
       {k:'Omfang',     v:'Design og bygg, alene'},
@@ -571,25 +571,21 @@ const ASSETS = {
     cap:{en:'The running build on desktop — the journal and its insights, not a static mockup.',
          no:'Den kjørende buildet på desktop — dagboken og innsiktene, ikke en statisk mockup.'} },
 
-  chatbot:{ type:'ph', ratio:'land',
-    desc:{en:'A person confiding in a chat bubble that nods back at everything they say. Uneasy, not reassuring.',
-          no:'En person som betror seg til en chatboble som nikker tilbake til alt de sier. Ubehagelig, ikke betryggende.'},
-    fmt:{en:'Concept illustration · to be produced', no:'Konseptillustrasjon · lages'} },
+  chatbot:{ type:'img', src:'between-the-lines/assets/chatbot.png', wide:true,
+    cap:{en:'The quiet risk, sketched: a chat that nods along, states things confidently, and knows nothing about the person\'s week.',
+         no:'Den stille faren, skissert: en chat som nikker med, uttaler seg selvsikkert, og ikke vet noe om personens uke.'} },
 
-  landscape:{ type:'ph', ratio:'wide',
-    desc:{en:'Two extremes side by side: an intimidating empty editor, and a row of mood emojis, with the gap between them named.',
-          no:'To ytterpunkter side om side: en skremmende tom editor, og en rad med humør-emojier, med gapet mellom dem navngitt.'},
-    fmt:{en:'Concept illustration · to be produced', no:'Konseptillustrasjon · lages'} },
+  landscape:{ type:'img', src:'between-the-lines/assets/landscape.png', wide:true,
+    cap:{en:'The two extremes, sketched: the blank page and the emoji row, and the gap between them.',
+         no:'De to ytterpunktene, skissert: den blanke siden og emoji-raden, og gapet mellom dem.'} },
 
-  before:{ type:'ph', ratio:'land',
-    desc:{en:'The original single screen with writing, rating and tagging crammed together. Labelled v1, un-designed.',
-          no:'Den opprinnelige enkeltskjermen med skriving, vurdering og merking klemt sammen. Merket v1, udesignet.'},
-    fmt:{en:'Screen capture · v1, before the redesign', no:'Skjermbilde · v1, før redesignet'} },
+  before:{ type:'img', src:'between-the-lines/assets/before.png', wide:true,
+    cap:{en:'v1, captured from the first build: writing, rating and tagging crammed onto one screen, with demo text.',
+         no:'v1, hentet fra den første versjonen: skriving, vurdering og merking klemt inn på én skjerm, med demotekst.'} },
 
-  principle:{ type:'ph', ratio:'land',
-    desc:{en:'The evidence base drawn plainly, with "not a diagnosis" running underneath all of it.',
-          no:'Kunnskapsgrunnlaget tegnet enkelt, med «ikke en diagnose» som løper under det hele.'},
-    fmt:{en:'Diagram · to be produced', no:'Diagram · lages'} },
+  principle:{ type:'img', src:'between-the-lines/assets/principle.png', wide:true,
+    cap:{en:'The evidence base as the design partner: borrowed psychology, one refused shortcut, and the line that runs under everything.',
+         no:'Kunnskapsgrunnlaget som designpartner: lånt psykologi, én avvist snarvei, og linjen som løper under alt.'} },
 
   flow:{ type:'img', src:'between-the-lines/assets/journey.webp', shape:'phone',
     cap:{en:'The two-step entry in motion — write first, then the reflect step appears.',
@@ -603,29 +599,29 @@ const ASSETS = {
     cap:{en:'The reflect step — the Affect Grid places one dot and reads it back as mood and energy.',
          no:'Refleksjonssteget — Affect Grid plasserer én prikk og leser den tilbake som humør og energi.'} },
 
-  dictation:{ type:'ph', ratio:'wide',
-    desc:{en:'Left: the browser speech API, Chrome only. Right: record then transcribe with Whisper, working across browsers.',
-          no:'Venstre: nettleserens tale-API, kun Chrome. Høyre: ta opp og transkriber med Whisper, fungerer på tvers av nettlesere.'},
-    fmt:{en:'Diagram · to be produced', no:'Diagram · lages'} },
+  dictation:{ type:'img', src:'between-the-lines/assets/dictation.png', wide:true,
+    cap:{en:'The dictation rebuild: the browser speech API failed silently outside Chrome, so recording plus server-side Whisper replaced it.',
+         no:'Ombyggingen av dikteringen: nettleserens tale-API feilet stille utenfor Chrome, så opptak pluss Whisper på serversiden erstattet det.'} },
 
   card:{ type:'img', src:'between-the-lines/assets/mobile-reflection-detail.png', shape:'phone',
     cap:{en:'A reflection in detail — the on-device conclusion with the honest privacy note underneath.',
          no:'En refleksjon i detalj — konklusjonen beregnet på enheten, med den ærlige personvern-teksten under.'} },
 
-  trend:{ type:'ph', ratio:'land',
-    desc:{en:'The mood-and-energy trend chart, two smooth curves running through the week.',
-          no:'Humør- og energitrendgrafen, to jevne kurver gjennom uken.'},
-    fmt:{en:'Screen capture · from the running demo', no:'Skjermbilde · fra den kjørende demoen'} },
+  trend:{ type:'img', src:'between-the-lines/assets/trend.png', wide:true,
+    cap:{en:'The Insights card from the running build. The circled Saturday is the reason mood became two axes.',
+         no:'Innsiktskortet fra den kjørende appen. Den innsirklede lørdagen er grunnen til at humør ble to akser.'} },
 
-  showcase:{ type:'ph', ratio:'wide',
-    desc:{en:'A polished set of the core screens: Journal, the two-step entry, the Affect Grid, and the insight card.',
-          no:'Et forseggjort sett av kjerneskjermene: dagbok, to-stegs-notatet, Affect Grid, og innsiktskortet.'},
-    fmt:{en:'Screen capture · from the running demo', no:'Skjermbilde · fra den kjørende demoen'} },
+  companion:{ type:'img', src:'between-the-lines/assets/companion.png', wide:true,
+    cap:{en:'The Companion in the running build: a grounded opening, a question handed back, and the crisis guardrail with Norway\'s real help lines.',
+         no:'Companion i den kjørende appen: en forankret åpning, et spørsmål gitt tilbake, og krisesikringen med Norges virkelige hjelpelinjer.'} },
 
-  roadmap:{ type:'ph', ratio:'wide',
-    desc:{en:'A calm forward frame: real users, a public link, and longitudinal language insight as the next horizon.',
-          no:'En rolig blikk framover: ekte brukere, en offentlig lenke, og innsikt i språk over tid som neste horisont.'},
-    fmt:{en:'Concept illustration · to be produced', no:'Konseptillustrasjon · lages'} }
+  showcase:{ type:'img', src:'between-the-lines/assets/showcase.png', wide:true,
+    cap:{en:'Four screens from the running build: the journal home, the two-step entry, the Affect Grid, and the Insights card.',
+         no:'Fire skjermer fra den kjørende appen: dagbok-hjemmet, to-stegs-notatet, Affect Grid, og innsiktskortet.'} },
+
+  roadmap:{ type:'img', src:'between-the-lines/assets/roadmap.png', wide:true,
+    cap:{en:'The forward frame: live today, real journalers next, and a longitudinal reading of language after that.',
+         no:'Blikket framover: live i dag, ekte dagbokskrivere som neste steg, og en langsgående lesning av språket etter det.'} }
 };
 
 const SECTIONS = [
@@ -775,13 +771,28 @@ const SECTIONS = [
     assets:['card','trend']
   },
   {
+    id:'companion', nav:{en:'The Companion',no:'Companion'},
+    eyebrow:{en:'11 · The Companion',no:'11 · Companion'},
+    h:{en:'The Companion answers the chatbot problem instead of ignoring it',
+       no:'Companion svarer p\u00e5 chatbot-problemet i stedet for \u00e5 overse det'},
+    body:{
+      en:['A journal that reads between the lines invites an obvious next wish: someone to talk to about it. Instead of pretending that wish away, <strong>the product ships a conversation built the other way round from the generic chatbot</strong>. The Companion opens from the page, quoting what the week actually says, and <strong>hands a question back before it answers one</strong>. When the language crosses a crisis threshold, <strong>it drops the conversation and shows Norway\u2019s real help lines</strong>, right in the thread. The same rule as everywhere else, an adjunct and never a therapist, only now it can hold a conversation without breaking it.'],
+      no:['En dagbok som leser mellom linjene, inviterer til et \u00e5penbart neste \u00f8nske: noen \u00e5 snakke med om det. I stedet for \u00e5 late som \u00f8nsket ikke finnes, <strong>leverer produktet en samtale bygget motsatt vei av den generiske chatboten</strong>. Companion \u00e5pner fra siden, siterer det uken faktisk sier, og <strong>gir et sp\u00f8rsm\u00e5l tilbake f\u00f8r den svarer p\u00e5 ett</strong>. N\u00e5r spr\u00e5ket krysser en kriseterskel, <strong>slipper den samtalen og viser Norges virkelige hjelpelinjer</strong>, rett i tr\u00e5den. Samme regel som overalt ellers, et supplement og aldri en terapeut, bare at den n\u00e5 kan holde en samtale uten \u00e5 bryte den.']
+    },
+    assets:['companion'],
+    close:{
+      en:'The reply to a chatbot that always agrees is not silence. It is a companion that asks back.',
+      no:'Svaret p\u00e5 en chatbot som alltid er enig, er ikke stillhet. Det er en companion som sp\u00f8r tilbake.'
+    }
+  },
+  {
     id:'clickable', nav:{en:'A shipped product',no:'Et lansert produkt'},
-    eyebrow:{en:'11 · Delivery',no:'11 · Leveranse'},
+    eyebrow:{en:'12 · Delivery',no:'12 · Leveranse'},
     h:{en:'From concept to a clickable product',
        no:'Fra konsept til et klikkbart produkt'},
     body:{
-      en:['The point of the technical layer is <strong>a design that ships, not just a mockup</strong>. It runs end to end on React and TypeScript, a Tiptap editor, Vercel serverless functions, Whisper for dictation and Grok for the on-demand reflections. These tools were new, learned under a mentor’s guidance, and the thing worth showing is the distance covered, <strong>from concept to a genuinely usable product</strong>, with AI as an accelerator throughout.'],
-      no:['Poenget med det tekniske laget er <strong>et design som lanseres, ikke bare en mockup</strong>. Det kjører ende til ende på React og TypeScript, en Tiptap-editor, Vercel serverless-funksjoner, Whisper for diktering og Grok for refleksjonene på forespørsel. Disse verktøyene var nye, lært under en mentors veiledning, og det som er verdt å vise er avstanden som er tilbakelagt, <strong>fra konsept til et genuint brukbart produkt</strong>, med KI som akselerator hele veien.']
+      en:['The point of the technical layer is <strong>a design that ships, not just a mockup</strong>. It runs end to end on React and TypeScript, a Tiptap editor, Vercel serverless functions, Whisper for dictation and Grok models for the on-demand reflections and the Companion\u2019s replies. These tools were new, learned under a mentor’s guidance, and the thing worth showing is the distance covered, <strong>from concept to a genuinely usable product</strong>, with AI as an accelerator throughout.'],
+      no:['Poenget med det tekniske laget er <strong>et design som lanseres, ikke bare en mockup</strong>. Det kjører ende til ende på React og TypeScript, en Tiptap-editor, Vercel serverless-funksjoner, Whisper for diktering og Grok-modeller for refleksjonene på forespørsel og Companions svar. Disse verktøyene var nye, lært under en mentors veiledning, og det som er verdt å vise er avstanden som er tilbakelagt, <strong>fra konsept til et genuint brukbart produkt</strong>, med KI som akselerator hele veien.']
     },
     assets:['showcase'],
     close:{
@@ -791,7 +802,7 @@ const SECTIONS = [
   },
   {
     id:'reflection', nav:{en:'What it taught',no:'Hva det lærte'},
-    eyebrow:{en:'12 · Lessons',no:'12 · Lærdom'},
+    eyebrow:{en:'13 · Lessons',no:'13 · Lærdom'},
     h:{en:'What the project taught, and where it goes next',
        no:'Hva prosjektet lærte, og hvor det går videre'},
     body:{
@@ -817,7 +828,7 @@ const SECTIONS = [
   },
   {
     id:'sources', nav:{en:'Sources',no:'Kilder'},
-    eyebrow:{en:'13 · Sources',no:'13 · Kilder'},
+    eyebrow:{en:'14 · Sources',no:'14 · Kilder'},
     h:{en:'The public material behind the framing',
        no:'Det offentlige materialet bak innrammingen'},
     body:{
