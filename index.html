@@ -355,6 +355,14 @@ body{
   transition:transform .55s var(--ease),opacity .45s var(--ease);
 }
 .ready .grab:hover .folder .sheet{transform:translateY(-11px);opacity:1;}
+/* f4 (Hospitals): the sheet is a print of the case-study hero — the period
+   postcard duotoned into the board's lilac, peeking out like a photo left
+   inside the folder. Other folders keep the plain tinted sheet until their
+   peek images exist. */
+.obj[data-k="f4"] .folder .sheet{
+  background:var(--accent-tint) url("hospital-wayfinding/assets/folder-peek.jpg") center top/cover no-repeat;
+}
+.ready .obj[data-k="f4"].grab:hover .folder .sheet{transform:translateY(-30px);}
 .folder .body{
   position:absolute;left:0;right:0;top:15px;bottom:0;z-index:1;
   background:var(--paper);border-radius:0 4px 4px 4px;padding:17px 18px;
