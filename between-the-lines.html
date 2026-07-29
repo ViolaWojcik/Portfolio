@@ -559,13 +559,16 @@ const T = {
   }
 };
 
-/* ---- assets: the product actually runs, so most markers become real
-   screen captures once the demo is recorded. Until then each is a styled
-   placeholder that doubles as a brief for the capture session. ---- */
+/* ---- assets: every plate is real — captures from the running build,
+   annotated plates and photo composites; no placeholders left. ---- */
 const ASSETS = {
-  hero:{ type:'img', src:'between-the-lines/assets/hero-mobile-insights.png', shape:'phone',
-    cap:{en:'Between the Lines on mobile — the insight card with the week\'s mood-and-energy trend.',
-         no:'Mellom linjene på mobil — innsiktskortet med ukens humør- og energitrend.'} },
+  /* hero: the real desktop capture composited into the laptop photo;
+     the same print, duotoned, peeks out of the folder on the board
+     (assets/folder-peek.html; compositing script sits next to the raw
+     photo sources, outside the repo) */
+  hero:{ type:'img', wide:true, src:'between-the-lines/assets/hero-photo.jpg',
+    cap:{en:'An evening with the journal open: the week\'s entries on the left, the Insights card reading between them. The running build, composited into a photo.',
+         no:'En kveld med dagboken åpen: ukens notater til venstre, innsiktskortet som leser mellom dem. Den kjørende appen, montert inn i et foto.'} },
 
   context:{ type:'img', src:'between-the-lines/assets/desktop-journal-insights.png', wide:true,
     cap:{en:'The running build on desktop — the journal and its insights, not a static mockup.',
@@ -618,6 +621,10 @@ const ASSETS = {
   showcase:{ type:'img', src:'between-the-lines/assets/showcase.png', wide:true,
     cap:{en:'Four screens from the running build: the journal home, the two-step entry, the Affect Grid, and the Insights card.',
          no:'Fire skjermer fra den kjørende appen: dagbok-hjemmet, to-stegs-notatet, Affect Grid, og innsiktskortet.'} },
+
+  inhands:{ type:'img', wide:true, src:'between-the-lines/assets/in-hands.jpg',
+    cap:{en:'Between the Lines in the hand: the journal home with the week\'s trend, in a lifestyle photo.',
+         no:'Mellom linjene i hånden: dagbok-hjemmet med ukens trend, i et livsstilsfoto.'} },
 
   roadmap:{ type:'img', src:'between-the-lines/assets/roadmap.png', wide:true,
     cap:{en:'The forward frame: live today, real journalers next, and a longitudinal reading of language after that.',
@@ -794,7 +801,7 @@ const SECTIONS = [
       en:['The point of the technical layer is <strong>a design that ships, not just a mockup</strong>. It runs end to end on React and TypeScript, a Tiptap editor, Vercel serverless functions, Whisper for dictation and Grok models for the on-demand reflections and the Companion\u2019s replies. These tools were new, learned under a mentor’s guidance, and the thing worth showing is the distance covered, <strong>from concept to a genuinely usable product</strong>, with AI as an accelerator throughout.'],
       no:['Poenget med det tekniske laget er <strong>et design som lanseres, ikke bare en mockup</strong>. Det kjører ende til ende på React og TypeScript, en Tiptap-editor, Vercel serverless-funksjoner, Whisper for diktering og Grok-modeller for refleksjonene på forespørsel og Companions svar. Disse verktøyene var nye, lært under en mentors veiledning, og det som er verdt å vise er avstanden som er tilbakelagt, <strong>fra konsept til et genuint brukbart produkt</strong>, med KI som akselerator hele veien.']
     },
-    assets:['showcase'],
+    assets:['showcase','inhands'],
     close:{
       en:'Not a mockup to imagine, a product to open.',
       no:'Ikke en mockup å forestille seg, et produkt å åpne.'
