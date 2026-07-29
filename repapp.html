@@ -422,10 +422,13 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:46ch;line-hei
       <p class="dek" data-t="dek"></p>
       <div class="meta" id="meta"></div>
     </header>
-    <div id="glance" class="glance reveal"></div>
   </div>
 
   <div id="hero"></div>
+
+  <div class="col">
+    <div id="glance" class="glance reveal"></div>
+  </div>
 
   <article id="article"></article>
 
@@ -846,7 +849,8 @@ function render(L){
   /* at-a-glance summary card */
   document.getElementById('glance').innerHTML = glanceHTML(t.glance);
 
-  /* hero image, wider than the reading column, under the header */
+  /* hero image, wider than the reading column, between the header
+     and the at-a-glance card (same order as red-thread/hospital) */
   document.getElementById('hero').innerHTML = assetHTML('hero', L);
 
   /* article */
