@@ -582,13 +582,9 @@ const ASSETS = {
     cap:{en:'The quiet risk, sketched: a chat that nods along, states things confidently, and knows nothing about the person\'s week.',
          no:'Den stille faren, skissert: en chat som nikker med, uttaler seg selvsikkert, og ikke vet noe om personens uke.'} },
 
-  landscape:{ type:'img', src:'between-the-lines/assets/landscape.png', wide:true,
-    cap:{en:'The two extremes, sketched: the blank page and the emoji row, and the gap between them.',
-         no:'De to ytterpunktene, skissert: den blanke siden og emoji-raden, og gapet mellom dem.'} },
-
   before:{ type:'img', src:'between-the-lines/assets/before.png', wide:true,
-    cap:{en:'v1, captured from the first build: writing, rating and tagging crammed onto one screen, with demo text.',
-         no:'v1, hentet fra den første versjonen: skriving, vurdering og merking klemt inn på én skjerm, med demotekst.'} },
+    cap:{en:'v1 from the first build, audited finding by finding: writing, rating and tagging crammed onto one screen, with demo text.',
+         no:'v1 fra den første versjonen, gjennomgått funn for funn: skriving, vurdering og merking klemt inn på én skjerm, med demotekst.'} },
 
   principle:{ type:'img', src:'between-the-lines/assets/principle.png', wide:true,
     cap:{en:'The evidence base as the design partner: borrowed psychology, one refused shortcut, and the line that runs under everything.',
@@ -605,10 +601,6 @@ const ASSETS = {
   grid:{ type:'img', src:'between-the-lines/assets/flow-2-reflect-affectgrid.png', shape:'phone',
     cap:{en:'The reflect step — the Affect Grid places one dot and reads it back as mood and energy.',
          no:'Refleksjonssteget — Affect Grid plasserer én prikk og leser den tilbake som humør og energi.'} },
-
-  dictation:{ type:'img', src:'between-the-lines/assets/dictation.png', wide:true,
-    cap:{en:'The dictation rebuild: the browser speech API failed silently outside Chrome, so recording plus server-side Whisper replaced it.',
-         no:'Ombyggingen av dikteringen: nettleserens tale-API feilet stille utenfor Chrome, så opptak pluss Whisper på serversiden erstattet det.'} },
 
   card:{ type:'img', src:'between-the-lines/assets/mobile-reflection-detail.png', shape:'phone',
     cap:{en:'A reflection in detail — the on-device conclusion with the honest privacy note underneath.',
@@ -628,11 +620,7 @@ const ASSETS = {
 
   inhands:{ type:'img', wide:true, src:'between-the-lines/assets/in-hands.jpg',
     cap:{en:'Between the Lines in the hand: the journal home with the week\'s trend, in a lifestyle photo.',
-         no:'Mellom linjene i hånden: dagbok-hjemmet med ukens trend, i et livsstilsfoto.'} },
-
-  roadmap:{ type:'img', src:'between-the-lines/assets/roadmap.png', wide:true,
-    cap:{en:'The forward frame: live today, real journalers next, and a longitudinal reading of language after that.',
-         no:'Blikket framover: live i dag, ekte dagbokskrivere som neste steg, og en langsgående lesning av språket etter det.'} }
+         no:'Mellom linjene i hånden: dagbok-hjemmet med ukens trend, i et livsstilsfoto.'} }
 };
 
 const SECTIONS = [
@@ -674,8 +662,7 @@ const SECTIONS = [
     body:{
       en:['The tools meant for reflection sit at two unhelpful extremes. The blank page gives you nowhere to start. The mood tracker <strong>shrinks a whole day to one tapped face</strong> and never says anything back. <strong>Neither closes the loop between writing and understanding</strong>, which is the reason to keep a journal at all.'],
       no:['Verktøyene som er ment for refleksjon havner på to lite nyttige ytterpunkter. Den blanke siden gir deg ingen steder å begynne. Humør-telleren <strong>krymper en hel dag til ett trykket ansikt</strong> og sier aldri noe tilbake. <strong>Ingen av dem lukker sløyfen mellom å skrive og å forstå</strong>, som er hele grunnen til å føre dagbok.']
-    },
-    assets:['landscape']
+    }
   },
   {
     id:'norway', nav:{en:'The Norwegian frame',no:'Den norske rammen'},
@@ -767,8 +754,7 @@ const SECTIONS = [
     body:{
       en:['Voice input was added to lower the barrier to writing, first on the browser’s built-in speech API. <strong>It failed silently outside Chrome.</strong> It was torn out and <strong>rebuilt to record audio and transcribe it server-side with Whisper</strong>, which works everywhere, including mobile. A small, honest loop of build, test and adapt, with a concrete cause.'],
       no:['Taleinnput ble lagt til for å senke terskelen for å skrive, først på nettleserens innebygde tale-API. <strong>Den feilet stille utenfor Chrome.</strong> Den ble revet ut og <strong>bygget om til å ta opp lyd og transkribere den på serversiden med Whisper</strong>, som fungerer overalt, også på mobil. En liten, ærlig sløyfe av bygg, test og tilpass, med en konkret årsak.']
-    },
-    assets:['dictation']
+    }
   },
   {
     id:'betweenlines', nav:{en:'Between the lines',no:'Mellom linjene'},
@@ -834,8 +820,7 @@ const SECTIONS = [
     close:{
       en:'The product will keep developing: real journalers first, then deeper analysis of language over time.',
       no:'Produktet vil fortsette å utvikle seg: ekte dagbokskrivere først, deretter dypere analyse av språk over tid.'
-    },
-    assets:['roadmap']
+    }
   },
   {
     id:'sources', nav:{en:'Sources',no:'Kilder'},
