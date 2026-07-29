@@ -8,7 +8,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Between the Lines — Product design case study · Wioleta Wójcik">
 <meta property="og:description" content="A self-knowledge journal that reflects your own patterns back to you, never as a diagnosis.">
-<meta property="og:image" content="between-the-lines/assets/hero-mobile-insights.png">
+<meta property="og:image" content="between-the-lines/assets/hero-photo.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%237A6BA8'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-weight='bold' font-size='21' text-anchor='middle' fill='%23FFFFFF'%3EW%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -502,7 +502,7 @@ const T = {
         k:'Value',
         items:[
           '<strong>Shipped live:</strong> a working product you can open and try, not a clickable mockup',
-          '<strong>Write first, rate later:</strong> the flow separates writing from judging, and the clutter came out',
+          '<strong>Write first, rate later:</strong> writing and judging are separate steps on one distraction-free screen',
           '<strong>On-device by default:</strong> text leaves the device only on an explicit “Reflect deeper”'
         ]
       },
@@ -527,7 +527,7 @@ const T = {
   no:{
     back:'Alle prosjekter',
     wordmark:'Mellom linjene',
-    markSub:'Produktdesign — case study',
+    markSub:'Case study i produktdesign',
     kicker:'Case study · Produktdesign',
     title:'Mellom linjene',
     dek:'En dagbok som speiler dine egne mønstre tilbake til deg, med dine egne ord og aldri som en diagnose.',
@@ -539,7 +539,7 @@ const T = {
         k:'Verdi',
         items:[
           '<strong>Lansert live:</strong> et fungerende produkt du kan åpne og prøve, ikke en klikkbar mockup',
-          '<strong>Skriv først, vurder etterpå:</strong> flyten skiller skriving fra vurdering, og rotet forsvant',
+          '<strong>Skriv først, vurder etterpå:</strong> skriving og vurdering er separate steg på én distraksjonsfri flate',
           '<strong>På enheten som standard:</strong> tekst forlater enheten kun ved et bevisst «Reflect deeper»'
         ]
       },
@@ -574,10 +574,6 @@ const ASSETS = {
     cap:{en:'An evening with the journal open: the week\'s entries on the left, the Insights card reading between them. The running build, composited into a photo.',
          no:'En kveld med dagboken åpen: ukens notater til venstre, innsiktskortet som leser mellom dem. Den kjørende appen, montert inn i et foto.'} },
 
-  context:{ type:'img', src:'between-the-lines/assets/desktop-journal-insights.png', wide:true,
-    cap:{en:'The running build on desktop — the journal and its insights, not a static mockup.',
-         no:'Den kjørende buildet på desktop — dagboken og innsiktene, ikke en statisk mockup.'} },
-
   chatbot:{ type:'img', src:'between-the-lines/assets/chatbot.png', wide:true,
     cap:{en:'The quiet risk, sketched: a chat that nods along, states things confidently, and knows nothing about the person\'s week.',
          no:'Den stille faren, skissert: en chat som nikker med, uttaler seg selvsikkert, og ikke vet noe om personens uke.'} },
@@ -591,20 +587,20 @@ const ASSETS = {
          no:'Kunnskapsgrunnlaget som designpartner: lånt psykologi, én avvist snarvei, og linjen som løper under alt.'} },
 
   flow:{ type:'img', src:'between-the-lines/assets/journey.webp', shape:'phone',
-    cap:{en:'The two-step entry in motion — write first, then the reflect step appears.',
-         no:'To-stegs-notatet i bevegelse — skriv først, så dukker refleksjonssteget opp.'} },
+    cap:{en:'The two-step entry in motion: write first, then the reflect step appears.',
+         no:'To-stegs-notatet i bevegelse: skriv først, så dukker refleksjonssteget opp.'} },
 
   home:{ type:'img', src:'between-the-lines/assets/mobile-timeline.png', shape:'scroll',
-    cap:{en:'The Journal home — the entry timeline with the insight card and a single New entry action.',
-         no:'Dagbok-hjemmesiden — notat-tidslinjen med innsiktskortet og én Nytt notat-handling.'} },
+    cap:{en:'The Journal home: the entry timeline with the insight card and a single New entry action.',
+         no:'Dagbok-hjemmesiden: notat-tidslinjen med innsiktskortet og én Nytt notat-handling.'} },
 
   grid:{ type:'img', src:'between-the-lines/assets/flow-2-reflect-affectgrid.png', shape:'phone',
-    cap:{en:'The reflect step — the Affect Grid places one dot and reads it back as mood and energy.',
-         no:'Refleksjonssteget — Affect Grid plasserer én prikk og leser den tilbake som humør og energi.'} },
+    cap:{en:'The reflect step: the Affect Grid places one dot and reads it back as mood and energy.',
+         no:'Refleksjonssteget: Affect Grid plasserer én prikk og leser den tilbake som humør og energi.'} },
 
   card:{ type:'img', src:'between-the-lines/assets/mobile-reflection-detail.png', shape:'phone',
-    cap:{en:'A reflection in detail — the on-device conclusion with the honest privacy note underneath.',
-         no:'En refleksjon i detalj — konklusjonen beregnet på enheten, med den ærlige personvern-teksten under.'} },
+    cap:{en:'A reflection in detail: the on-device conclusion with the honest privacy note underneath.',
+         no:'En refleksjon i detalj: konklusjonen beregnet på enheten, med den ærlige personvern-teksten under.'} },
 
   trend:{ type:'img', src:'between-the-lines/assets/trend.png', wide:true,
     cap:{en:'The Insights card from the running build. The circled Saturday is the reason mood became two axes.',
@@ -632,8 +628,7 @@ const SECTIONS = [
     body:{
       en:['The starting point was a course project, suggested by a mentor as a way to learn a more complex, technical toolchain. <strong>From the first sketch I steered it toward something I believed in</strong>, adding the features it actually needed. What could have stayed a throwaway exercise <strong>grew into a working tool for self-knowledge</strong>.'],
       no:['Utgangspunktet var et kursprosjekt, foreslått av en mentor som en måte å lære en mer kompleks, teknisk verktøykjede på. <strong>Fra den første skissen styrte jeg det mot noe jeg trodde på</strong>, og la til funksjonene det faktisk trengte. Det som kunne blitt en øvelse til søpla, <strong>vokste til et fungerende verktøy for selvinnsikt</strong>.']
-    },
-    assets:['context']
+    }
   },
   {
     id:'chatbot', nav:{en:'The quiet risk',no:'Den stille faren'},
