@@ -794,6 +794,9 @@ requestAnimationFrame(()=> objs.forEach(o=> o.classList.add('lit')));
 
 setTimeout(()=>{
   document.body.classList.add('ready');
+  /* one more right-column pass now that every rect is settled; the left/top
+     transition turns any correction into a gentle glide */
+  if(!mobile() && !dragging) clearRightColumn();
   const inv = document.querySelector('[data-k="f2"]');
   if(inv && !matchMedia('(prefers-reduced-motion: reduce)').matches){
     inv.classList.add('invite');
@@ -1078,6 +1081,36 @@ function placeFan(){
   fan.style.top  = top + 'px';
 }
 
+/* the right column stacks the polaroid over the contact card, but their CSS
+   anchors (photo top:12vh, card bottom:10vh) know nothing about each other,
+   so on short windows the two can collide. Resolve in order: slide the card
+   down into its bottom slack (down to a 12px margin), then lift the polaroid
+   (keeping it under the language switch). On windows too short for both, the
+   gap simply compresses — the column never breaks apart, so nothing lands on
+   the folder fan. Runs on frozen px positions. */
+const STACK_GAP = 24;   /* preferred air between the polaroid and the card */
+function clearRightColumn(){
+  const pol  = document.querySelector('.obj[data-k="pol"]');
+  const card = document.querySelector('.obj[data-k="card"]');
+  if(!pol || !card) return;
+  if(card.style.bottom !== 'auto') return;   /* not frozen yet — layout() will call us */
+  const b = board.getBoundingClientRect();
+  const p = pol.getBoundingClientRect(), c = card.getBoundingClientRect();
+  if(c.left >= p.right || c.right <= p.left) return;   /* different columns */
+  let polTop  = p.top - b.top;
+  let cardTop = c.top - b.top;
+  if(polTop + p.height + STACK_GAP <= cardTop) return; /* already clear */
+  /* 1. the card gives up its bottom margin first */
+  cardTop = Math.min(polTop + p.height + STACK_GAP,
+                     board.clientHeight - c.height - 12);
+  card.style.top = cardTop + 'px';
+  if(polTop + p.height + STACK_GAP <= cardTop) return;
+  /* 2. the polaroid lifts, but stays below the language switch; whatever
+        gap is left after that is the best this window height can do */
+  polTop = Math.max(64, cardTop - STACK_GAP - p.height);
+  pol.style.top = polTop + 'px';
+}
+
 /* last-resort nudge: if any default position still overlaps the headline,
    push the object straight down until it clears */
 function clearHeadline(){
@@ -1171,25 +1204,36 @@ const WX = {
   }
 })();
 
-/* build the composed default layout: place the fan, freeze positions to px,
-   clear the headline zone. Positions aren't persisted, so this is the single
-   layout routine — run once on load and again on every resize. */
+/* build the composed default layout: freeze positions to px, settle the
+   right column (polaroid over card), place the fan against the card's final
+   spot, clear the headline zone. Positions aren't persisted, so this is the
+   single layout routine — run once on load and again on every resize. */
 function layout(){
-  placeFan();
   freeze();
+  clearRightColumn();
+  placeFan();
   clearHeadline();
 }
 
-/* wait for fonts and the photo so the frozen positions are accurate */
+/* wait for fonts AND the polaroid photo so the frozen positions are accurate —
+   the photo gives the polaroid most of its height, so measuring before it
+   decodes would let the right-column pass wave a collision through */
 const go = ()=>{
   if(mobile()) return;
   layout();
 };
-if(document.fonts && document.fonts.ready){
-  document.fonts.ready.then(()=> setTimeout(go,80));
-}else{
-  window.addEventListener('load', go);
-}
+const polPhoto   = document.querySelector('.polaroid img');
+const fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+/* dimensions are all layout needs, so `complete` or one load/error event is
+   enough (img.decode() can stall indefinitely in Chromium); the timeout makes
+   sure a missing photo never holds the whole board hostage */
+const photoReady = new Promise(res=>{
+  if(!polPhoto || (polPhoto.complete && polPhoto.naturalWidth)) return res();
+  polPhoto.addEventListener('load',  res, {once:true});
+  polPhoto.addEventListener('error', res, {once:true});
+  setTimeout(res, 1500);
+});
+Promise.all([fontsReady, photoReady]).then(()=> setTimeout(go,80));
 
 /* recompose on resize. Because nothing is persisted, we simply rebuild the
    default layout for the new width: reset the objects to their CSS positions,
