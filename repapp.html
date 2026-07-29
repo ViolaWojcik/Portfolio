@@ -520,14 +520,15 @@ const T = {
   }
 };
 
-/* ---- assets: three redrawn mockups exist; the rest are
-   styled placeholders that double as a brief for the mockup
-   work happening in a separate session. ---- */
+/* ---- assets: every plate is real — redrawn interfaces, diagrams
+   and photo composites; no placeholders left. ---- */
 const ASSETS = {
-  hero:{ type:'ph', ratio:'wide',
-    desc:{en:'A rep’s hands holding the tablet with the Attendance list open — the two-handed gesture kept from the paper A4.',
-          no:'En verts hender som holder nettbrettet med oppmøtelista åpen — tohåndsgrepet beholdt fra papir-A4-en.'},
-    fmt:{en:'Hero mockup · prepared separately', no:'Hero-mockup · lages separat'} },
+  /* hero: the reconstructed interface composited into an airport photo;
+     the same print, duotoned, peeks out of the folder on the board
+     (assets/folder-peek.html, raw collage sources gitignored) */
+  hero:{ type:'img', wide:true, src:'RepApp/assets/hero-photo.jpg',
+    cap:{en:'An arrivals hall, a rep, the day’s excursions on screen. The tablet took over the job the printed A4 used to do here. Interface reconstruction, 2026, composited into a photo.',
+         no:'En ankomsthall, en vert, dagens utflukter på skjermen. Nettbrettet tok over jobben den utskrevne A4-en pleide å gjøre her. Grensesnitt tegnet på nytt, 2026, montert inn i et foto.'} },
 
   states:{ type:'img', src:'RepApp/assets/checkin-attendance-states.png', wide:true,
     cap:{en:'Checked in as a group by default, opened traveller-by-traveller only when the field needs it.',
