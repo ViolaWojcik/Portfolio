@@ -250,17 +250,26 @@ body{
   position:absolute;right:13px;bottom:11px;
   font-size:13px;color:var(--ink-mute);opacity:.55;
 }
-/* desktop signals "flip me" via the hover tooltip; mobile has no hover,
-   so a small language-neutral "i" badge marks the photo as tappable */
-.flip-cue{display:none;}
-@media (max-width:760px){
-  .flip-cue{
-    display:grid;place-items:center;position:absolute;top:15px;right:15px;z-index:2;
-    width:22px;height:22px;border-radius:50%;
-    background:var(--accent-tint);color:var(--accent);
-    font-family:var(--font-display);font-style:italic;font-size:14px;line-height:1;
-  }
+/* "flip me" cue: the bottom-right corner of the polaroid frame curls up and a
+   sliver of accent-tint peeks out from underneath — "something lies under this
+   photo". Language-neutral and it lives in the paper margin, so the photo stays
+   clean. Same cue on desktop and mobile; on hover the curl lifts a bit further
+   (reduced-motion kills the transition globally). */
+.flip-cue{
+  position:absolute;right:0;bottom:0;width:26px;height:26px;
+  overflow:hidden;border-radius:0 0 1px 0;
+  transition:width .3s var(--ease),height .3s var(--ease);
 }
+.flip-cue::before{  /* the sliver showing from under the lifted corner */
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom right,transparent 49.5%,var(--accent-tint) 50%);
+}
+.flip-cue::after{   /* the folded-over paper flap — one-off paper tints, like the img placeholder */
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom right,#FFFEFA 8%,#F2EDE3 38%,#E2DCCE 49.5%,transparent 50%);
+  filter:drop-shadow(1px 1px 2px rgba(58,50,38,.22));
+}
+.obj[data-k="pol"]:hover .flip-cue{width:34px;height:34px;}
 
 /* =========================================================
    CONTACT CARD — compact block, never rotated
@@ -566,7 +575,7 @@ body{
             <div class="nm">Wioleta Maria Wójcik</div>
             <div class="rl" data-t="role"></div>
           </figcaption>
-          <span class="flip-cue" aria-hidden="true">i</span>
+          <span class="flip-cue" aria-hidden="true"></span>
         </figure>
         <!-- reverse: the "about me" note (copy lives in the T model) -->
         <div class="polanote face face-back" aria-hidden="true">
