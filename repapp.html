@@ -8,7 +8,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="RepApp — Service design case study · Wioleta Wójcik">
 <meta property="og:description" content="RepApp replaced the paper list travel reps carried into every airport arrival.">
-<meta property="og:image" content="RepApp/assets/checkin-attendance-states.png">
+<meta property="og:image" content="RepApp/assets/hero-photo.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%237A6BA8'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-weight='bold' font-size='21' text-anchor='middle' fill='%23FFFFFF'%3EW%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -530,6 +530,10 @@ const ASSETS = {
     cap:{en:'An arrivals hall, a rep, the day’s excursions on screen. The tablet took over the job the printed A4 used to do here. Interface reconstruction, 2026, composited into a photo.',
          no:'En ankomsthall, en vert, dagens utflukter på skjermen. Nettbrettet tok over jobben den utskrevne A4-en pleide å gjøre her. Grensesnitt tegnet på nytt, 2026, montert inn i et foto.'} },
 
+  night:{ type:'img', src:'RepApp/assets/attendance-night.jpg', wide:true,
+    cap:{en:'A night arrival met from the rebuilt list: the family that walks up as one group is one row, one tap. Interface reconstruction, 2026, composited into a photo.',
+         no:'En nattankomst møtt fra den ombygde lista: familien som kommer som én gruppe er én rad, ett trykk. Grensesnitt tegnet på nytt, 2026, montert inn i et foto.'} },
+
   states:{ type:'img', src:'RepApp/assets/checkin-attendance-states.png', wide:true,
     cap:{en:'Checked in as a group by default, opened traveller-by-traveller only when the field needs it.',
          no:'Sjekket inn som gruppe som standard, åpnet reisende for reisende bare når feltet krever det.'} },
@@ -698,7 +702,7 @@ const SECTIONS = [
       en:['Our database stores people individually, so that is how the first build worked. In the field <strong>a family of five walked up as one group</strong> and the rep tapped five times. On paper, one stroke of a pen covered all five. Digitising the data model would have made the job slower than paper, so <strong>we rebuilt check-in around the reservation</strong>.'],
       no:['Databasen vår lagrer mennesker enkeltvis, så det var slik den første versjonen fungerte. I felt kom <strong>en familie på fem opp som én gruppe</strong>, og verten trykket fem ganger. På papir dekket ett pennestrøk alle fem. Å digitalisere datamodellen ville gjort jobben tregere enn papir, så <strong>vi bygde innsjekken om rundt reservasjonen</strong>.']
     },
-    assets:['states']
+    assets:['night','states']
   },
   {
     id:'sunlight', nav:{en:'Sunlight',no:'Sollys'},
