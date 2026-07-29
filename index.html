@@ -224,10 +224,18 @@ body{
   transform-style:preserve-3d;
   transition:transform .7s var(--ease);
 }
-.obj[data-k="pol"].flipped .flipper{transform:rotateY(180deg);}
+/* the turn happens about the BL↔TR diagonal, so the cued corner (bottom right)
+   is the one that peels up toward the viewer — the animation acts out exactly
+   what the curled corner promises */
+.obj[data-k="pol"].flipped .flipper{transform:rotate3d(1,-1,0,180deg);}
 .face{backface-visibility:hidden;-webkit-backface-visibility:hidden;}
 .face-front{position:relative;}
-.face-back{position:absolute;inset:0;transform:rotateY(180deg);}
+.face-back{position:absolute;inset:0;transform:rotate3d(1,-1,0,180deg);}  /* pre-turned about the same axis */
+/* Chrome can't hit-test a plane turned 180° about a diagonal axis — the pointer
+   falls straight through the flipped card to the body, so clicks (and hover) on
+   the note would be lost. This transparent, untransformed overlay catches the
+   pointer in both states; all handlers live on .obj anyway. */
+.obj[data-k="pol"]::after{content:'';position:absolute;inset:0;z-index:1;}
 /* the note on the reverse — same paper and tilt as the photo, warm + legible */
 .polanote{
   width:204px;height:100%;
@@ -246,15 +254,13 @@ body{
 .polanote .body{
   font-family:var(--font-ui);font-size:11px;line-height:1.5;color:var(--ink-soft);
 }
-.polanote .flipback{
-  position:absolute;right:13px;bottom:11px;
-  font-size:13px;color:var(--ink-mute);opacity:.55;
-}
-/* "flip me" cue: the bottom-right corner of the polaroid frame curls up and a
-   sliver of accent-tint peeks out from underneath — "something lies under this
-   photo". Language-neutral and it lives in the paper margin, so the photo stays
-   clean. Same cue on desktop and mobile; on hover the curl lifts a bit further
-   (reduced-motion kills the transition globally). */
+/* "flip me" cue: the bottom-right corner of the paper curls up and a sliver of
+   accent-tint peeks out from underneath — "something lies under this photo".
+   Language-neutral and it lives in the paper margin, so the photo stays clean.
+   The note on the back carries the same curl in the same corner (same gesture,
+   same meaning), so no ↩ arrow is needed there. Same cue on desktop and mobile;
+   on hover the curl lifts a bit further (reduced-motion kills the transition
+   globally). */
 .flip-cue{
   position:absolute;right:0;bottom:0;width:26px;height:26px;
   overflow:hidden;border-radius:0 0 1px 0;
@@ -581,7 +587,7 @@ body{
         <div class="polanote face face-back" aria-hidden="true">
           <p class="lead" data-t="aboutLead"></p>
           <p class="body" data-t="aboutBody"></p>
-          <span class="flipback" aria-hidden="true">↩</span>
+          <span class="flip-cue" aria-hidden="true"></span>
         </div>
       </div>
     </div>
