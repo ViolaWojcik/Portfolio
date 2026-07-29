@@ -266,12 +266,15 @@ body{
    CONTACT CARD — compact block, never rotated
    ========================================================= */
 .card{
-  position:relative;width:238px;min-height:132px;
+  position:relative;width:266px;min-height:148px;
   background:var(--paper-warm);border-radius:3px;overflow:hidden;
-  padding:22px 22px 22px 24px;
-  display:flex;flex-direction:column;justify-content:center;gap:18px;
+  padding:24px 24px 24px 27px;
+  display:flex;flex-direction:column;justify-content:center;gap:16px;
 }
 .card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);opacity:.85;}
+/* display-serif header so the card reads as "contact" at rest, like the folder titles */
+.card-h{font-family:var(--font-display);font-size:20px;line-height:1.05;color:var(--ink);}
+.card-h em{font-style:italic;color:var(--accent);}   /* accent word, same treatment as the headline's "people." */
 /* reach-out icons: a labelled lilac disc each, legible at rest —
    not only on hover — so it's clear what each one is */
 .icons{display:flex;justify-content:space-between;gap:8px;margin:2px 2px 0;}
@@ -280,13 +283,13 @@ body{
   color:var(--ink-soft);text-decoration:none;
 }
 .ic .disc{
-  width:38px;height:38px;display:grid;place-items:center;border-radius:50%;
+  width:42px;height:42px;display:grid;place-items:center;border-radius:50%;
   background:var(--accent-tint);color:var(--accent);
   transition:background .3s var(--ease),color .3s var(--ease),transform .3s var(--settle);
 }
-.ic svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+.ic svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
 .ic .lbl{
-  font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--ink-mute);
 }
 /* hover / focus: only the disc responds — the grey label stays put, and the
@@ -296,7 +299,7 @@ body{
 .ic:focus-visible .disc{outline:2px solid var(--accent);outline-offset:2px;}
 .info{display:grid;gap:4px;}
 /* location + live weather share one line: "[icon] 25° · Oslo, Norway" */
-.place{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink-soft);}
+.place{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-soft);}
 .info a{width:fit-content;border-bottom:1px solid transparent;transition:color .3s,border-color .3s;}
 .info a:hover{color:var(--accent);border-bottom-color:var(--accent);}
 
@@ -576,10 +579,12 @@ body{
   </div>
 
   <!-- ── contact card: icons + location + phone, no name ───── -->
-  <div class="obj grab" data-k="card" data-tip="contact"
+  <!-- no card-level tooltip: the header names the card, the icons name their actions -->
+  <div class="obj grab" data-k="card"
        style="right:8vw;bottom:10vh;--rot:0deg;--d:2.06s;--lit:2.68s;">
     <div class="inner">
       <div class="card">
+        <div class="card-h" data-t="cardTitle"></div>
         <div class="icons">
           <a class="ic" href="mailto:wioleta.maria.wojcik@gmail.com" data-a="mail">
             <span class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="1.5"/><path d="M2.5 6.5 12 13l9.5-6.5"/></svg></span>
@@ -674,6 +679,7 @@ const T = {
     words:['Spaces,','systems,','people.'],
     role :'Service Designer<br>&amp; Architect',
     loc  :'Oslo, Norway',
+    cardTitle:'Come say <em>hi!</em>',
     t1   :'Guest check-in',
     t2   :'Red thread',
     t3   :'Between<br>the lines',
@@ -689,7 +695,7 @@ const T = {
     /* the "about" note on the back of the polaroid (her own CV copy) */
     aboutLead:'I design where space, systems, and people meet.',
     aboutBody:'I work in service design for social and public challenges, bringing an architect\'s background to it. It\'s grounded in seven years of research-first, end-to-end product design. AI is central to how I work: it turns research into working products.',
-    tips :{about:'About me',contact:'Say hi',project:'Read case study'},
+    tips :{about:'About me',project:'Read case study'},
     /* verb shown under each icon on hover/focus — the action, not the name */
     act  :{mail:'Copy',li:'Open',cv:'Open PDF'},
     aria :{mail:'Email Wioleta',li:'LinkedIn profile',cv:'Open CV as PDF',about:'About me. Flip the photo to read.',f1:'Guest check-in — open case study',f2:'Red thread — open case study',f3:'Between the lines — open case study',f4:'Moving through care — open case study'}
@@ -698,6 +704,7 @@ const T = {
     words:['Rom,','systemer,','mennesker.'],
     role :'Tjenestedesigner<br>&amp; arkitekt',
     loc  :'Oslo, Norge',
+    cardTitle:'Kom og si <em>hei!</em>',
     t1   :'Gjesteinnsjekk',
     t2   :'Rød tråd',
     t3   :'Mellom<br>linjene',
@@ -713,7 +720,7 @@ const T = {
     /* "om meg"-notat på baksiden av polaroiden (utkast, avventer native review) */
     aboutLead:'Jeg designer der rom, systemer og mennesker møtes.',
     aboutBody:'Jeg jobber med tjenestedesign for sosiale og offentlige utfordringer, og tar med meg en arkitektbakgrunn inn i det. Det hviler på syv år med innsiktsdrevet, helhetlig produktdesign. KI er sentralt i måten jeg jobber på: det gjør research om til fungerende produkter.',
-    tips :{about:'Om meg',contact:'Si hei',project:'Les case study'},
+    tips :{about:'Om meg',project:'Les case study'},
     act  :{mail:'Kopier',li:'Åpne',cv:'Åpne PDF'},
     aria :{mail:'Send e-post',li:'LinkedIn-profil',cv:'Åpne CV som PDF',about:'Om meg. Snu bildet for å lese.',f1:'Gjesteinnsjekk — åpne case study',f2:'Rød tråd — åpne case study',f3:'Mellom linjene — åpne case study',f4:'Gjennom omsorgen — åpne case study'}
   }
@@ -1021,7 +1028,7 @@ board.addEventListener('pointermove', e=>{
   } else {
     const g = e.target.closest('.obj.grab');
     const key = g && g.dataset.tip;
-    label = key && t.tips[key];             // otherwise the object's own tip (Say hi, …)
+    label = key && t.tips[key];             // otherwise the object's own tip (About me, …)
   }
   if(!label){ tipEl.classList.remove('show'); return; }
   showTip(label, e.clientX, e.clientY);
