@@ -533,7 +533,7 @@ const T = {
     dek:'En dagbok som speiler dine egne mønstre tilbake til deg, med dine egne ord og aldri som en diagnose.',
     glance:{
       eyebrow:'Kort fortalt',
-      problem:{k:'Problem', v:'Dagbøker havner på to ytterpunkter, en blank side eller en humør-emoji. Flere og flere tar heller innerlivet sitt til en generell chatbot: i en amerikansk undersøkelse fra 2025 brukte <strong>~49%</strong> av personer med en pågående psykisk lidelse en slik til støtte. Verktøyet de betror seg til, er bare enig med dem.'},
+      problem:{k:'Problem', v:'Dagbøker havner på to ytterpunkter, en blank side eller en humøremoji. Flere og flere tar heller innerlivet sitt til en generell chatbot: i en amerikansk undersøkelse fra 2025 brukte <strong>~49%</strong> av personer med en pågående psykisk lidelse en slik til støtte. Verktøyet de betror seg til, er bare enig med dem.'},
       role:{k:'Min rolle', v:'<strong>Produkt- og UX-designer, design og bygg alene.</strong> Under AI Product Masterclass (Nueve Design, 2026, fem ukers intensiv) designet jeg dagboken og bygde den til et fungerende produkt: skriving skilt fra vurdering, humør som et rutenett med to akser, diktering bygd om rundt Whisper, innsikt beregnet på enheten, og en Companion-chat forankret i dagboken.'},
       value:{
         k:'Verdi',
@@ -588,11 +588,11 @@ const ASSETS = {
 
   flow:{ type:'img', src:'between-the-lines/assets/journey.webp', shape:'phone',
     cap:{en:'The two-step entry in motion: write first, then the reflect step appears.',
-         no:'To-stegs-notatet i bevegelse: skriv først, så dukker refleksjonssteget opp.'} },
+         no:'Totrinnsnotatet i bevegelse: skriv først, så dukker refleksjonssteget opp.'} },
 
   home:{ type:'img', src:'between-the-lines/assets/mobile-timeline.png', shape:'scroll',
     cap:{en:'The Journal home: the entry timeline with the insight card and a single New entry action.',
-         no:'Dagbok-hjemmesiden: notat-tidslinjen med innsiktskortet og én Nytt notat-handling.'} },
+         no:'Dagbokens startskjerm: notattidslinjen med innsiktskortet og én «Nytt notat»-handling.'} },
 
   grid:{ type:'img', src:'between-the-lines/assets/flow-2-reflect-affectgrid.png', shape:'phone',
     cap:{en:'The reflect step: the Affect Grid places one dot and reads it back as mood and energy.',
@@ -600,7 +600,7 @@ const ASSETS = {
 
   card:{ type:'img', src:'between-the-lines/assets/mobile-reflection-detail.png', shape:'phone',
     cap:{en:'A reflection in detail: the on-device conclusion with the honest privacy note underneath.',
-         no:'En refleksjon i detalj: konklusjonen beregnet på enheten, med den ærlige personvern-teksten under.'} },
+         no:'En refleksjon i detalj: konklusjonen beregnet på enheten, med den ærlige personvernteksten under.'} },
 
   trend:{ type:'img', src:'between-the-lines/assets/trend.png', wide:true,
     cap:{en:'The Insights card from the running build. The circled Saturday is the reason mood became two axes.',
@@ -612,11 +612,11 @@ const ASSETS = {
 
   showcase:{ type:'img', src:'between-the-lines/assets/showcase.png', wide:true,
     cap:{en:'Four screens from the running build: the journal home, the two-step entry, the Affect Grid, and the Insights card.',
-         no:'Fire skjermer fra den kjørende appen: dagbok-hjemmet, to-stegs-notatet, Affect Grid, og innsiktskortet.'} },
+         no:'Fire skjermer fra den kjørende appen: dagbokens startskjerm, totrinnsnotatet, Affect Grid, og innsiktskortet.'} },
 
   inhands:{ type:'img', wide:true, src:'between-the-lines/assets/in-hands.jpg',
     cap:{en:'Between the Lines in the hand: the journal home with the week\'s trend, in a lifestyle photo.',
-         no:'Mellom linjene i hånden: dagbok-hjemmet med ukens trend, i et livsstilsfoto.'} }
+         no:'Mellom linjene i hånden: dagbokens startskjerm med ukens trend, i et livsstilsfoto.'} }
 };
 
 const SECTIONS = [
@@ -653,10 +653,10 @@ const SECTIONS = [
     id:'extremes', nav:{en:'Two extremes',no:'To ytterpunkter'},
     eyebrow:{en:'03 · The landscape',no:'03 · Landskapet'},
     h:{en:'Most journaling apps are either an empty text box or a mood-emoji tracker',
-       no:'De fleste dagbok-apper er enten en tom tekstboks eller en humør-emoji-teller'},
+       no:'De fleste dagbokapper er enten en tom tekstboks eller en emojiteller for humør'},
     body:{
       en:['The tools meant for reflection sit at two unhelpful extremes. The blank page gives you nowhere to start. The mood tracker <strong>shrinks a whole day to one tapped face</strong> and never says anything back. <strong>Neither closes the loop between writing and understanding</strong>, which is the reason to keep a journal at all.'],
-      no:['Verktøyene som er ment for refleksjon havner på to lite nyttige ytterpunkter. Den blanke siden gir deg ingen steder å begynne. Humør-telleren <strong>krymper en hel dag til ett trykket ansikt</strong> og sier aldri noe tilbake. <strong>Ingen av dem lukker sløyfen mellom å skrive og å forstå</strong>, som er hele grunnen til å føre dagbok.']
+      no:['Verktøyene som er ment for refleksjon havner på to lite nyttige ytterpunkter. Den blanke siden gir deg ingen steder å begynne. Humørtelleren <strong>krymper en hel dag til ett trykket ansikt</strong> og sier aldri noe tilbake. <strong>Ingen av dem lukker sløyfen mellom å skrive og å forstå</strong>, som er hele grunnen til å føre dagbok.']
     }
   },
   {
@@ -692,7 +692,7 @@ const SECTIONS = [
   },
   {
     id:'rule', nav:{en:'One rule',no:'Én regel'},
-    eyebrow:{en:'06 · Guiding policy',no:'06 · Styrende policy'},
+    eyebrow:{en:'06 · Guiding policy',no:'06 · Styrende prinsipp'},
     h:{en:'One rule held the scope: an adjunct, never a replacement',
        no:'Én regel holdt omfanget: et supplement, aldri en erstatning'},
     body:{
@@ -710,7 +710,7 @@ const SECTIONS = [
             '<strong>Pennebaker’s expressive-writing research</strong>, for the language reflection.',
             '<strong>CBT vocabulary</strong>, for the prompts.',
             '<strong>Low-validity personality quizzes refused</strong>, such as MBTI and the Enneagram.'],
-        no:['<strong>Russells sirkumpleks-modell for affekt</strong>, for humør.',
+        no:['<strong>Russells sirkumpleksmodell for affekt</strong>, for humør.',
             '<strong>Pennebakers forskning på ekspressiv skriving</strong>, for språkrefleksjonen.',
             '<strong>KAT-vokabular</strong>, for spørsmålene.',
             '<strong>Personlighetstester med lav validitet avvist</strong>, som MBTI og Enneagrammet.'],
@@ -723,7 +723,7 @@ const SECTIONS = [
     id:'flow', nav:{en:'Write, then rate',no:'Skriv, så vurder'},
     eyebrow:{en:'07 · The build',no:'07 · Løsningen'},
     h:{en:'A focused two-step flow: write first, rate later',
-       no:'En fokusert to-stegs-flyt: skriv først, vurder etterpå'},
+       no:'En fokusert totrinnsflyt: skriv først, vurder etterpå'},
     body:{
       en:['<strong>Writing and judging are different mental modes, so they were separated.</strong> Step one is a distraction-free editor and nothing else. Only after writing does step two ask for mood and themes. With one home and one task, the navigation and the clutter came out, and <strong>nothing floats over the writing surface</strong>.'],
       no:['<strong>Å skrive og å vurdere er ulike mentale modus, så de ble skilt.</strong> Steg én er en distraksjonsfri editor og ingenting annet. Først etter skrivingen ber steg to om humør og temaer. Med ett hjem og én oppgave forsvant navigasjonen og rotet, og <strong>ingenting flyter over skriveflaten</strong>.']
@@ -737,7 +737,7 @@ const SECTIONS = [
        no:'Humør ble to akser, fordi rolig og utmattet ikke er det samme lave'},
     body:{
       en:['<strong>A single sad-to-happy scale hides half of how a day feels.</strong> The emoji gave way to <strong>an Affect Grid</strong>, a square where one axis is mood and the other is energy, drawn from Russell’s circumplex. One placed dot captures pleasant or heavy and wired or worn out at once.'],
-      no:['<strong>En enkelt trist-til-glad-skala skjuler halvparten av hvordan en dag føles.</strong> Emojien vek for <strong>et Affect Grid</strong>, en firkant der den ene aksen er humør og den andre er energi, hentet fra Russells sirkumpleks. Én plassert prikk fanger behagelig eller tungt og oppspilt eller utslitt på én gang.']
+      no:['<strong>En enkelt skala fra trist til glad skjuler halvparten av hvordan en dag føles.</strong> Emojien vek for <strong>et Affect Grid</strong>, en firkant der den ene aksen er humør og den andre er energi, hentet fra Russells sirkumpleks. Én plassert prikk fanger behagelig eller tungt og oppspilt eller utslitt på én gang.']
     },
     assets:['grid']
   },
@@ -758,7 +758,7 @@ const SECTIONS = [
        no:'Den leser mellom linjene bare når den blir bedt om det'},
     body:{
       en:['The reward for journaling is the Between the Lines card. By default it shows <strong>a plain-language conclusion computed entirely on the device</strong>, comparing this week to last, next to a swipeable mood-and-energy trend. The deeper AI reflection is one deliberate tap away, and <strong>only then does any text leave the device</strong>. Privacy stays on the writer’s terms, which is also how personvern and GDPR ask it to be.'],
-      no:['Belønningen for å føre dagbok er Mellom linjene-kortet. Som standard viser det <strong>en konklusjon i klarspråk, beregnet fullt og helt på enheten</strong>, som sammenligner denne uken med forrige, ved siden av en sveipbar humør- og energitrend. Den dypere KI-refleksjonen er ett bevisst trykk unna, og <strong>først da forlater noe tekst enheten</strong>. Personvernet blir på skribentens premisser, som også er slik personvern og GDPR ber om det.']
+      no:['Belønningen for å føre dagbok er «Mellom linjene»-kortet. Som standard viser det <strong>en konklusjon i klarspråk, beregnet fullt og helt på enheten</strong>, som sammenligner denne uken med forrige, ved siden av en sveipbar humør- og energitrend. Den dypere KI-refleksjonen er ett bevisst trykk unna, og <strong>først da forlater noe tekst enheten</strong>. Personvernet blir på skribentens premisser, som også er slik personvern og GDPR ber om det.']
     },
     assets:['card','trend']
   },
@@ -766,7 +766,7 @@ const SECTIONS = [
     id:'companion', nav:{en:'The Companion',no:'Companion'},
     eyebrow:{en:'11 · The Companion',no:'11 · Companion'},
     h:{en:'The Companion answers the chatbot problem instead of ignoring it',
-       no:'Companion svarer p\u00e5 chatbot-problemet i stedet for \u00e5 overse det'},
+       no:'Companion svarer p\u00e5 chatbotproblemet i stedet for \u00e5 overse det'},
     body:{
       en:['A journal that reads between the lines invites an obvious next wish: someone to talk to about it. Instead of pretending that wish away, <strong>the product ships a conversation built the other way round from the generic chatbot</strong>. The Companion opens from the page, quoting what the week actually says, and <strong>hands a question back before it answers one</strong>. When the language crosses a crisis threshold, <strong>it drops the conversation and shows Norway\u2019s real help lines</strong>, right in the thread. The same rule as everywhere else, an adjunct and never a therapist, only now it can hold a conversation without breaking it.'],
       no:['En dagbok som leser mellom linjene, inviterer til et \u00e5penbart neste \u00f8nske: noen \u00e5 snakke med om det. I stedet for \u00e5 late som \u00f8nsket ikke finnes, <strong>leverer produktet en samtale bygget motsatt vei av den generiske chatboten</strong>. Companion \u00e5pner fra siden, siterer det uken faktisk sier, og <strong>gir et sp\u00f8rsm\u00e5l tilbake f\u00f8r den svarer p\u00e5 ett</strong>. N\u00e5r spr\u00e5ket krysser en kriseterskel, <strong>slipper den samtalen og viser Norges virkelige hjelpelinjer</strong>, rett i tr\u00e5den. Samme regel som overalt ellers, et supplement og aldri en terapeut, bare at den n\u00e5 kan holde en samtale uten \u00e5 bryte den.']
@@ -784,7 +784,7 @@ const SECTIONS = [
        no:'Fra konsept til et klikkbart produkt'},
     body:{
       en:['The point of the technical layer is <strong>a design that ships, not just a mockup</strong>. It runs end to end on React and TypeScript, a Tiptap editor, Vercel serverless functions, Whisper for dictation and Grok models for the on-demand reflections and the Companion\u2019s replies. These tools were new, learned under a mentor’s guidance, and the thing worth showing is the distance covered, <strong>from concept to a genuinely usable product</strong>, with AI as an accelerator throughout.'],
-      no:['Poenget med det tekniske laget er <strong>et design som lanseres, ikke bare en mockup</strong>. Det kjører ende til ende på React og TypeScript, en Tiptap-editor, Vercel serverless-funksjoner, Whisper for diktering og Grok-modeller for refleksjonene på forespørsel og Companions svar. Disse verktøyene var nye, lært under en mentors veiledning, og det som er verdt å vise er avstanden som er tilbakelagt, <strong>fra konsept til et genuint brukbart produkt</strong>, med KI som akselerator hele veien.']
+      no:['Poenget med det tekniske laget er <strong>et design som lanseres, ikke bare en mockup</strong>. Hele løsningen kjører på React og TypeScript, en Tiptap-editor, Vercel serverless-funksjoner, Whisper for diktering og Grok-modeller for refleksjonene på forespørsel og Companions svar. Disse verktøyene var nye, lært under en mentors veiledning, og det som er verdt å vise er avstanden som er tilbakelagt, <strong>fra konsept til et genuint brukbart produkt</strong>, med KI som akselerator hele veien.']
     },
     assets:['showcase','inhands'],
     close:{
@@ -806,7 +806,7 @@ const SECTIONS = [
           '<strong>Constraints from the evidence base sharpened the work</strong> instead of narrowing it.',
           '<strong>The most honest feature is also the most trustworthy.</strong> On-demand, clearly labelled, never pretending to diagnose.',
           '<strong>With no real users yet, every choice is still a hypothesis.</strong> Real journalers are the next test.'],
-      no:['<strong>Å trekke fra gjorde mer enn å legge til.</strong> Å fjerne navigasjonen, rotet og den grovkornede enkelt-humøraksen.',
+      no:['<strong>Å trekke fra gjorde mer enn å legge til.</strong> Å fjerne navigasjonen, rotet og den grovkornede enkeltaksen for humør.',
           '<strong>Begrensninger fra kunnskapsgrunnlaget skjerpet arbeidet</strong> i stedet for å snevre det inn.',
           '<strong>Den mest ærlige funksjonen er også den mest til å stole på.</strong> På forespørsel, tydelig merket, uten å late som den diagnostiserer.',
           '<strong>Uten ekte brukere ennå er hvert valg fortsatt en hypotese.</strong> Ekte dagbokskrivere er neste test.'],
@@ -834,7 +834,7 @@ const SECTIONS = [
       no:['<strong>Sentio University (2025).</strong> Undersøkelse blant personer med en pågående psykisk lidelse; om lag halvparten bruker språkmodeller til støtte for psykisk helse.',
           '<strong>Healthline; Toronto Metropolitan University; Psychiatric Times (2025 til 2026).</strong> Ekspertadvarsler om at chatboter bekrefter heller enn å utfordre, kan uttale feilinformasjon med trygghet, og er et supplement, ikke en erstatning.',
           '<strong>Norsk GP-DEP-studie; NCDNOR.</strong> Behandlings- og henvisningsmønstre for depresjon i norsk allmennpraksis, og ujevn tilgang til spesialisthelsetjenesten.',
-          '<strong>ScienceDirect velferdsstat-gjennomgang (2024).</strong> Psykiske lidelser som den dyreste tilstanden i Norge, nær tre prosent av BNP.'],
+          '<strong>ScienceDirect-gjennomgang av velferdsstaten (2024).</strong> Psykiske lidelser som den dyreste tilstanden i Norge, nær tre prosent av BNP.'],
       type:'ul'
     }
   }
