@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found · Wioleta Wójcik</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%237464A4'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-weight='bold' font-size='21' text-anchor='middle' fill='%23FFFFFF'%3EW%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* tokens mirrored from the board — this page is chrome, not content, so it
+   carries only the handful it needs */
+:root{
+  --surface:#F3F0EA; --paper:#FCFBF8;
+  --ink:#1A1917; --ink-soft:#4A463F; --ink-mute:#726D63; --hair:#E0DACE;
+  --accent:#7464A4;
+  --font-display:'Instrument Serif','Iowan Old Style',Georgia,serif;
+  --font-ui:'Inter',ui-sans-serif,-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{height:100%;}
+body{
+  margin:0;background:var(--surface);color:var(--ink);
+  font-family:var(--font-ui);font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  display:flex;align-items:center;justify-content:center;padding:8vh 24px;
+}
+.sheet{
+  max-width:560px;width:100%;background:var(--paper);
+  border:1px solid var(--hair);border-radius:4px;
+  padding:clamp(32px,6vw,56px);
+  box-shadow:0 1px 1.5px rgba(58,50,38,.05),
+             0 14px 30px -12px rgba(58,50,38,.13);
+}
+.code{
+  font-family:var(--font-display);font-size:13px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-mute);margin:0 0 18px;
+}
+h1{
+  font-family:var(--font-display);font-weight:400;
+  font-size:clamp(30px,5vw,42px);line-height:1.15;margin:0 0 14px;
+}
+p{margin:0 0 28px;color:var(--ink-soft);}
+nav{border-top:1px solid var(--hair);padding-top:22px;}
+.lbl{
+  font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-mute);margin:0 0 12px;
+}
+ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--hair);
+  padding-bottom:1px;transition:color .2s,border-color .2s;}
+a:hover{color:var(--accent);border-color:var(--accent);}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
+.home{font-family:var(--font-display);font-size:20px;border:none;}
+.home:hover{border:none;}
+</style>
+</head>
+<body>
+<main class="sheet">
+  <p class="code">Error 404</p>
+  <h1>That page isn’t on the board.</h1>
+  <p>The address may have changed, or the link that sent you here was
+     already out of date. Everything that exists lives one click away.</p>
+  <nav aria-label="Site">
+    <p class="lbl">Where to instead</p>
+    <ul>
+      <li><a class="home" href="/">← Back to the board</a></li>
+      <li><a href="/repapp.html">Guest check-in — service design case study</a></li>
+      <li><a href="/red-thread.html">Red thread — service design concept</a></li>
+      <li><a href="/between-the-lines.html">Between the Lines — product design case study</a></li>
+      <li><a href="/hospital-wayfinding.html">Paths, not plans — service design case study</a></li>
+    </ul>
+  </nav>
+</main>
+</body>
+</html>

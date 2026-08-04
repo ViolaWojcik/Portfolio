@@ -77,3 +77,9 @@ hospital-wayfinding/assets/rzut i diagram.png
 # Red thread: raw sourced photographs (baked into rendered postcards, kept local)
 red-thread/assets/photos/
 between-the-lines/assets/captures/
+
+# --- Build & audit tooling (tools/) ---
+# The site itself is committed HTML; npm is only here to run the prerender and
+# the Lighthouse audit. Neither the dependencies nor the reports are published.
+node_modules/
+tools/reports/
