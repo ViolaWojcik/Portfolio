@@ -9,6 +9,7 @@
 
 import { createServer } from 'node:http';
 import { createReadStream } from 'node:fs';
+import { createGzip } from 'node:zlib';
 import { stat } from 'node:fs/promises';
 import { join, normalize, extname } from 'node:path';
 
@@ -37,11 +38,25 @@ async function firstFile(candidates) {
   return null;
 }
 
-function send(res, status, path) {
-  res.writeHead(status, {
-    'content-type': MIME[extname(path)] ?? 'application/octet-stream',
-    'cache-control': 'no-store',
-  });
+/* Text is worth compressing; woff2, PNG and JPEG are already compressed and
+   gzipping them again only burns CPU to make them very slightly larger. */
+const COMPRESSIBLE = new Set(['.html', '.css', '.js', '.json', '.xml', '.txt', '.svg']);
+
+function send(res, status, path, acceptEncoding = '') {
+  const type = MIME[extname(path)] ?? 'application/octet-stream';
+  const headers = { 'content-type': type, 'cache-control': 'no-store' };
+
+  /* GitHub Pages gzips text responses on its own. Without this, an audit run
+     against a bare local server reports "enable text compression" for a site
+     that already has it — a finding about the test rig, not about the site. */
+  if (COMPRESSIBLE.has(extname(path)) && /\bgzip\b/.test(acceptEncoding)) {
+    headers['content-encoding'] = 'gzip';
+    headers.vary = 'accept-encoding';
+    res.writeHead(status, headers);
+    return createReadStream(path).pipe(createGzip()).pipe(res);
+  }
+
+  res.writeHead(status, headers);
   createReadStream(path).pipe(res);
 }
 
@@ -56,10 +71,10 @@ export function serve(root) {
       rel.endsWith('/') || rel === '' ? [join(base, 'index.html')]
                                       : [base, `${base}.html`, join(base, 'index.html')]);
 
-    if (path) return send(res, 200, path);
+    if (path) return send(res, 200, path, req.headers['accept-encoding']);
 
     const notFound = await firstFile([join(root, '404.html')]);
-    if (notFound) return send(res, 404, notFound);
+    if (notFound) return send(res, 404, notFound, req.headers['accept-encoding']);
     res.writeHead(404, { 'content-type': 'text/plain' }).end('404');
   });
 
