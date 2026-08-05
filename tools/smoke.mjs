@@ -66,6 +66,44 @@ try {
         `mobile: polaroid establishes a containing block (position:${overlay.pos}) — ` +
         `its overlay stays ${overlay.h}px tall, not ${overlay.boardH}px`);
 
+  /* Nothing in the stacked column may overlap anything else.
+     This exists because a real regression got through: giving the polaroid
+     `position:relative` handed its inline desktop offsets (`top:12vh;
+     right:8vw`) back their meaning, so the photo slid visually while the flex
+     column kept reserving its un-shifted box — and the folder fan rode up over
+     the caption. Every control was still tappable, so every check we had
+     passed. Overlap is the symptom; assert on it directly.
+     Desktop is exempt: there the objects are a scattered pile and overlap on
+     purpose. */
+  const stack = await m.evaluate(() => {
+    const of = sel => {
+      const el = document.querySelector(sel);
+      const b = el.getBoundingClientRect();
+      return { top: b.top + scrollY, bottom: b.bottom + scrollY, left: b.left, right: b.right };
+    };
+    const items = [
+      ['headline', of('#headline')],
+      ['polaroid', of('.obj[data-k="pol"]')],
+      ...[...document.querySelectorAll('#fan > a')].map((a, i) =>
+        [`folder ${i + 1}`, (b => ({ top: b.top + scrollY, bottom: b.bottom + scrollY, left: b.left, right: b.right }))(a.getBoundingClientRect())]),
+      ['card', of('.obj[data-k="card"]')],
+    ];
+    return { items, viewport: innerWidth };
+  });
+
+  for (let i = 1; i < stack.items.length; i++) {
+    const [prevName, prev] = stack.items[i - 1];
+    const [name, cur] = stack.items[i];
+    check(prev.bottom <= cur.top,
+      `mobile: ${prevName} clears ${name}` +
+      (prev.bottom <= cur.top ? ` (${Math.round(cur.top - prev.bottom)}px gap)`
+                              : ` — OVERLAPS by ${Math.round(prev.bottom - cur.top)}px`));
+  }
+  const offscreen = stack.items.filter(([, b]) => b.left < -1 || b.right > stack.viewport + 1);
+  check(offscreen.length === 0,
+    `mobile: nothing is pushed outside the ${stack.viewport}px viewport` +
+    (offscreen.length ? ` — ${offscreen.map(([n]) => n).join(', ')}` : ''));
+
   /* every contact action and every folder must be the topmost element at its centre */
   for (const [name, sel] of [
     ['Gmail', '.ic[data-a="mail"]'], ['LinkedIn', '.ic[data-a="li"]'], ['Resume', '.ic[data-a="cv"]'],

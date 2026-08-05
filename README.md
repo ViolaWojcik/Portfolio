@@ -52,17 +52,23 @@ markup directly, which is all a crawler needs from the board.
 ## Checking your work
 
 ```sh
-npm test          # 32 checks: mobile taps, desktop drag/click, keyboard, prerender, 404
+npm test          # 39 checks: mobile layout + taps, desktop drag/click, keyboard, prerender, 404
 npm run serve     # preview on a server shaped like GitHub Pages
 npm run audit     # Lighthouse over all five pages
 npm run portrait  # rebuild the polaroid's WebP copies (only if the photo changes)
 npm run fonts     # re-download the self-hosted webfonts (rarely needed)
 ```
 
-`npm test` emulates a phone as well as a desktop, and it checks that each control
-is the topmost element **at the point a finger would land** — not merely that it
-exists. That distinction is the whole point: the contact card once looked
-perfect on mobile and was completely untappable.
+`npm test` emulates a phone as well as a desktop, and it asks two different
+questions of the compact layout, because two different bugs have shipped past
+one of them:
+
+- **Can it be tapped?** Each control must be the topmost element *at the point a
+  finger would land*, not merely present. The contact card once looked perfect
+  and was completely untappable.
+- **Does it look right?** Nothing in the stacked column may overlap anything
+  else. The reverse case has also happened: every control tappable, the folder
+  fan sitting on top of the polaroid's caption.
 
 `npm run serve` is worth using over opening the files directly: it is the only
 way to see the two things Pages does and `file://` does not — extensionless URLs
