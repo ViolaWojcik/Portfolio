@@ -57,6 +57,7 @@ npm run serve     # preview on a server shaped like GitHub Pages
 npm run audit     # Lighthouse over all five pages
 npm run portrait  # rebuild the polaroid's WebP copies (only if the photo changes)
 npm run fonts     # re-download the self-hosted webfonts (rarely needed)
+npm run images    # re-encode case-study artwork as WebP (after adding or replacing any)
 ```
 
 `npm test` emulates a phone as well as a desktop, and it asks two different
@@ -110,6 +111,13 @@ If a sandbox or CI image already ships a Chromium, point the scripts at it with
   carrying ó, ł, ż for Polish and ø, å, æ for Norwegian, so it is not optional.
   Nothing is fetched from Google any more, which also keeps visitors' IPs off
   Google's logs.
+- **The case-study artwork is served as WebP, generated from the originals.**
+  The PNG/JPEG masters stay in `*/assets/` — deleting them would not shrink a
+  clone anyway, and `og:image` still points at one of them on purpose, because
+  link scrapers are less reliable about WebP than browsers are. The `ASSETS`
+  entries in each page point at the `.webp`. Add or replace a master and run
+  `npm run images`, then `npm run prerender` — the baked markup carries the
+  image paths too, so skipping the second step leaves crawlers on stale URLs.
 - **The polaroid must stay positioned in the compact layout.** Its `::after` is
   a transparent click-catcher (`position:absolute; inset:0`) that exists because
   Chrome cannot hit-test the flipped face. An absolutely-positioned box resolves

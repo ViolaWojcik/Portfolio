@@ -8,7 +8,8 @@
     "serve": "node tools/serve.mjs",
     "audit": "node tools/lighthouse.mjs",
     "portrait": "node tools/portrait.mjs",
-    "fonts": "node tools/fonts.mjs"
+    "fonts": "node tools/fonts.mjs",
+    "images": "node tools/images.mjs"
   },
   "devDependencies": {
     "lighthouse": "^12.2.1",

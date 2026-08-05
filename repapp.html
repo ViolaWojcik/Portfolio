@@ -477,7 +477,7 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:46ch;line-hei
   </div>
 
   <div id="hero"><!--prerendered--><figure class="fig reveal wide">
-      <img src="RepApp/assets/hero-photo.jpg" alt="An arrivals hall, a rep, the day’s excursions on screen. The tablet took over the job the printed A4 used to do here. Interface reconstruction, 2026, composited into a photo." loading="lazy">
+      <img src="RepApp/assets/hero-photo.webp" alt="An arrivals hall, a rep, the day’s excursions on screen. The tablet took over the job the printed A4 used to do here. Interface reconstruction, 2026, composited into a photo." loading="lazy">
       <figcaption><span>An arrivals hall, a rep, the day’s excursions on screen. The tablet took over the job the printed A4 used to do here. Interface reconstruction, 2026, composited into a photo.</span></figcaption>
     </figure><!--/prerendered--></div>
 
@@ -494,63 +494,63 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:46ch;line-hei
   <article id="article"><!--prerendered--><section class="sec" id="origin"><div class="col">
       <div class="eyebrow"><b>01</b> · Origin</div>
       <h2 class="h">Nobody had designed anything for the destination reps yet</h2><p>The project surfaced during Itaka’s platform redesign. The destination reps meet flights, run transfers and&nbsp;sell excursions across <strong>more than 100 destinations</strong>, and&nbsp;<strong>no one had built a tool for them</strong>. That gap became a brief.</p></div><figure class="fig reveal">
-      <img src="RepApp/assets/photo-context.jpg" alt="A destination rep with the printed Itaka clipboard and pen — the guest-facing job, and the paper tool, that no one had yet designed for." loading="lazy">
+      <img src="RepApp/assets/photo-context.webp" alt="A destination rep with the printed Itaka clipboard and pen — the guest-facing job, and the paper tool, that no one had yet designed for." loading="lazy">
       <figcaption><span>A destination rep with the printed Itaka clipboard and&nbsp;pen — the guest-facing job, and&nbsp;the paper tool, that no one had yet designed for.</span></figcaption>
     </figure></section><section class="sec" id="paper"><div class="col">
       <div class="eyebrow"><b>02</b> · The problem</div>
       <h2 class="h">A rep met every flight with a printed A4 list and&nbsp;over 100 names to check</h2><p>Everything on that paper was typed into Excel that evening, then retyped by the department manager into our enterprise system. <strong>The same information was entered three times.</strong></p></div><figure class="fig reveal wide">
-      <img src="RepApp/assets/before-paper-list.png" alt="The printed A4 arrivals list — ticked by hand at the gate, then keyed into Excel and re-keyed into the enterprise system. The same data, entered three times. Reconstruction, 2026." loading="lazy">
+      <img src="RepApp/assets/before-paper-list.webp" alt="The printed A4 arrivals list — ticked by hand at the gate, then keyed into Excel and re-keyed into the enterprise system. The same data, entered three times. Reconstruction, 2026." loading="lazy">
       <figcaption><span>The printed A4 arrivals list — ticked by hand at the gate, then keyed into Excel and&nbsp;re-keyed into the enterprise system. The same data, entered three times. Reconstruction, 2026.</span></figcaption>
     </figure><div class="col"><h3 class="sh">Nothing could assume a signal</h3><p>Destination airports frequently had no working internet. <strong>Offline was not a fallback</strong>, it was the condition the whole architecture sat on.</p></div><figure class="fig reveal wide">
-      <img src="RepApp/assets/offline-architecture.png" alt="Offline-first: the airport had no signal, so every action was captured on the device, queued, and reconciled with the enterprise system only on reconnection. Diagram, 2026." loading="lazy">
+      <img src="RepApp/assets/offline-architecture.webp" alt="Offline-first: the airport had no signal, so every action was captured on the device, queued, and reconciled with the enterprise system only on reconnection. Diagram, 2026." loading="lazy">
       <figcaption><span>Offline-first: the airport had no signal, so every action was captured on the device, queued, and&nbsp;reconciled with the enterprise system only on reconnection. Diagram, 2026.</span></figcaption>
     </figure></section><section class="sec" id="pitch"><div class="col">
       <div class="eyebrow"><b>03</b> · Buy-in</div>
       <h2 class="h">The first pitch failed, because it made the wrong case</h2><p>The first pitch led with efficiency for the reps. The room was deciding on budget, and&nbsp;travel had just stopped. <strong>A second pitch, built on research and&nbsp;on what competitors were already doing, passed.</strong> The first argument had been <strong>correct and&nbsp;irrelevant at once</strong>.</p></div><figure class="fig reveal wide">
-      <img src="RepApp/assets/slide.png" alt="The competitive slide from the winning pitch — every operator already equips its reps; Itaka was the last one on paper. Reframed from “efficiency for the reps” to a gap the room could see. Reconstruction, redrawn 2026; competitors anonymised, grid illustrative." loading="lazy">
+      <img src="RepApp/assets/slide.webp" alt="The competitive slide from the winning pitch — every operator already equips its reps; Itaka was the last one on paper. Reframed from “efficiency for the reps” to a gap the room could see. Reconstruction, redrawn 2026; competitors anonymised, grid illustrative." loading="lazy">
       <figcaption><span>The competitive slide from the winning pitch — every operator already equips its reps; Itaka was the last one on paper. Reframed from “efficiency for the reps” to a gap the room could see. Reconstruction, redrawn 2026; competitors anonymised, grid illustrative.</span></figcaption>
     </figure></section><section class="sec" id="research"><div class="col">
       <div class="eyebrow"><b>04</b> · Research</div>
       <h2 class="h">The pandemic emptied the destinations and&nbsp;opened the research window</h2><p>Reps are normally impossible to reach, abroad and&nbsp;in motion through peak season. <strong>In 2020 they were employed with almost no guests.</strong> Two to three months went into <strong>interviewing around ten of them</strong>, and&nbsp;into building <strong>the observation instrument</strong> our Product Owner then used at destination airports.</p></div></section><section class="sec" id="scope"><div class="col">
       <div class="eyebrow"><b>05</b> · Scope</div>
       <h2 class="h">Only features that helped the rep and&nbsp;earned money at once could ship</h2><p>With no budget, anything doing only one of those jobs could not survive review. <strong>That rule decided the scope, and&nbsp;cut the feature the reps needed most.</strong></p></div><div class="col"><h3 class="sh">What was scoped out</h3><ul class="pts"><li><strong>Reporting and&nbsp;system integration.</strong> What reps needed most. It shipped later.</li><li><strong>Contactless check-in.</strong> Blocked on the consumer app’s backlog, not on us.</li><li><strong>Anything that could not defend itself commercially.</strong></li></ul></div><figure class="fig reveal wide">
-      <img src="RepApp/assets/priorities-matrix.png" alt="The MVP rule as a 2×2 — a feature had to help the rep and earn money to ship. Only the top-right quadrant survived; reporting, the feature the reps needed most, was cut for later. Redrawn 2026." loading="lazy">
+      <img src="RepApp/assets/priorities-matrix.webp" alt="The MVP rule as a 2×2 — a feature had to help the rep and earn money to ship. Only the top-right quadrant survived; reporting, the feature the reps needed most, was cut for later. Redrawn 2026." loading="lazy">
       <figcaption><span>The MVP rule as a 2×2 — a feature had to help the rep and&nbsp;earn money to ship. Only the top-right quadrant survived; reporting, the feature the reps needed most, was cut for later. Redrawn 2026.</span></figcaption>
     </figure></section><section class="sec" id="tablet"><div class="col">
       <div class="eyebrow"><b>06</b> · Device</div>
       <h2 class="h">The reps chose the tablet, and&nbsp;their reasoning was about their hands</h2><p><strong>Both options went to the reps.</strong> They had worked from A4 held in both hands and&nbsp;turned toward the guest. A phone would have changed the format and&nbsp;the tool in one week. <strong>The tablet kept the gesture</strong>, and&nbsp;let them show excursion video while selling.</p></div><figure class="fig reveal wide">
-      <img src="RepApp/assets/scale.png" alt="A4, tablet and phone at true relative size. The tablet stayed close to the page, so the two-handed, guest-facing gesture survived — and left room to play excursion video; the phone was too small to show or to share. Reconstruction, redrawn 2026." loading="lazy">
+      <img src="RepApp/assets/scale.webp" alt="A4, tablet and phone at true relative size. The tablet stayed close to the page, so the two-handed, guest-facing gesture survived — and left room to play excursion video; the phone was too small to show or to share. Reconstruction, redrawn 2026." loading="lazy">
       <figcaption><span>A4, tablet and&nbsp;phone at true relative size. The tablet stayed close to the page, so the two-handed, guest-facing gesture survived — and&nbsp;left room to play excursion video; the phone was too small to show or to share. Reconstruction, redrawn 2026.</span></figcaption>
     </figure></section><section class="sec" id="mvp"><div class="col">
       <div class="eyebrow"><b>07</b> · The build</div>
       <h2 class="h">The MVP followed the arrival in the order it actually happens</h2><p><strong>Three tabs, matching what a rep does between gate and&nbsp;coach.</strong></p><ol class="steps"><li><strong>Attendance</strong> — search by surname or reservation number</li><li><strong>Hotels</strong> — which group goes where</li><li><strong>Transfers</strong> — which coach, what time, both directions</li></ol><p>Excursion sales sat alongside, also offline.</p></div><figure class="fig reveal wide">
-      <img src="RepApp/assets/screens.png" alt="The three-tab MVP in sequence — Attendance, Hotels, Transfers — built to follow the arrival in the order it actually happens, on one offline app. Interface reconstruction, redrawn 2026." loading="lazy">
+      <img src="RepApp/assets/screens.webp" alt="The three-tab MVP in sequence — Attendance, Hotels, Transfers — built to follow the arrival in the order it actually happens, on one offline app. Interface reconstruction, redrawn 2026." loading="lazy">
       <figcaption><span>The three-tab MVP in sequence — Attendance, Hotels, Transfers — built to follow the arrival in the order it actually happens, on one offline app. Interface reconstruction, redrawn 2026.</span></figcaption>
     </figure><figure class="fig reveal wide">
-      <img src="RepApp/assets/excursions-sale.png" alt="The Excursions tab: local trips browsed and sold beside check-in, offline, with video to show the guest. Interface reconstruction, 2026; offers, prices and photos illustrative." loading="lazy">
+      <img src="RepApp/assets/excursions-sale.webp" alt="The Excursions tab: local trips browsed and sold beside check-in, offline, with video to show the guest. Interface reconstruction, 2026; offers, prices and photos illustrative." loading="lazy">
       <figcaption><span>The Excursions tab: local trips browsed and&nbsp;sold beside check-in, offline, with video to show the guest. Interface reconstruction, 2026; offers, prices and&nbsp;photos illustrative.</span></figcaption>
     </figure></section><section class="sec" id="checkin"><div class="col">
       <div class="eyebrow"><b>08</b> · The decision</div>
       <h2 class="h">We built check-in around the passenger, and&nbsp;field testing proved that wrong</h2><p>Our database stores people individually, so that is how the first build worked. In the field <strong>a family of five walked up as one group</strong> and&nbsp;the rep tapped five times. On paper, one stroke of a pen covered all five. Digitising the data model would have made the job slower than paper, so <strong>we rebuilt check-in around the reservation</strong>.</p></div><figure class="fig reveal wide">
-      <img src="RepApp/assets/attendance-night.jpg" alt="A night arrival met from the rebuilt list: the family that walks up as one group is one row, one tap. Interface reconstruction, 2026, composited into a photo." loading="lazy">
+      <img src="RepApp/assets/attendance-night.webp" alt="A night arrival met from the rebuilt list: the family that walks up as one group is one row, one tap. Interface reconstruction, 2026, composited into a photo." loading="lazy">
       <figcaption><span>A night arrival met from the rebuilt list: the family that walks up as one group is one row, one tap. Interface reconstruction, 2026, composited into a photo.</span></figcaption>
     </figure><figure class="fig reveal wide">
-      <img src="RepApp/assets/checkin-attendance-states.png" alt="Checked in as a group by default, opened traveller-by-traveller only when the field needs it." loading="lazy">
+      <img src="RepApp/assets/checkin-attendance-states.webp" alt="Checked in as a group by default, opened traveller-by-traveller only when the field needs it." loading="lazy">
       <figcaption><span>Checked in as a group by default, opened traveller-by-traveller only when the field needs it.</span></figcaption>
     </figure></section><section class="sec" id="sunlight"><div class="col">
       <div class="eyebrow"><b>09</b> · Constraint</div>
       <h2 class="h">The reps warned us about sunlight before we built anything</h2><p>They warned us in interviews that <strong>nothing would be readable in full sun</strong>, and&nbsp;testing confirmed it. Across 100 destinations we could not solve this for one climate, so <strong>contrast went into the hardware specification</strong>.</p></div><figure class="fig reveal wide">
-      <img src="RepApp/assets/contrast-comparison.png" alt="The same list indoors and in direct sun — contrast as a functional decision, written into the hardware spec. Interface reconstruction, 2026." loading="lazy">
+      <img src="RepApp/assets/contrast-comparison.webp" alt="The same list indoors and in direct sun — contrast as a functional decision, written into the hardware spec. Interface reconstruction, 2026." loading="lazy">
       <figcaption><span>The same list indoors and&nbsp;in direct sun — contrast as a functional decision, written into the hardware spec. Interface reconstruction, 2026.</span></figcaption>
     </figure></section><section class="sec" id="results"><div class="col">
       <div class="eyebrow"><b>10</b> · Outcome</div>
       <h2 class="h">Over 50% less time at the airport, and&nbsp;a whole layer of retyping gone</h2><p>Once reporting connected to the enterprise system, <strong>the rep’s Excel work and&nbsp;the manager’s re-entry disappeared</strong>.</p></div><figure class="fig reveal wide">
-      <img src="RepApp/assets/excursions-in-hands.png" alt="The Excursions tab in a rep’s hands at the gate: local trips browsed and sold from the tablet, offline. Interface reconstruction, 2026, composited into a photo." loading="lazy">
+      <img src="RepApp/assets/excursions-in-hands.webp" alt="The Excursions tab in a rep’s hands at the gate: local trips browsed and sold from the tablet, offline. Interface reconstruction, 2026, composited into a photo." loading="lazy">
       <figcaption><span>The Excursions tab in a rep’s hands at the gate: local trips browsed and&nbsp;sold from the tablet, offline. Interface reconstruction, 2026, composited into a photo.</span></figcaption>
     </figure><div class="col"><div class="stats reveal"><div class="src">Reported by Resabee Travel Tech</div><div class="row"><div class="stat"><div class="fig">50%+</div><div class="lab">less time at the airport</div></div><div class="stat"><div class="fig">30%+</div><div class="lab">less back-office work</div></div><div class="stat"><div class="fig">1 442 793</div><div class="lab">passengers handled in 2023, three years after launch</div></div></div></div></div></section><section class="sec" id="gamification"><div class="col">
       <div class="eyebrow"><b>11</b> · The tension</div>
       <h2 class="h">Gamification lifted sales, and&nbsp;the unease it left has stayed</h2><p>When reporting shipped, we added points and&nbsp;team rankings showing who sold most each month. <strong>Sales rose sharply.</strong> The pressure to repay the hardware was real, and&nbsp;so is the discomfort of publishing individual figures inside a team that lives and&nbsp;works together.</p></div><figure class="fig reveal wide">
-      <img src="RepApp/assets/team.png" alt="The gamified team-standings view — points and a monthly ranking of who sold most, individual figures visible to the whole team. It lifted sales sharply, and named a loser every month. Interface reconstruction, redrawn 2026; names and figures illustrative." loading="lazy">
+      <img src="RepApp/assets/team.webp" alt="The gamified team-standings view — points and a monthly ranking of who sold most, individual figures visible to the whole team. It lifted sales sharply, and named a loser every month. Interface reconstruction, redrawn 2026; names and figures illustrative." loading="lazy">
       <figcaption><span>The gamified team-standings view — points and&nbsp;a monthly ranking of who sold most, individual figures visible to the whole team. It lifted sales sharply, and&nbsp;named a loser every month. Interface reconstruction, redrawn 2026; names and&nbsp;figures illustrative.</span></figcaption>
     </figure></section><section class="sec" id="reflection"><div class="col">
       <div class="eyebrow"><b>12</b> · Lessons</div>
@@ -653,59 +653,59 @@ const ASSETS = {
   /* hero: the reconstructed interface composited into an airport photo;
      the same print, duotoned, peeks out of the folder on the board
      (assets/folder-peek.html, raw collage sources gitignored) */
-  hero:{ type:'img', wide:true, src:'RepApp/assets/hero-photo.jpg',
+  hero:{ type:'img', wide:true, src:'RepApp/assets/hero-photo.webp',
     cap:{en:'An arrivals hall, a rep, the day’s excursions on screen. The tablet took over the job the printed A4 used to do here. Interface reconstruction, 2026, composited into a photo.',
          no:'En ankomsthall, en vert, dagens utflukter på skjermen. Nettbrettet tok over jobben den utskrevne A4-en pleide å gjøre her. Grensesnitt tegnet på nytt, 2026, montert inn i et foto.'} },
 
-  night:{ type:'img', src:'RepApp/assets/attendance-night.jpg', wide:true,
+  night:{ type:'img', src:'RepApp/assets/attendance-night.webp', wide:true,
     cap:{en:'A night arrival met from the rebuilt list: the family that walks up as one group is one row, one tap. Interface reconstruction, 2026, composited into a photo.',
          no:'En nattankomst møtt fra den ombygde lista: familien som kommer som én gruppe er én rad, ett trykk. Grensesnitt tegnet på nytt, 2026, montert inn i et foto.'} },
 
-  states:{ type:'img', src:'RepApp/assets/checkin-attendance-states.png', wide:true,
+  states:{ type:'img', src:'RepApp/assets/checkin-attendance-states.webp', wide:true,
     cap:{en:'Checked in as a group by default, opened traveller-by-traveller only when the field needs it.',
          no:'Sjekket inn som gruppe som standard, åpnet reisende for reisende bare når feltet krever det.'} },
 
-  context:{ type:'img', src:'RepApp/assets/photo-context.jpg',
+  context:{ type:'img', src:'RepApp/assets/photo-context.webp',
     cap:{en:'A destination rep with the printed Itaka clipboard and pen — the guest-facing job, and the paper tool, that no one had yet designed for.',
          no:'En destinasjonsvert med den trykte Itaka-permen og pennen — den gjestevendte jobben, og papirverktøyet, som ingen ennå hadde designet for.'} },
 
-  before:{ type:'img', src:'RepApp/assets/before-paper-list.png', wide:true,
+  before:{ type:'img', src:'RepApp/assets/before-paper-list.webp', wide:true,
     cap:{en:'The printed A4 arrivals list — ticked by hand at the gate, then keyed into Excel and re-keyed into the enterprise system. The same data, entered three times. Reconstruction, 2026.',
          no:'Den utskrevne A4-ankomstlista — huket av for hånd ved gaten, så tastet inn i Excel og tastet på nytt inn i bedriftssystemet. Samme data, lagt inn tre ganger. Rekonstruksjon, 2026.'} },
 
-  offline:{ type:'img', src:'RepApp/assets/offline-architecture.png', wide:true,
+  offline:{ type:'img', src:'RepApp/assets/offline-architecture.webp', wide:true,
     cap:{en:'Offline-first: the airport had no signal, so every action was captured on the device, queued, and reconciled with the enterprise system only on reconnection. Diagram, 2026.',
          no:'Offline først: flyplassen hadde ingen dekning, så hver handling ble fanget opp på enheten, lagt i kø og synkronisert med bedriftssystemet først ved gjenoppkobling. Diagram, 2026.'} },
 
-  slide:{ type:'img', src:'RepApp/assets/slide.png', wide:true,
+  slide:{ type:'img', src:'RepApp/assets/slide.webp', wide:true,
     cap:{en:'The competitive slide from the winning pitch — every operator already equips its reps; Itaka was the last one on paper. Reframed from “efficiency for the reps” to a gap the room could see. Reconstruction, redrawn 2026; competitors anonymised, grid illustrative.',
          no:'Lysbildet om konkurrentene fra pitchen som gikk gjennom — alle operatører utstyrer allerede vertene sine; Itaka var den siste på papir. Omformulert fra «effektivitet for vertene» til en mangel ledelsen kunne se. Rekonstruksjon, tegnet på nytt 2026; konkurrenter anonymisert, rutenett illustrativt.'} },
 
-  matrix:{ type:'img', src:'RepApp/assets/priorities-matrix.png', wide:true,
+  matrix:{ type:'img', src:'RepApp/assets/priorities-matrix.webp', wide:true,
     cap:{en:'The MVP rule as a 2×2 — a feature had to help the rep and earn money to ship. Only the top-right quadrant survived; reporting, the feature the reps needed most, was cut for later. Redrawn 2026.',
          no:'MVP-regelen som en 2×2 — en funksjon måtte både hjelpe verten og tjene penger for å bli lansert. Bare øvre høyre kvadrant overlevde; rapportering, funksjonen vertene trengte mest, ble kuttet til senere. Tegnet på nytt 2026.'} },
 
-  scale:{ type:'img', src:'RepApp/assets/scale.png', wide:true,
+  scale:{ type:'img', src:'RepApp/assets/scale.webp', wide:true,
     cap:{en:'A4, tablet and phone at true relative size. The tablet stayed close to the page, so the two-handed, guest-facing gesture survived — and left room to play excursion video; the phone was too small to show or to share. Reconstruction, redrawn 2026.',
          no:'A4, nettbrett og telefon i riktig relativ størrelse. Nettbrettet lå nær arket, så det tohåndige, gjestevendte grepet overlevde — og ga plass til å vise utfluktsvideo; telefonen var for liten til å vise eller dele. Rekonstruksjon, tegnet på nytt 2026.'} },
 
-  screens:{ type:'img', src:'RepApp/assets/screens.png', wide:true,
+  screens:{ type:'img', src:'RepApp/assets/screens.webp', wide:true,
     cap:{en:'The three-tab MVP in sequence — Attendance, Hotels, Transfers — built to follow the arrival in the order it actually happens, on one offline app. Interface reconstruction, redrawn 2026.',
          no:'MVP-en med tre faner, i rekkefølge — Oppmøte, Hoteller, Transport — bygd for å følge ankomsten i den rekkefølgen den faktisk skjer, i én offline-app. Grensesnitt tegnet på nytt, 2026.'} },
 
-  excursions:{ type:'img', src:'RepApp/assets/excursions-sale.png', wide:true,
+  excursions:{ type:'img', src:'RepApp/assets/excursions-sale.webp', wide:true,
     cap:{en:'The Excursions tab: local trips browsed and sold beside check-in, offline, with video to show the guest. Interface reconstruction, 2026; offers, prices and photos illustrative.',
          no:'«Utflukter»-fanen: lokale turer vist og solgt ved siden av innsjekken, offline, med video å vise gjesten. Grensesnitt tegnet på nytt, 2026; tilbud, priser og bilder er illustrative.'} },
 
-  contrast:{ type:'img', src:'RepApp/assets/contrast-comparison.png', wide:true,
+  contrast:{ type:'img', src:'RepApp/assets/contrast-comparison.webp', wide:true,
     cap:{en:'The same list indoors and in direct sun — contrast as a functional decision, written into the hardware spec. Interface reconstruction, 2026.',
          no:'Samme liste innendørs og i direkte sol — kontrast som en funksjonell beslutning, skrevet inn i maskinvarespesifikasjonen. Grensesnitt tegnet på nytt, 2026.'} },
 
-  showcase:{ type:'img', src:'RepApp/assets/excursions-in-hands.png', wide:true,
+  showcase:{ type:'img', src:'RepApp/assets/excursions-in-hands.webp', wide:true,
     cap:{en:'The Excursions tab in a rep’s hands at the gate: local trips browsed and sold from the tablet, offline. Interface reconstruction, 2026, composited into a photo.',
          no:'«Utflukter»-fanen i en verts hender ved gaten: lokale turer vist og solgt fra nettbrettet, offline. Grensesnitt tegnet på nytt, 2026, montert inn i et foto.'} },
 
-  team:{ type:'img', src:'RepApp/assets/team.png', wide:true,
+  team:{ type:'img', src:'RepApp/assets/team.webp', wide:true,
     cap:{en:'The gamified team-standings view — points and a monthly ranking of who sold most, individual figures visible to the whole team. It lifted sales sharply, and named a loser every month. Interface reconstruction, redrawn 2026; names and figures illustrative.',
          no:'Den gamifiserte visningen av lagstatistikk — poeng og en månedlig rangering av hvem som solgte mest, med individuelle tall synlige for hele laget. Den løftet salget kraftig, og kåret en taper hver måned. Grensesnitt tegnet på nytt 2026; navn og tall er illustrative.'} }
 };
