@@ -3,6 +3,7 @@
   "private": true,
   "description": "Static portfolio for wioletawojcik.com. The pages are hand-written HTML; npm is only here for the prerender and audit tooling.",
   "scripts": {
+    "test": "node tools/smoke.mjs",
     "prerender": "node tools/prerender.mjs",
     "serve": "node tools/serve.mjs",
     "audit": "node tools/lighthouse.mjs"

@@ -52,9 +52,15 @@ markup directly, which is all a crawler needs from the board.
 ## Checking your work
 
 ```sh
+npm test          # 32 checks: mobile taps, desktop drag/click, keyboard, prerender, 404
 npm run serve     # preview on a server shaped like GitHub Pages
 npm run audit     # Lighthouse over all five pages
 ```
+
+`npm test` emulates a phone as well as a desktop, and it checks that each control
+is the topmost element **at the point a finger would land** — not merely that it
+exists. That distinction is the whole point: the contact card once looked
+perfect on mobile and was completely untappable.
 
 `npm run serve` is worth using over opening the files directly: it is the only
 way to see the two things Pages does and `file://` does not — extensionless URLs
@@ -84,3 +90,11 @@ If a sandbox or CI image already ships a Chromium, point the scripts at it with
   visible words breaks WCAG 2.5.3 and voice control with it.
 - `--ink-mute` and `--accent` are set to clear 4.5:1 on all three surfaces. They
   have no headroom — darken, don't lighten.
+- **The polaroid must stay positioned in the compact layout.** Its `::after` is
+  a transparent click-catcher (`position:absolute; inset:0`) that exists because
+  Chrome cannot hit-test the flipped face. An absolutely-positioned box resolves
+  `inset:0` against its nearest *positioned* ancestor — so the moment the compact
+  rule set `.obj{position:static}`, the overlay escaped to `#board` and spread a
+  1548px invisible sheet over the whole stacked column instead of covering the
+  321px photo. The folders survived on `z-index:3`; the contact card sits at
+  `auto` and went completely dead. `npm test` guards this now.

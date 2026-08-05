@@ -567,6 +567,13 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
      the card or the polaroid couldn't scroll the page. Hand the gesture back to
      the browser; `manipulation` still kills the 300ms tap delay. */
   .obj{touch-action:manipulation;}
+  /* The polaroid's ::after click-catcher is position:absolute; inset:0, so it
+     needs the polaroid to be its containing block. `position:static` above takes
+     that away, and the overlay escapes to #board (the nearest positioned
+     ancestor) — stretching a transparent sheet over the WHOLE stacked column and
+     swallowing every tap on the folders and the contact card beneath it.
+     `relative` gives the containing block back and still stacks normally. */
+  .obj[data-k="pol"]{position:relative!important;}
   .obj .inner{transform:none!important;}
   .obj.lit .inner{box-shadow:var(--sh-rest);}
   .obj.lit .folder{filter:var(--fs-rest);}
