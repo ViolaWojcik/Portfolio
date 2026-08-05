@@ -80,6 +80,10 @@ keep them there.
 
 If a sandbox or CI image already ships a Chromium, point the scripts at it with
 `CHROMIUM_PATH=/path/to/chrome` instead of letting Playwright download its own.
+Claude Code on the web does this for you: `.claude/hooks/session-start.sh` runs
+`npm install` and exports `CHROMIUM_PATH` when it finds the image's browser, so
+`npm test` works in a fresh session with no setup. It is a no-op on a local
+checkout, where Playwright's own browser is the right one.
 
 ## Things worth knowing before changing them
 

@@ -1,6 +1,10 @@
 # OS / editor cruft
 .DS_Store
-.claude/
+
+# Claude Code: the SessionStart hook and the settings that register it are
+# shared setup and belong in the repo — a session that can't see them has to
+# rediscover how to run the tests. Only the per-machine overrides stay local.
+.claude/settings.local.json
 
 # --- Local git clones that used to live nested inside this folder ---
 # The real repository is now THIS folder. These are historical copies,
