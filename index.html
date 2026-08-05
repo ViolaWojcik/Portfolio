@@ -5,11 +5,39 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Wioleta Wójcik — Service Designer &amp; Architect</title>
 <meta name="description" content="Interactive portfolio of Wioleta Maria Wójcik, a Service Designer with an architect's background, based in Oslo, Norway.">
+<link rel="canonical" href="https://wioletawojcik.com/">
+<meta name="author" content="Wioleta Maria Wójcik">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Wioleta Wójcik">
+<meta property="og:url" content="https://wioletawojcik.com/">
 <meta property="og:title" content="Wioleta Wójcik — Service Designer &amp; Architect">
 <meta property="og:description" content="Interactive portfolio of Wioleta Maria Wójcik, a Service Designer with an architect's background, based in Oslo, Norway.">
 <meta property="og:image" content="https://wioletawojcik.com/my%20photo.png">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%237A6BA8'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-weight='bold' font-size='21' text-anchor='middle' fill='%23FFFFFF'%3EW%3C/text%3E%3C/svg%3E">
+<meta property="og:image:width" content="1414">
+<meta property="og:image:height" content="2000">
+<meta property="og:image:alt" content="Wioleta Maria Wójcik">
+<meta property="og:locale" content="en_GB">
+<meta property="og:locale:alternate" content="nb_NO">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Wioleta Wójcik — Service Designer &amp; Architect">
+<meta name="twitter:description" content="Interactive portfolio of Wioleta Maria Wójcik, a Service Designer with an architect's background, based in Oslo, Norway.">
+<meta name="twitter:image" content="https://wioletawojcik.com/my%20photo.png">
+<meta name="twitter:image:alt" content="Wioleta Maria Wójcik">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Wioleta Maria Wójcik",
+  "url": "https://wioletawojcik.com/",
+  "image": "https://wioletawojcik.com/my%20photo.png",
+  "jobTitle": "Service Designer",
+  "email": "mailto:wioleta.maria.wojcik@gmail.com",
+  "address": { "@type": "PostalAddress", "addressLocality": "Oslo", "addressCountry": "NO" },
+  "sameAs": ["https://www.linkedin.com/in/wioleta-maria-w%C3%B3jcik-7512a389/"],
+  "knowsLanguage": ["en", "pl", "nb"]
+}
+</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%237464A4'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-weight='bold' font-size='21' text-anchor='middle' fill='%23FFFFFF'%3EW%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&display=swap" rel="stylesheet">
@@ -26,11 +54,11 @@
   /* ink */
   --ink:          #1A1917;
   --ink-soft:     #4A463F;
-  --ink-mute:     #8E887C;
+  --ink-mute:     #726D63;
   --hair:         #E0DACE;
 
   /* accent — dusty lilac, max 5 places at once */
-  --accent:       #7A6BA8;
+  --accent:       #7464A4;
   --accent-tint:  #E4DDF1;   /* the sheet inside a folder, icon hover disc */
 
   /* shadow: three warm layers, three states.
@@ -132,6 +160,10 @@ body{
   transition:left .45s var(--ease), top .45s var(--ease);
   touch-action:none;
 }
+/* the project folders are real <a href> links, so a crawler, a middle-click and
+   "open in new tab" all reach the case study. They must not read as web links:
+   the folder art carries the affordance, not an underline. */
+a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent;}
 @keyframes enter{
   0%{opacity:0;transform:translateY(-20px);}
   60%{opacity:1;}
@@ -153,14 +185,19 @@ body{
 }
 .obj.lit .inner{box-shadow:var(--sh-rest);}
 
+/* content for assistive tech only — no box, no layout effect */
+.vh{
+  position:absolute;width:1px;height:1px;margin:-1px;padding:0;
+  overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0;
+}
 .grab{cursor:grab;}
 .grab:active{cursor:grabbing;}
 /* the board is an interactive canvas — dragging must never turn into a text
    selection (the blue highlight), so nothing on it is user-selectable */
 .obj,#headline{user-select:none;-webkit-user-select:none;}
 /* a clickable object (opens a case study) shows a focus ring for keyboard users */
-.obj[data-href]:focus-visible{outline:none;}
-.obj[data-href]:focus-visible .folder{
+.obj[href]:focus-visible{outline:none;}
+.obj[href]:focus-visible .folder{
   outline:2px solid var(--accent);outline-offset:4px;border-radius:6px;
 }
 .ready .grab:hover .inner{
@@ -189,13 +226,20 @@ body{
   line-height:.98;letter-spacing:-.028em;color:var(--ink);
   font-weight:400;
 }
+/* The words start at .01 rather than 0, and the difference is not the point —
+   it is invisible. Chrome refuses to count anything at opacity:0 as a
+   "contentful paint", so a board where every element begins fully transparent
+   never fires First Contentful Paint at all: Lighthouse returns NO_FCP and
+   cannot score the page, and the field data Chrome reports for it is blank.
+   One hundredth of an opacity gives the metric something to latch onto on the
+   first frame while the entrance plays exactly as before. */
 .hl .w{
-  display:inline-block;opacity:0;
+  display:inline-block;opacity:.01;
   animation:word .8s var(--settle) forwards;
   animation-delay:var(--d,0s);
 }
 @keyframes word{
-  from{opacity:0;transform:translateY(8px);}
+  from{opacity:.01;transform:translateY(8px);}
   to  {opacity:1;transform:translateY(0);}
 }
 .hl .w3{color:var(--accent);font-style:italic;}
@@ -523,6 +567,13 @@ body{
      the card or the polaroid couldn't scroll the page. Hand the gesture back to
      the browser; `manipulation` still kills the 300ms tap delay. */
   .obj{touch-action:manipulation;}
+  /* The polaroid's ::after click-catcher is position:absolute; inset:0, so it
+     needs the polaroid to be its containing block. `position:static` above takes
+     that away, and the overlay escapes to #board (the nearest positioned
+     ancestor) — stretching a transparent sheet over the WHOLE stacked column and
+     swallowing every tap on the folders and the contact card beneath it.
+     `relative` gives the containing block back and still stacks normally. */
+  .obj[data-k="pol"]{position:relative!important;}
   .obj .inner{transform:none!important;}
   .obj.lit .inner{box-shadow:var(--sh-rest);}
   .obj.lit .folder{filter:var(--fs-rest);}
@@ -575,13 +626,22 @@ body{
   </div>
 
   <!-- ── polaroid — click/tap flips it to a short "about" note on the back ─ -->
-  <div class="obj grab" data-k="pol" data-tip="about" data-a="about"
+  <div class="obj grab" data-k="pol" data-tip="about"
        role="button" tabindex="0" aria-expanded="false"
        style="right:8vw;top:12vh;--rot:2.6deg;--d:2.20s;--lit:2.82s;">
+    <span class="vh" data-t="aboutHint"></span>
     <div class="inner">
       <div class="flipper">
         <figure class="polaroid face face-front">
-          <img src="my%20photo.png" alt="Wioleta Maria Wójcik" draggable="false">
+          <!-- The polaroid draws this at 182×212 CSS px. `my photo.png` is
+               1414×2000 and 1.1 MB — it stays in the repo because the Open Graph
+               preview wants a big image, but the board has no use for forty
+               times the pixels it renders. These WebP copies are built by
+               `npm run portrait`; re-run it if the photo changes. -->
+          <img src="my-photo-364.webp"
+               srcset="my-photo-182.webp 182w, my-photo-364.webp 364w, my-photo-546.webp 546w"
+               sizes="182px" width="182" height="212"
+               alt="Wioleta Maria Wójcik" draggable="false" decoding="async">
           <figcaption>
             <div class="nm">Wioleta Maria Wójcik</div>
             <div class="rl" data-t="role"></div>
@@ -636,39 +696,35 @@ body{
 
   <!-- ── folder fan ────────────────────────────────────────── -->
   <div id="fan">
-    <div class="obj grab" data-k="f1" data-tip="project" data-href="repapp.html"
-         role="link" tabindex="0" data-a="f1" aria-label="Guest check-in — open case study"
-         style="--rot:3.4deg;--d:1.94s;--lit:2.54s;">
+    <a class="obj grab" data-k="f1" data-tip="project" href="repapp.html" draggable="false"
+       style="--rot:3.4deg;--d:1.94s;--lit:2.54s;">
       <div class="inner"><div class="folder">
         <span class="tab"><i></i></span><span class="sheet"></span>
-        <div class="body"><div class="ttl" data-t="t1">Guest check-in</div><div class="mt" data-t="m1"></div></div>
+        <div class="body"><div class="ttl" data-t="t1">Guest check-in</div><div class="mt" data-t="m1">Tablet&nbsp;· UX/UI&nbsp;· Service&nbsp;design</div></div>
       </div></div>
-    </div>
-    <div class="obj grab" data-k="f2" data-tip="project" data-href="red-thread.html"
-         role="link" tabindex="0" data-a="f2" aria-label="Red thread — open case study"
-         style="--rot:-2.5deg;--d:1.82s;--lit:2.42s;">
+    </a>
+    <a class="obj grab" data-k="f2" data-tip="project" href="red-thread.html" draggable="false"
+       style="--rot:-2.5deg;--d:1.82s;--lit:2.42s;">
       <div class="inner"><div class="folder">
         <span class="tab"><i></i></span><span class="sheet"></span>
-        <div class="body"><div class="ttl" data-t="t2">Red thread</div><div class="mt" data-t="m2"></div></div>
+        <div class="body"><div class="ttl" data-t="t2">Red thread</div><div class="mt" data-t="m2">Schools&nbsp;· Service&nbsp;design</div></div>
       </div></div>
-    </div>
-    <div class="obj grab" data-k="f3" data-tip="project" data-href="between-the-lines.html"
-         role="link" tabindex="0" data-a="f3" aria-label="Between the lines — open case study"
-         style="--rot:4deg;--d:1.70s;--lit:2.30s;">
+    </a>
+    <a class="obj grab" data-k="f3" data-tip="project" href="between-the-lines.html" draggable="false"
+       style="--rot:4deg;--d:1.70s;--lit:2.30s;">
       <div class="inner"><div class="folder">
         <span class="tab"><i></i></span><span class="sheet"></span>
-        <div class="body"><div class="ttl" data-t="t3"></div><div class="mt" data-t="m3"></div></div>
+        <div class="body"><div class="ttl" data-t="t3">Between<br>the lines</div><div class="mt" data-t="m3">Product&nbsp;· Designed&nbsp;&amp;&nbsp;built</div></div>
       </div></div>
-    </div>
+    </a>
     <!-- f4 Hospitals — links to the "Paths, not plans" case study -->
-    <div class="obj grab" data-k="f4" data-tip="project" data-href="hospital-wayfinding.html"
-         role="link" tabindex="0" data-a="f4" aria-label="Moving through care — open case study"
-         style="--rot:-3.5deg;--d:1.58s;--lit:2.18s;">
+    <a class="obj grab" data-k="f4" data-tip="project" href="hospital-wayfinding.html" draggable="false"
+       style="--rot:-3.5deg;--d:1.58s;--lit:2.18s;">
       <div class="inner"><div class="folder">
         <span class="tab"><i></i></span><span class="sheet"></span>
-        <div class="body"><div class="ttl" data-t="t4"></div><div class="mt" data-t="m4"></div></div>
+        <div class="body"><div class="ttl" data-t="t4">Moving through care</div><div class="mt" data-t="m4">Architecture&nbsp;· Service&nbsp;design</div></div>
       </div></div>
-    </div>
+    </a>
   </div>
 
 </main>
@@ -709,6 +765,7 @@ const T = {
     m3   :'Product&nbsp;· Designed&nbsp;&amp;&nbsp;built',
     m4   :'Architecture&nbsp;· Service&nbsp;design',
     hint :'Grab, click and explore',
+    aboutHint:'About me. Flip the photo to read.',
     reset:'Reset layout',
     copied:'Copied!',                          /* mail label after a successful copy */
     cvfile:'Wioleta-Wojcik-CV.pdf',            /* English résumé */
@@ -718,7 +775,7 @@ const T = {
     tips :{about:'About me',project:'Open folder'},
     /* verb shown under each icon on hover/focus — the action, not the name */
     act  :{mail:'Copy',li:'Open',cv:'Open PDF'},
-    aria :{mail:'Email Wioleta',li:'LinkedIn profile',cv:'Open CV as PDF',about:'About me. Flip the photo to read.',f1:'Guest check-in — open case study',f2:'Red thread — open case study',f3:'Between the lines — open case study',f4:'Moving through care — open case study'}
+    aria :{mail:'Gmail — email Wioleta',li:'LinkedIn profile',cv:'Resume — open CV as PDF'}
   },
   no:{
     words:['Rom,','systemer,','mennesker.'],
@@ -734,6 +791,7 @@ const T = {
     m3   :'Produkt&nbsp;· Designet&nbsp;&amp;&nbsp;bygget',
     m4   :'Arkitektur&nbsp;· Tjenestedesign',
     hint :'Ta tak, klikk og utforsk',
+    aboutHint:'Om meg. Snu bildet for å lese.',
     reset:'Tilbakestill',
     copied:'Kopiert!',                         /* mail label after a successful copy */
     cvfile:'Wioleta-Wojcik-CV-NO.pdf',         /* Norwegian résumé */
@@ -742,7 +800,7 @@ const T = {
     aboutBody:'Jeg jobber med tjenestedesign for sosiale og offentlige utfordringer, og tar med meg en arkitektbakgrunn inn i det. Arbeidet mitt hviler på syv år med innsiktsdrevet, helhetlig produktdesign. KI er en integrert del av arbeidsprosessen min og hjelper meg å omsette research til fungerende produkter.',
     tips :{about:'Om meg',project:'Åpne mappen'},
     act  :{mail:'Kopier',li:'Åpne',cv:'Åpne PDF'},
-    aria :{mail:'Send e-post',li:'LinkedIn-profil',cv:'Åpne CV som PDF',about:'Om meg. Snu bildet for å lese.',f1:'Gjesteinnsjekk — åpne case study',f2:'Rød tråd — åpne case study',f3:'Mellom linjene — åpne case study',f4:'Gjennom omsorgen — åpne case study'}
+    aria :{mail:'Gmail — send e-post',li:'LinkedIn-profil',cv:'Resume — åpne CV som PDF'}
   }
 };
 
@@ -768,7 +826,8 @@ function paint(l, animate){
       if(t[k] !== undefined) el.innerHTML = t[k];
     });
     document.querySelectorAll('[data-a]').forEach(el=>{
-      el.setAttribute('aria-label', t.aria[el.dataset.a]);
+      const a = t.aria[el.dataset.a];
+      if(a !== undefined) el.setAttribute('aria-label', a);
     });
     /* the résumé link follows the language switch: EN → English PDF, NO → Norwegian */
     const cv = document.querySelector('.ic[data-a="cv"]');
@@ -873,7 +932,12 @@ function clamp(o,x,y){
 objs.forEach(o=>{
   o.addEventListener('pointerdown', e=>{
     if(mobile()) return;
-    if(e.target.closest('a')) return;           // links stay clickable
+    /* A link *inside* an object (the card's mail/LinkedIn/CV icons) is not a
+       drag handle — let it be clicked. The folders, though, ARE anchors
+       themselves now, so `closest('a')` finds them too; only bail when the link
+       we hit is some other element nested within. */
+    const link = e.target.closest('a');
+    if(link && link !== o) return;
     const sx = e.clientX, sy = e.clientY;
     let ox, oy, lastX, lastY, moved = false;
     let pending = null, rafId = 0;              // newest pointer delta awaiting a paint
@@ -935,18 +999,19 @@ objs.forEach(o=>{
   });
 });
 
-/* objects that carry a data-href open a page — but only on a real click/tap,
-   never at the end of a drag. Works on desktop and mobile alike, plus keyboard. */
-function openObj(o){ if(o.dataset.href) location.href = o.dataset.href; }
-objs.filter(o=> o.dataset.href).forEach(o=>{
+/* The folders are real <a href> anchors, so navigation, Enter, middle-click,
+   ⌘/Ctrl-click and "open in new tab" all come from the browser for free — no JS
+   needed to open a case study, and the link still works with scripting off.
+   The only thing left to JS is the opposite: swallowing the click that a drag
+   leaves behind, so releasing a dragged folder doesn't navigate. */
+objs.filter(o=> o.hasAttribute('href')).forEach(o=>{
   o.addEventListener('click', e=>{
-    if(suppressClick || dragging) return;         // just finished dragging — ignore
-    if(e.target.closest('a')) return;             // real links inside win
-    openObj(o);
+    if(suppressClick || dragging) e.preventDefault();  // that was a drag, not a click
   });
-  o.addEventListener('keydown', e=>{
-    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openObj(o); }
-  });
+  /* an anchor is natively draggable; that HTML5 drag would fight the pointer
+     drag (ghost image, no pointermove). draggable="false" in the markup covers
+     modern browsers, this covers the rest. */
+  o.addEventListener('dragstart', e=> e.preventDefault());
 });
 
 /* the polaroid flips to reveal a short "about" note on its back. It rides the

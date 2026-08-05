@@ -5,11 +5,44 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>RepApp — Case study · Wioleta Wójcik</title>
 <meta name="description" content="RepApp replaced the paper list travel reps carried into every airport arrival. A service-design case study by Wioleta Maria Wójcik.">
+<link rel="canonical" href="https://wioletawojcik.com/repapp.html">
+<meta name="author" content="Wioleta Maria Wójcik">
 <meta property="og:type" content="article">
+<meta property="og:site_name" content="Wioleta Wójcik">
+<meta property="og:url" content="https://wioletawojcik.com/repapp.html">
 <meta property="og:title" content="RepApp — Service design case study · Wioleta Wójcik">
 <meta property="og:description" content="RepApp replaced the paper list travel reps carried into every airport arrival.">
-<meta property="og:image" content="RepApp/assets/hero-photo.jpg">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%237A6BA8'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-weight='bold' font-size='21' text-anchor='middle' fill='%23FFFFFF'%3EW%3C/text%3E%3C/svg%3E">
+<meta property="og:image" content="https://wioletawojcik.com/RepApp/assets/hero-photo.jpg">
+<meta property="og:image:width" content="1672">
+<meta property="og:image:height" content="941">
+<meta property="og:image:alt" content="A travel rep in an airport terminal holding a tablet showing the RepApp excursions screen, arriving passengers on the floor below">
+<meta property="og:locale" content="en_GB">
+<meta property="og:locale:alternate" content="nb_NO">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RepApp — Service design case study · Wioleta Wójcik">
+<meta name="twitter:description" content="RepApp replaced the paper list travel reps carried into every airport arrival.">
+<meta name="twitter:image" content="https://wioletawojcik.com/RepApp/assets/hero-photo.jpg">
+<meta name="twitter:image:alt" content="A travel rep in an airport terminal holding a tablet showing the RepApp excursions screen, arriving passengers on the floor below">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "headline": "RepApp",
+  "name": "RepApp",
+  "url": "https://wioletawojcik.com/repapp.html",
+  "image": "https://wioletawojcik.com/RepApp/assets/hero-photo.jpg",
+  "genre": "Service design",
+  "description": "RepApp replaced the paper list travel reps carried into every airport arrival.",
+  "inLanguage": ["en", "nb"],
+  "author": {
+    "@type": "Person",
+    "name": "Wioleta Maria Wójcik",
+    "url": "https://wioletawojcik.com/"
+  },
+  "isPartOf": { "@type": "CollectionPage", "name": "Portfolio", "url": "https://wioletawojcik.com/" }
+}
+</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%237464A4'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-weight='bold' font-size='21' text-anchor='middle' fill='%23FFFFFF'%3EW%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&display=swap" rel="stylesheet">
@@ -25,10 +58,10 @@
 
   --ink:          #1A1917;
   --ink-soft:     #4A463F;
-  --ink-mute:     #8E887C;
+  --ink-mute:     #726D63;
   --hair:         #E0DACE;
 
-  --accent:       #7A6BA8;
+  --accent:       #7464A4;
   --accent-tint:  #E4DDF1;
 
   --sh-rest:
@@ -389,6 +422,12 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:46ch;line-hei
   *{transition-duration:.01ms!important;}
 }
 </style>
+<noscript>
+  <!-- The page ships its text already rendered (see tools/prerender.mjs), but the
+       scroll-reveal keeps it at opacity:0 until the observer fires. With no JS
+       that never happens, so pin everything visible. -->
+  <style>.reveal{opacity:1!important;transform:none!important;}</style>
+</noscript>
 </head>
 <body>
 
@@ -402,9 +441,9 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:46ch;line-hei
   </a>
   <div class="mark">
     <div class="nm">RepApp</div>
-    <div class="sub" data-t="markSub">Service design case study</div>
+    <div class="sub" data-t="markSub"><!--prerendered-->Service design case study<!--/prerendered--></div>
   </div>
-  <nav class="toc" aria-label="Sections"><ol id="toc"></ol></nav>
+  <nav class="toc" aria-label="Sections"><ol id="toc"><!--prerendered--><li><a href="#origin" data-to="origin"><span class="n">01</span><span>The find</span></a></li><li><a href="#paper" data-to="paper"><span class="n">02</span><span>The paper list</span></a></li><li><a href="#pitch" data-to="pitch"><span class="n">03</span><span>The pitch</span></a></li><li><a href="#research" data-to="research"><span class="n">04</span><span>Research window</span></a></li><li><a href="#scope" data-to="scope"><span class="n">05</span><span>The MVP rule</span></a></li><li><a href="#tablet" data-to="tablet"><span class="n">06</span><span>The tablet</span></a></li><li><a href="#mvp" data-to="mvp"><span class="n">07</span><span>The MVP</span></a></li><li><a href="#checkin" data-to="checkin"><span class="n">08</span><span>Check-in rebuilt</span></a></li><li><a href="#sunlight" data-to="sunlight"><span class="n">09</span><span>Sunlight</span></a></li><li><a href="#results" data-to="results"><span class="n">10</span><span>Results</span></a></li><li><a href="#gamification" data-to="gamification"><span class="n">11</span><span>Gamification</span></a></li><li><a href="#reflection" data-to="reflection"><span class="n">12</span><span>Reflection</span></a></li><!--/prerendered--></ol></nav>
 </aside>
 
 <!-- ── language toggle ─────────────────────────────────────── -->
@@ -417,28 +456,100 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:46ch;line-hei
 <main class="main">
   <div class="col">
     <header class="head reveal">
-      <div class="kicker" data-t="kicker">Case study · Service design</div>
+      <div class="kicker" data-t="kicker"><!--prerendered-->Case study · Service design<!--/prerendered--></div>
       <h1 class="title">RepApp</h1>
-      <p class="dek" data-t="dek"></p>
-      <div class="meta" id="meta"></div>
+      <p class="dek" data-t="dek"><!--prerendered-->RepApp replaced the paper list travel reps carried into every airport arrival.<!--/prerendered--></p>
+      <div class="meta" id="meta"><!--prerendered--><div class="m"><span class="k">Role</span><span class="v">UX &amp; Interface Designer</span></div><div class="m"><span class="k">Discipline</span><span class="v">Service design · Field research</span></div><div class="m"><span class="k">Context</span><span class="v">Itaka · Travel</span></div><div class="m"><span class="k">Year</span><span class="v">2020 — 2023</span></div><div class="m"><span class="k">Platform</span><span class="v">Offline-first tablet</span></div><!--/prerendered--></div>
     </header>
   </div>
 
-  <div id="hero"></div>
+  <div id="hero"><!--prerendered--><figure class="fig reveal wide">
+      <img src="RepApp/assets/hero-photo.jpg" alt="An arrivals hall, a rep, the day’s excursions on screen. The tablet took over the job the printed A4 used to do here. Interface reconstruction, 2026, composited into a photo." loading="lazy">
+      <figcaption><span>An arrivals hall, a rep, the day’s excursions on screen. The tablet took over the job the printed A4 used to do here. Interface reconstruction, 2026, composited into a photo.</span></figcaption>
+    </figure><!--/prerendered--></div>
 
   <div class="col">
-    <div id="glance" class="glance reveal"></div>
+    <div id="glance" class="glance reveal"><!--prerendered--><div class="g-eyebrow">At a glance</div>
+    <div class="g-row"><div class="g-k">Problem</div><div class="g-v">A rep met every flight with a printed A4 list and&nbsp;<strong>100+ names</strong> to check. The same data was entered <strong>three times</strong>, and&nbsp;the airports often had no signal. The busiest hour of the trip ran on paper.</div></div>
+    <div class="g-row"><div class="g-k">My role</div><div class="g-v"><strong>UX &amp; Interface Designer.</strong> I spotted the unserved reps during Itaka’s platform redesign and&nbsp;owned the service design from there: field research, MVP definition, interaction design and&nbsp;prototypes, and&nbsp;field testing at airports. Engineering by the in-house dev team, within a small design team.</div></div>
+    <div class="g-row"><div class="g-k">Value</div>
+      <ul class="g-list"><li><strong>50%+ faster:</strong> the rep clears the airport in less than half the time the paper list took</li><li><strong>Retyping gone:</strong> one offline entry replaced the Excel evenings and&nbsp;the manager’s re-entry, 30%+ less back-office work</li><li><strong>1.44M passengers:</strong> handled through the app in 2023, three years after launch</li></ul>
+      <div class="g-src">Shipped product, 2020 · figures reported by Resabee Travel Tech</div>
+    </div><!--/prerendered--></div>
   </div>
 
-  <article id="article"></article>
+  <article id="article"><!--prerendered--><section class="sec" id="origin"><div class="col">
+      <div class="eyebrow"><b>01</b> · Origin</div>
+      <h2 class="h">Nobody had designed anything for the destination reps yet</h2><p>The project surfaced during Itaka’s platform redesign. The destination reps meet flights, run transfers and&nbsp;sell excursions across <strong>more than 100 destinations</strong>, and&nbsp;<strong>no one had built a tool for them</strong>. That gap became a brief.</p></div><figure class="fig reveal">
+      <img src="RepApp/assets/photo-context.jpg" alt="A destination rep with the printed Itaka clipboard and pen — the guest-facing job, and the paper tool, that no one had yet designed for." loading="lazy">
+      <figcaption><span>A destination rep with the printed Itaka clipboard and&nbsp;pen — the guest-facing job, and&nbsp;the paper tool, that no one had yet designed for.</span></figcaption>
+    </figure></section><section class="sec" id="paper"><div class="col">
+      <div class="eyebrow"><b>02</b> · The problem</div>
+      <h2 class="h">A rep met every flight with a printed A4 list and&nbsp;over 100 names to check</h2><p>Everything on that paper was typed into Excel that evening, then retyped by the department manager into our enterprise system. <strong>The same information was entered three times.</strong></p></div><figure class="fig reveal wide">
+      <img src="RepApp/assets/before-paper-list.png" alt="The printed A4 arrivals list — ticked by hand at the gate, then keyed into Excel and re-keyed into the enterprise system. The same data, entered three times. Reconstruction, 2026." loading="lazy">
+      <figcaption><span>The printed A4 arrivals list — ticked by hand at the gate, then keyed into Excel and&nbsp;re-keyed into the enterprise system. The same data, entered three times. Reconstruction, 2026.</span></figcaption>
+    </figure><div class="col"><h3 class="sh">Nothing could assume a signal</h3><p>Destination airports frequently had no working internet. <strong>Offline was not a fallback</strong>, it was the condition the whole architecture sat on.</p></div><figure class="fig reveal wide">
+      <img src="RepApp/assets/offline-architecture.png" alt="Offline-first: the airport had no signal, so every action was captured on the device, queued, and reconciled with the enterprise system only on reconnection. Diagram, 2026." loading="lazy">
+      <figcaption><span>Offline-first: the airport had no signal, so every action was captured on the device, queued, and&nbsp;reconciled with the enterprise system only on reconnection. Diagram, 2026.</span></figcaption>
+    </figure></section><section class="sec" id="pitch"><div class="col">
+      <div class="eyebrow"><b>03</b> · Buy-in</div>
+      <h2 class="h">The first pitch failed, because it made the wrong case</h2><p>The first pitch led with efficiency for the reps. The room was deciding on budget, and&nbsp;travel had just stopped. <strong>A second pitch, built on research and&nbsp;on what competitors were already doing, passed.</strong> The first argument had been <strong>correct and&nbsp;irrelevant at once</strong>.</p></div><figure class="fig reveal wide">
+      <img src="RepApp/assets/slide.png" alt="The competitive slide from the winning pitch — every operator already equips its reps; Itaka was the last one on paper. Reframed from “efficiency for the reps” to a gap the room could see. Reconstruction, redrawn 2026; competitors anonymised, grid illustrative." loading="lazy">
+      <figcaption><span>The competitive slide from the winning pitch — every operator already equips its reps; Itaka was the last one on paper. Reframed from “efficiency for the reps” to a gap the room could see. Reconstruction, redrawn 2026; competitors anonymised, grid illustrative.</span></figcaption>
+    </figure></section><section class="sec" id="research"><div class="col">
+      <div class="eyebrow"><b>04</b> · Research</div>
+      <h2 class="h">The pandemic emptied the destinations and&nbsp;opened the research window</h2><p>Reps are normally impossible to reach, abroad and&nbsp;in motion through peak season. <strong>In 2020 they were employed with almost no guests.</strong> Two to three months went into <strong>interviewing around ten of them</strong>, and&nbsp;into building <strong>the observation instrument</strong> our Product Owner then used at destination airports.</p></div></section><section class="sec" id="scope"><div class="col">
+      <div class="eyebrow"><b>05</b> · Scope</div>
+      <h2 class="h">Only features that helped the rep and&nbsp;earned money at once could ship</h2><p>With no budget, anything doing only one of those jobs could not survive review. <strong>That rule decided the scope, and&nbsp;cut the feature the reps needed most.</strong></p></div><div class="col"><h3 class="sh">What was scoped out</h3><ul class="pts"><li><strong>Reporting and&nbsp;system integration.</strong> What reps needed most. It shipped later.</li><li><strong>Contactless check-in.</strong> Blocked on the consumer app’s backlog, not on us.</li><li><strong>Anything that could not defend itself commercially.</strong></li></ul></div><figure class="fig reveal wide">
+      <img src="RepApp/assets/priorities-matrix.png" alt="The MVP rule as a 2×2 — a feature had to help the rep and earn money to ship. Only the top-right quadrant survived; reporting, the feature the reps needed most, was cut for later. Redrawn 2026." loading="lazy">
+      <figcaption><span>The MVP rule as a 2×2 — a feature had to help the rep and&nbsp;earn money to ship. Only the top-right quadrant survived; reporting, the feature the reps needed most, was cut for later. Redrawn 2026.</span></figcaption>
+    </figure></section><section class="sec" id="tablet"><div class="col">
+      <div class="eyebrow"><b>06</b> · Device</div>
+      <h2 class="h">The reps chose the tablet, and&nbsp;their reasoning was about their hands</h2><p><strong>Both options went to the reps.</strong> They had worked from A4 held in both hands and&nbsp;turned toward the guest. A phone would have changed the format and&nbsp;the tool in one week. <strong>The tablet kept the gesture</strong>, and&nbsp;let them show excursion video while selling.</p></div><figure class="fig reveal wide">
+      <img src="RepApp/assets/scale.png" alt="A4, tablet and phone at true relative size. The tablet stayed close to the page, so the two-handed, guest-facing gesture survived — and left room to play excursion video; the phone was too small to show or to share. Reconstruction, redrawn 2026." loading="lazy">
+      <figcaption><span>A4, tablet and&nbsp;phone at true relative size. The tablet stayed close to the page, so the two-handed, guest-facing gesture survived — and&nbsp;left room to play excursion video; the phone was too small to show or to share. Reconstruction, redrawn 2026.</span></figcaption>
+    </figure></section><section class="sec" id="mvp"><div class="col">
+      <div class="eyebrow"><b>07</b> · The build</div>
+      <h2 class="h">The MVP followed the arrival in the order it actually happens</h2><p><strong>Three tabs, matching what a rep does between gate and&nbsp;coach.</strong></p><ol class="steps"><li><strong>Attendance</strong> — search by surname or reservation number</li><li><strong>Hotels</strong> — which group goes where</li><li><strong>Transfers</strong> — which coach, what time, both directions</li></ol><p>Excursion sales sat alongside, also offline.</p></div><figure class="fig reveal wide">
+      <img src="RepApp/assets/screens.png" alt="The three-tab MVP in sequence — Attendance, Hotels, Transfers — built to follow the arrival in the order it actually happens, on one offline app. Interface reconstruction, redrawn 2026." loading="lazy">
+      <figcaption><span>The three-tab MVP in sequence — Attendance, Hotels, Transfers — built to follow the arrival in the order it actually happens, on one offline app. Interface reconstruction, redrawn 2026.</span></figcaption>
+    </figure><figure class="fig reveal wide">
+      <img src="RepApp/assets/excursions-sale.png" alt="The Excursions tab: local trips browsed and sold beside check-in, offline, with video to show the guest. Interface reconstruction, 2026; offers, prices and photos illustrative." loading="lazy">
+      <figcaption><span>The Excursions tab: local trips browsed and&nbsp;sold beside check-in, offline, with video to show the guest. Interface reconstruction, 2026; offers, prices and&nbsp;photos illustrative.</span></figcaption>
+    </figure></section><section class="sec" id="checkin"><div class="col">
+      <div class="eyebrow"><b>08</b> · The decision</div>
+      <h2 class="h">We built check-in around the passenger, and&nbsp;field testing proved that wrong</h2><p>Our database stores people individually, so that is how the first build worked. In the field <strong>a family of five walked up as one group</strong> and&nbsp;the rep tapped five times. On paper, one stroke of a pen covered all five. Digitising the data model would have made the job slower than paper, so <strong>we rebuilt check-in around the reservation</strong>.</p></div><figure class="fig reveal wide">
+      <img src="RepApp/assets/attendance-night.jpg" alt="A night arrival met from the rebuilt list: the family that walks up as one group is one row, one tap. Interface reconstruction, 2026, composited into a photo." loading="lazy">
+      <figcaption><span>A night arrival met from the rebuilt list: the family that walks up as one group is one row, one tap. Interface reconstruction, 2026, composited into a photo.</span></figcaption>
+    </figure><figure class="fig reveal wide">
+      <img src="RepApp/assets/checkin-attendance-states.png" alt="Checked in as a group by default, opened traveller-by-traveller only when the field needs it." loading="lazy">
+      <figcaption><span>Checked in as a group by default, opened traveller-by-traveller only when the field needs it.</span></figcaption>
+    </figure></section><section class="sec" id="sunlight"><div class="col">
+      <div class="eyebrow"><b>09</b> · Constraint</div>
+      <h2 class="h">The reps warned us about sunlight before we built anything</h2><p>They warned us in interviews that <strong>nothing would be readable in full sun</strong>, and&nbsp;testing confirmed it. Across 100 destinations we could not solve this for one climate, so <strong>contrast went into the hardware specification</strong>.</p></div><figure class="fig reveal wide">
+      <img src="RepApp/assets/contrast-comparison.png" alt="The same list indoors and in direct sun — contrast as a functional decision, written into the hardware spec. Interface reconstruction, 2026." loading="lazy">
+      <figcaption><span>The same list indoors and&nbsp;in direct sun — contrast as a functional decision, written into the hardware spec. Interface reconstruction, 2026.</span></figcaption>
+    </figure></section><section class="sec" id="results"><div class="col">
+      <div class="eyebrow"><b>10</b> · Outcome</div>
+      <h2 class="h">Over 50% less time at the airport, and&nbsp;a whole layer of retyping gone</h2><p>Once reporting connected to the enterprise system, <strong>the rep’s Excel work and&nbsp;the manager’s re-entry disappeared</strong>.</p></div><figure class="fig reveal wide">
+      <img src="RepApp/assets/excursions-in-hands.png" alt="The Excursions tab in a rep’s hands at the gate: local trips browsed and sold from the tablet, offline. Interface reconstruction, 2026, composited into a photo." loading="lazy">
+      <figcaption><span>The Excursions tab in a rep’s hands at the gate: local trips browsed and&nbsp;sold from the tablet, offline. Interface reconstruction, 2026, composited into a photo.</span></figcaption>
+    </figure><div class="col"><div class="stats reveal"><div class="src">Reported by Resabee Travel Tech</div><div class="row"><div class="stat"><div class="fig">50%+</div><div class="lab">less time at the airport</div></div><div class="stat"><div class="fig">30%+</div><div class="lab">less back-office work</div></div><div class="stat"><div class="fig">1 442 793</div><div class="lab">passengers handled in 2023, three years after launch</div></div></div></div></div></section><section class="sec" id="gamification"><div class="col">
+      <div class="eyebrow"><b>11</b> · The tension</div>
+      <h2 class="h">Gamification lifted sales, and&nbsp;the unease it left has stayed</h2><p>When reporting shipped, we added points and&nbsp;team rankings showing who sold most each month. <strong>Sales rose sharply.</strong> The pressure to repay the hardware was real, and&nbsp;so is the discomfort of publishing individual figures inside a team that lives and&nbsp;works together.</p></div><figure class="fig reveal wide">
+      <img src="RepApp/assets/team.png" alt="The gamified team-standings view — points and a monthly ranking of who sold most, individual figures visible to the whole team. It lifted sales sharply, and named a loser every month. Interface reconstruction, redrawn 2026; names and figures illustrative." loading="lazy">
+      <figcaption><span>The gamified team-standings view — points and&nbsp;a monthly ranking of who sold most, individual figures visible to the whole team. It lifted sales sharply, and&nbsp;named a loser every month. Interface reconstruction, redrawn 2026; names and&nbsp;figures illustrative.</span></figcaption>
+    </figure></section><section class="sec" id="reflection"><div class="col">
+      <div class="eyebrow"><b>12</b> · Lessons</div>
+      <h2 class="h">What the project taught, and&nbsp;what would change next time</h2><ul class="pts"><li><strong>A correct argument is not a persuasive one.</strong> The criteria the room used had to be found first.</li><li><strong>Both product-changing findings came from watching, not asking.</strong></li><li><strong>Systems carry assumptions about their users.</strong> Passenger-level check-in came from the schema, not a choice.</li><li><strong>Resources are worth negotiating before saying yes</strong>, not after.</li><li><strong>Whether the reps trusted the sync went untested.</strong> A rep who does not keeps a paper backup, and&nbsp;the paper stays.</li><li><strong>GDPR draws the line for shortcuts.</strong> A throwaway build with guest data can only go so far.</li></ul></div><div class="col"><p class="close">Today I would prototype before the first pitch, not after the rejection.</p></div></section><!--/prerendered--></article>
 
   <div class="col">
     <footer class="foot reveal">
       <a href="index.html">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
-        <span data-t="footBack">Back to all projects</span>
+        <span data-t="footBack"><!--prerendered-->Back to all projects<!--/prerendered--></span>
       </a>
-      <p class="note" data-t="footNote"></p>
+      <p class="note" data-t="footNote"><!--prerendered-->Interface reconstructions redrawn in 2026 — the original design files are not in my possession. The live product has since evolved with the in-house team.<!--/prerendered--></p>
     </footer>
   </div>
 </main>
