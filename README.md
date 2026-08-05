@@ -56,6 +56,7 @@ npm test          # 32 checks: mobile taps, desktop drag/click, keyboard, preren
 npm run serve     # preview on a server shaped like GitHub Pages
 npm run audit     # Lighthouse over all five pages
 npm run portrait  # rebuild the polaroid's WebP copies (only if the photo changes)
+npm run fonts     # re-download the self-hosted webfonts (rarely needed)
 ```
 
 `npm test` emulates a phone as well as a desktop, and it checks that each control
@@ -96,6 +97,13 @@ If a sandbox or CI image already ships a Chromium, point the scripts at it with
   image — `og:image` still points at it. The board draws the portrait at 182×212
   CSS px and reads the WebP copies instead, via `srcset`. Replace the photo and
   you must re-run `npm run portrait`, or the board keeps showing the old face.
+- **The fonts are self-hosted, and their @font-face rules are generated.** They
+  sit between `fonts:start` and `fonts:end` markers inside each page's `<style>`
+  — `npm run fonts` writes them, so hand-edits there are lost on the next run.
+  Only the `latin` and `latin-ext` subsets are downloaded: latin-ext is the one
+  carrying ó, ł, ż for Polish and ø, å, æ for Norwegian, so it is not optional.
+  Nothing is fetched from Google any more, which also keeps visitors' IPs off
+  Google's logs.
 - **The polaroid must stay positioned in the compact layout.** Its `::after` is
   a transparent click-catcher (`position:absolute; inset:0`) that exists because
   Chrome cannot hit-test the flipped face. An absolutely-positioned box resolves
