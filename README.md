@@ -55,6 +55,7 @@ markup directly, which is all a crawler needs from the board.
 npm test          # 32 checks: mobile taps, desktop drag/click, keyboard, prerender, 404
 npm run serve     # preview on a server shaped like GitHub Pages
 npm run audit     # Lighthouse over all five pages
+npm run portrait  # rebuild the polaroid's WebP copies (only if the photo changes)
 ```
 
 `npm test` emulates a phone as well as a desktop, and it checks that each control
@@ -90,6 +91,11 @@ If a sandbox or CI image already ships a Chromium, point the scripts at it with
   visible words breaks WCAG 2.5.3 and voice control with it.
 - `--ink-mute` and `--accent` are set to clear 4.5:1 on all three surfaces. They
   have no headroom — darken, don't lighten.
+- **`my photo.png` has two jobs and only one of them is the polaroid.** The PNG
+  is 1414×2000 and stays that big because Open Graph scrapers want a large
+  image — `og:image` still points at it. The board draws the portrait at 182×212
+  CSS px and reads the WebP copies instead, via `srcset`. Replace the photo and
+  you must re-run `npm run portrait`, or the board keeps showing the old face.
 - **The polaroid must stay positioned in the compact layout.** Its `::after` is
   a transparent click-catcher (`position:absolute; inset:0`) that exists because
   Chrome cannot hit-test the flipped face. An absolutely-positioned box resolves

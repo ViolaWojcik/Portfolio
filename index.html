@@ -633,7 +633,15 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
     <div class="inner">
       <div class="flipper">
         <figure class="polaroid face face-front">
-          <img src="my%20photo.png" alt="Wioleta Maria Wójcik" draggable="false">
+          <!-- The polaroid draws this at 182×212 CSS px. `my photo.png` is
+               1414×2000 and 1.1 MB — it stays in the repo because the Open Graph
+               preview wants a big image, but the board has no use for forty
+               times the pixels it renders. These WebP copies are built by
+               `npm run portrait`; re-run it if the photo changes. -->
+          <img src="my-photo-364.webp"
+               srcset="my-photo-182.webp 182w, my-photo-364.webp 364w, my-photo-546.webp 546w"
+               sizes="182px" width="182" height="212"
+               alt="Wioleta Maria Wójcik" draggable="false" decoding="async">
           <figcaption>
             <div class="nm">Wioleta Maria Wójcik</div>
             <div class="rl" data-t="role"></div>

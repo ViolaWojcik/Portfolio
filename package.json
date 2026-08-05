@@ -6,7 +6,8 @@
     "test": "node tools/smoke.mjs",
     "prerender": "node tools/prerender.mjs",
     "serve": "node tools/serve.mjs",
-    "audit": "node tools/lighthouse.mjs"
+    "audit": "node tools/lighthouse.mjs",
+    "portrait": "node tools/portrait.mjs"
   },
   "devDependencies": {
     "lighthouse": "^12.2.1",
