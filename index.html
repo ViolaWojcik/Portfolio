@@ -173,6 +173,24 @@ body{
   transition:left .45s var(--ease), top .45s var(--ease);
   touch-action:none;
 }
+/* The scattered desktop composition. These offsets used to sit in each
+   element's `style` attribute, where they applied at every width and the
+   compact stack had to spend `!important` undoing them — a fight it once lost,
+   shipping a folder on top of the polaroid's caption. Scoping them to the wide
+   layout means the stack never receives them in the first place.
+
+   The query is the exact complement of the COMPACT block's `max-width:1100px`,
+   written as a negation rather than `min-width:1101px` on purpose: a 1100.5px
+   viewport matches neither of those two, and would lay the board out absolutely
+   with no offsets at all. Keep it in sync with COMPACT and with mobile() in the
+   script; all three describe the same boundary.
+
+   The folders aren't here — they are positioned inside #fan, which the compact
+   block turns into a flex column, so their offsets already stop applying. */
+@media not all and (max-width:1100px){
+  .obj[data-k="pol"] {right:8vw; top:12vh;}
+  .obj[data-k="card"]{right:8vw; bottom:10vh;}
+}
 /* the project folders are real <a href> links, so a crawler, a middle-click and
    "open in new tab" all reach the case study. They must not read as web links:
    the folder art carries the affordance, not an underline. */
@@ -575,14 +593,12 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
          display:flex;flex-direction:column;align-items:center;gap:40px;}
   #sweep{display:none;}
   .obj,#headline,#fan{position:static!important;width:auto!important;height:auto!important;}
-  /* the objects carry their desktop composition as inline offsets (the polaroid's
-     `top:12vh;right:8vw`, the card's `bottom:10vh`). `position:static` above makes
-     those inert — but the polaroid is put back to `relative` a few lines down, and
-     under `relative` the same offsets return as a VISUAL shift that layout doesn't
-     see: the photo slid 12vh down and 8vw left while the flex column kept
-     reserving its un-shifted box, so the folder fan rode up over the caption.
-     Strip the offsets for the whole stack; the column places every object. */
-  .obj{top:auto!important;right:auto!important;bottom:auto!important;left:auto!important;}
+  /* No offsets need undoing here: the desktop composition is scoped to the wide
+     layout, so nothing in this stack ever receives a top/right/bottom/left. That
+     matters because the polaroid is put back to `relative` a few lines down —
+     while the offsets were unconditional, `relative` revived them as a VISUAL
+     shift the flex column couldn't see, and the folder fan rode up over the
+     caption. Keep any new offset out of the unconditional rules. */
   /* drag is desktop-only (pointerdown bails on mobile()), but `touch-action:none`
      on .obj stays in force and swallows the touch — a finger landing on a folder,
      the card or the polaroid couldn't scroll the page. Hand the gesture back to
@@ -649,7 +665,7 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
   <!-- ── polaroid — click/tap flips it to a short "about" note on the back ─ -->
   <div class="obj grab" data-k="pol" data-tip="about"
        role="button" tabindex="0" aria-expanded="false"
-       style="right:8vw;top:12vh;--rot:2.6deg;--d:2.20s;--lit:2.82s;">
+       style="--rot:2.6deg;--d:2.20s;--lit:2.82s;">
     <span class="vh" data-t="aboutHint"></span>
     <div class="inner">
       <div class="flipper">
@@ -682,7 +698,7 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
   <!-- ── contact card: icons + location + phone, no name ───── -->
   <!-- no card-level tooltip: the header names the card, the icons name their actions -->
   <div class="obj grab" data-k="card"
-       style="right:8vw;bottom:10vh;--rot:0deg;--d:2.06s;--lit:2.68s;">
+       style="--rot:0deg;--d:2.06s;--lit:2.68s;">
     <div class="inner">
       <div class="card">
         <div class="card-h" data-t="cardTitle"></div>
@@ -886,9 +902,11 @@ langEl.addEventListener('click', e=>{
       Once the entrance is over, .ready zeroes those delays.
    ========================================================= */
 const objs = [...document.querySelectorAll('.obj')];
-/* each object's default position lives in its HTML style attribute (pol/card use
-   right/top/bottom in vw/vh; folders carry rotation + timing vars). freeze/drag
-   overwrite it, so we snapshot the originals to restore on resize. */
+/* an object's default position is CSS-authored (pol/card from the wide-layout
+   block, folders from #fan); the style attribute carries only its rotation and
+   timing vars. freeze/drag/placeFan write positions into that same attribute, so
+   we snapshot it first — restoring the snapshot on resize drops every computed
+   position and hands the objects back to the stylesheet. */
 const css0 = new Map(objs.map(o=> [o, o.getAttribute('style') || '']));
 requestAnimationFrame(()=> objs.forEach(o=> o.classList.add('lit')));
 
