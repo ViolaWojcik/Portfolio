@@ -48,6 +48,42 @@
 
   if (!KEY) return;
 
+  /* ---------- the author's own visits ----------
+   *
+   * The person who works on this site visits it more than anyone else, and
+   * every one of those visits lands in the same numbers as a real visitor's:
+   * inflated sessions, heatmaps full of her own dragging, recordings of her
+   * own testing. So her browser is taken out of the measurement entirely —
+   * nothing is sent, which also keeps her out of the dashboards, the replays
+   * and the click maps at once, rather than needing a filter remembered in
+   * three places.
+   *
+   * Switch it on by visiting the site once with ?nostats=1, off with
+   * ?nostats=0. The choice sticks in localStorage — NOT sessionStorage, which
+   * is where posthog-js keeps its own state and which empties when the tab
+   * closes; an opt-out that forgets itself every morning is not an opt-out.
+   * It is per browser and per device, and clearing site data resets it.
+   *
+   * This is a preference the visitor sets about themselves, not a tracker, so
+   * it does not change the no-cookie promise in the header. */
+  var OPT_OUT = 'wiola-board:nostats';
+
+  try {
+    var toggle = /[?&]nostats=([01])/.exec(location.search);
+    if (toggle) {
+      if (toggle[1] === '1') localStorage.setItem(OPT_OUT, '1');
+      else localStorage.removeItem(OPT_OUT);
+    }
+    if (localStorage.getItem(OPT_OUT) === '1') {
+      /* Silent would be indistinguishable from broken. */
+      if (window.console) console.info('analytics: off in this browser (?nostats=0 to undo)');
+      return;
+    }
+  } catch (e) {
+    /* Private-mode Safari throws on localStorage. Measuring is not worth
+       breaking a page over: fall through and count the visit. */
+  }
+
   /* ---------- page identity ---------- */
 
   /* "/red-thread.html" → "red-thread", "/" → "board". A name, not a URL, so the
