@@ -7,6 +7,7 @@
     "prerender": "node tools/prerender.mjs",
     "serve": "node tools/serve.mjs",
     "audit": "node tools/lighthouse.mjs",
+    "stats": "node tools/posthog-summary.mjs",
     "portrait": "node tools/portrait.mjs",
     "fonts": "node tools/fonts.mjs",
     "images": "node tools/images.mjs"
