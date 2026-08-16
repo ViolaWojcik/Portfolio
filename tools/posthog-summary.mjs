@@ -266,8 +266,12 @@ async function hogql(config, sql) {
 
 const val = (v) => (v === null || v === undefined || v === '' ? '—' : String(v));
 
-/* "$direct" is PostHog's marker for "no referrer", which reads as noise. */
-const source = (v) => (v === '$direct' || v === null || v === '' ? 'wpisany bezpośrednio' : String(v));
+/* "$direct" is PostHog's marker for "no referrer" — a real answer. A missing
+   value is not the same answer and must not be dressed up as one: events from
+   the hand-written beacon this site used before 16.08.2026 carry no referrer
+   property at all. Two rows both reading "wpisany bezpośrednio" would be a lie
+   about what is known. */
+const source = (v) => (v === '$direct' ? 'wpisany bezpośrednio' : v === null || v === '' ? '—' : String(v));
 
 const when = (iso) => {
   if (!iso) return '—';
@@ -374,45 +378,51 @@ async function main() {
     ).map((r) => [r.day, r.sessions, r.pageviews])
   );
 
+  /* Every breakdown carries an event count next to the session count. Events
+     that predate the session-id era count as zero sessions, and a lone "0"
+     would read as "nothing happened" when something did. */
   heading('Skąd przyszli');
   table(
-    ['źródło', 'sesje'],
+    ['źródło', 'sesje', 'zdarzenia'],
     (
       await q(
         'sources',
         `SELECT toString(properties.$referring_domain) AS src,
-                uniq(properties.$session_id) AS sessions
-         FROM events WHERE ${WHERE} GROUP BY src ORDER BY sessions DESC LIMIT 15`
+                uniq(properties.$session_id) AS sessions,
+                count() AS events
+         FROM events WHERE ${WHERE} GROUP BY src ORDER BY events DESC LIMIT 15`
       )
-    ).map((r) => [source(r.src), r.sessions])
+    ).map((r) => [source(r.src), r.sessions, r.events])
   );
 
   heading('Kraj i miasto');
   table(
-    ['kraj', 'miasto', 'sesje'],
+    ['kraj', 'miasto', 'sesje', 'zdarzenia'],
     (
       await q(
         'geo',
         `SELECT toString(properties.$geoip_country_name) AS country,
                 toString(properties.$geoip_city_name) AS city,
-                uniq(properties.$session_id) AS sessions
-         FROM events WHERE ${WHERE} GROUP BY country, city ORDER BY sessions DESC LIMIT 15`
+                uniq(properties.$session_id) AS sessions,
+                count() AS events
+         FROM events WHERE ${WHERE} GROUP BY country, city ORDER BY events DESC LIMIT 15`
       )
-    ).map((r) => [r.country, r.city, r.sessions])
+    ).map((r) => [r.country, r.city, r.sessions, r.events])
   );
 
   heading('Urządzenia');
   table(
-    ['urządzenie', 'przeglądarka', 'sesje'],
+    ['urządzenie', 'przeglądarka', 'sesje', 'zdarzenia'],
     (
       await q(
         'devices',
         `SELECT toString(properties.$device_type) AS device,
                 toString(properties.$browser) AS browser,
-                uniq(properties.$session_id) AS sessions
-         FROM events WHERE ${WHERE} GROUP BY device, browser ORDER BY sessions DESC LIMIT 10`
+                uniq(properties.$session_id) AS sessions,
+                count() AS events
+         FROM events WHERE ${WHERE} GROUP BY device, browser ORDER BY events DESC LIMIT 10`
       )
-    ).map((r) => [r.device, r.browser, r.sessions])
+    ).map((r) => [r.device, r.browser, r.sessions, r.events])
   );
 
   heading('Strony');
@@ -481,10 +491,15 @@ async function main() {
             any(properties.$device_type) AS device
      FROM events WHERE ${WHERE} GROUP BY sid ORDER BY started DESC LIMIT 20`
   );
+  /* No session id, no recording: `$session_id` is what replay is filed under,
+     so a link built from a null would 404. Those events are still real visits
+     and stay in the table — they just cannot be watched. */
+  const hasId = (r) => r.sid && r.sid !== 'null';
+
   table(
     ['kiedy', 'skąd', 'miejsce', 'urządzenie', 'stron', 'sygnały'],
     sessions.map((r) => [
-      when(r.started),
+      when(r.started) + (hasId(r) ? '' : ' *'),
       source(r.src),
       [r.city, r.country].filter(Boolean).join(', '),
       r.device,
@@ -495,9 +510,18 @@ async function main() {
     ])
   );
 
-  if (sessions.length) {
+  const anonymous = sessions.filter((r) => !hasId(r));
+  if (anonymous.length) {
+    console.log(
+      '\n  * Zdarzenia bez identyfikatora sesji — zebrane, zanim strona przeszła na bibliotekę\n' +
+        '    PostHoga (16.08.2026, 19:07). Liczą się jako 0 sesji i nie mają nagrania.'
+    );
+  }
+
+  const watchable = sessions.filter(hasId);
+  if (watchable.length) {
     console.log('\n  Nagrania (jeśli sesja została nagrana — nagrywanie jest włączone dla portfolio):');
-    for (const r of sessions.slice(0, 8)) {
+    for (const r of watchable.slice(0, 8)) {
       console.log(`  ${when(r.started).padEnd(14)} ${config.host}/project/${config.projectId}/replay/${r.sid}`);
     }
   }
