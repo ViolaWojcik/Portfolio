@@ -1,27 +1,31 @@
-/* analytics.js — conversion measurement for the board and the case study pages.
+/* analytics.js — conversion measurement, session replay and heatmaps.
  *
- * WHY THIS IS HAND-WRITTEN AND NOT POSTHOG'S CDN SNIPPET
- * The house rule for this site is "no build step, no frameworks, no external
- * dependencies beyond the Google fonts" (CLAUDE.md). PostHog's official
- * snippet pulls ~120KB of third-party JavaScript on a site that gets audited
- * with Lighthouse and is otherwise dependency-free. Everything that snippet
- * does for us here — send a handful of named events — is the fifty lines
- * below, posted to the same documented endpoint the official library posts to
- * (`/e/`, form-encoded `data=<base64>`).
+ * WHY THIS NOW LOADS POSTHOG'S LIBRARY
+ * The previous version of this file was hand-written precisely to avoid that
+ * library, and said so: "no autocapture, no session recording... if any of
+ * those are ever wanted, this file gets deleted and the official snippet goes
+ * in instead." Session replay and heatmaps were wanted. This is that trade,
+ * made deliberately rather than by accident.
  *
- * The trade is real and worth stating: no autocapture, no session recording,
- * no feature flags, no A/B tests. If any of those are ever wanted, this file
- * gets deleted and the official snippet goes in instead. For "how many people
- * open a case study and how many download the CV", this is enough.
+ * What it costs, plainly: ~250KB of third-party JavaScript (~80KB over the
+ * wire) on a site whose house rule in CLAUDE.md is "no external dependencies
+ * beyond Google Fonts", and which gets audited with Lighthouse. It is loaded
+ * async and never blocks paint, but it is not free. Recordings cannot be had
+ * without it — the replay format is rrweb, which is the library.
  *
- * NO COOKIES, SO NO CONSENT BANNER
- * The visitor id lives in sessionStorage and dies when the tab closes. Nothing
- * is written to a cookie, nothing is shared across sites, and nobody is
- * followed between visits. That keeps the site outside the consent-banner
- * requirement while still letting one visit read as one visit — so "opened a
- * case study, then downloaded the CV" is still a funnel and not two strangers.
- * The cost: a returning visitor counts as a new one. For a portfolio that is
- * the right side of the trade.
+ * STILL NO COOKIES, SO STILL NO CONSENT BANNER
+ * `persistence: 'sessionStorage'` keeps the property the old file was built
+ * around: nothing is written to a cookie, nothing is shared across sites, and
+ * nobody is followed between visits. PostHog defaults to cookies; that default
+ * is overridden here on purpose. The cost is unchanged and still accepted —
+ * a returning visitor counts as a new one.
+ *
+ * WHY THE NAMED EVENTS SURVIVED
+ * Autocapture is on, which is what makes click maps useful. But autocapture
+ * cannot know that this board is drag-and-drop: letting go of a dragged folder
+ * fires a click, and autocapture will record it. The named events below keep
+ * the drag guard and stay the honest source of truth for conversions.
+ * Read `$autocapture` as texture, `cv_downloaded` as fact.
  */
 (function () {
   'use strict';
@@ -33,65 +37,16 @@
      would hand over the whole account.
      Empty key = this whole file is a no-op, which is what you want while
      working on the site locally. */
-  var KEY  = 'phc_wbYZGRmnAzF5FrZyXT2dujFsWS8z2bWjD5mMMTawTCup';
+  var KEY = 'phc_wbYZGRmnAzF5FrZyXT2dujFsWS8z2bWjD5mMMTawTCup';
 
   /* Must match the region the PostHog account was created in. EU accounts use
-     the host below; a US account needs https://us.i.posthog.com or the events
-     land nowhere, silently. */
+     the hosts below; a US account needs us.i.posthog.com / us-assets, or the
+     events land nowhere, silently. Ingestion and the library come from
+     different hosts on purpose — that is how PostHog serves the EU. */
   var HOST = 'https://eu.i.posthog.com';
+  var ASSETS = 'https://eu-assets.i.posthog.com/static/array.js';
 
   if (!KEY) return;
-
-  /* ---------- transport ---------- */
-
-  /* btoa() throws on anything outside Latin-1, and this site is bilingual with
-     Norwegian æ/ø/å in titles and referrers. Encode to UTF-8 bytes first. */
-  function b64(str) {
-    var bytes = new TextEncoder().encode(str), bin = '', i;
-    for (i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
-    return btoa(bin);
-  }
-
-  /* sendBeacon, because most of what we measure here is a click that leaves
-     the page (a PDF, a case study, a mail client). A normal fetch would be
-     cancelled by the navigation — exactly on the events that matter most.
-     Form-encoded rather than JSON: application/x-www-form-urlencoded is
-     CORS-safelisted, so the beacon goes out without a preflight it cannot do. */
-  function send(event, props) {
-    var payload = {
-      api_key: KEY,
-      event: event,
-      properties: Object.assign(
-        { distinct_id: visitor(), $current_url: location.origin + location.pathname },
-        props || {}
-      ),
-      timestamp: new Date().toISOString()
-    };
-    try {
-      var body = new Blob(['data=' + encodeURIComponent(b64(JSON.stringify(payload)))], {
-        type: 'application/x-www-form-urlencoded'
-      });
-      navigator.sendBeacon(HOST + '/e/', body);
-    } catch (e) {
-      /* analytics must never break the page */
-    }
-  }
-
-  /* Per-visit id. try/catch because Safari in private mode and locked-down
-     browsers throw on sessionStorage access rather than returning null. */
-  function visitor() {
-    try {
-      var v = sessionStorage.getItem('ph:vid');
-      if (!v) {
-        v = (crypto.randomUUID && crypto.randomUUID()) ||
-            Math.random().toString(36).slice(2) + Date.now().toString(36);
-        sessionStorage.setItem('ph:vid', v);
-      }
-      return v;
-    } catch (e) {
-      return 'anon-' + Math.random().toString(36).slice(2);
-    }
-  }
 
   /* ---------- page identity ---------- */
 
@@ -105,6 +60,72 @@
 
   var PAGE = pageName();
   var isCaseStudy = PAGE !== 'board' && PAGE !== '404' && PAGE.indexOf('cv') !== 0;
+
+  /* ---------- loading ----------
+   *
+   * The library arrives async, but visitors do not wait for it — someone can
+   * click a folder before it lands. So events go into a queue from the first
+   * millisecond and flush once PostHog is ready. Losing the earliest clicks
+   * would bias the numbers towards slow connections, which is the opposite of
+   * what we want to learn.
+   *
+   * If the script never loads (blocked, offline, ad blocker), the queue simply
+   * never flushes. Nothing throws and nothing on the page notices. */
+  var queue = [];
+  var ready = false;
+
+  function send(event, props) {
+    if (!ready) {
+      queue.push([event, props]);
+      return;
+    }
+    try {
+      window.posthog.capture(event, props);
+    } catch (e) {
+      /* analytics must never break the page */
+    }
+  }
+
+  var script = document.createElement('script');
+  script.src = ASSETS;
+  script.async = true;
+
+  script.onload = function () {
+    try {
+      window.posthog.init(KEY, {
+        api_host: HOST,
+
+        /* No cookies — see the header. */
+        persistence: 'sessionStorage',
+
+        /* The two things this rewrite exists for. */
+        disable_session_recording: false,
+        capture_heatmaps: true,
+
+        /* Click maps need it; the named events below do not depend on it. */
+        autocapture: true,
+
+        /* Pageviews stay manual: the dashboards read `page` and `lang`, which
+           an automatic pageview would not carry. */
+        capture_pageview: false,
+
+        /* The site has no real forms, but a recording that quietly captured
+           typing would be a nasty surprise to discover later. */
+        session_recording: { maskAllInputs: true },
+
+        /* Nothing here asks questions. */
+        disable_surveys: true
+      });
+
+      ready = true;
+      for (var i = 0; i < queue.length; i++) send(queue[i][0], queue[i][1]);
+      queue.length = 0;
+    } catch (e) {
+      /* analytics must never break the page */
+    }
+  };
+
+  document.head.appendChild(script);
 
   send('$pageview', { page: PAGE, lang: document.documentElement.lang || 'en' });
 
