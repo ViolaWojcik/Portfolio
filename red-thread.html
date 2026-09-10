@@ -453,6 +453,13 @@ footer.foot a{
 }
 footer.foot a:hover{color:var(--accent);border-bottom-color:var(--accent);}
 footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:52ch;line-height:1.5;}
+/* The note takes a line of its own, so the back-link and the next step share
+   the row above it. Someone who just read to the end should not have to go
+   back to the board to find out how to reach her. */
+footer.foot .note{flex:1 0 100%;}
+footer.foot .next{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 20px;}
+footer.foot .next-h{font-family:var(--font-display);font-size:16px;color:var(--ink);}
+footer.foot .next-h em{font-style:italic;color:var(--accent);}
 
 .reveal{opacity:0;transform:translateY(16px);
   transition:opacity .7s var(--settle),transform .7s var(--settle);}
@@ -501,10 +508,10 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:52ch;line-hei
     <span>All projects</span>
   </a>
   <div class="mark">
-    <div class="nm" data-t="wordmark"><!--prerendered-->Red thread<!--/prerendered--></div>
-    <div class="sub" data-t="markSub"><!--prerendered-->Service design concept<!--/prerendered--></div>
+    <div class="nm" data-t="wordmark"><!--prerendered-->Red thread<!--/prerendered--><!--/prerendered--></div>
+    <div class="sub" data-t="markSub"><!--prerendered-->Service design concept<!--/prerendered--><!--/prerendered--></div>
   </div>
-  <nav class="toc" aria-label="Sections"><ol id="toc"><!--prerendered--><li><a href="#origin" data-to="origin"><span class="n">01</span><span>The pupil</span></a></li><li><a href="#counsellor" data-to="counsellor"><span class="n">02</span><span>The counsellor</span></a></li><li><a href="#fragments" data-to="fragments"><span class="n">03</span><span>The fragments</span></a></li><li><a href="#exists" data-to="exists"><span class="n">04</span><span>What exists</span></a></li><li><a href="#evidence" data-to="evidence"><span class="n">05</span><span>The evidence</span></a></li><li><a href="#reframe" data-to="reframe"><span class="n">06</span><span>The reframe</span></a></li><li><a href="#rule" data-to="rule"><span class="n">07</span><span>The rule</span></a></li><li><a href="#constraint" data-to="constraint"><span class="n">08</span><span>Confidentiality</span></a></li><li><a href="#transfer" data-to="transfer"><span class="n">09</span><span>The transfer</span></a></li><li><a href="#proposition" data-to="proposition"><span class="n">10</span><span>What I’d test</span></a></li><li><a href="#roadmap" data-to="roadmap"><span class="n">11</span><span>The roadmap</span></a></li><li><a href="#reflection" data-to="reflection"><span class="n">12</span><span>Takeaways</span></a></li><!--/prerendered--></ol></nav>
+  <nav class="toc" aria-label="Sections"><ol id="toc"><!--prerendered--><li><a href="#origin" data-to="origin"><span class="n">01</span><span>The pupil</span></a></li><li><a href="#counsellor" data-to="counsellor"><span class="n">02</span><span>The counsellor</span></a></li><li><a href="#fragments" data-to="fragments"><span class="n">03</span><span>The fragments</span></a></li><li><a href="#exists" data-to="exists"><span class="n">04</span><span>What exists</span></a></li><li><a href="#evidence" data-to="evidence"><span class="n">05</span><span>The evidence</span></a></li><li><a href="#reframe" data-to="reframe"><span class="n">06</span><span>The reframe</span></a></li><li><a href="#rule" data-to="rule"><span class="n">07</span><span>The rule</span></a></li><li><a href="#constraint" data-to="constraint"><span class="n">08</span><span>Confidentiality</span></a></li><li><a href="#transfer" data-to="transfer"><span class="n">09</span><span>The transfer</span></a></li><li><a href="#proposition" data-to="proposition"><span class="n">10</span><span>What I’d test</span></a></li><li><a href="#roadmap" data-to="roadmap"><span class="n">11</span><span>The roadmap</span></a></li><li><a href="#reflection" data-to="reflection"><span class="n">12</span><span>Takeaways</span></a></li><!--/prerendered--><!--/prerendered--></ol></nav>
 </aside>
 
 <div id="lang" role="group" data-l="en">
@@ -515,17 +522,17 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:52ch;line-hei
 <main class="main">
   <div class="col">
     <header class="head reveal">
-      <div class="kicker" data-t="kicker"><!--prerendered-->Concept · Schools · Service design<!--/prerendered--></div>
-      <h1 class="title" data-t="title"><!--prerendered-->Red thread<!--/prerendered--></h1>
-      <p class="dek" data-t="dek"><!--prerendered-->The through-line that holds a story together.<br>One record, one child, thirteen years of school.<!--/prerendered--></p>
-      <div class="meta" id="meta"><!--prerendered--><div class="m"><span class="k">Role</span><span class="v">Service designer (concept)</span></div><div class="m"><span class="k">Discipline</span><span class="v">Service design · Systems</span></div><div class="m"><span class="k">Context</span><span class="v">Norwegian schools · self-initiated</span></div><div class="m"><span class="k">Year</span><span class="v">2026</span></div><div class="m"><span class="k">Scope</span><span class="v">Continuity across roles &amp; transitions</span></div><!--/prerendered--></div>
+      <div class="kicker" data-t="kicker"><!--prerendered-->Concept · Schools · Service design<!--/prerendered--><!--/prerendered--></div>
+      <h1 class="title" data-t="title"><!--prerendered-->Red thread<!--/prerendered--><!--/prerendered--></h1>
+      <p class="dek" data-t="dek"><!--prerendered-->The through-line that holds a story together.<br>One record, one child, thirteen years of school.<!--/prerendered--><!--/prerendered--></p>
+      <div class="meta" id="meta"><!--prerendered--><div class="m"><span class="k">Role</span><span class="v">Service designer (concept)</span></div><div class="m"><span class="k">Discipline</span><span class="v">Service design · Systems</span></div><div class="m"><span class="k">Context</span><span class="v">Norwegian schools · self-initiated</span></div><div class="m"><span class="k">Year</span><span class="v">2026</span></div><div class="m"><span class="k">Scope</span><span class="v">Continuity across roles &amp; transitions</span></div><!--/prerendered--><!--/prerendered--></div>
     </header>
   </div>
 
   <div id="hero"><!--prerendered--><figure class="fig reveal wide">
       <img src="red-thread/assets/hero-photo.webp" alt="The walk to school. The concept asks the record to make the same trip. Photo: Jon Torres, Unsplash." loading="lazy">
       <figcaption><span>The walk to school. The concept asks the record to make the same trip. Photo: Jon Torres, Unsplash.</span></figcaption>
-    </figure><!--/prerendered--></div>
+    </figure><!--/prerendered--><!--/prerendered--></div>
 
   <div class="col">
     <div id="glance" class="glance reveal"><!--prerendered--><div class="g-eyebrow">At a glance</div>
@@ -534,7 +541,7 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:52ch;line-hei
     <div class="g-row"><div class="g-k">What I bring</div>
       <ul class="g-list"><li><strong>Analysis:</strong> the concept is built on the public evidence, the 2022 cooperation law, the BTI model and&nbsp;a national randomised trial, not on a feature list</li><li><strong>People first:</strong> thirteen school years mapped the way a pupil lives them, so the breaks at every handover become visible</li><li><strong>Into practice:</strong> findings scoped into a concept with a testable pilot claim, opening with the data-protection assessment</li></ul>
       <div class="g-src">Self-initiated concept · a hypothesis to test, not a result</div>
-    </div><!--/prerendered--></div>
+    </div><!--/prerendered--><!--/prerendered--></div>
   </div>
 
   <article id="article"><!--prerendered--><section class="sec" id="origin"><div class="col">
@@ -598,15 +605,30 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:52ch;line-hei
       <figcaption><span>Five building blocks over one thirteen-year timeline, each tagged with the country that already runs it: Feide, Koski, OSO, Aula, and&nbsp;the guidance layer joining at the decision points.</span></figcaption>
     </figure></section><section class="sec" id="reflection"><div class="col">
       <div class="eyebrow"><b>12</b> · Takeaways</div>
-      <h2 class="h">The pieces existed. The design work was the thread between them.</h2><p>This project was a systems exercise from start to finish: taking a complicated public service apart on paper, mapping where the information about one child lives and&nbsp;where it dies, and&nbsp;finding which existing pieces, a login, a registry, a transfer standard, a family app, could carry it further. That is the work I am drawn to: <strong>complex systems, information that has to survive organisational borders</strong>, and&nbsp;the digitalisation and&nbsp;AI layer now settling over public services. I treat this case as an opening for that conversation, not as a finished answer.</p></div><div class="col"><h3 class="sh">What I take from it</h3><ul class="pts"><li><strong>Map the whole system before touching any part.</strong> Every finding here, the seams, the snapped transfer, came off one sheet with all thirteen years on it.</li><li><strong>The biggest gap was an assumption: that someone holds the whole story.</strong> Every tool in the landscape works; none of them owns the thread.</li><li><strong>The strongest idea is the least buildable.</strong> Continuity here is a governance problem before it is an interface.</li><li><strong>A shared record can harm as well as help.</strong> Fieldwork would show where it protects a child, and&nbsp;where it could quietly expose one.</li></ul></div><div class="col"><p class="close">The child should not have to be the system’s memory.</p></div></section><!--/prerendered--></article>
+      <h2 class="h">The pieces existed. The design work was the thread between them.</h2><p>This project was a systems exercise from start to finish: taking a complicated public service apart on paper, mapping where the information about one child lives and&nbsp;where it dies, and&nbsp;finding which existing pieces, a login, a registry, a transfer standard, a family app, could carry it further. That is the work I am drawn to: <strong>complex systems, information that has to survive organisational borders</strong>, and&nbsp;the digitalisation and&nbsp;AI layer now settling over public services. I treat this case as an opening for that conversation, not as a finished answer.</p></div><div class="col"><h3 class="sh">What I take from it</h3><ul class="pts"><li><strong>Map the whole system before touching any part.</strong> Every finding here, the seams, the snapped transfer, came off one sheet with all thirteen years on it.</li><li><strong>The biggest gap was an assumption: that someone holds the whole story.</strong> Every tool in the landscape works; none of them owns the thread.</li><li><strong>The strongest idea is the least buildable.</strong> Continuity here is a governance problem before it is an interface.</li><li><strong>A shared record can harm as well as help.</strong> Fieldwork would show where it protects a child, and&nbsp;where it could quietly expose one.</li></ul></div><div class="col"><p class="close">The child should not have to be the system’s memory.</p></div></section><!--/prerendered--><!--/prerendered--></article>
 
   <div class="col">
     <footer class="foot reveal">
       <a href="index.html">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
-        <span data-t="footBack"><!--prerendered-->Back to all projects<!--/prerendered--></span>
+        <span data-t="footBack"><!--prerendered-->Back to all projects<!--/prerendered--><!--/prerendered--></span>
       </a>
-      <p class="note" data-t="footNote"><!--prerendered-->Self-initiated concept, 2026. Built from a public market brief and&nbsp;public Norwegian sources, not a client project. No real users, schools, or data. Figures cited as references; the Norwegian localisation is pending native review.<!--/prerendered--></p>
+      <!-- Same two affordances as the board's contact card, same words and the
+           same icons, so a reader who saw the card recognises them. data-a is
+           what analytics.js keys on, so these clicks land as cv_downloaded /
+           contact_clicked tagged with this page. -->
+      <div class="next">
+        <span class="next-h" data-t="footNext"><!--prerendered-->Come say <em>hi!</em><!--/prerendered--></span>
+        <a data-a="cv" href="Wioleta-Wojcik-CV.pdf" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V7.5z"/><path d="M14 3v4.5h4.5M9 13h6M9 16.5h4"/></svg>
+          <span>Resume</span>
+        </a>
+        <a data-a="mail" href="mailto:wioleta.maria.wojcik@gmail.com">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="1.5"/><path d="M2.5 6.5 12 13l9.5-6.5"/></svg>
+          <span>Gmail</span>
+        </a>
+      </div>
+      <p class="note" data-t="footNote"><!--prerendered-->Self-initiated concept, 2026. Built from a public market brief and&nbsp;public Norwegian sources, not a client project. No real users, schools, or data. Figures cited as references; the Norwegian localisation is pending native review.<!--/prerendered--><!--/prerendered--></p>
     </footer>
   </div>
 </main>
@@ -662,6 +684,8 @@ const T = {
       h:'The system quietly assumes a shared history. A family arriving partway through never had one.',
       p:'I did not grow up inside the Norwegian school system, and my brother’s family met it from the outside, in another language. That is part of what drew me here. From that seat you notice how much everyday school life rests on a shared history: forms that expect years of context, handovers that rely on someone remembering. The child who moves between schools, districts and languages is the same child whose record breaks at every handover, and a family still learning Norwegian is the one least able to carry that history by hand. Designing for the pupil the system loses first is how you design continuity for everyone.'
     },
+    footNext:'Come say <em>hi!</em>',
+    cvfile:'Wioleta-Wojcik-CV.pdf',
     footBack:'Back to all projects',
     footNote:'Self-initiated concept, 2026. Built from a public market brief and public Norwegian sources, not a client project. No real users, schools, or data. Figures cited as references; the Norwegian localisation is pending native review.',
     meta:[
@@ -700,6 +724,8 @@ T.no = {
     h:'Systemet tar stilltiende en felles historie for gitt. En familie som kommer inn underveis, har aldri hatt noen.',
     p:'Jeg vokste ikke opp i det norske skolesystemet, og min brors familie møtte det utenfra, på et annet språk. Det er en del av det som trakk meg hit. Derfra legger du merke til hvor mye skolehverdagen hviler på en felles historie: skjemaer som forventer år med kontekst, overganger som hviler på at noen husker. Barnet som flytter mellom skoler, kommuner og språk, er det samme barnet hvis journal ryker ved hver overgang, og en familie som fortsatt lærer norsk, er den som er minst i stand til å bære den historien for hånd. Å designe for eleven systemet mister først, er måten du designer kontinuitet for alle på.'
   },
+  footNext:'Kom og si <em>hei!</em>',
+  cvfile:'Wioleta-Wojcik-CV-NO.pdf',
   footBack:'Tilbake til alle prosjekter',
   footNote:'Selvinitiert konsept, 2026. Bygget fra en offentlig markedsbrief og offentlige norske kilder, ikke et klientprosjekt. Ingen ekte brukere, skoler eller data. Tall er sitert som referanser; den norske oversettelsen avventer gjennomgang av en morsmålsbruker.',
   meta:[
@@ -1028,6 +1054,10 @@ function render(L){
     const k = el.dataset.t; if(t[k] !== undefined) el.innerHTML = t[k];
   });
   document.querySelector('.back span').textContent = t.back;
+  /* The résumé follows the language switch, exactly as it does on the board:
+     EN → the English PDF, NO → the Norwegian one. */
+  const cvLink = document.querySelector('footer.foot a[data-a="cv"]');
+  if(cvLink && t.cvfile) cvLink.setAttribute('href', t.cvfile);
 
   document.getElementById('meta').innerHTML = t.meta.map(m=>
     `<div class="m"><span class="k">${m.k}</span><span class="v">${m.v}</span></div>`).join('');

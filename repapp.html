@@ -398,6 +398,13 @@ footer.foot a{
 }
 footer.foot a:hover{color:var(--accent);border-bottom-color:var(--accent);}
 footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:46ch;line-height:1.5;}
+/* The note takes a line of its own, so the back-link and the next step share
+   the row above it. Someone who just read to the end should not have to go
+   back to the board to find out how to reach her. */
+footer.foot .note{flex:1 0 100%;}
+footer.foot .next{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 20px;}
+footer.foot .next-h{font-family:var(--font-display);font-size:16px;color:var(--ink);}
+footer.foot .next-h em{font-style:italic;color:var(--accent);}
 
 /* =========================================================
    ENTRANCE + SCROLL REVEAL
@@ -454,9 +461,9 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:46ch;line-hei
   </a>
   <div class="mark">
     <div class="nm">RepApp</div>
-    <div class="sub" data-t="markSub"><!--prerendered-->Service design case study<!--/prerendered--></div>
+    <div class="sub" data-t="markSub"><!--prerendered-->Service design case study<!--/prerendered--><!--/prerendered--></div>
   </div>
-  <nav class="toc" aria-label="Sections"><ol id="toc"><!--prerendered--><li><a href="#origin" data-to="origin"><span class="n">01</span><span>The find</span></a></li><li><a href="#paper" data-to="paper"><span class="n">02</span><span>The paper list</span></a></li><li><a href="#pitch" data-to="pitch"><span class="n">03</span><span>The pitch</span></a></li><li><a href="#research" data-to="research"><span class="n">04</span><span>Research window</span></a></li><li><a href="#scope" data-to="scope"><span class="n">05</span><span>The MVP rule</span></a></li><li><a href="#tablet" data-to="tablet"><span class="n">06</span><span>The tablet</span></a></li><li><a href="#mvp" data-to="mvp"><span class="n">07</span><span>The MVP</span></a></li><li><a href="#checkin" data-to="checkin"><span class="n">08</span><span>Check-in rebuilt</span></a></li><li><a href="#sunlight" data-to="sunlight"><span class="n">09</span><span>Sunlight</span></a></li><li><a href="#results" data-to="results"><span class="n">10</span><span>Results</span></a></li><li><a href="#gamification" data-to="gamification"><span class="n">11</span><span>Gamification</span></a></li><li><a href="#reflection" data-to="reflection"><span class="n">12</span><span>Reflection</span></a></li><!--/prerendered--></ol></nav>
+  <nav class="toc" aria-label="Sections"><ol id="toc"><!--prerendered--><li><a href="#origin" data-to="origin"><span class="n">01</span><span>The find</span></a></li><li><a href="#paper" data-to="paper"><span class="n">02</span><span>The paper list</span></a></li><li><a href="#pitch" data-to="pitch"><span class="n">03</span><span>The pitch</span></a></li><li><a href="#research" data-to="research"><span class="n">04</span><span>Research window</span></a></li><li><a href="#scope" data-to="scope"><span class="n">05</span><span>The MVP rule</span></a></li><li><a href="#tablet" data-to="tablet"><span class="n">06</span><span>The tablet</span></a></li><li><a href="#mvp" data-to="mvp"><span class="n">07</span><span>The MVP</span></a></li><li><a href="#checkin" data-to="checkin"><span class="n">08</span><span>Check-in rebuilt</span></a></li><li><a href="#sunlight" data-to="sunlight"><span class="n">09</span><span>Sunlight</span></a></li><li><a href="#results" data-to="results"><span class="n">10</span><span>Results</span></a></li><li><a href="#gamification" data-to="gamification"><span class="n">11</span><span>Gamification</span></a></li><li><a href="#reflection" data-to="reflection"><span class="n">12</span><span>Reflection</span></a></li><!--/prerendered--><!--/prerendered--></ol></nav>
 </aside>
 
 <!-- ── language toggle ─────────────────────────────────────── -->
@@ -469,17 +476,17 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:46ch;line-hei
 <main class="main">
   <div class="col">
     <header class="head reveal">
-      <div class="kicker" data-t="kicker"><!--prerendered-->Case study · Service design<!--/prerendered--></div>
+      <div class="kicker" data-t="kicker"><!--prerendered-->Case study · Service design<!--/prerendered--><!--/prerendered--></div>
       <h1 class="title">RepApp</h1>
-      <p class="dek" data-t="dek"><!--prerendered-->RepApp replaced the paper list travel reps carried into every airport arrival.<!--/prerendered--></p>
-      <div class="meta" id="meta"><!--prerendered--><div class="m"><span class="k">Role</span><span class="v">UX &amp; Interface Designer</span></div><div class="m"><span class="k">Discipline</span><span class="v">Service design · Field research</span></div><div class="m"><span class="k">Context</span><span class="v">Itaka · Travel</span></div><div class="m"><span class="k">Year</span><span class="v">2020 — 2023</span></div><div class="m"><span class="k">Platform</span><span class="v">Offline-first tablet</span></div><!--/prerendered--></div>
+      <p class="dek" data-t="dek"><!--prerendered-->RepApp replaced the paper list travel reps carried into every airport arrival.<!--/prerendered--><!--/prerendered--></p>
+      <div class="meta" id="meta"><!--prerendered--><div class="m"><span class="k">Role</span><span class="v">UX &amp; Interface Designer</span></div><div class="m"><span class="k">Discipline</span><span class="v">Service design · Field research</span></div><div class="m"><span class="k">Context</span><span class="v">Itaka · Travel</span></div><div class="m"><span class="k">Year</span><span class="v">2020 — 2023</span></div><div class="m"><span class="k">Platform</span><span class="v">Offline-first tablet</span></div><!--/prerendered--><!--/prerendered--></div>
     </header>
   </div>
 
   <div id="hero"><!--prerendered--><figure class="fig reveal wide">
       <img src="RepApp/assets/hero-photo.webp" alt="An arrivals hall, a rep, the day’s excursions on screen. The tablet took over the job the printed A4 used to do here. Interface reconstruction, 2026, composited into a photo." loading="lazy">
       <figcaption><span>An arrivals hall, a rep, the day’s excursions on screen. The tablet took over the job the printed A4 used to do here. Interface reconstruction, 2026, composited into a photo.</span></figcaption>
-    </figure><!--/prerendered--></div>
+    </figure><!--/prerendered--><!--/prerendered--></div>
 
   <div class="col">
     <div id="glance" class="glance reveal"><!--prerendered--><div class="g-eyebrow">At a glance</div>
@@ -488,7 +495,7 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:46ch;line-hei
     <div class="g-row"><div class="g-k">Value</div>
       <ul class="g-list"><li><strong>50%+ faster:</strong> the rep clears the airport in less than half the time the paper list took</li><li><strong>Retyping gone:</strong> one offline entry replaced the Excel evenings and&nbsp;the manager’s re-entry, 30%+ less back-office work</li><li><strong>1.44M passengers:</strong> handled through the app in 2023, three years after launch</li></ul>
       <div class="g-src">Shipped product, 2020 · figures reported by Resabee Travel Tech</div>
-    </div><!--/prerendered--></div>
+    </div><!--/prerendered--><!--/prerendered--></div>
   </div>
 
   <article id="article"><!--prerendered--><section class="sec" id="origin"><div class="col">
@@ -554,15 +561,30 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:46ch;line-hei
       <figcaption><span>The gamified team-standings view — points and&nbsp;a monthly ranking of who sold most, individual figures visible to the whole team. It lifted sales sharply, and&nbsp;named a loser every month. Interface reconstruction, redrawn 2026; names and&nbsp;figures illustrative.</span></figcaption>
     </figure></section><section class="sec" id="reflection"><div class="col">
       <div class="eyebrow"><b>12</b> · Lessons</div>
-      <h2 class="h">What the project taught, and&nbsp;what would change next time</h2><ul class="pts"><li><strong>A correct argument is not a persuasive one.</strong> The criteria the room used had to be found first.</li><li><strong>Both product-changing findings came from watching, not asking.</strong></li><li><strong>Systems carry assumptions about their users.</strong> Passenger-level check-in came from the schema, not a choice.</li><li><strong>Resources are worth negotiating before saying yes</strong>, not after.</li><li><strong>Whether the reps trusted the sync went untested.</strong> A rep who does not keeps a paper backup, and&nbsp;the paper stays.</li><li><strong>GDPR draws the line for shortcuts.</strong> A throwaway build with guest data can only go so far.</li></ul></div><div class="col"><p class="close">Today I would prototype before the first pitch, not after the rejection.</p></div></section><!--/prerendered--></article>
+      <h2 class="h">What the project taught, and&nbsp;what would change next time</h2><ul class="pts"><li><strong>A correct argument is not a persuasive one.</strong> The criteria the room used had to be found first.</li><li><strong>Both product-changing findings came from watching, not asking.</strong></li><li><strong>Systems carry assumptions about their users.</strong> Passenger-level check-in came from the schema, not a choice.</li><li><strong>Resources are worth negotiating before saying yes</strong>, not after.</li><li><strong>Whether the reps trusted the sync went untested.</strong> A rep who does not keeps a paper backup, and&nbsp;the paper stays.</li><li><strong>GDPR draws the line for shortcuts.</strong> A throwaway build with guest data can only go so far.</li></ul></div><div class="col"><p class="close">Today I would prototype before the first pitch, not after the rejection.</p></div></section><!--/prerendered--><!--/prerendered--></article>
 
   <div class="col">
     <footer class="foot reveal">
       <a href="index.html">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
-        <span data-t="footBack"><!--prerendered-->Back to all projects<!--/prerendered--></span>
+        <span data-t="footBack"><!--prerendered-->Back to all projects<!--/prerendered--><!--/prerendered--></span>
       </a>
-      <p class="note" data-t="footNote"><!--prerendered-->Interface reconstructions redrawn in 2026 — the original design files are not in my possession. The live product has since evolved with the in-house team.<!--/prerendered--></p>
+      <!-- Same two affordances as the board's contact card, same words and the
+           same icons, so a reader who saw the card recognises them. data-a is
+           what analytics.js keys on, so these clicks land as cv_downloaded /
+           contact_clicked tagged with this page. -->
+      <div class="next">
+        <span class="next-h" data-t="footNext"><!--prerendered-->Come say <em>hi!</em><!--/prerendered--></span>
+        <a data-a="cv" href="Wioleta-Wojcik-CV.pdf" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V7.5z"/><path d="M14 3v4.5h4.5M9 13h6M9 16.5h4"/></svg>
+          <span>Resume</span>
+        </a>
+        <a data-a="mail" href="mailto:wioleta.maria.wojcik@gmail.com">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="1.5"/><path d="M2.5 6.5 12 13l9.5-6.5"/></svg>
+          <span>Gmail</span>
+        </a>
+      </div>
+      <p class="note" data-t="footNote"><!--prerendered-->Interface reconstructions redrawn in 2026 — the original design files are not in my possession. The live product has since evolved with the in-house team.<!--/prerendered--><!--/prerendered--></p>
     </footer>
   </div>
 </main>
@@ -606,6 +628,8 @@ const T = {
         note:'Shipped product, 2020 · figures reported by Resabee Travel Tech'
       }
     },
+    footNext:'Come say <em>hi!</em>',
+    cvfile:'Wioleta-Wojcik-CV.pdf',
     footBack:'Back to all projects',
     footNote:'Interface reconstructions redrawn in 2026 — the original design files are not in my possession. The live product has since evolved with the in-house team.',
     meta:[
@@ -635,6 +659,8 @@ const T = {
         note:'Lansert produkt, 2020 · tall rapportert av Resabee Travel Tech'
       }
     },
+    footNext:'Kom og si <em>hei!</em>',
+    cvfile:'Wioleta-Wojcik-CV-NO.pdf',
     footBack:'Tilbake til alle prosjekter',
     footNote:'Grensesnittene er tegnet på nytt i 2026 — de originale designfilene er ikke i min besittelse. Det live produktet har siden utviklet seg videre med det interne teamet.',
     meta:[
@@ -965,6 +991,10 @@ function render(L){
     const k = el.dataset.t; if(t[k] !== undefined) el.innerHTML = t[k];
   });
   document.querySelector('.back span').textContent = t.back;
+  /* The résumé follows the language switch, exactly as it does on the board:
+     EN → the English PDF, NO → the Norwegian one. */
+  const cvLink = document.querySelector('footer.foot a[data-a="cv"]');
+  if(cvLink && t.cvfile) cvLink.setAttribute('href', t.cvfile);
 
   /* meta chips */
   document.getElementById('meta').innerHTML = t.meta.map(m=>

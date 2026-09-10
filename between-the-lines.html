@@ -421,6 +421,13 @@ footer.foot a{
 }
 footer.foot a:hover{color:var(--accent);border-bottom-color:var(--accent);}
 footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:46ch;line-height:1.5;}
+/* The note takes a line of its own, so the back-link and the next step share
+   the row above it. Someone who just read to the end should not have to go
+   back to the board to find out how to reach her. */
+footer.foot .note{flex:1 0 100%;}
+footer.foot .next{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 20px;}
+footer.foot .next-h{font-family:var(--font-display);font-size:16px;color:var(--ink);}
+footer.foot .next-h em{font-style:italic;color:var(--accent);}
 
 /* =========================================================
    ENTRANCE + SCROLL REVEAL
@@ -476,10 +483,10 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:46ch;line-hei
     <span>All projects</span>
   </a>
   <div class="mark">
-    <div class="nm" data-t="wordmark"><!--prerendered-->Between the Lines<!--/prerendered--></div>
-    <div class="sub" data-t="markSub"><!--prerendered-->Product design case study<!--/prerendered--></div>
+    <div class="nm" data-t="wordmark"><!--prerendered-->Between the Lines<!--/prerendered--><!--/prerendered--></div>
+    <div class="sub" data-t="markSub"><!--prerendered-->Product design case study<!--/prerendered--><!--/prerendered--></div>
   </div>
-  <nav class="toc" aria-label="Sections"><ol id="toc"><!--prerendered--><li><a href="#origin" data-to="origin"><span class="n">01</span><span>The origin</span></a></li><li><a href="#chatbot" data-to="chatbot"><span class="n">02</span><span>The quiet risk</span></a></li><li><a href="#extremes" data-to="extremes"><span class="n">03</span><span>Two extremes</span></a></li><li><a href="#norway" data-to="norway"><span class="n">04</span><span>The Norwegian frame</span></a></li><li><a href="#firstbuild" data-to="firstbuild"><span class="n">05</span><span>The first build</span></a></li><li><a href="#rule" data-to="rule"><span class="n">06</span><span>One rule</span></a></li><li><a href="#flow" data-to="flow"><span class="n">07</span><span>Write, then rate</span></a></li><li><a href="#grid" data-to="grid"><span class="n">08</span><span>Two axes</span></a></li><li><a href="#dictation" data-to="dictation"><span class="n">09</span><span>Voice, rebuilt</span></a></li><li><a href="#betweenlines" data-to="betweenlines"><span class="n">10</span><span>Between the lines</span></a></li><li><a href="#companion" data-to="companion"><span class="n">11</span><span>The Companion</span></a></li><li><a href="#clickable" data-to="clickable"><span class="n">12</span><span>A shipped product</span></a></li><li><a href="#reflection" data-to="reflection"><span class="n">13</span><span>What it taught</span></a></li><li><a href="#sources" data-to="sources"><span class="n">14</span><span>Sources</span></a></li><!--/prerendered--></ol></nav>
+  <nav class="toc" aria-label="Sections"><ol id="toc"><!--prerendered--><li><a href="#origin" data-to="origin"><span class="n">01</span><span>The origin</span></a></li><li><a href="#chatbot" data-to="chatbot"><span class="n">02</span><span>The quiet risk</span></a></li><li><a href="#extremes" data-to="extremes"><span class="n">03</span><span>Two extremes</span></a></li><li><a href="#norway" data-to="norway"><span class="n">04</span><span>The Norwegian frame</span></a></li><li><a href="#firstbuild" data-to="firstbuild"><span class="n">05</span><span>The first build</span></a></li><li><a href="#rule" data-to="rule"><span class="n">06</span><span>One rule</span></a></li><li><a href="#flow" data-to="flow"><span class="n">07</span><span>Write, then rate</span></a></li><li><a href="#grid" data-to="grid"><span class="n">08</span><span>Two axes</span></a></li><li><a href="#dictation" data-to="dictation"><span class="n">09</span><span>Voice, rebuilt</span></a></li><li><a href="#betweenlines" data-to="betweenlines"><span class="n">10</span><span>Between the lines</span></a></li><li><a href="#companion" data-to="companion"><span class="n">11</span><span>The Companion</span></a></li><li><a href="#clickable" data-to="clickable"><span class="n">12</span><span>A shipped product</span></a></li><li><a href="#reflection" data-to="reflection"><span class="n">13</span><span>What it taught</span></a></li><li><a href="#sources" data-to="sources"><span class="n">14</span><span>Sources</span></a></li><!--/prerendered--><!--/prerendered--></ol></nav>
 </aside>
 
 <!-- ── language toggle ─────────────────────────────────────── -->
@@ -492,10 +499,10 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:46ch;line-hei
 <main class="main">
   <div class="col">
     <header class="head reveal">
-      <div class="kicker" data-t="kicker"><!--prerendered-->Case study · Product design<!--/prerendered--></div>
-      <h1 class="title" data-t="title"><!--prerendered-->Between the Lines<!--/prerendered--></h1>
-      <p class="dek" data-t="dek"><!--prerendered-->A journal that reflects your own patterns back to you, in your own words and never as a diagnosis.<!--/prerendered--></p>
-      <div class="meta" id="meta"><!--prerendered--><div class="m"><span class="k">Role</span><span class="v">Product &amp; UX Designer</span></div><div class="m"><span class="k">Scope</span><span class="v">Design and build, solo</span></div><div class="m"><span class="k">Context</span><span class="v">AI Product Masterclass · Nueve Design</span></div><div class="m"><span class="k">Year</span><span class="v">2026</span></div><div class="m"><span class="k">Build</span><span class="v">React · TypeScript · Vercel</span></div><!--/prerendered--></div>
+      <div class="kicker" data-t="kicker"><!--prerendered-->Case study · Product design<!--/prerendered--><!--/prerendered--></div>
+      <h1 class="title" data-t="title"><!--prerendered-->Between the Lines<!--/prerendered--><!--/prerendered--></h1>
+      <p class="dek" data-t="dek"><!--prerendered-->A journal that reflects your own patterns back to you, in your own words and never as a diagnosis.<!--/prerendered--><!--/prerendered--></p>
+      <div class="meta" id="meta"><!--prerendered--><div class="m"><span class="k">Role</span><span class="v">Product &amp; UX Designer</span></div><div class="m"><span class="k">Scope</span><span class="v">Design and build, solo</span></div><div class="m"><span class="k">Context</span><span class="v">AI Product Masterclass · Nueve Design</span></div><div class="m"><span class="k">Year</span><span class="v">2026</span></div><div class="m"><span class="k">Build</span><span class="v">React · TypeScript · Vercel</span></div><!--/prerendered--><!--/prerendered--></div>
     </header>
   </div>
 
@@ -503,7 +510,7 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:46ch;line-hei
   <div id="hero"><!--prerendered--><figure class="fig reveal wide">
       <img src="between-the-lines/assets/hero-photo.webp" alt="An evening with the journal open: the week's entries on the left, the Insights card reading between them. The running build, composited into a photo." loading="lazy">
       <figcaption><span>An evening with the journal open: the week's entries on the left, the Insights card reading between them. The running build, composited into a photo.</span></figcaption>
-    </figure><!--/prerendered--></div>
+    </figure><!--/prerendered--><!--/prerendered--></div>
 
   <div class="col">
     <div id="glance" class="glance reveal"><!--prerendered--><div class="g-eyebrow">At a glance</div>
@@ -517,7 +524,7 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:46ch;line-hei
       <div class="g-stack-k">Stack</div>
       <div class="g-chips"><span class="g-chip">Vite</span><span class="g-chip">React</span><span class="g-chip">TypeScript</span><span class="g-chip">Tailwind</span><span class="g-chip">shadcn/ui</span><span class="g-chip">Tiptap</span><span class="g-chip">Vercel functions</span><span class="g-chip">xAI Grok</span><span class="g-chip">Groq Whisper</span></div>
       <div class="g-src">Solo course project · working demo · no real users yet</div>
-    </div><!--/prerendered--></div>
+    </div><!--/prerendered--><!--/prerendered--></div>
   </div>
 
   <article id="article"><!--prerendered--><section class="sec" id="origin"><div class="col">
@@ -581,15 +588,30 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:46ch;line-hei
       <div class="eyebrow"><b>13</b> · Lessons</div>
       <h2 class="h">What the project taught, and where it goes next</h2><p><strong>Building it, rather than only drawing it, made every trade-off concrete.</strong></p><ul class="pts"><li><strong>Subtraction did more than addition.</strong> Removing the navigation, the clutter and the crude single mood axis.</li><li><strong>Constraints from the evidence base sharpened the work</strong> instead of narrowing it.</li><li><strong>The most honest feature is also the most trustworthy.</strong> On-demand, clearly labelled, never pretending to diagnose.</li><li><strong>With no real users yet, every choice is still a hypothesis.</strong> Real journalers are the next test.</li></ul></div><div class="col"><p class="close">The product will keep developing: real journalers first, then deeper analysis of language over time.</p></div></section><section class="sec" id="sources"><div class="col">
       <div class="eyebrow"><b>14</b> · Sources</div>
-      <h2 class="h">The public material behind the framing</h2><p>Cited as references, not claimed as fieldwork. US usage data and Norwegian market context are kept separate, and figures should be re-verified against the primary texts before any public use.</p><ul class="pts"><li><strong>Sentio University (2025).</strong> Survey of people with an ongoing mental health condition; about half use language models for mental-health support.</li><li><strong>Healthline; Toronto Metropolitan University; Psychiatric Times (2025 to 2026).</strong> Expert warnings that chatbots affirm rather than challenge, can state false information confidently, and are an adjunct, not a replacement.</li><li><strong>Norwegian GP-DEP Study; NCDNOR.</strong> Depression treatment and referral patterns in Norwegian general practice, and uneven access to specialised care.</li><li><strong>ScienceDirect welfare-state review (2024).</strong> Mental disorders as the costliest condition in Norway, close to three percent of GDP.</li></ul></div></section><!--/prerendered--></article>
+      <h2 class="h">The public material behind the framing</h2><p>Cited as references, not claimed as fieldwork. US usage data and Norwegian market context are kept separate, and figures should be re-verified against the primary texts before any public use.</p><ul class="pts"><li><strong>Sentio University (2025).</strong> Survey of people with an ongoing mental health condition; about half use language models for mental-health support.</li><li><strong>Healthline; Toronto Metropolitan University; Psychiatric Times (2025 to 2026).</strong> Expert warnings that chatbots affirm rather than challenge, can state false information confidently, and are an adjunct, not a replacement.</li><li><strong>Norwegian GP-DEP Study; NCDNOR.</strong> Depression treatment and referral patterns in Norwegian general practice, and uneven access to specialised care.</li><li><strong>ScienceDirect welfare-state review (2024).</strong> Mental disorders as the costliest condition in Norway, close to three percent of GDP.</li></ul></div></section><!--/prerendered--><!--/prerendered--></article>
 
   <div class="col">
     <footer class="foot reveal">
       <a href="index.html">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
-        <span data-t="footBack"><!--prerendered-->Back to all projects<!--/prerendered--></span>
+        <span data-t="footBack"><!--prerendered-->Back to all projects<!--/prerendered--><!--/prerendered--></span>
       </a>
-      <p class="note" data-t="footNote"><!--prerendered-->Designed and built in 2026 during the AI Product Masterclass (Nueve Design), then taken further as a working demo. No real users yet, so outcomes are qualitative, and any insight text shown is illustrative and labelled. It runs as a live, clickable demo, and every screen shown here is captured from the running build or drawn for this case.<!--/prerendered--></p>
+      <!-- Same two affordances as the board's contact card, same words and the
+           same icons, so a reader who saw the card recognises them. data-a is
+           what analytics.js keys on, so these clicks land as cv_downloaded /
+           contact_clicked tagged with this page. -->
+      <div class="next">
+        <span class="next-h" data-t="footNext"><!--prerendered-->Come say <em>hi!</em><!--/prerendered--></span>
+        <a data-a="cv" href="Wioleta-Wojcik-CV.pdf" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V7.5z"/><path d="M14 3v4.5h4.5M9 13h6M9 16.5h4"/></svg>
+          <span>Resume</span>
+        </a>
+        <a data-a="mail" href="mailto:wioleta.maria.wojcik@gmail.com">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="1.5"/><path d="M2.5 6.5 12 13l9.5-6.5"/></svg>
+          <span>Gmail</span>
+        </a>
+      </div>
+      <p class="note" data-t="footNote"><!--prerendered-->Designed and built in 2026 during the AI Product Masterclass (Nueve Design), then taken further as a working demo. No real users yet, so outcomes are qualitative, and any insight text shown is illustrative and labelled. It runs as a live, clickable demo, and every screen shown here is captured from the running build or drawn for this case.<!--/prerendered--><!--/prerendered--></p>
     </footer>
   </div>
 </main>
@@ -641,6 +663,8 @@ const T = {
         note:'Solo course project · working demo · no real users yet'
       }
     },
+    footNext:'Come say <em>hi!</em>',
+    cvfile:'Wioleta-Wojcik-CV.pdf',
     footBack:'Back to all projects',
     footNote:'Designed and built in 2026 during the AI Product Masterclass (Nueve Design), then taken further as a working demo. No real users yet, so outcomes are qualitative, and any insight text shown is illustrative and labelled. It runs as a live, clickable demo, and every screen shown here is captured from the running build or drawn for this case.',
     meta:[
@@ -678,6 +702,8 @@ const T = {
         note:'Solo kursprosjekt · fungerende demo · ingen reelle brukere ennå'
       }
     },
+    footNext:'Kom og si <em>hei!</em>',
+    cvfile:'Wioleta-Wojcik-CV-NO.pdf',
     footBack:'Tilbake til alle prosjekter',
     footNote:'Designet og bygget i 2026 under AI Product Masterclass (Nueve Design), og tatt videre som en fungerende demo. Ingen ekte brukere ennå, så resultatene er kvalitative, og all innsiktstekst som vises er illustrerende og merket. Den kjører som en live, klikkbar demo, og hver skjerm som vises her er hentet fra den kjørende appen eller tegnet for denne casen.',
     meta:[
@@ -1040,6 +1066,10 @@ function render(L){
     const k = el.dataset.t; if(t[k] !== undefined) el.innerHTML = t[k];
   });
   document.querySelector('.back span').textContent = t.back;
+  /* The résumé follows the language switch, exactly as it does on the board:
+     EN → the English PDF, NO → the Norwegian one. */
+  const cvLink = document.querySelector('footer.foot a[data-a="cv"]');
+  if(cvLink && t.cvfile) cvLink.setAttribute('href', t.cvfile);
 
   /* meta chips */
   document.getElementById('meta').innerHTML = t.meta.map(m=>

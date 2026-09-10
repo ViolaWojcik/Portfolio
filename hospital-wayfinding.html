@@ -376,6 +376,13 @@ footer.foot a{
 }
 footer.foot a:hover{color:var(--accent);border-bottom-color:var(--accent);}
 footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:52ch;line-height:1.5;}
+/* The note takes a line of its own, so the back-link and the next step share
+   the row above it. Someone who just read to the end should not have to go
+   back to the board to find out how to reach her. */
+footer.foot .note{flex:1 0 100%;}
+footer.foot .next{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 20px;}
+footer.foot .next-h{font-family:var(--font-display);font-size:16px;color:var(--ink);}
+footer.foot .next-h em{font-style:italic;color:var(--accent);}
 
 .reveal{opacity:0;transform:translateY(16px);
   transition:opacity .7s var(--settle),transform .7s var(--settle);}
@@ -424,10 +431,10 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:52ch;line-hei
     <span>All projects</span>
   </a>
   <div class="mark">
-    <div class="nm" data-t="wordmark"><!--prerendered-->Paths, not plans<!--/prerendered--></div>
-    <div class="sub" data-t="markSub"><!--prerendered-->Service design case study<!--/prerendered--></div>
+    <div class="nm" data-t="wordmark"><!--prerendered-->Paths, not plans<!--/prerendered--><!--/prerendered--></div>
+    <div class="sub" data-t="markSub"><!--prerendered-->Service design case study<!--/prerendered--><!--/prerendered--></div>
   </div>
-  <nav class="toc" aria-label="Sections"><ol id="toc"><!--prerendered--><li><a href="#patient" data-to="patient"><span class="n">01</span><span>The patient's day</span></a></li><li><a href="#fieldwork" data-to="fieldwork"><span class="n">02</span><span>Three months inside</span></a></li><li><a href="#people" data-to="people"><span class="n">03</span><span>Two perspectives</span></a></li><li><a href="#analysis" data-to="analysis"><span class="n">04</span><span>Where the space went</span></a></li><li><a href="#findings" data-to="findings"><span class="n">05</span><span>What the audit found</span></a></li><li><a href="#weight" data-to="weight"><span class="n">06</span><span>The human weight</span></a></li><li><a href="#value" data-to="value"><span class="n">07</span><span>What the audit changed</span></a></li><li><a href="#reflection" data-to="reflection"><span class="n">08</span><span>What I learned</span></a></li><!--/prerendered--></ol></nav>
+  <nav class="toc" aria-label="Sections"><ol id="toc"><!--prerendered--><li><a href="#patient" data-to="patient"><span class="n">01</span><span>The patient's day</span></a></li><li><a href="#fieldwork" data-to="fieldwork"><span class="n">02</span><span>Three months inside</span></a></li><li><a href="#people" data-to="people"><span class="n">03</span><span>Two perspectives</span></a></li><li><a href="#analysis" data-to="analysis"><span class="n">04</span><span>Where the space went</span></a></li><li><a href="#findings" data-to="findings"><span class="n">05</span><span>What the audit found</span></a></li><li><a href="#weight" data-to="weight"><span class="n">06</span><span>The human weight</span></a></li><li><a href="#value" data-to="value"><span class="n">07</span><span>What the audit changed</span></a></li><li><a href="#reflection" data-to="reflection"><span class="n">08</span><span>What I learned</span></a></li><!--/prerendered--><!--/prerendered--></ol></nav>
 </aside>
 
 <div id="lang" role="group" data-l="en">
@@ -438,17 +445,17 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:52ch;line-hei
 <main class="main">
   <div class="col">
     <header class="head reveal">
-      <div class="kicker" data-t="kicker"><!--prerendered-->Case study · Architecture · Service design<!--/prerendered--></div>
-      <h1 class="title" data-t="title"><!--prerendered-->Paths, not plans<!--/prerendered--></h1>
-      <p class="dek" data-t="dek"><!--prerendered-->A heritage hospital complex that couldn't be rebuilt.<br>So the audit followed the paths of patients and&nbsp;staff, not the plans, and&nbsp;that let us make it work better.<!--/prerendered--></p>
-      <div class="meta" id="meta"><!--prerendered--><div class="m"><span class="k">Role</span><span class="v">Architect · Service designer</span></div><div class="m"><span class="k">Team</span><span class="v">Architects · HR · Economics</span></div><div class="m"><span class="k">Context</span><span class="v">Historic cancer hospital complex (anonymised)</span></div><div class="m"><span class="k">Year</span><span class="v">2016</span></div><div class="m"><span class="k">Scope</span><span class="v">Patient journeys, space-use analysis, zoning</span></div><!--/prerendered--></div>
+      <div class="kicker" data-t="kicker"><!--prerendered-->Case study · Architecture · Service design<!--/prerendered--><!--/prerendered--></div>
+      <h1 class="title" data-t="title"><!--prerendered-->Paths, not plans<!--/prerendered--><!--/prerendered--></h1>
+      <p class="dek" data-t="dek"><!--prerendered-->A heritage hospital complex that couldn't be rebuilt.<br>So the audit followed the paths of patients and&nbsp;staff, not the plans, and&nbsp;that let us make it work better.<!--/prerendered--><!--/prerendered--></p>
+      <div class="meta" id="meta"><!--prerendered--><div class="m"><span class="k">Role</span><span class="v">Architect · Service designer</span></div><div class="m"><span class="k">Team</span><span class="v">Architects · HR · Economics</span></div><div class="m"><span class="k">Context</span><span class="v">Historic cancer hospital complex (anonymised)</span></div><div class="m"><span class="k">Year</span><span class="v">2016</span></div><div class="m"><span class="k">Scope</span><span class="v">Patient journeys, space-use analysis, zoning</span></div><!--/prerendered--><!--/prerendered--></div>
     </header>
   </div>
 
   <div id="hero"><!--prerendered--><figure class="fig reveal wide">
       <img src="hospital-wayfinding/assets/hero-postcard.webp" alt="The hospital not long after it opened: brick wings around a garden, and the church at its corner. Period postcard, early 1900s." loading="lazy">
       <figcaption><span>The hospital not long after it opened: brick wings around a garden, and&nbsp;the church at its corner. Period postcard, early 1900s.</span></figcaption>
-    </figure><!--/prerendered--></div>
+    </figure><!--/prerendered--><!--/prerendered--></div>
 
   <div class="col">
     <div id="glance" class="glance reveal"><!--prerendered--><div class="g-eyebrow">At a glance</div>
@@ -457,7 +464,7 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:52ch;line-hei
     <div class="g-row"><div class="g-k">Value</div>
       <ul class="g-list"><li><strong>Funded:</strong> the hospital secured renovation money on the strength of the audit</li><li><strong>14% → 24%:</strong> patients' share of the building in the simulated reorganisation, almost double</li><li><strong>Built within days:</strong> the laundry beside chemotherapy became registration and&nbsp;consulting rooms, partition walls only</li></ul>
       <div class="g-src">Real client work · anonymised · percentages from our audit</div>
-    </div><!--/prerendered--></div>
+    </div><!--/prerendered--><!--/prerendered--></div>
   </div>
 
   <article id="article"><!--prerendered--><section class="sec" id="patient"><div class="col">
@@ -500,15 +507,30 @@ footer.foot .note{font-size:11.5px;color:var(--ink-mute);max-width:52ch;line-hei
       <h2 class="h">What the project showed, and&nbsp;where it could go next</h2><p><strong>A system should carry its own complexity</strong>, instead of quietly handing it to the people moving through it.</p><ul class="pts"><li><strong>Space is evidence.</strong> Measuring the building room by room turned complaints into numbers, and&nbsp;numbers into a funding case. That is what architectural training brings to service design: the ability to read, measure and&nbsp;prove what a space is actually doing</li><li><strong>The insight lives in the paths, not the plans.</strong> Watch the real service move across days, hours and&nbsp;user types before touching a single wall</li><li><strong>Some walls never move.</strong> In a protected monument you cannot do everything, and&nbsp;pretending otherwise wastes everyone's time. The work is to name what is fixed and&nbsp;redesign everything that is not: flows, functions, zones</li><li><strong>A hospital is a small city.</strong> Wings around a garden courtyard, an ambulance approach, a separate diagnostics building: the journeys crossed open space between buildings, so the thinking had to be urban as much as architectural</li><li><strong>The two disciplines need each other.</strong> Interviews and&nbsp;observation found what hurt; plans and&nbsp;measurement showed why; the redesign needed both. That is the seam where I work, between architecture and&nbsp;UX</li></ul></div><div class="col"><h3 class="sh">Where this could go next: digitise the journey itself</h3><p>If we ran this project today, the next step would be digital. The doctor keeps their own base of patients: <strong>one profile per person</strong>, with the photo large enough that a doctor <strong>remembers a face and&nbsp;not a case number</strong>, notes shared across the team, and&nbsp;referrals and&nbsp;prescriptions issued in the same tool.</p><p>The patient carries the same system in their pocket. A home screen says when today's chemotherapy is, that <strong>their named doctor has cleared it</strong> and&nbsp;which nurse will receive them; lab results arrive the moment they are ready. <strong>A live AI companion</strong> answers questions at any hour and&nbsp;stays alongside palliative patients through the hardest stretch. Every step that once meant a desk, a queue or a walk between buildings <strong>becomes a notification</strong>.</p></div><figure class="fig reveal wide">
       <img src="hospital-wayfinding/assets/future.webp" alt="The concept as three screens. Left, the doctor's own patient base: one profile per person, the photo large enough to remember a face, not a case number. Right, the patient's phone: a home screen with today's chemotherapy cleared by their named doctor, the nurse who will receive them and results the moment they are ready, plus a live companion chat. Forward-looking concept, not a shipped product." loading="lazy">
       <figcaption><span>The concept as three screens. Left, the doctor's own patient base: one profile per person, the photo large enough to remember a face, not a case number. Right, the patient's phone: a home screen with today's chemotherapy cleared by their named doctor, the nurse who will receive them and&nbsp;results the moment they are ready, plus a live companion chat. Forward-looking concept, not a shipped product.</span></figcaption>
-    </figure><div class="col"><p class="close">Nobody should cross a campus to collect what a notification can carry.</p></div></section><!--/prerendered--></article>
+    </figure><div class="col"><p class="close">Nobody should cross a campus to collect what a notification can carry.</p></div></section><!--/prerendered--><!--/prerendered--></article>
 
   <div class="col">
     <footer class="foot reveal">
       <a href="index.html">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
-        <span data-t="footBack"><!--prerendered-->Back to all projects<!--/prerendered--></span>
+        <span data-t="footBack"><!--prerendered-->Back to all projects<!--/prerendered--><!--/prerendered--></span>
       </a>
-      <p class="note" data-t="footNote"><!--prerendered-->Real client work, shown through anonymised, illustrative reconstructions. The hospital and&nbsp;firm are not named and&nbsp;no original drawings are reproduced. Diagrams redrawn 2026; percentages come from our space-use analysis of the complex, and&nbsp;target shares from the reorganisation simulation are rounded.<!--/prerendered--></p>
+      <!-- Same two affordances as the board's contact card, same words and the
+           same icons, so a reader who saw the card recognises them. data-a is
+           what analytics.js keys on, so these clicks land as cv_downloaded /
+           contact_clicked tagged with this page. -->
+      <div class="next">
+        <span class="next-h" data-t="footNext"><!--prerendered-->Come say <em>hi!</em><!--/prerendered--></span>
+        <a data-a="cv" href="Wioleta-Wojcik-CV.pdf" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V7.5z"/><path d="M14 3v4.5h4.5M9 13h6M9 16.5h4"/></svg>
+          <span>Resume</span>
+        </a>
+        <a data-a="mail" href="mailto:wioleta.maria.wojcik@gmail.com">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="1.5"/><path d="M2.5 6.5 12 13l9.5-6.5"/></svg>
+          <span>Gmail</span>
+        </a>
+      </div>
+      <p class="note" data-t="footNote"><!--prerendered-->Real client work, shown through anonymised, illustrative reconstructions. The hospital and&nbsp;firm are not named and&nbsp;no original drawings are reproduced. Diagrams redrawn 2026; percentages come from our space-use analysis of the complex, and&nbsp;target shares from the reorganisation simulation are rounded.<!--/prerendered--><!--/prerendered--></p>
     </footer>
   </div>
 </main>
@@ -554,6 +576,8 @@ const T = {
         note:'Real client work · anonymised · percentages from our audit'
       }
     },
+    footNext:'Come say <em>hi!</em>',
+    cvfile:'Wioleta-Wojcik-CV.pdf',
     footBack:'Back to all projects',
     footNote:'Real client work, shown through anonymised, illustrative reconstructions. The hospital and firm are not named and no original drawings are reproduced. Diagrams redrawn 2026; percentages come from our space-use analysis of the complex, and target shares from the reorganisation simulation are rounded.',
     meta:[
@@ -585,6 +609,8 @@ const T = {
         note:'Ekte klientarbeid · anonymisert · prosentene er fra vår revisjon'
       }
     },
+    footNext:'Kom og si <em>hei!</em>',
+    cvfile:'Wioleta-Wojcik-CV-NO.pdf',
     footBack:'Tilbake til alle prosjekter',
     footNote:'Ekte klientarbeid, vist kun gjennom anonymiserte, illustrerende rekonstruksjoner. Sykehuset og firmaet er ikke navngitt, og ingen originaltegninger gjengis. Diagrammer tegnet på nytt 2026; prosentene kommer fra vår arealanalyse av komplekset, og målandelene fra omorganiserings-simuleringen er avrundet.',
     meta:[
@@ -860,6 +886,10 @@ function render(L){
     const k = el.dataset.t; if(t[k] !== undefined) el.innerHTML = t[k];
   });
   document.querySelector('.back span').textContent = t.back;
+  /* The résumé follows the language switch, exactly as it does on the board:
+     EN → the English PDF, NO → the Norwegian one. */
+  const cvLink = document.querySelector('footer.foot a[data-a="cv"]');
+  if(cvLink && t.cvfile) cvLink.setAttribute('href', t.cvfile);
 
   document.getElementById('meta').innerHTML = t.meta.map(m=>
     `<div class="m"><span class="k">${m.k}</span><span class="v">${m.v}</span></div>`).join('');
