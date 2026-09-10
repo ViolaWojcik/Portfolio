@@ -223,7 +223,17 @@ try {
   check(d.url().endsWith('/repapp.html'), 'desktop: Enter opens the focused folder');
 
   /* ================= CASE STUDIES ================= */
+  /* A dead script is INVISIBLE on these pages. Their text is prerendered, so a
+     `render()` that throws still leaves a page that looks and reads perfectly
+     while the language switch, the TOC spy, the lightbox and the reveals are
+     silently gone. That is not hypothetical: a stray backslash once shipped a
+     SyntaxError past a fully green run, and only the browser console caught it.
+     Hence two checks below — nothing threw, and the script demonstrably ran. */
+  const jsErrors = [];
+  d.on('pageerror', e => jsErrors.push(String(e).split('\n')[0]));
+
   for (const slug of CASES) {
+    jsErrors.length = 0;
     await d.goto(`${origin}/${slug}`, { waitUntil: 'networkidle' });
     const r = await d.evaluate(() => {
       const ids = [...document.querySelectorAll('#article section.sec')].map(s => s.id);
@@ -233,6 +243,29 @@ try {
     });
     check(r.n > 0 && !r.dupes && r.h1 === 1 && r.toc === r.n,
           `${slug}: ${r.n} sections, one <h1>, TOC matches, nothing duplicated`);
+
+    check(jsErrors.length === 0, jsErrors.length
+      ? `${slug}: uncaught error on load — ${jsErrors[0]}`
+      : `${slug}: no uncaught errors on load`);
+
+    /* Proof of life. Flipping the language is the cheapest thing that forces
+       render() to do real work, and the résumé href riding along proves the
+       language-aware part of the footer too. Reads the CURRENT language first
+       and puts it back, so the run does not depend on test order or on what
+       the previous page left in localStorage. */
+    const sw = await d.evaluate(async () => {
+      const cv = () => document.querySelector('footer.foot a[data-a="cv"]').getAttribute('href');
+      const before = document.documentElement.lang;
+      const other = before === 'no' ? 'en' : 'no';
+      const cvBefore = cv();
+      document.querySelector(`#lang button[data-lang="${other}"]`).click();
+      await new Promise(r => setTimeout(r, 300));
+      const out = { before, other, after: document.documentElement.lang, cvBefore, cvAfter: cv() };
+      document.querySelector(`#lang button[data-lang="${before}"]`).click();
+      return out;
+    });
+    check(sw.after === sw.other && sw.cvAfter !== sw.cvBefore,
+          `${slug}: language switch repaints and the résumé follows (${sw.cvBefore} → ${sw.cvAfter})`);
   }
 
   /* the prerendered text is there with scripting off */
