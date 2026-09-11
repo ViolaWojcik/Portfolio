@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wioleta Wójcik — One-Page CV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   ONE-PAGE CV — condensed leave-behind for email.
+   Same :root tokens as the portfolio site & the full CV
+   (cv.html). Tighter spacing scale so the whole story fits
+   on a single A4 page. Service-design emphasis.
+   ========================================================= */
+:root{
+  --ground:     #F8F5EF;
+  --ink:        #1A1917;
+  --ink-soft:   #423E37;
+  --ink-mute:   #8E887C;
+  --hair:       #E0DACE;
+  --accent:     #6D5C9D;
+  --accent-hair:rgba(109,92,157,.42);
+  --accent-tint:#E4DDF1;
+  --font-display:'Instrument Serif','Iowan Old Style',Georgia,serif;
+  --font-ui:'Inter',ui-sans-serif,-apple-system,'Segoe UI',sans-serif;
+
+  /* tighter than the full CV — one page must hold everything,
+     but spaced to fill the A4 sheet so it doesn't read top-heavy */
+  --gap-module: 24px;   /* before every section heading */
+  --gap-item:   17px;   /* before every job block */
+  --gap-head:   13px;   /* section heading → its first content */
+  --gap-bullet:  6px;   /* between bullets */
+}
+
+@page{ size:A4; margin:15mm 16mm; }
+
+*{box-sizing:border-box;margin:0;padding:0;}
+/* ivory body (not white): one page rarely fills to the bottom, so the
+   body background — not just .doc — must carry the ground colour, or a
+   white gap shows below the content. PyMuPDF still fills the @page margins. */
+html,body{ background:var(--ground); }
+html{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+
+body{
+  font-family:var(--font-ui);
+  color:var(--ink-soft);
+  font-size:11px;
+  line-height:1.6;
+  letter-spacing:.003em;
+}
+.doc{ background:var(--ground); }
+
+/* ---------- links ----------
+   ONE treatment for every link in the document, wherever it sits: the accent
+   violet plus a hairline underline. The colour can't carry it alone — accent
+   against the body's ink is 1.6:1, far under the 3:1 WCAG asks for when colour
+   is the only cue — so the underline is the part that actually says "clickable".
+   It is also the only cue that survives printing and greyscale. */
+a{
+  color:var(--accent); text-decoration:underline;
+  text-decoration-thickness:.7px; text-underline-offset:2.5px;
+  text-decoration-color:var(--accent-hair);
+}
+
+/* ---------- header ---------- */
+.head{ display:flex; justify-content:space-between; align-items:center; gap:22px; }
+.head-l{ display:flex; align-items:center; gap:18px; }
+.name{
+  font-family:var(--font-display); font-weight:400;
+  font-size:50px; line-height:.9; letter-spacing:-.02em; color:var(--ink);
+}
+.role{
+  margin-top:10px; font-size:10px; font-weight:500;
+  letter-spacing:.24em; text-transform:uppercase; color:var(--accent);
+}
+.contact{ text-align:right; font-size:10px; line-height:1.95; color:var(--ink-soft); }
+.rule{ height:1px; background:var(--hair); margin:18px 0 0; }
+
+/* ---------- section headings ---------- */
+.sec-h{
+  display:flex; align-items:center; gap:10px;
+  font-size:10px; font-weight:600; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--ink);
+  margin-top:var(--gap-module); margin-bottom:var(--gap-head);
+  break-after:avoid;
+}
+.sec-h::before{ content:''; width:20px; height:2px; border-radius:2px; background:var(--accent); flex:none; }
+
+/* ---------- overview ---------- */
+.lead-1{ font-family:var(--font-display); font-size:25px; line-height:1.2; color:var(--ink); margin-bottom:11px; letter-spacing:-.006em; }
+.lead-p{ font-size:12px; line-height:1.7; color:var(--ink-soft); max-width:82ch; }
+
+/* ---------- experience ---------- */
+.item{ margin-top:var(--gap-item); }
+.sec-h + .item{ margin-top:0; }
+.entry-top{ display:flex; justify-content:space-between; align-items:baseline; gap:16px; }
+.entry-t{ font-family:var(--font-display); font-size:19px; line-height:1.12; color:var(--ink); letter-spacing:-.005em; }
+.entry-d{ font-size:9px; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-mute); white-space:nowrap; flex:none; }
+.entry-sum{ font-size:11px; color:var(--ink-soft); margin-top:5px; max-width:88ch; }
+
+/* project one-liners under a company */
+ul{ list-style:none; margin-top:7px; }
+li{
+  position:relative; padding-left:15px; margin:var(--gap-bullet) 0;
+  font-size:11px; line-height:1.55; color:var(--ink-soft);
+  break-inside:avoid;
+}
+li::before{ content:''; position:absolute; left:0; top:8px; width:3.5px; height:3.5px; border-radius:50%; background:var(--accent); opacity:.8; }
+li .pj{ font-weight:600; color:var(--ink); }
+.metric{ color:var(--ink); font-weight:500; }
+
+/* ---------- two-column band (education / languages) ---------- */
+.grid2{ display:flex; gap:34px; }
+.grid2 > div{ flex:1 1 0; min-width:0; }
+.edu{ margin-top:11px; }
+.sec-h + .edu, .grid2 .edu:first-child{ margin-top:0; }
+.edu-t{ font-family:var(--font-display); font-size:15.5px; color:var(--ink); line-height:1.15; }
+.edu-m{ font-size:9px; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-mute); margin-top:4px; }
+.langs{ font-size:11.5px; color:var(--ink-soft); line-height:1.85; }
+.langs b{ color:var(--ink); font-weight:600; letter-spacing:.04em; }
+
+/* ---------- skills ---------- */
+.chips{ display:flex; flex-wrap:wrap; gap:7px; }
+.chip{
+  font-size:10px; letter-spacing:.02em; color:var(--ink-soft);
+  background:var(--accent-tint); border:.75px solid rgba(109,92,157,.3);
+  padding:5px 11px; border-radius:20px;
+}
+
+/* ---------- footer ---------- */
+.foot{ margin-top:18px; padding-top:11px; border-top:1px solid var(--hair);
+  font-size:10px; color:var(--ink-mute); letter-spacing:.02em; }
+.foot .consent{ margin-top:5px; font-size:9px; }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <header class="head">
+    <div class="head-l">
+      <div>
+        <div class="name">Wioleta Wójcik</div>
+        <div class="role">Service Designer · Architect</div>
+      </div>
+    </div>
+    <div class="contact">
+      <div><a href="mailto:wioleta.maria.wojcik@gmail.com">wioleta.maria.wojcik@gmail.com</a></div>
+      <div>+47 484 62 641 · Oslo, Norway</div>
+      <div class="lnk"><a href="https://wioletawojcik.com">wioletawojcik.com</a> · <a href="https://www.linkedin.com/in/wioleta-maria-w%C3%B3jcik-7512a389/">LinkedIn</a></div>
+    </div>
+  </header>
+  <div class="rule"></div>
+
+  <!-- ══ POSITIONING ══ -->
+  <div class="sec-h">Overview</div>
+  <div class="lead-1">I design where space, systems, and people meet.</div>
+  <p class="lead-p">
+    I bring an architect's background to service design for social and public challenges.<br>
+    It's grounded in eight years of research-first, end-to-end product design.<br>
+    AI is central to how I work: it turns research into working products.
+  </p>
+
+  <!-- ══ EXPERIENCE ══ -->
+  <div class="sec-h">Selected Experience</div>
+
+  <div class="item">
+    <div class="entry-top">
+      <div class="entry-t">Independent Product Work &amp; AI Product Masterclass</div>
+      <div class="entry-d">2023 – current</div>
+    </div>
+    <div class="entry-sum">Independent design practice combining UX methodology with AI tools to take ideas from concept to shipped product. Completed the 5-week masterclass (Jun – Jul 2026). Published “Magic Star”, a children's book on Amazon.</div>
+  </div>
+
+  <div class="item">
+    <div class="entry-top">
+      <div class="entry-t">Nowa Itaka / Axabee — UX &amp; Interface Designer</div>
+      <div class="entry-d">2018 – 2023 · in-house product studio</div>
+    </div>
+    <div class="entry-sum">Owned the full service-design lifecycle across a travel platform — discovery research, journey mapping, prototyping, design systems, and design QA with engineering.</div>
+    <ul>
+      <li><span class="pj"><a href="https://www.axabee.com/case-studies/repapp">RepApp</a></span> — tablet service bridging physical and digital field work: <span class="metric">−50% airport waiting time</span>, <span class="metric">−30% office work</span>.</li>
+      <li><span class="pj"><a href="https://www.axabee.com/case-studies/e-commerce-website">Itaka 3.0</a></span> — service audit + booking redesign: <span class="metric">+20% cart value</span>, <span class="metric">+50% mobile conversion</span>.</li>
+      <li><span class="pj"><a href="https://www.resabee.com/">Resabee</a></span> — enterprise booking service, <span class="metric">1.4M annual reservations</span>.</li>
+      <li><span class="pj"><a href="https://www.axabee.com/case-studies/e-commerce-mobile-app">Itaka App</a></span> — mobile optimization: <span class="metric">Mobile Trends Award</span>, <span class="metric">+210% YoY sales</span>, 4.7/5 rating.</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="entry-top">
+      <div class="entry-t">Vita Management — Architect</div>
+      <div class="entry-d">2016 – 2018</div>
+    </div>
+    <div class="entry-sum">Audited oncological hospital complexes through a service lens. Mapped patient journeys and staff flows across departments to remove bottlenecks and improve how people navigate complex care environments; translated findings into spatial and functional recommendations.</div>
+  </div>
+
+  <!-- ══ EDUCATION + LANGUAGES ══ -->
+  <div class="grid2">
+    <div>
+      <div class="sec-h">Education</div>
+      <div class="edu">
+        <div class="edu-t">User Experience Design</div>
+        <div class="edu-m">SWPS University, Poland · Postgraduate</div>
+      </div>
+      <div class="edu">
+        <div class="edu-t">Architecture &amp; Urban Planning</div>
+        <div class="edu-m">Wrocław Univ. of Technology<br>M.A., Heritage Conservation</div>
+      </div>
+    </div>
+    <div>
+      <div class="sec-h">Languages</div>
+      <div class="langs">
+        <b>English</b> (C1)<br>
+        <b>Polish</b> (native)<br>
+        <b>Norwegian</b> <span class="metric">(in intensive training at Speak Norsk, Oslo)</span><br>
+        <b>Spanish</b> (A2)
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SKILLS ══ -->
+  <div class="sec-h">Skills &amp; Tools</div>
+  <div class="chips">
+    <span class="chip">Service design</span><span class="chip">Service blueprints</span>
+    <span class="chip">Journey mapping</span><span class="chip">User research</span>
+    <span class="chip">Stakeholder workshops</span><span class="chip">Prototyping (Figma)</span>
+    <span class="chip">WCAG 2.2</span><span class="chip">AI-native workflows (Claude Code)</span>
+  </div>
+
+  <div class="foot">
+    <div>References available on request</div>
+    <div class="consent">I consent to the processing of my personal data for recruitment purposes under the GDPR (Regulation EU 2016/679).</div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<title>Wioleta Wójcik — CV (én side)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   ONE-PAGE CV (Norwegian / Bokmål) — condensed leave-behind.
+   Same :root tokens as cv-1page.html; only the copy changes.
+   Norwegian is a working draft — verify with a native speaker.
+   ========================================================= */
+:root{
+  --ground:     #F8F5EF;
+  --ink:        #1A1917;
+  --ink-soft:   #423E37;
+  --ink-mute:   #8E887C;
+  --hair:       #E0DACE;
+  --accent:     #6D5C9D;
+  --accent-hair:rgba(109,92,157,.42);
+  --accent-tint:#E4DDF1;
+  --font-display:'Instrument Serif','Iowan Old Style',Georgia,serif;
+  --font-ui:'Inter',ui-sans-serif,-apple-system,'Segoe UI',sans-serif;
+
+  /* slightly tighter than EN — Norwegian copy runs longer, must still fit one page */
+  --gap-module: 19px;
+  --gap-item:   13px;
+  --gap-head:   11px;
+  --gap-bullet:  5px;
+}
+
+@page{ size:A4; margin:15mm 16mm; }
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{ background:var(--ground); }
+html{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+
+body{
+  font-family:var(--font-ui);
+  color:var(--ink-soft);
+  font-size:11px;
+  line-height:1.6;
+  letter-spacing:.003em;
+}
+.doc{ background:var(--ground); }
+
+/* ---------- links ----------
+   ONE treatment for every link in the document, wherever it sits: the accent
+   violet plus a hairline underline. The colour can't carry it alone — accent
+   against the body's ink is 1.6:1, far under the 3:1 WCAG asks for when colour
+   is the only cue — so the underline is the part that actually says "clickable".
+   It is also the only cue that survives printing and greyscale. */
+a{
+  color:var(--accent); text-decoration:underline;
+  text-decoration-thickness:.7px; text-underline-offset:2.5px;
+  text-decoration-color:var(--accent-hair);
+}
+
+/* ---------- header ---------- */
+.head{ display:flex; justify-content:space-between; align-items:center; gap:22px; }
+.head-l{ display:flex; align-items:center; gap:18px; }
+.name{
+  font-family:var(--font-display); font-weight:400;
+  font-size:50px; line-height:.9; letter-spacing:-.02em; color:var(--ink);
+}
+.role{
+  margin-top:10px; font-size:10px; font-weight:500;
+  letter-spacing:.24em; text-transform:uppercase; color:var(--accent);
+}
+.contact{ text-align:right; font-size:10px; line-height:1.95; color:var(--ink-soft); }
+.rule{ height:1px; background:var(--hair); margin:15px 0 0; }
+
+/* ---------- section headings ---------- */
+.sec-h{
+  display:flex; align-items:center; gap:10px;
+  font-size:10px; font-weight:600; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--ink);
+  margin-top:var(--gap-module); margin-bottom:var(--gap-head);
+  break-after:avoid;
+}
+.sec-h::before{ content:''; width:20px; height:2px; border-radius:2px; background:var(--accent); flex:none; }
+
+/* ---------- overview ---------- */
+.lead-1{ font-family:var(--font-display); font-size:25px; line-height:1.2; color:var(--ink); margin-bottom:11px; letter-spacing:-.006em; }
+.lead-p{ font-size:12px; line-height:1.7; color:var(--ink-soft); max-width:82ch; }
+
+/* ---------- experience ---------- */
+.item{ margin-top:var(--gap-item); }
+.sec-h + .item{ margin-top:0; }
+.entry-top{ display:flex; justify-content:space-between; align-items:baseline; gap:16px; }
+.entry-t{ font-family:var(--font-display); font-size:19px; line-height:1.12; color:var(--ink); letter-spacing:-.005em; }
+.entry-d{ font-size:9px; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-mute); white-space:nowrap; flex:none; }
+.entry-sum{ font-size:11px; color:var(--ink-soft); margin-top:5px; max-width:88ch; }
+
+/* project one-liners under a company */
+ul{ list-style:none; margin-top:7px; }
+li{
+  position:relative; padding-left:15px; margin:var(--gap-bullet) 0;
+  font-size:11px; line-height:1.55; color:var(--ink-soft);
+  break-inside:avoid;
+}
+li::before{ content:''; position:absolute; left:0; top:8px; width:3.5px; height:3.5px; border-radius:50%; background:var(--accent); opacity:.8; }
+li .pj{ font-weight:600; color:var(--ink); }
+.metric{ color:var(--ink); font-weight:500; }
+
+/* ---------- two-column band (education / languages) ---------- */
+.grid2{ display:flex; gap:34px; }
+.grid2 > div{ flex:1 1 0; min-width:0; }
+.edu{ margin-top:11px; }
+.sec-h + .edu, .grid2 .edu:first-child{ margin-top:0; }
+.edu-t{ font-family:var(--font-display); font-size:15.5px; color:var(--ink); line-height:1.15; }
+.edu-m{ font-size:9px; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-mute); margin-top:4px; }
+.langs{ font-size:11.5px; color:var(--ink-soft); line-height:1.85; }
+.langs b{ color:var(--ink); font-weight:600; letter-spacing:.04em; }
+
+/* ---------- skills ---------- */
+.chips{ display:flex; flex-wrap:wrap; gap:7px; }
+.chip{
+  font-size:10px; letter-spacing:.02em; color:var(--ink-soft);
+  background:var(--accent-tint); border:.75px solid rgba(109,92,157,.3);
+  padding:5px 11px; border-radius:20px;
+}
+
+/* ---------- footer ---------- */
+.foot{ margin-top:18px; padding-top:11px; border-top:1px solid var(--hair);
+  font-size:10px; color:var(--ink-mute); letter-spacing:.02em; }
+.foot .consent{ margin-top:5px; font-size:9px; }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <header class="head">
+    <div class="head-l">
+      <div>
+        <div class="name">Wioleta Wójcik</div>
+        <div class="role">Tjenestedesigner · Arkitekt</div>
+      </div>
+    </div>
+    <div class="contact">
+      <div><a href="mailto:wioleta.maria.wojcik@gmail.com">wioleta.maria.wojcik@gmail.com</a></div>
+      <div>+47 484 62 641 · Oslo, Norge</div>
+      <div class="lnk"><a href="https://wioletawojcik.com">wioletawojcik.com</a> · <a href="https://www.linkedin.com/in/wioleta-maria-w%C3%B3jcik-7512a389/">LinkedIn</a></div>
+    </div>
+  </header>
+  <div class="rule"></div>
+
+  <!-- ══ OM MEG ══ -->
+  <div class="sec-h">Om meg</div>
+  <div class="lead-1">Jeg designer løsninger der mennesker, systemer og rom møtes.</div>
+  <p class="lead-p">
+    Jeg tar med meg en arkitektbakgrunn inn i tjenestedesign for å møte sosiale og offentlige utfordringer.<br>
+    Erfaringen min bygger på åtte år med researchdrevet produktdesign fra start til slutt.<br>
+    KI er en integrert del av arbeidsprosessen min og hjelper meg å omsette research til et fungerende produkt.
+  </p>
+
+  <!-- ══ ERFARING ══ -->
+  <div class="sec-h">Utvalgt erfaring</div>
+
+  <div class="item">
+    <div class="entry-top">
+      <div class="entry-t">Selvstendig produktarbeid &amp; AI Product Masterclass</div>
+      <div class="entry-d">2023 – nå</div>
+    </div>
+    <div class="entry-sum">Selvstendig designpraksis som kombinerer UX-metodikk med KI-verktøy (Claude Code, Figma MCP) for å utvikle idéer fra konsept til lansert produkt. Fullførte AI Product Masterclass, et 5-ukers intensivkurs (jun. – jul. 2026). Publiserte barneboken «Magic Star» på Amazon.</div>
+  </div>
+
+  <div class="item">
+    <div class="entry-top">
+      <div class="entry-t">Nowa Itaka / Axabee — UX- &amp; grensesnittdesigner</div>
+      <div class="entry-d">2018 – 2023 · internt produktstudio</div>
+    </div>
+    <div class="entry-sum">Hadde ansvar for hele tjenestedesignprosessen på en reiseplattform, fra innsiktsarbeid og kartlegging av kundereiser til prototyping, utvikling av designsystemer og kvalitetssikring av design i samarbeid med utviklingsteamet.</div>
+    <ul>
+      <li><span class="pj"><a href="https://www.axabee.com/case-studies/repapp">RepApp</a></span> — nettbrettbasert tjeneste for reiseledere, som bygger bro mellom fysisk og digitalt feltarbeid: <span class="metric">−50&nbsp;% ventetid på flyplass</span>, <span class="metric">−30&nbsp;% kontorarbeid</span>.</li>
+      <li><span class="pj"><a href="https://www.axabee.com/case-studies/e-commerce-website">Itaka 3.0</a></span> — tjenesterevisjon og redesign av en personalisert e-handelsplattform for planlegging og bestilling av reiser: <span class="metric">+20&nbsp;% handlekurvverdi</span>, <span class="metric">+50&nbsp;% mobilkonvertering</span>.</li>
+      <li><span class="pj"><a href="https://www.resabee.com/">Resabee</a></span> — bookingtjeneste for bedrifter, <span class="metric">1,4&nbsp;mill. reservasjoner årlig</span>.</li>
+      <li><span class="pj"><a href="https://www.axabee.com/case-studies/e-commerce-mobile-app">Itaka App</a></span> — mobiloptimalisering: <span class="metric">Mobile Trends Award</span>, <span class="metric">+210&nbsp;% salg år over år</span>, 4,7/5 i vurdering.</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="entry-top">
+      <div class="entry-t">Vita Management — Arkitekt</div>
+      <div class="entry-d">2016 – 2018</div>
+    </div>
+    <div class="entry-sum">Analyserte onkologiske sykehuskomplekser gjennom et tjenesteperspektiv. Kartla pasientforløp og personalflyt på tvers av avdelinger for å identifisere flaskehalser, forbedre orienterbarhet og utvikle romlige og funksjonelle løsningsforslag.</div>
+  </div>
+
+  <!-- ══ UTDANNING + SPRÅK ══ -->
+  <div class="grid2">
+    <div>
+      <div class="sec-h">Utdanning</div>
+      <div class="edu">
+        <div class="edu-t">User Experience Design</div>
+        <div class="edu-m">SWPS University, Polen · Videreutdanning</div>
+      </div>
+      <div class="edu">
+        <div class="edu-t">Arkitektur og byplanlegging</div>
+        <div class="edu-m">Wrocław tekniske universitet<br>Master, kulturminnevern</div>
+      </div>
+    </div>
+    <div>
+      <div class="sec-h">Språk</div>
+      <div class="langs">
+        <b>Engelsk</b> (C1)<br>
+        <b>Polsk</b> (morsmål)<br>
+        <b>Norsk</b> <span class="metric">(intensivkurs ved Speak Norsk, pågår)</span><br>
+        <b>Spansk</b> (A2)
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ FERDIGHETER ══ -->
+  <div class="sec-h">Ferdigheter og verktøy</div>
+  <div class="chips">
+    <span class="chip">Tjenestedesign</span><span class="chip">Service blueprints</span>
+    <span class="chip">Kundereiser</span><span class="chip">Brukerinnsikt</span>
+    <span class="chip">Interessent-workshops</span><span class="chip">Prototyping (Figma)</span>
+    <span class="chip">WCAG 2.2</span><span class="chip">KI-drevet arbeidsflyt (Claude Code)</span>
+  </div>
+
+  <div class="foot">
+    <div>Referanser oppgis på forespørsel</div>
+    <div class="consent">Jeg samtykker til behandling av mine personopplysninger for rekrutteringsformål i henhold til personvernforordningen (GDPR, forordning (EU) 2016/679).</div>
+  </div>
+
+</div>
+</body>
+</html>

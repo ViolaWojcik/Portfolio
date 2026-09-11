@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<title>Wioleta Wójcik — CV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CV — same tokens as the portfolio site.
+   ONE continuous document. Natural pagination fills each page,
+   so every page keeps the SAME top and bottom margin (from
+   @page) — content may split anywhere. One spacing scale
+   drives every gap so the rhythm is identical throughout.
+
+   Norwegian edition — a working draft, pending native review.
+   ========================================================= */
+:root{
+  --ground:     #F8F5EF;
+  --ink:        #1A1917;
+  --ink-soft:   #423E37;
+  --ink-mute:   #8E887C;
+  --hair:       #E0DACE;
+  --accent:     #6D5C9D;
+  --accent-hair:rgba(109,92,157,.42);
+  --accent-tint:#E4DDF1;
+  --font-display:'Instrument Serif','Iowan Old Style',Georgia,serif;
+  --font-ui:'Inter',ui-sans-serif,-apple-system,'Segoe UI',sans-serif;
+
+  --gap-module: 30px;   /* before every section heading (the big one) */
+  --gap-item:   22px;   /* before every job & project, and text → project name */
+  --gap-sub:    14px;   /* before a sub-heading */
+  --gap-head:   18px;   /* section heading → its first content */
+  --gap-bullet:  7px;   /* between bullets */
+}
+
+/* equal top/bottom margins on every page; content flows naturally to fill them */
+@page{ size:A4; margin:16mm 18mm; }
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{ background:var(--ground); }
+html{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+
+body{
+  font-family:var(--font-ui);
+  color:var(--ink-soft);
+  font-size:11.5px;
+  line-height:1.58;
+  letter-spacing:.003em;
+}
+.doc{ background:var(--ground); }
+
+/* ---------- links ----------
+   ONE treatment for every link in the document, wherever it sits: the accent
+   violet plus a hairline underline. The colour can't carry it alone — accent
+   against the body's ink is 1.6:1, far under the 3:1 WCAG asks for when colour
+   is the only cue — so the underline is the part that actually says "clickable".
+   It is also the only cue that survives printing and greyscale. */
+a{
+  color:var(--accent); text-decoration:underline;
+  text-decoration-thickness:.7px; text-underline-offset:2.5px;
+  text-decoration-color:var(--accent-hair);
+}
+
+/* ---------- header ---------- */
+.head{ display:flex; justify-content:space-between; align-items:flex-end; gap:28px; }
+.name{
+  font-family:var(--font-display); font-weight:400;
+  font-size:54px; line-height:.92; letter-spacing:-.02em; color:var(--ink);
+}
+.role{
+  margin-top:12px; font-size:10.5px; font-weight:500;
+  letter-spacing:.24em; text-transform:uppercase; color:var(--accent);
+}
+.contact{ text-align:right; font-size:10.5px; line-height:2; color:var(--ink-soft); }
+.rule{ height:1px; background:var(--hair); margin:22px 0 0; }
+
+/* ---------- section headings ---------- */
+.sec-h{
+  display:flex; align-items:center; gap:10px;
+  font-size:10.5px; font-weight:600; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--ink);
+  margin-top:var(--gap-module); margin-bottom:var(--gap-head);
+  break-after:avoid;                 /* a heading never sits alone at a page bottom */
+}
+.sec-h::before{ content:''; width:20px; height:2px; border-radius:2px; background:var(--accent); flex:none; }
+
+/* ---------- overview ---------- */
+.lead-1{ font-family:var(--font-display); font-size:26px; line-height:1.22; color:var(--ink); margin-bottom:18px; letter-spacing:-.006em; }
+.lead-p{ font-size:12.5px; line-height:1.72; color:var(--ink-soft); margin-bottom:12px; max-width:68ch; }
+.lead-p:last-child{ margin-bottom:0; }
+
+/* ---------- experience / items ---------- */
+.item{ margin-top:var(--gap-item); }
+.sec-h + .item{ margin-top:0; }
+
+.entry-top{ display:flex; justify-content:space-between; align-items:baseline; gap:18px; }
+.entry-t{ font-family:var(--font-display); font-size:20px; line-height:1.15; color:var(--ink); letter-spacing:-.005em; }
+.entry-d{ font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-mute); white-space:nowrap; flex:none; }
+.entry-org{ font-size:11px; color:var(--ink-mute); margin-top:4px; font-style:italic; }
+
+.proj{ font-size:9.5px; font-weight:600; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); margin-bottom:9px; break-after:avoid; }
+.subh{ font-size:11px; font-weight:600; color:var(--ink); margin-top:var(--gap-sub); margin-bottom:5px; break-after:avoid; }
+
+ul{ list-style:none; }
+li{
+  position:relative; padding-left:15px; margin:var(--gap-bullet) 0;
+  font-size:11.5px; line-height:1.58; color:var(--ink-soft);
+  break-inside:avoid;                 /* keep a single bullet's lines together */
+}
+li::before{ content:''; position:absolute; left:0; top:8px; width:3.5px; height:3.5px; border-radius:50%; background:var(--accent); opacity:.8; }
+.metric{ color:var(--ink); font-weight:500; }
+
+/* ---------- education ---------- */
+.edu{ margin-top:var(--gap-item); break-inside:avoid; }
+.sec-h + .edu{ margin-top:0; }
+.edu-t{ font-family:var(--font-display); font-size:16px; color:var(--ink); line-height:1.2; }
+.edu-m{ font-size:9.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-mute); margin-top:4px; }
+.edu p{ font-size:11px; color:var(--ink-soft); margin-top:6px; max-width:70ch; }
+
+/* ---------- skills / languages ---------- */
+.chips{ display:flex; flex-wrap:wrap; gap:8px; }
+.chip{
+  font-size:10px; letter-spacing:.02em; color:var(--ink-soft);
+  background:var(--accent-tint); border:.75px solid rgba(109,92,157,.3);
+  padding:5px 11px; border-radius:20px;
+}
+.langs{ margin-top:20px; font-size:11.5px; color:var(--ink-soft); line-height:1.7; }
+.langs b{ color:var(--ink); font-weight:600; letter-spacing:.04em; }
+
+/* ---------- projects / references ---------- */
+.pr{ margin-top:11px; }
+.sec-h + .pr{ margin-top:0; }
+.pn{ font-family:var(--font-display); font-size:15px; color:var(--ink); }
+.pd{ font-size:11px; color:var(--ink-soft); }
+.ref{ font-size:11.5px; margin-top:9px; line-height:1.5; }
+.sec-h + .ref{ margin-top:0; }
+.ref a{ font-weight:500; }
+.ref-proj{ color:var(--ink-mute); }
+
+/* ---------- footer links ---------- */
+.links{ display:flex; flex-direction:column; gap:9px; }
+.links .lbl{ color:var(--ink-mute); }
+.consent{ margin-top:8px; padding-top:9px; border-top:1px solid var(--hair); font-size:9px; color:var(--ink-mute); letter-spacing:.02em; }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <header class="head">
+    <div>
+      <div class="name">Wioleta Wójcik</div>
+      <div class="role">Tjenestedesigner · Arkitekt</div>
+    </div>
+    <div class="contact">
+      <div><a href="https://wioletawojcik.com">wioletawojcik.com</a></div>
+      <div><a href="mailto:wioleta.maria.wojcik@gmail.com">wioleta.maria.wojcik@gmail.com</a></div>
+      <div>+47 484 62 641</div>
+      <div>Oslo, Norge</div>
+    </div>
+  </header>
+  <div class="rule"></div>
+
+  <!-- ══ SAMMENDRAG ══ -->
+  <div class="sec-h">Sammendrag</div>
+  <div class="lead-1">Jeg designer løsninger der mennesker, systemer og rom møtes.</div>
+  <p class="lead-p">
+    Ett spørsmål binder alt sammen: hvordan forholder mennesker seg til systemene og rommene
+    rundt seg, og hvordan designer vi disse slik at de faktisk tjener dem?
+  </p>
+  <p class="lead-p">
+    Etter åtte år med design av helhetlige produktopplevelser beveger jeg meg nå mot tjenestedesign
+    for sosiale og offentlige utfordringer. Jeg jobber innsiktsdrevet og praktisk, og bruker KI til
+    å omsette innsikt til fungerende løsninger.
+  </p>
+
+  <!-- ══ ARBEIDSERFARING — one heading only ══ -->
+  <div class="sec-h">Arbeidserfaring</div>
+
+  <div class="item">
+    <div class="entry-top">
+      <div class="entry-t">AI Product Masterclass — Nueve Design</div>
+      <div class="entry-d">jun. – jul. 2026 · 5-ukers intensivkurs</div>
+    </div>
+    <ul>
+      <li>Designet og lanserte KI-native produkter fra start til slutt med Claude Code, Claude Design og Figma MCP, og tok en idé til et fungerende, publisert produkt i løpet av programmet.</li>
+      <li>Integrerte KI gjennom hele produktets livssyklus: idéutvikling, innsiktssyntese, prototyping og evaluering.</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="entry-top">
+      <div class="entry-t">Selvstendig produktarbeid</div>
+      <div class="entry-d">okt. 2023 – nå</div>
+    </div>
+    <ul>
+      <li>Drev en selvstendig designpraksis som kombinerte UX-metodikk med KI-verktøy (Claude, Midjourney, ChatGPT) for å utvikle idéer fra konsept til lansering.</li>
+      <li>Praktiske, gjennomføringsorienterte arbeidsflyter med no-code/low-code-verktøy, bygget selvstendig uten tradisjonell overlevering til utviklere.</li>
+      <li>Publiserte barneboken «Magic Star» på Amazon, og brukte fortellergrep og brukersentrert design for å gjøre et komplekst tema tilgjengelig for unge lesere.</li>
+      <li>Kreativ praksis innen keramikk, tekstilkunst og illustrasjon, som tilfører det digitale arbeidet en praktisk, materialnær sensibilitet.</li>
+    </ul>
+  </div>
+
+  <!-- Nowa Itaka / Axabee — company header, then all its projects -->
+  <div class="item">
+    <div class="entry-top">
+      <div class="entry-t">Nowa Itaka / Axabee — internt produktstudio</div>
+      <div class="entry-d">2018 – 2023</div>
+    </div>
+    <div class="entry-org">Forfremmet fra UX-researcher til UX- og grensesnittdesigner</div>
+  </div>
+
+  <div class="item">
+    <div class="proj"><a href="https://www.resabee.com/">Resabee</a> — helhetlig bookingtjeneste (1,4 mln. reservasjoner årlig)</div>
+    <ul>
+      <li>Ledet helhetlig UX/UI-design fra innsikt til implementering: interessentworkshops med turoperatører og reisebyråer, brukerintervjuer, personas og kundereisekart.</li>
+      <li>Designet informasjonsarkitektur og brukerflyter for komplekse bookingprosesser; utviklet interaktive Figma-prototyper fra wireframes til høydetaljerte mockups.</li>
+      <li>Ledet designgjennomganger med tverrfaglige team og presenterte konsepter for ledergruppen, og sikret oppslutning om designretningen.</li>
+      <li>Utviklet og vedlikeholdt designsystemkomponenter som sikret konsistens på tvers av moduler; samarbeidet med utviklere gjennom hele implementeringen med spesifikasjoner og kvalitetssikring av design.</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="proj"><a href="https://www.axabee.com/case-studies/e-commerce-website">Itaka 3.0</a> — redesign av personalisert e-handelsplattform for reiser</div>
+    <div class="subh">Innsikt &amp; strategi</div>
+    <ul>
+      <li>Ledet omfattende brukerinnsikt med flere metoder: 15+ dybdeintervjuer på interaktive prototyper, kontekstuelle intervjuer med reisebyråansatte, feltobservasjoner av bookingprosesser, A/B-testing, spørreundersøkelser og intercept-intervjuer på kjøpesentre.</li>
+      <li>Samlet funnene i en tjenesterevisjon og strategiske anbefalinger som formet hele plattformredesignet; ledet interessentworkshops der innsikt ble presentert gjennom datavisualisering og fortelling.</li>
+    </ul>
+    <div class="subh">Innovasjon i bookingprosessen</div>
+    <ul>
+      <li>Designet et nyskapende system for pakketilpasning som endret måten kundene setter sammen og kjøper reisepakker på; laget helhetlige bookingflyter med nye måter å presentere og kombinere tilbud på.</li>
+      <li>Utviklet prototyper og gjennomførte brukertesting for å validere tilnærmingen: <span class="metric">20 % økning i gjennomsnittlig handlekurvverdi</span>.</li>
+    </ul>
+    <div class="subh">Ytelses- og konverteringsoptimalisering</div>
+    <ul>
+      <li>Gjennomførte en UX-revisjon som avdekket flaskehalser og brukervennlighetsproblemer på mobil; redesignet kritiske brukerløp og mobilgrensesnitt i samarbeid med utviklerne.</li>
+      <li>Leverte <span class="metric">0,3 s lastetid</span> og <span class="metric">50 % økning i mobilkonvertering</span>.</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="proj"><a href="https://www.axabee.com/case-studies/repapp">RepApp</a> — nettbrettbasert tjeneste for reiseledere</div>
+    <ul>
+      <li>Hadde ansvar for hele tjenestedesignløpet fra konsept til lansering, inkludert innsiktsarbeid (feltobservasjoner, kontekstuelle intervjuer med reiseledere) og syntese til problemstillinger og mulighetsområder.</li>
+      <li>Definerte MVP-en gjennom felles prioriteringsworkshops; laget brukerflyter og interaktive prototyper optimalisert for nettbrett og feltbruk.</li>
+      <li>Gjennomførte iterativ brukertesting, inkludert felttesting på flyplasser; designet sanntids kommunikasjonsfunksjoner (chat, videosamtaler).</li>
+      <li>Jobbet i smidige sprinter med daglige standups og sprintplanlegging.</li>
+      <li><span class="metric">50 % kortere ventetid på flyplassen</span> og <span class="metric">30 % mindre kontorarbeid</span>.</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="proj"><a href="https://www.axabee.com/case-studies/e-commerce-mobile-app">Itaka mobilapp</a> — optimalisering (iOS, Android)</div>
+    <ul>
+      <li>Gjennomførte heuristisk evaluering og konkurrentanalyse (Booking.com, Airbnb) som avdekket forbedringsmuligheter; designet forbedrede søkeflyter og filtre gjennom wireframes og interaktive prototyper.</li>
+      <li>Samarbeidet med produktteamet om prioritering og implementering av funksjoner.</li>
+      <li>Bidro til at prosjektet vant en <span class="metric">Mobile Trends Award</span>, en <span class="metric">salgsøkning på 210 % år over år</span> og en <span class="metric">vurdering på 4,7/5 på Google Play</span>.</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="entry-top">
+      <div class="entry-t">Vita Management</div>
+      <div class="entry-d">2016 – 2018 · Arkitekt</div>
+    </div>
+    <ul>
+      <li>Analyserte onkologiske sykehuskomplekser gjennom et tjenesteperspektiv — kartla pasientreiser og personalflyt på tvers av avdelinger for å avdekke flaskehalser og forbedre hvordan mennesker finner fram i komplekse omsorgsmiljøer.</li>
+      <li>Samlet funnene i romlige og funksjonelle anbefalinger som forbedret tjenesteeffektiviteten og pasientopplevelsen.</li>
+      <li>Leverte renoveringsprosjekter for klinikker og apotek, og verneverdig oppgradering av industribygg — og forente vernefaglig praksis med menneskesentrert design.</li>
+    </ul>
+  </div>
+
+  <!-- ══ UTDANNING ══ -->
+  <div class="sec-h">Utdanning</div>
+  <div class="edu">
+    <div class="edu-t">User Experience Design</div>
+    <div class="edu-m">2017–2018 · SWPS University, Polen · Postgraduate-diplom</div>
+    <p>Helhetlig e-handelsprosjekt med klikkbar Axure-prototype; empatikart, brukerflyter og kundereisekart.</p>
+  </div>
+  <div class="edu">
+    <div class="edu-t">Arkitektur og byplanlegging</div>
+    <div class="edu-m">2010–2015 · Wrocław University of Technology, Polen · Mastergrad</div>
+    <p>Spesialisering i kulturminnevern.</p>
+  </div>
+
+  <!-- ══ FERDIGHETER ══ -->
+  <div class="sec-h">Ferdigheter &amp; verktøy</div>
+  <div class="chips">
+    <span class="chip">Claude Code</span><span class="chip">Claude Design</span><span class="chip">Figma</span>
+    <span class="chip">Interaktiv prototyping</span><span class="chip">Designsystemer</span>
+    <span class="chip">WCAG 2.2</span><span class="chip">JIRA</span><span class="chip">Smidig</span>
+    <span class="chip">Brukerinnsikt</span><span class="chip">Dybdeintervjuer</span>
+    <span class="chip">Brukertesting</span><span class="chip">Kundereisekart</span>
+    <span class="chip">Personas</span><span class="chip">Service blueprints</span>
+    <span class="chip">Wireframing</span><span class="chip">Informasjonsarkitektur</span>
+    <span class="chip">Interessentworkshops</span><span class="chip">På tvers av plattformer (iOS, Android, Web)</span>
+  </div>
+  <div class="langs">
+    <b>Språk</b><br>
+    Engelsk (C1) · Polsk (morsmål) · Spansk (A2) · <span class="metric">Norsk (intensivkurs ved Speak Norsk, pågår)</span>
+  </div>
+
+  <!-- ══ UTVALGTE PROSJEKTER ══ -->
+  <div class="sec-h">Utvalgte prosjekter</div>
+  <div class="pr"><span class="pn"><a href="https://www.resabee.com/">Resabee</a></span> — <span class="pd">skybasert SaaS-plattform og bookingsystem for turoperatører.</span></div>
+  <div class="pr"><span class="pn"><a href="https://www.axabee.com/case-studies/e-commerce-website">Itaka 3.0</a></span> — <span class="pd">prisbelønt e-handelsredesign for en ledende reiseoperatør.</span></div>
+  <div class="pr"><span class="pn"><a href="https://www.axabee.com/case-studies/e-commerce-mobile-app">Itaka App</a></span> — <span class="pd">mobilapp som forbedrer reise- og bookingopplevelsen.</span></div>
+  <div class="pr"><span class="pn"><a href="https://www.axabee.com/case-studies/repapp">RepApp</a></span> — <span class="pd">nettbrettapplikasjon som forener fysisk og digital kundeservice.</span></div>
+  <div class="pr"><span class="pn"><a href="https://www.amazon.com/dp/B0D5HX7ZDC">Magic Star</a></span> — <span class="pd">selvpublisert barnebok som forener KI-generert illustrasjon med fortellerdesign.</span></div>
+  <div class="pr"><span class="pn"><a href="https://fmww9u-ph.myshopify.com/">My Art</a></span> — <span class="pd">nettbutikk for KI-generert digital kunst.</span></div>
+
+  <!-- ══ REFERANSER ══ -->
+  <div class="sec-h">Referanser</div>
+  <div class="ref"><a href="https://www.linkedin.com/in/katarzyna-gajewska-271ab8114/">Katarzyna Gajewska</a> — Head of User Experience &amp; Design, Axabee <span class="ref-proj">· referanse for Itaka-prosjektene</span></div>
+  <div class="ref"><a href="https://www.linkedin.com/in/jagoda-m-angier-9177027a/">Jagoda Angier</a> — Product Owner, Axabee <span class="ref-proj">· referanse for RepApp</span></div>
+  <div class="ref"><a href="https://www.linkedin.com/in/grzegorz-kamionka-6b3469165/">Grzegorz Kamionka</a> — Director of Product, Booking Systems, Itaka <span class="ref-proj">· referanse for Resabee</span></div>
+
+  <!-- ══ LENKER ══ -->
+  <div class="sec-h">Lenker</div>
+  <div class="links">
+    <div><span class="lbl">Arkitekturportefølje og anbefalinger —</span> <a href="http://drive.google.com/drive/folders/1cSrdbkuJd5Wkxnee8-RABWTxx9E0XXB0?usp=drive_link">Google Drive</a></div>
+    <div><span class="lbl">LinkedIn —</span> <a href="https://www.linkedin.com/in/wioleta-maria-w%C3%B3jcik-7512a389/">linkedin.com/in/wioleta-maria-wójcik</a></div>
+  </div>
+
+  <div class="consent">
+    Jeg samtykker til behandling av mine personopplysninger for rekrutteringsformål i henhold til GDPR (EU 2016/679).
+  </div>
+
+</div>
+</body>
+</html>
