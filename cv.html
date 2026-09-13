@@ -88,6 +88,10 @@ a{
 .lead-1{ margin-top:var(--gap-module); text-wrap:balance; font-family:var(--font-display); font-size:24px; line-height:1.2; color:var(--ink); margin-bottom:14px; letter-spacing:-.006em; }
 .lead-p{ font-size:12.4px; line-height:1.66; color:var(--ink-soft); margin-bottom:10px; }
 .lead-p:last-child{ margin-bottom:0; }
+/* One sentence per line in the overview. A sentence that runs past the measure
+   keeps its continuation indented, so a new statement is always the line that
+   starts at the margin. */
+.lead-p .s{ display:block; padding-left:11px; text-indent:-11px; }
 
 /* ---------- experience / items ---------- */
 .item{ margin-top:var(--gap-item); }
@@ -172,16 +176,16 @@ li::before{ content:''; position:absolute; left:0; top:9px; width:3.5px; height:
   <!-- OVERVIEW -->
   <div class="lead-1">I design where space, systems, and people meet.</div>
   <p class="lead-p">
-    Eight years in design: three as an architect, five in UX for booking and e-commerce.
-    Universal design is the thread through both: the question of who gets in.
+    <span class="s">Eight years in design: three as an architect, five in UX for booking and e-commerce.</span>
+    <span class="s">Universal design is the thread through both: the question of who gets in.</span>
   </p>
   <p class="lead-p">
-    For the last three years I have been building. AI carries the repetitive work.
-    The hours go back to research and to the people a product is for.
-    I can tell when a result is good and when it only looks good.
+    <span class="s">For the last three years I have been building.</span>
+    <span class="s">AI carries the repetitive work.</span>
+    <span class="s">The hours go back to research and to the people a product is for.</span>
+    <span class="s">I can tell when a result is good and when it only looks good.</span>
   </p>
 
-  <!-- CURRENT PRACTICE -->
   <div class="sec-h">Practice <span class="when">2023 – current</span></div>
 
   <div class="item">

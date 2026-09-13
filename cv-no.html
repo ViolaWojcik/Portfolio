@@ -88,6 +88,10 @@ a{
 .lead-1{ margin-top:var(--gap-module); text-wrap:balance; font-family:var(--font-display); font-size:24px; line-height:1.2; color:var(--ink); margin-bottom:14px; letter-spacing:-.006em; }
 .lead-p{ font-size:12.4px; line-height:1.66; color:var(--ink-soft); margin-bottom:10px; }
 .lead-p:last-child{ margin-bottom:0; }
+/* One sentence per line in the overview. A sentence that runs past the measure
+   keeps its continuation indented, so a new statement is always the line that
+   starts at the margin. */
+.lead-p .s{ display:block; padding-left:11px; text-indent:-11px; }
 
 /* ---------- experience / items ---------- */
 .item{ margin-top:var(--gap-item); }
@@ -171,13 +175,14 @@ li::before{ content:''; position:absolute; left:0; top:9px; width:3.5px; height:
 
   <div class="lead-1">Jeg designer løsninger der mennesker, systemer og rom møtes.</div>
   <p class="lead-p">
-    Åtte år i design: tre som arkitekt og fem i UX for booking og e-handel.
-    Universell utforming er den røde tråden gjennom begge: spørsmålet om hvem som slipper inn.
+    <span class="s">Åtte år i design: tre som arkitekt og fem i UX for booking og e-handel.</span>
+    <span class="s">Universell utforming er den røde tråden gjennom begge: spørsmålet om hvem som slipper inn.</span>
   </p>
   <p class="lead-p">
-    De siste tre årene har jeg bygget produkter. KI tar det repetitive arbeidet.
-    Timene går tilbake til innsiktsarbeid og til menneskene produktet er laget for.
-    Jeg ser forskjell på et resultat som er godt og et som bare ser godt ut.
+    <span class="s">De siste tre årene har jeg bygget produkter.</span>
+    <span class="s">KI tar det repetitive arbeidet.</span>
+    <span class="s">Timene går tilbake til innsiktsarbeid og til menneskene produktet er laget for.</span>
+    <span class="s">Jeg ser forskjell på et resultat som er godt og et som bare ser godt ut.</span>
   </p>
 
   <div class="sec-h">Arbeid <span class="when">2023 – nå</span></div>
