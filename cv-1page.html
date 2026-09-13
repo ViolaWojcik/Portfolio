@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Wioleta Wójcik — One-Page CV</title>
+<title>Wioleta Wójcik — CV</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -17,7 +17,7 @@
   --ground:     #F8F5EF;
   --ink:        #1A1917;
   --ink-soft:   #423E37;
-  --ink-mute:   #8E887C;
+  --ink-mute:   #726D62;
   --hair:       #E0DACE;
   --accent:     #6D5C9D;
   --accent-hair:rgba(109,92,157,.42);
@@ -27,10 +27,11 @@
 
   /* tighter than the full CV — one page must hold everything,
      but spaced to fill the A4 sheet so it doesn't read top-heavy */
-  --gap-module: 24px;   /* before every section heading */
-  --gap-item:   17px;   /* before every job block */
+  --gap-module: 16px;   /* before every section heading */
+  --gap-item:   13px;   /* before every job block */
   --gap-head:   13px;   /* section heading → its first content */
   --gap-bullet:  6px;   /* between bullets */
+  --measure:    74ch;   /* one cap on every run of prose */
 }
 
 @page{ size:A4; margin:15mm 16mm; }
@@ -45,8 +46,8 @@ html{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 body{
   font-family:var(--font-ui);
   color:var(--ink-soft);
-  font-size:11px;
-  line-height:1.6;
+  font-size:11.4px;
+  line-height:1.58;
   letter-spacing:.003em;
 }
 .doc{ background:var(--ground); }
@@ -68,7 +69,7 @@ a{
 .head-l{ display:flex; align-items:center; gap:18px; }
 .name{
   font-family:var(--font-display); font-weight:400;
-  font-size:50px; line-height:.9; letter-spacing:-.02em; color:var(--ink);
+  font-size:42px; line-height:.95; letter-spacing:-.02em; color:var(--ink);
 }
 .role{
   margin-top:10px; font-size:10px; font-weight:500;
@@ -88,22 +89,23 @@ a{
 .sec-h::before{ content:''; width:20px; height:2px; border-radius:2px; background:var(--accent); flex:none; }
 
 /* ---------- overview ---------- */
-.lead-1{ font-family:var(--font-display); font-size:25px; line-height:1.2; color:var(--ink); margin-bottom:11px; letter-spacing:-.006em; }
-.lead-p{ font-size:12px; line-height:1.7; color:var(--ink-soft); max-width:82ch; }
+.lead-1{ font-family:var(--font-display); font-size:22px; line-height:1.2; color:var(--ink); margin-bottom:11px; letter-spacing:-.006em; }
+.lead-p{ font-size:11.8px; line-height:1.62; color:var(--ink-soft); max-width:var(--measure); }
+.lead-p .s{ display:block; padding-left:11px; text-indent:-11px; }
 
 /* ---------- experience ---------- */
 .item{ margin-top:var(--gap-item); }
 .sec-h + .item{ margin-top:0; }
 .entry-top{ display:flex; justify-content:space-between; align-items:baseline; gap:16px; }
-.entry-t{ font-family:var(--font-display); font-size:19px; line-height:1.12; color:var(--ink); letter-spacing:-.005em; }
-.entry-d{ font-size:9px; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-mute); white-space:nowrap; flex:none; }
-.entry-sum{ font-size:11px; color:var(--ink-soft); margin-top:5px; max-width:88ch; }
+.entry-t{ font-family:var(--font-ui); font-weight:600; font-size:13.5px; line-height:1.25; color:var(--ink); letter-spacing:-.004em; }
+.entry-d{ font-size:10px; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-mute); white-space:nowrap; flex:none; }
+.entry-sum{ font-size:11.4px; color:var(--ink-soft); margin-top:6px; max-width:var(--measure); }
 
 /* project one-liners under a company */
 ul{ list-style:none; margin-top:7px; }
 li{
   position:relative; padding-left:15px; margin:var(--gap-bullet) 0;
-  font-size:11px; line-height:1.55; color:var(--ink-soft);
+  font-size:11.4px; line-height:1.55; color:var(--ink-soft); max-width:var(--measure);
   break-inside:avoid;
 }
 li::before{ content:''; position:absolute; left:0; top:8px; width:3.5px; height:3.5px; border-radius:50%; background:var(--accent); opacity:.8; }
@@ -115,22 +117,29 @@ li .pj{ font-weight:600; color:var(--ink); }
 .grid2 > div{ flex:1 1 0; min-width:0; }
 .edu{ margin-top:11px; }
 .sec-h + .edu, .grid2 .edu:first-child{ margin-top:0; }
-.edu-t{ font-family:var(--font-display); font-size:15.5px; color:var(--ink); line-height:1.15; }
-.edu-m{ font-size:9px; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-mute); margin-top:4px; }
+.edu-t{ font-family:var(--font-ui); font-weight:600; font-size:12px; color:var(--ink); line-height:1.3; }
+.edu-m{ font-size:10px; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-mute); margin-top:4px; }
 .langs{ font-size:11.5px; color:var(--ink-soft); line-height:1.85; }
 .langs b{ color:var(--ink); font-weight:600; letter-spacing:.04em; }
 
-/* ---------- skills ---------- */
-.chips{ display:flex; flex-wrap:wrap; gap:7px; }
-.chip{
-  font-size:10px; letter-spacing:.02em; color:var(--ink-soft);
-  background:var(--accent-tint); border:.75px solid rgba(109,92,157,.3);
-  padding:5px 11px; border-radius:20px;
-}
+/* ---------- skills: the same quiet register as the full CV ---------- */
+.reg{ display:grid; grid-template-columns:100px 1fr; column-gap:14px; row-gap:7px; align-items:baseline;
+  /* the closing data block: its own air, so the first label is not read as
+     part of the paragraph above it */
+  margin-top:16px; padding-top:12px; border-top:1px solid var(--hair); }
+.reg dt{ font-size:10.8px; font-weight:600; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); padding-top:1px; }
+.reg dd{ font-size:10.8px; line-height:1.6; color:var(--ink-soft); max-width:var(--measure); }
+.reg dd b{ color:var(--ink); font-weight:500; }
+.reg dd .t, .roster .t{ display:inline-block; }
+.reg dd .t:not(:first-child)::before, .roster .t:not(:first-child)::before{ content:"\00b7\00a0"; color:var(--ink-mute); }
+
+/* the audited-companies line, set apart the way it is in the full CV */
+.roster{ margin-top:7px; padding-left:14px; font-size:10.2px; line-height:1.6;
+  color:var(--ink-mute); border-left:2px solid var(--accent-hair); max-width:var(--measure); }
 
 /* ---------- footer ---------- */
-.foot{ margin-top:18px; padding-top:11px; border-top:1px solid var(--hair);
-  font-size:10px; color:var(--ink-mute); letter-spacing:.02em; }
+.foot{ margin-top:11px; padding-top:0;
+  font-size:10.5px; color:var(--ink-mute); letter-spacing:.02em; }
 .foot .consent{ margin-top:5px; font-size:9px; }
 </style>
 </head>
@@ -138,99 +147,123 @@ li .pj{ font-weight:600; color:var(--ink); }
 <div class="doc">
 
   <header class="head">
-    <div class="head-l">
-      <div>
-        <div class="name">Wioleta Wójcik</div>
-        <div class="role">Service Designer · Architect</div>
-      </div>
+    <div>
+      <div class="name">Wioleta Maria Wójcik</div>
+      <div class="role">AI Product Design · Digital Accessibility · Design Engineer</div>
     </div>
     <div class="contact">
       <div><a href="mailto:wioleta.maria.wojcik@gmail.com">wioleta.maria.wojcik@gmail.com</a></div>
-      <div>+47 484 62 641 · Oslo, Norway</div>
-      <div class="lnk"><a href="https://wioletawojcik.com">wioletawojcik.com</a> · <a href="https://www.linkedin.com/in/wioleta-maria-w%C3%B3jcik-7512a389/">LinkedIn</a></div>
+      <div>Oslo, Norway · +47&nbsp;484&nbsp;62&nbsp;641</div>
+      <div><a href="https://wioletawojcik.com">wioletawojcik.com</a> · <a href="https://www.linkedin.com/in/wioleta-maria-w%C3%B3jcik-7512a389/">LinkedIn</a></div>
     </div>
   </header>
   <div class="rule"></div>
 
-  <!-- ══ POSITIONING ══ -->
-  <div class="sec-h">Overview</div>
   <div class="lead-1">I design where space, systems, and people meet.</div>
   <p class="lead-p">
-    I bring an architect's background to service design for social and public challenges.<br>
-    It's grounded in eight years of research-first, end-to-end product design.<br>
-    AI is central to how I work: it turns research into working products.
+    <span class="s">Eight years in design: three as an architect, five in UX for booking and e-commerce.</span>
+    <span class="s">Universal design is the thread through both: the question of who gets in.</span>
+  </p>
+  <p class="lead-p" style="margin-top:8px">
+    <span class="s">For the last three years I have been building. AI carries the repetitive work.</span>
+    <span class="s">The hours go back to research and to the people a product is for.</span>
+    <span class="s">I can tell when a result is good and when it only looks good.</span>
   </p>
 
-  <!-- ══ EXPERIENCE ══ -->
-  <div class="sec-h">Selected Experience</div>
+  <div class="sec-h">Practice</div>
 
   <div class="item">
-    <div class="entry-top">
-      <div class="entry-t">Independent Product Work &amp; AI Product Masterclass</div>
-      <div class="entry-d">2023 – current</div>
-    </div>
-    <div class="entry-sum">Independent design practice combining UX methodology with AI tools to take ideas from concept to shipped product. Completed the 5-week masterclass (Jun – Jul 2026). Published “Magic Star”, a children's book on Amazon.</div>
-  </div>
-
-  <div class="item">
-    <div class="entry-top">
-      <div class="entry-t">Nowa Itaka / Axabee — UX &amp; Interface Designer</div>
-      <div class="entry-d">2018 – 2023 · in-house product studio</div>
-    </div>
-    <div class="entry-sum">Owned the full service-design lifecycle across a travel platform — discovery research, journey mapping, prototyping, design systems, and design QA with engineering.</div>
+    <div class="entry-top"><div class="entry-t">Building with AI — <a href="https://wioletawojcik.com/between-the-lines.html">Between the Lines</a></div><div class="entry-d">2023 – current</div></div>
+    <div class="entry-sum">A journalling product taken to production: accounts and authorisation, subscriptions and payments, semantic search, and an interface a keyboard alone can drive. Led the build from architecture through acceptance, with AI as the accelerator and the design done in code.</div>
     <ul>
-      <li><span class="pj"><a href="https://www.axabee.com/case-studies/repapp">RepApp</a></span> — tablet service bridging physical and digital field work: <span class="metric">−50% airport waiting time</span>, <span class="metric">−30% office work</span>.</li>
-      <li><span class="pj"><a href="https://www.axabee.com/case-studies/e-commerce-website">Itaka 3.0</a></span> — service audit + booking redesign: <span class="metric">+20% cart value</span>, <span class="metric">+50% mobile conversion</span>.</li>
-      <li><span class="pj"><a href="https://www.resabee.com/">Resabee</a></span> — enterprise booking service, <span class="metric">1.4M annual reservations</span>.</li>
-      <li><span class="pj"><a href="https://www.axabee.com/case-studies/e-commerce-mobile-app">Itaka App</a></span> — mobile optimization: <span class="metric">Mobile Trends Award</span>, <span class="metric">+210% YoY sales</span>, 4.7/5 rating.</li>
+      <li><span class="pj">Live today</span> <span class="metric">47 automated checks</span> · <span class="metric">Lighthouse accessibility 100 on every page</span></li>
     </ul>
   </div>
 
   <div class="item">
-    <div class="entry-top">
-      <div class="entry-t">Vita Management — Architect</div>
-      <div class="entry-d">2016 – 2018</div>
-    </div>
-    <div class="entry-sum">Audited oncological hospital complexes through a service lens. Mapped patient journeys and staff flows across departments to remove bottlenecks and improve how people navigate complex care environments; translated findings into spatial and functional recommendations.</div>
-  </div>
-
-  <!-- ══ EDUCATION + LANGUAGES ══ -->
-  <div class="grid2">
-    <div>
-      <div class="sec-h">Education</div>
-      <div class="edu">
-        <div class="edu-t">User Experience Design</div>
-        <div class="edu-m">SWPS University, Poland · Postgraduate</div>
-      </div>
-      <div class="edu">
-        <div class="edu-t">Architecture &amp; Urban Planning</div>
-        <div class="edu-m">Wrocław Univ. of Technology<br>M.A., Heritage Conservation</div>
-      </div>
-    </div>
-    <div>
-      <div class="sec-h">Languages</div>
-      <div class="langs">
-        <b>English</b> (C1)<br>
-        <b>Polish</b> (native)<br>
-        <b>Norwegian</b> <span class="metric">(in intensive training at Speak Norsk, Oslo)</span><br>
-        <b>Spanish</b> (A2)
-      </div>
+    <div class="entry-top"><div class="entry-t">Accessibility — thirteen WCAG reviews of Norwegian websites</div><div class="entry-d">2026</div></div>
+    <div class="entry-sum">Four confirmed WCAG 2.1 AA failures and one judgement call in each review, with the repair written beside every finding. Confirmed by hand in the browser, never by scanner alone.</div>
+    <div class="roster">
+      <span class="t">Bane NOR</span>
+      <span class="t">DNB</span>
+      <span class="t">Gjensidige</span>
+      <span class="t">NorgesGruppen</span>
+      <span class="t">Oda</span>
+      <span class="t">Posten Bring</span>
+      <span class="t">Ruter</span>
+      <span class="t">Solibo</span>
+      <span class="t">Standard Online</span>
+      <span class="t">Storebrand</span>
+      <span class="t">Telenor</span>
+      <span class="t">TINE</span>
+      <span class="t">Vipps MobilePay</span>
     </div>
   </div>
 
-  <!-- ══ SKILLS ══ -->
-  <div class="sec-h">Skills &amp; Tools</div>
-  <div class="chips">
-    <span class="chip">Service design</span><span class="chip">Service blueprints</span>
-    <span class="chip">Journey mapping</span><span class="chip">User research</span>
-    <span class="chip">Stakeholder workshops</span><span class="chip">Prototyping (Figma)</span>
-    <span class="chip">WCAG 2.2</span><span class="chip">AI-native workflows (Claude Code)</span>
+  <div class="sec-h">Selected Experience</div>
+
+  <div class="item">
+    <div class="entry-top"><div class="entry-t">Nowa Itaka / Axabee — UX &amp; Interface Designer</div><div class="entry-d">2018 – 2023 · in-house product studio</div></div>
+    <div class="entry-sum">Owned the full service-design lifecycle across a travel platform: discovery research, journey mapping, prototypes in Figma, usability testing, and the design system.</div>
+    <ul>
+      <li><span class="pj">RepApp</span> <span class="metric">−50% airport waiting time</span> · <span class="metric">−30% office work</span> · <span class="pj">Itaka 3.0</span> <span class="metric">+20% cart value</span> · <span class="metric">+50% mobile conversion</span></li>
+      <li><span class="pj">Resabee</span> <span class="metric">1.4M annual reservations</span> · <span class="pj">Itaka App</span> <span class="metric">Mobile Trends Award</span> · <span class="metric">+210% YoY sales</span></li>
+    </ul>
   </div>
 
-  <div class="foot">
-    <div>References available on request</div>
-    <div class="consent">I consent to the processing of my personal data for recruitment purposes under the GDPR (Regulation EU 2016/679).</div>
+  <div class="item">
+    <div class="entry-top"><div class="entry-t">Vita Management — Architect</div><div class="entry-d">2016 – 2018</div></div>
+    <div class="entry-sum">Audited oncological hospital complexes through a service lens, mapping patient journeys and staff flows. Accessible design in a protected heritage building: routes into parts people with disabilities could not reach.</div>
   </div>
+
+  <dl class="reg">
+    <dt>AI &amp; build</dt>
+    <dd>
+      <span class="t"><b>Claude Code</b></span>
+      <span class="t">Claude Design</span>
+      <span class="t">Figma MCP</span>
+      <span class="t">React and TypeScript</span>
+      <span class="t">Supabase and Postgres</span>
+      <span class="t">pgvector</span>
+      <span class="t">Stripe</span>
+      <span class="t">Playwright</span>
+      <span class="t">Lighthouse</span>
+    </dd>
+    <dt>Accessibility</dt>
+    <dd>
+      <span class="t"><b>WCAG 2.1 AA and 2.2</b></span>
+      <span class="t">EN 301 549</span>
+      <span class="t">universell utforming</span>
+      <span class="t">manual audit</span>
+      <span class="t">keyboard and focus testing</span>
+      <span class="t">tilgjengelighetserklæring</span>
+    </dd>
+    <dt>Design</dt>
+    <dd>
+      <span class="t"><b>User research</b></span>
+      <span class="t">usability testing</span>
+      <span class="t">journey mapping</span>
+      <span class="t">service blueprints</span>
+      <span class="t">information architecture</span>
+      <span class="t">stakeholder workshops</span>
+      <span class="t">specs and documentation</span>
+      <span class="t">Figma</span>
+    </dd>
+    <dt>Education</dt>
+    <dd>
+      <span class="t">User Experience Design, SWPS University, Poland</span>
+      <span class="t">Architecture &amp; Urban Planning, Wrocław Univ. of Technology, M.A. heritage conservation</span>
+    </dd>
+    <dt>Languages</dt>
+    <dd>
+      <span class="t">English (C1)</span>
+      <span class="t">Polish (native)</span>
+      <span class="t"><b>Norwegian (in intensive training at Speak Norsk, Oslo)</b></span>
+      <span class="t">Spanish (A2)</span>
+    </dd>
+  </dl>
+
+  <div class="foot">References on request</div>
 
 </div>
 </body>

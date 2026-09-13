@@ -29,11 +29,8 @@
 /optimize-assets.py
 
 # CV build pipeline. The HTML sources and the build scripts ARE tracked: the
-# published PDF is a build artefact, and for a while its only source lived on
-# one laptop. The one-page PDFs stay out until they are rewritten to match the
-# three-page CV, so a stale CV is not sitting at a guessable public URL.
-/Wioleta-Wojcik-1page.pdf
-/Wioleta-Wojcik-1page-NO.pdf
+# published PDFs are build artefacts, and for a while their only source lived
+# on one laptop. The two dead drafts below are superseded and stay out.
 /Wioleta-Wojcik-CV-original.pdf
 /Wioleta-Wojcik-CV-styled.pdf
 

@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-<html lang="no">
+<html lang="nb">
 <head>
 <meta charset="utf-8">
-<title>Wioleta Wójcik — CV (én side)</title>
+<title>Wioleta Wójcik — CV</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* =========================================================
-   ONE-PAGE CV (Norwegian / Bokmål) — condensed leave-behind.
-   Same :root tokens as cv-1page.html; only the copy changes.
-   Norwegian is a working draft — verify with a native speaker.
+   ONE-PAGE CV — condensed leave-behind for email.
+   Same :root tokens as the portfolio site & the full CV
+   (cv.html). Tighter spacing scale so the whole story fits
+   on a single A4 page. Service-design emphasis.
    ========================================================= */
 :root{
   --ground:     #F8F5EF;
   --ink:        #1A1917;
   --ink-soft:   #423E37;
-  --ink-mute:   #8E887C;
+  --ink-mute:   #726D62;
   --hair:       #E0DACE;
   --accent:     #6D5C9D;
   --accent-hair:rgba(109,92,157,.42);
@@ -24,24 +25,29 @@
   --font-display:'Instrument Serif','Iowan Old Style',Georgia,serif;
   --font-ui:'Inter',ui-sans-serif,-apple-system,'Segoe UI',sans-serif;
 
-  /* slightly tighter than EN — Norwegian copy runs longer, must still fit one page */
-  --gap-module: 19px;
-  --gap-item:   13px;
-  --gap-head:   11px;
-  --gap-bullet:  5px;
+  /* tighter than the full CV — one page must hold everything,
+     but spaced to fill the A4 sheet so it doesn't read top-heavy */
+  --gap-module: 16px;   /* before every section heading */
+  --gap-item:   13px;   /* before every job block */
+  --gap-head:   13px;   /* section heading → its first content */
+  --gap-bullet:  6px;   /* between bullets */
+  --measure:    74ch;   /* one cap on every run of prose */
 }
 
 @page{ size:A4; margin:15mm 16mm; }
 
 *{box-sizing:border-box;margin:0;padding:0;}
+/* ivory body (not white): one page rarely fills to the bottom, so the
+   body background — not just .doc — must carry the ground colour, or a
+   white gap shows below the content. PyMuPDF still fills the @page margins. */
 html,body{ background:var(--ground); }
 html{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 
 body{
   font-family:var(--font-ui);
   color:var(--ink-soft);
-  font-size:11px;
-  line-height:1.6;
+  font-size:11.4px;
+  line-height:1.58;
   letter-spacing:.003em;
 }
 .doc{ background:var(--ground); }
@@ -63,14 +69,14 @@ a{
 .head-l{ display:flex; align-items:center; gap:18px; }
 .name{
   font-family:var(--font-display); font-weight:400;
-  font-size:50px; line-height:.9; letter-spacing:-.02em; color:var(--ink);
+  font-size:42px; line-height:.95; letter-spacing:-.02em; color:var(--ink);
 }
 .role{
   margin-top:10px; font-size:10px; font-weight:500;
   letter-spacing:.24em; text-transform:uppercase; color:var(--accent);
 }
 .contact{ text-align:right; font-size:10px; line-height:1.95; color:var(--ink-soft); }
-.rule{ height:1px; background:var(--hair); margin:15px 0 0; }
+.rule{ height:1px; background:var(--hair); margin:18px 0 0; }
 
 /* ---------- section headings ---------- */
 .sec-h{
@@ -83,22 +89,23 @@ a{
 .sec-h::before{ content:''; width:20px; height:2px; border-radius:2px; background:var(--accent); flex:none; }
 
 /* ---------- overview ---------- */
-.lead-1{ font-family:var(--font-display); font-size:25px; line-height:1.2; color:var(--ink); margin-bottom:11px; letter-spacing:-.006em; }
-.lead-p{ font-size:12px; line-height:1.7; color:var(--ink-soft); max-width:82ch; }
+.lead-1{ font-family:var(--font-display); font-size:22px; line-height:1.2; color:var(--ink); margin-bottom:11px; letter-spacing:-.006em; }
+.lead-p{ font-size:11.8px; line-height:1.62; color:var(--ink-soft); max-width:var(--measure); }
+.lead-p .s{ display:block; padding-left:11px; text-indent:-11px; }
 
 /* ---------- experience ---------- */
 .item{ margin-top:var(--gap-item); }
 .sec-h + .item{ margin-top:0; }
 .entry-top{ display:flex; justify-content:space-between; align-items:baseline; gap:16px; }
-.entry-t{ font-family:var(--font-display); font-size:19px; line-height:1.12; color:var(--ink); letter-spacing:-.005em; }
-.entry-d{ font-size:9px; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-mute); white-space:nowrap; flex:none; }
-.entry-sum{ font-size:11px; color:var(--ink-soft); margin-top:5px; max-width:88ch; }
+.entry-t{ font-family:var(--font-ui); font-weight:600; font-size:13.5px; line-height:1.25; color:var(--ink); letter-spacing:-.004em; }
+.entry-d{ font-size:10px; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-mute); white-space:nowrap; flex:none; }
+.entry-sum{ font-size:11.4px; color:var(--ink-soft); margin-top:6px; max-width:var(--measure); }
 
 /* project one-liners under a company */
 ul{ list-style:none; margin-top:7px; }
 li{
   position:relative; padding-left:15px; margin:var(--gap-bullet) 0;
-  font-size:11px; line-height:1.55; color:var(--ink-soft);
+  font-size:11.4px; line-height:1.55; color:var(--ink-soft); max-width:var(--measure);
   break-inside:avoid;
 }
 li::before{ content:''; position:absolute; left:0; top:8px; width:3.5px; height:3.5px; border-radius:50%; background:var(--accent); opacity:.8; }
@@ -110,22 +117,29 @@ li .pj{ font-weight:600; color:var(--ink); }
 .grid2 > div{ flex:1 1 0; min-width:0; }
 .edu{ margin-top:11px; }
 .sec-h + .edu, .grid2 .edu:first-child{ margin-top:0; }
-.edu-t{ font-family:var(--font-display); font-size:15.5px; color:var(--ink); line-height:1.15; }
-.edu-m{ font-size:9px; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-mute); margin-top:4px; }
+.edu-t{ font-family:var(--font-ui); font-weight:600; font-size:12px; color:var(--ink); line-height:1.3; }
+.edu-m{ font-size:10px; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-mute); margin-top:4px; }
 .langs{ font-size:11.5px; color:var(--ink-soft); line-height:1.85; }
 .langs b{ color:var(--ink); font-weight:600; letter-spacing:.04em; }
 
-/* ---------- skills ---------- */
-.chips{ display:flex; flex-wrap:wrap; gap:7px; }
-.chip{
-  font-size:10px; letter-spacing:.02em; color:var(--ink-soft);
-  background:var(--accent-tint); border:.75px solid rgba(109,92,157,.3);
-  padding:5px 11px; border-radius:20px;
-}
+/* ---------- skills: the same quiet register as the full CV ---------- */
+.reg{ display:grid; grid-template-columns:118px 1fr; column-gap:14px; row-gap:7px; align-items:baseline;
+  /* the closing data block: its own air, so the first label is not read as
+     part of the paragraph above it */
+  margin-top:16px; padding-top:12px; border-top:1px solid var(--hair); }
+.reg dt{ font-size:10.8px; font-weight:600; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); padding-top:1px; }
+.reg dd{ font-size:10.8px; line-height:1.6; color:var(--ink-soft); max-width:var(--measure); }
+.reg dd b{ color:var(--ink); font-weight:500; }
+.reg dd .t, .roster .t{ display:inline-block; }
+.reg dd .t:not(:first-child)::before, .roster .t:not(:first-child)::before{ content:"\00b7\00a0"; color:var(--ink-mute); }
+
+/* the audited-companies line, set apart the way it is in the full CV */
+.roster{ margin-top:7px; padding-left:14px; font-size:10.2px; line-height:1.6;
+  color:var(--ink-mute); border-left:2px solid var(--accent-hair); max-width:var(--measure); }
 
 /* ---------- footer ---------- */
-.foot{ margin-top:18px; padding-top:11px; border-top:1px solid var(--hair);
-  font-size:10px; color:var(--ink-mute); letter-spacing:.02em; }
+.foot{ margin-top:11px; padding-top:0;
+  font-size:10.5px; color:var(--ink-mute); letter-spacing:.02em; }
 .foot .consent{ margin-top:5px; font-size:9px; }
 </style>
 </head>
@@ -133,99 +147,123 @@ li .pj{ font-weight:600; color:var(--ink); }
 <div class="doc">
 
   <header class="head">
-    <div class="head-l">
-      <div>
-        <div class="name">Wioleta Wójcik</div>
-        <div class="role">Tjenestedesigner · Arkitekt</div>
-      </div>
+    <div>
+      <div class="name">Wioleta Maria Wójcik</div>
+      <div class="role">KI-produktdesign · Universell utforming · Designutvikler</div>
     </div>
     <div class="contact">
       <div><a href="mailto:wioleta.maria.wojcik@gmail.com">wioleta.maria.wojcik@gmail.com</a></div>
-      <div>+47 484 62 641 · Oslo, Norge</div>
-      <div class="lnk"><a href="https://wioletawojcik.com">wioletawojcik.com</a> · <a href="https://www.linkedin.com/in/wioleta-maria-w%C3%B3jcik-7512a389/">LinkedIn</a></div>
+      <div>Oslo, Norge · +47&nbsp;484&nbsp;62&nbsp;641</div>
+      <div><a href="https://wioletawojcik.com">wioletawojcik.com</a> · <a href="https://www.linkedin.com/in/wioleta-maria-w%C3%B3jcik-7512a389/">LinkedIn</a></div>
     </div>
   </header>
   <div class="rule"></div>
 
-  <!-- ══ OM MEG ══ -->
-  <div class="sec-h">Om meg</div>
   <div class="lead-1">Jeg designer løsninger der mennesker, systemer og rom møtes.</div>
   <p class="lead-p">
-    Jeg tar med meg en arkitektbakgrunn inn i tjenestedesign for å møte sosiale og offentlige utfordringer.<br>
-    Erfaringen min bygger på åtte år med researchdrevet produktdesign fra start til slutt.<br>
-    KI er en integrert del av arbeidsprosessen min og hjelper meg å omsette research til et fungerende produkt.
+    <span class="s">Åtte år i design: tre som arkitekt og fem i UX for booking og e-handel.</span>
+    <span class="s">Universell utforming er den røde tråden gjennom begge: hvem som slipper inn.</span>
+  </p>
+  <p class="lead-p" style="margin-top:8px">
+    <span class="s">De siste tre årene har jeg bygget produkter. KI tar det repetitive arbeidet.</span>
+    <span class="s">Timene går tilbake til innsiktsarbeid og til menneskene produktet er laget for.</span>
+    <span class="s">Jeg ser forskjell på et resultat som er godt og et som bare ser godt ut.</span>
   </p>
 
-  <!-- ══ ERFARING ══ -->
-  <div class="sec-h">Utvalgt erfaring</div>
+  <div class="sec-h">Arbeid</div>
 
   <div class="item">
-    <div class="entry-top">
-      <div class="entry-t">Selvstendig produktarbeid &amp; AI Product Masterclass</div>
-      <div class="entry-d">2023 – nå</div>
-    </div>
-    <div class="entry-sum">Selvstendig designpraksis som kombinerer UX-metodikk med KI-verktøy (Claude Code, Figma MCP) for å utvikle idéer fra konsept til lansert produkt. Fullførte AI Product Masterclass, et 5-ukers intensivkurs (jun. – jul. 2026). Publiserte barneboken «Magic Star» på Amazon.</div>
-  </div>
-
-  <div class="item">
-    <div class="entry-top">
-      <div class="entry-t">Nowa Itaka / Axabee — UX- &amp; grensesnittdesigner</div>
-      <div class="entry-d">2018 – 2023 · internt produktstudio</div>
-    </div>
-    <div class="entry-sum">Hadde ansvar for hele tjenestedesignprosessen på en reiseplattform, fra innsiktsarbeid og kartlegging av kundereiser til prototyping, utvikling av designsystemer og kvalitetssikring av design i samarbeid med utviklingsteamet.</div>
+    <div class="entry-top"><div class="entry-t">Å bygge med KI — <a href="https://wioletawojcik.com/between-the-lines.html">Between the Lines</a></div><div class="entry-d">2023 – nå</div></div>
+    <div class="entry-sum">Et dagbokprodukt satt i produksjon: kontoer og autorisasjon, abonnement og betaling, semantisk søk, og et grensesnitt som kan betjenes med tastatur alene. Ledet byggingen fra arkitektur til godkjenning, med KI som akselerator og designarbeidet gjort i kode.</div>
     <ul>
-      <li><span class="pj"><a href="https://www.axabee.com/case-studies/repapp">RepApp</a></span> — nettbrettbasert tjeneste for reiseledere, som bygger bro mellom fysisk og digitalt feltarbeid: <span class="metric">−50&nbsp;% ventetid på flyplass</span>, <span class="metric">−30&nbsp;% kontorarbeid</span>.</li>
-      <li><span class="pj"><a href="https://www.axabee.com/case-studies/e-commerce-website">Itaka 3.0</a></span> — tjenesterevisjon og redesign av en personalisert e-handelsplattform for planlegging og bestilling av reiser: <span class="metric">+20&nbsp;% handlekurvverdi</span>, <span class="metric">+50&nbsp;% mobilkonvertering</span>.</li>
-      <li><span class="pj"><a href="https://www.resabee.com/">Resabee</a></span> — bookingtjeneste for bedrifter, <span class="metric">1,4&nbsp;mill. reservasjoner årlig</span>.</li>
-      <li><span class="pj"><a href="https://www.axabee.com/case-studies/e-commerce-mobile-app">Itaka App</a></span> — mobiloptimalisering: <span class="metric">Mobile Trends Award</span>, <span class="metric">+210&nbsp;% salg år over år</span>, 4,7/5 i vurdering.</li>
+      <li><span class="pj">I drift i dag</span> <span class="metric">47 automatiserte tester</span> · <span class="metric">Lighthouse universell utforming 100 på hver side</span></li>
     </ul>
   </div>
 
   <div class="item">
-    <div class="entry-top">
-      <div class="entry-t">Vita Management — Arkitekt</div>
-      <div class="entry-d">2016 – 2018</div>
-    </div>
-    <div class="entry-sum">Analyserte onkologiske sykehuskomplekser gjennom et tjenesteperspektiv. Kartla pasientforløp og personalflyt på tvers av avdelinger for å identifisere flaskehalser, forbedre orienterbarhet og utvikle romlige og funksjonelle løsningsforslag.</div>
-  </div>
-
-  <!-- ══ UTDANNING + SPRÅK ══ -->
-  <div class="grid2">
-    <div>
-      <div class="sec-h">Utdanning</div>
-      <div class="edu">
-        <div class="edu-t">User Experience Design</div>
-        <div class="edu-m">SWPS University, Polen · Videreutdanning</div>
-      </div>
-      <div class="edu">
-        <div class="edu-t">Arkitektur og byplanlegging</div>
-        <div class="edu-m">Wrocław tekniske universitet<br>Master, kulturminnevern</div>
-      </div>
-    </div>
-    <div>
-      <div class="sec-h">Språk</div>
-      <div class="langs">
-        <b>Engelsk</b> (C1)<br>
-        <b>Polsk</b> (morsmål)<br>
-        <b>Norsk</b> <span class="metric">(intensivkurs ved Speak Norsk, pågår)</span><br>
-        <b>Spansk</b> (A2)
-      </div>
+    <div class="entry-top"><div class="entry-t">Universell utforming — tretten WCAG-gjennomganger av norske nettsteder</div><div class="entry-d">2026</div></div>
+    <div class="entry-sum">Fire bekreftede avvik fra WCAG 2.1 AA og én skjønnsvurdering i hver gjennomgang, med utbedringen skrevet ved siden av hvert funn. Bekreftet for hånd i nettleseren, aldri med skanner alene, og det som ikke er testet, er nevnt.</div>
+    <div class="roster">
+      <span class="t">Bane NOR</span>
+      <span class="t">DNB</span>
+      <span class="t">Gjensidige</span>
+      <span class="t">NorgesGruppen</span>
+      <span class="t">Oda</span>
+      <span class="t">Posten Bring</span>
+      <span class="t">Ruter</span>
+      <span class="t">Solibo</span>
+      <span class="t">Standard Online</span>
+      <span class="t">Storebrand</span>
+      <span class="t">Telenor</span>
+      <span class="t">TINE</span>
+      <span class="t">Vipps MobilePay</span>
     </div>
   </div>
 
-  <!-- ══ FERDIGHETER ══ -->
-  <div class="sec-h">Ferdigheter og verktøy</div>
-  <div class="chips">
-    <span class="chip">Tjenestedesign</span><span class="chip">Service blueprints</span>
-    <span class="chip">Kundereiser</span><span class="chip">Brukerinnsikt</span>
-    <span class="chip">Interessent-workshops</span><span class="chip">Prototyping (Figma)</span>
-    <span class="chip">WCAG 2.2</span><span class="chip">KI-drevet arbeidsflyt (Claude Code)</span>
+  <div class="sec-h">Utvalgt erfaring</div>
+
+  <div class="item">
+    <div class="entry-top"><div class="entry-t">Nowa Itaka / Axabee — UX- og grensesnittdesigner</div><div class="entry-d">2018 – 2023 · internt produktstudio</div></div>
+    <div class="entry-sum">Hadde ansvar for hele tjenestedesignprosessen på en reiseplattform: innsiktsarbeid, kundereisekart, prototyper i Figma, brukertesting og designsystemet.</div>
+    <ul>
+      <li><span class="pj">RepApp</span> <span class="metric">−50 % ventetid på flyplassen</span> · <span class="metric">−30 % kontorarbeid</span> · <span class="pj">Itaka 3.0</span> <span class="metric">+20 % handlekurvverdi</span></li>
+      <li><span class="pj">Resabee</span> <span class="metric">1,4 mill. reservasjoner årlig</span> · <span class="pj">Itaka App</span> <span class="metric">Mobile Trends Award</span> · <span class="metric">+210 % salg</span></li>
+    </ul>
   </div>
 
-  <div class="foot">
-    <div>Referanser oppgis på forespørsel</div>
-    <div class="consent">Jeg samtykker til behandling av mine personopplysninger for rekrutteringsformål i henhold til personvernforordningen (GDPR, forordning (EU) 2016/679).</div>
+  <div class="item">
+    <div class="entry-top"><div class="entry-t">Vita Management — Arkitekt</div><div class="entry-d">2016 – 2018</div></div>
+    <div class="entry-sum">Analyserte onkologiske sykehuskomplekser gjennom et tjenesteperspektiv og kartla pasientforløp og personalflyt. Universell utforming i et verneverdig bygg: atkomst til deler mennesker med nedsatt funksjonsevne ikke nådde fram til.</div>
   </div>
+
+  <dl class="reg">
+    <dt>KI og bygging</dt>
+    <dd>
+      <span class="t"><b>Claude Code</b></span>
+      <span class="t">Claude Design</span>
+      <span class="t">Figma MCP</span>
+      <span class="t">React og TypeScript</span>
+      <span class="t">Supabase og Postgres</span>
+      <span class="t">pgvector</span>
+      <span class="t">Stripe</span>
+      <span class="t">Playwright</span>
+      <span class="t">Lighthouse</span>
+    </dd>
+    <dt>Univ. utforming</dt>
+    <dd>
+      <span class="t"><b>WCAG 2.1 AA og 2.2</b></span>
+      <span class="t">EN 301 549</span>
+      <span class="t">manuell gjennomgang</span>
+      <span class="t">tastatur- og fokustesting</span>
+      <span class="t">dynamisk tilpasning</span>
+      <span class="t">tilgjengelighetserklæring</span>
+    </dd>
+    <dt>Design</dt>
+    <dd>
+      <span class="t"><b>Brukerinnsikt</b></span>
+      <span class="t">brukertesting</span>
+      <span class="t">kundereisekart</span>
+      <span class="t">service blueprints</span>
+      <span class="t">informasjonsarkitektur</span>
+      <span class="t">interessentworkshops</span>
+      <span class="t">spesifikasjoner og dokumentasjon</span>
+      <span class="t">Figma</span>
+    </dd>
+    <dt>Utdanning</dt>
+    <dd>
+      <span class="t">User Experience Design, SWPS University, Polen</span>
+      <span class="t">Arkitektur og byplanlegging, Wrocław tekniske universitet, master, kulturminnevern</span>
+    </dd>
+    <dt>Språk</dt>
+    <dd>
+      <span class="t">Engelsk (C1)</span>
+      <span class="t">Polsk (morsmål)</span>
+      <span class="t"><b>Norsk (intensivkurs ved Speak Norsk, pågår)</b></span>
+      <span class="t">Spansk (A2)</span>
+    </dd>
+  </dl>
+
+  <div class="foot">Referanser oppgis på forespørsel</div>
 
 </div>
 </body>
