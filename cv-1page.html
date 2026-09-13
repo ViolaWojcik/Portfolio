@@ -27,11 +27,12 @@
 
   /* tighter than the full CV — one page must hold everything,
      but spaced to fill the A4 sheet so it doesn't read top-heavy */
-  --gap-module: 16px;   /* before every section heading */
-  --gap-item:   13px;   /* before every job block */
+  --gap-module: 14px;   /* before every section heading */
+  --gap-item:   11px;   /* before every job block */
   --gap-head:   13px;   /* section heading → its first content */
   --gap-bullet:  6px;   /* between bullets */
-  --measure:    74ch;   /* one cap on every run of prose */
+  --column:     604px;  /* the block is centred, so both margins match */
+  --measure:    70ch;   /* one cap on every run of prose */
 }
 
 @page{ size:A4; margin:15mm 16mm; }
@@ -50,7 +51,7 @@ body{
   line-height:1.58;
   letter-spacing:.003em;
 }
-.doc{ background:var(--ground); }
+.doc{ background:var(--ground); max-width:var(--column); margin:0 auto; }
 
 /* ---------- links ----------
    ONE treatment for every link in the document, wherever it sits: the accent
@@ -76,7 +77,7 @@ a{
   letter-spacing:.24em; text-transform:uppercase; color:var(--accent);
 }
 .contact{ text-align:right; font-size:10px; line-height:1.95; color:var(--ink-soft); }
-.rule{ height:1px; background:var(--hair); margin:18px 0 0; }
+.rule{ height:1px; background:var(--hair); margin:13px 0 0; }
 
 /* ---------- section headings ---------- */
 .sec-h{
@@ -89,7 +90,7 @@ a{
 .sec-h::before{ content:''; width:20px; height:2px; border-radius:2px; background:var(--accent); flex:none; }
 
 /* ---------- overview ---------- */
-.lead-1{ font-family:var(--font-display); font-size:22px; line-height:1.2; color:var(--ink); margin-bottom:11px; letter-spacing:-.006em; }
+.lead-1{ margin-top:22px; font-family:var(--font-display); font-size:22px; line-height:1.2; color:var(--ink); margin-bottom:11px; letter-spacing:-.006em; }
 .lead-p{ font-size:11.8px; line-height:1.62; color:var(--ink-soft); max-width:var(--measure); }
 .lead-p .s{ display:block; padding-left:11px; text-indent:-11px; }
 
@@ -123,12 +124,12 @@ li .pj{ font-weight:600; color:var(--ink); }
 .langs b{ color:var(--ink); font-weight:600; letter-spacing:.04em; }
 
 /* ---------- skills: the same quiet register as the full CV ---------- */
-.reg{ display:grid; grid-template-columns:100px 1fr; column-gap:14px; row-gap:7px; align-items:baseline;
+.reg{ display:grid; grid-template-columns:100px 1fr; column-gap:14px; row-gap:5px; align-items:baseline;
   /* the closing data block: its own air, so the first label is not read as
      part of the paragraph above it */
-  margin-top:16px; padding-top:12px; border-top:1px solid var(--hair); }
+  margin-top:13px; padding-top:10px; border-top:1px solid var(--hair); }
 .reg dt{ font-size:10.8px; font-weight:600; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); padding-top:1px; }
-.reg dd{ font-size:10.8px; line-height:1.6; color:var(--ink-soft); max-width:var(--measure); }
+.reg dd{ font-size:10.8px; line-height:1.6; color:var(--ink-soft); }
 .reg dd b{ color:var(--ink); font-weight:500; }
 .reg dd .t, .roster .t{ display:inline-block; }
 .reg dd .t:not(:first-child)::before, .roster .t:not(:first-child)::before{ content:"\00b7\00a0"; color:var(--ink-mute); }
@@ -138,7 +139,7 @@ li .pj{ font-weight:600; color:var(--ink); }
   color:var(--ink-mute); border-left:2px solid var(--accent-hair); max-width:var(--measure); }
 
 /* ---------- footer ---------- */
-.foot{ margin-top:11px; padding-top:0;
+.foot{ margin-top:7px; padding-top:0;
   font-size:10.5px; color:var(--ink-mute); letter-spacing:.02em; }
 .foot .consent{ margin-top:5px; font-size:9px; }
 </style>
@@ -147,16 +148,14 @@ li .pj{ font-weight:600; color:var(--ink); }
 <div class="doc">
 
   <header class="head">
-    <div>
-      <div class="name">Wioleta Maria Wójcik</div>
-      <div class="role">AI Product Design · Digital Accessibility · Design Engineer</div>
-    </div>
+    <div class="name">Wioleta Maria Wójcik</div>
     <div class="contact">
       <div><a href="mailto:wioleta.maria.wojcik@gmail.com">wioleta.maria.wojcik@gmail.com</a></div>
       <div>Oslo, Norway · +47&nbsp;484&nbsp;62&nbsp;641</div>
       <div><a href="https://wioletawojcik.com">wioletawojcik.com</a> · <a href="https://www.linkedin.com/in/wioleta-maria-w%C3%B3jcik-7512a389/">LinkedIn</a></div>
     </div>
   </header>
+  <div class="role">AI Product Design · Digital Accessibility · Design Engineer</div>
   <div class="rule"></div>
 
   <div class="lead-1">I design where space, systems, and people meet.</div>
@@ -263,7 +262,6 @@ li .pj{ font-weight:600; color:var(--ink); }
     </dd>
   </dl>
 
-  <div class="foot">References on request</div>
 
 </div>
 </body>
