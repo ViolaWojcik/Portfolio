@@ -107,16 +107,18 @@
 
   /* folder scatter — a hand-placed constellation, not a mechanical staircase.
      Each folder gets an explicit offset inside #fan; placeFan() anchors the
-     whole group under the headline. Left→right: Between the lines, Hospitals,
-     RepApp, Red thread. Heights alternate high/low so it reads as "laid out by
-     hand". RepApp rides on top (front), Hospitals sits back-most. */
+     whole group under the headline. Left→right: Hospitals, RepApp, Red thread,
+     Between the lines. Heights alternate high/low so it reads as "laid out by
+     hand". The pile is ordered by currency: Between the lines (2026, built and
+     shipped) rides on top (front), then Red thread (2026), RepApp (2020–23),
+     and Hospitals (2016) sits back-most. Same order as the mobile stack. */
   --fold-w:      228px;  /* folder card — sized to match the contact card, so the
                             projects hold their own against photo + card */
   --fold-h:      142px;
-  --fan-f3-x:      0px;  --fan-f3-y:  78px;  /* Between the lines — leftmost, low */
-  --fan-f4-x:    131px;  --fan-f4-y:   8px;  /* Hospitals — high, back-most */
-  --fan-f1-x:    320px;  --fan-f1-y:  73px;  /* RepApp    — Guest check-in, low, on top */
-  --fan-f2-x:    464px;  --fan-f2-y:  18px;  /* Red thread — high right */
+  --fan-f4-x:      0px;  --fan-f4-y:  78px;  /* Hospitals — leftmost, low, back-most */
+  --fan-f1-x:    131px;  --fan-f1-y:   8px;  /* RepApp    — Guest check-in, high */
+  --fan-f2-x:    320px;  --fan-f2-y:  73px;  /* Red thread — low */
+  --fan-f3-x:    464px;  --fan-f3-y:  18px;  /* Between the lines — high right, on top */
 
   --font-display:'Instrument Serif','Iowan Old Style',Georgia,serif;
   --font-ui:'Inter',ui-sans-serif,-apple-system,'Segoe UI',sans-serif;
@@ -410,16 +412,16 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
    ========================================================= */
 #fan{
   position:absolute;left:8vw;bottom:11vh;
-  width:calc(var(--fold-w) + var(--fan-f2-x));
-  height:calc(var(--fold-h) + var(--fan-f3-y));
+  width:calc(var(--fold-w) + var(--fan-f3-x));
+  height:calc(var(--fold-h) + var(--fan-f4-y));
 }
 #fan .obj{transition:left .45s var(--ease),top .45s var(--ease);}
 /* back → front: a scattered constellation so each title stays readable.
-   Cascade runs left → right: Between the lines sits back-most, Red thread on top. */
-#fan .obj[data-k="f3"]{left:var(--fan-f3-x); top:var(--fan-f3-y); z-index:1;}
-#fan .obj[data-k="f4"]{left:var(--fan-f4-x); top:var(--fan-f4-y); z-index:2;}
-#fan .obj[data-k="f1"]{left:var(--fan-f1-x); top:var(--fan-f1-y); z-index:3;}
-#fan .obj[data-k="f2"]{left:var(--fan-f2-x); top:var(--fan-f2-y); z-index:4;}
+   Cascade runs left → right: Hospitals sits back-most, Between the lines on top. */
+#fan .obj[data-k="f4"]{left:var(--fan-f4-x); top:var(--fan-f4-y); z-index:1;}
+#fan .obj[data-k="f1"]{left:var(--fan-f1-x); top:var(--fan-f1-y); z-index:2;}
+#fan .obj[data-k="f2"]{left:var(--fan-f2-x); top:var(--fan-f2-y); z-index:3;}
+#fan .obj[data-k="f3"]{left:var(--fan-f3-x); top:var(--fan-f3-y); z-index:4;}
 
 .folder{
   position:relative;width:var(--fold-w);height:var(--fold-h);
@@ -735,33 +737,34 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
 
   <!-- ── folder fan ────────────────────────────────────────── -->
   <div id="fan">
-    <a class="obj grab" data-k="f1" data-tip="project" href="repapp.html" draggable="false"
-       style="--rot:3.4deg;--d:1.94s;--lit:2.54s;">
-      <div class="inner"><div class="folder">
-        <span class="tab"><i></i></span><span class="sheet"></span>
-        <div class="body"><div class="ttl" data-t="t1">Guest check-in</div><div class="mt" data-t="m1">RepApp&nbsp;· Tablet&nbsp;· UX/UI&nbsp;· Service&nbsp;design</div></div>
-      </div></div>
-    </a>
-    <a class="obj grab" data-k="f2" data-tip="project" href="red-thread.html" draggable="false"
-       style="--rot:-2.5deg;--d:1.82s;--lit:2.42s;">
-      <div class="inner"><div class="folder">
-        <span class="tab"><i></i></span><span class="sheet"></span>
-        <div class="body"><div class="ttl" data-t="t2">Red thread</div><div class="mt" data-t="m2">Schools&nbsp;· Service&nbsp;design</div></div>
-      </div></div>
-    </a>
+    <!-- Source order = reading order: most current first. It is the mobile
+         stack, the tab order, and the fan's back-to-front order reversed. -->
     <a class="obj grab" data-k="f3" data-tip="project" href="between-the-lines.html" draggable="false"
-       style="--rot:4deg;--d:1.70s;--lit:2.30s;">
+       style="--rot:-2.5deg;--d:1.94s;--lit:2.54s;">
       <div class="inner"><div class="folder">
         <span class="tab"><i></i></span><span class="sheet"></span>
         <div class="body"><div class="ttl" data-t="t3">Between<br>the lines</div><div class="mt" data-t="m3">Product&nbsp;· Designed&nbsp;&amp;&nbsp;built</div></div>
       </div></div>
     </a>
-    <!-- f4 Hospitals — links to the "Paths, not plans" case study -->
-    <a class="obj grab" data-k="f4" data-tip="project" href="hospital-wayfinding.html" draggable="false"
-       style="--rot:-3.5deg;--d:1.58s;--lit:2.18s;">
+    <a class="obj grab" data-k="f2" data-tip="project" href="red-thread.html" draggable="false"
+       style="--rot:3.4deg;--d:1.82s;--lit:2.42s;">
       <div class="inner"><div class="folder">
         <span class="tab"><i></i></span><span class="sheet"></span>
-        <div class="body"><div class="ttl" data-t="t4">Moving through care</div><div class="mt" data-t="m4">Architecture&nbsp;· Service&nbsp;design</div></div>
+        <div class="body"><div class="ttl" data-t="t2">Red thread</div><div class="mt" data-t="m2">Schools&nbsp;· Service&nbsp;design</div></div>
+      </div></div>
+    </a>
+    <a class="obj grab" data-k="f1" data-tip="project" href="repapp.html" draggable="false"
+       style="--rot:-3.5deg;--d:1.70s;--lit:2.30s;">
+      <div class="inner"><div class="folder">
+        <span class="tab"><i></i></span><span class="sheet"></span>
+        <div class="body"><div class="ttl" data-t="t1">Guest check-in</div><div class="mt" data-t="m1">RepApp&nbsp;· Tablet&nbsp;· UX/UI&nbsp;· Service&nbsp;design</div></div>
+      </div></div>
+    </a>
+    <a class="obj grab" data-k="f4" data-tip="project" href="hospital-wayfinding.html" draggable="false"
+       style="--rot:4deg;--d:1.58s;--lit:2.18s;">
+      <div class="inner"><div class="folder">
+        <span class="tab"><i></i></span><span class="sheet"></span>
+        <div class="body"><div class="ttl" data-t="t4">Moving<br>through care</div><div class="mt" data-t="m4">Architecture&nbsp;· Service&nbsp;design</div></div>
       </div></div>
     </a>
   </div>
@@ -799,7 +802,7 @@ const T = {
     t1   :'Guest check-in',
     t2   :'Red thread',
     t3   :'Between<br>the lines',
-    t4   :'Moving through care',
+    t4   :'Moving<br>through care',   /* two lines: the back-most slot is half covered */
     m1   :'RepApp&nbsp;· Tablet&nbsp;· UX/UI&nbsp;· Service&nbsp;design',
     m2   :'Schools&nbsp;· Service&nbsp;design',
     m3   :'Product&nbsp;· Designed&nbsp;&amp;&nbsp;built',
@@ -825,7 +828,7 @@ const T = {
     t1   :'Gjesteinnsjekk',
     t2   :'Rød tråd',
     t3   :'Mellom<br>linjene',
-    t4   :'Gjennom omsorgen',
+    t4   :'Gjennom<br>omsorgen',
     m1   :'RepApp&nbsp;· Nettbrett&nbsp;· UX/UI&nbsp;· Tjenestedesign',
     m2   :'Skole&nbsp;· Tjenestedesign',
     m3   :'Produkt&nbsp;· Designet&nbsp;&amp;&nbsp;bygget',
@@ -852,7 +855,7 @@ const T = {
     t1:'Check-in<br>de huéspedes',   /* two lines, or the fan's next folder hides the end */
     t2:'Hilo conductor',
     t3:'Entre<br>líneas',
-    t4:'Caminos del cuidado',
+    t4:'Caminos<br>del cuidado',
     m1:'RepApp&nbsp;· Tableta&nbsp;· UX/UI&nbsp;· Diseño&nbsp;de&nbsp;servicios',
     m2:'Escuelas&nbsp;· Diseño&nbsp;de&nbsp;servicios',
     m3:'Producto&nbsp;· Diseñado&nbsp;y&nbsp;construido',
@@ -955,7 +958,7 @@ setTimeout(()=>{
   /* one more right-column pass now that every rect is settled; the left/top
      transition turns any correction into a gentle glide */
   if(!mobile() && !dragging) clearRightColumn();
-  const inv = document.querySelector('[data-k="f2"]');
+  const inv = document.querySelector('[data-k="f3"]');   /* the folder on top of the pile */
   if(inv && !matchMedia('(prefers-reduced-motion: reduce)').matches){
     inv.classList.add('invite');
     setTimeout(()=> inv.classList.remove('invite'), 1300);
@@ -1301,7 +1304,7 @@ function clearHeadline(){
    source order. Safe only once the entrance is over (.ready), so re-parenting a
    folder doesn't replay its `enter` animation. */
 function resetPositions(){
-  ['f1','f2','f3','f4'].forEach(k=>{
+  ['f3','f2','f1','f4'].forEach(k=>{      // reading order, same as the source
     const o = document.querySelector('.obj[data-k="'+k+'"]');
     if(o) fan.appendChild(o);                 // back into the fan, in order
   });
