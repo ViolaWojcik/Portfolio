@@ -222,6 +222,20 @@ try {
   ]);
   check(d.url().endsWith('/repapp.html'), 'desktop: Enter opens the focused folder');
 
+  /* the board's third language */
+  await d.goto(`${origin}/`, { waitUntil: 'networkidle' });
+  await d.waitForTimeout(3200);
+  const boardEs = await d.evaluate(async () => {
+    document.querySelector('#lang button[data-lang="es"]').click();
+    await new Promise(r => setTimeout(r, 400));
+    return { lang: document.documentElement.lang,
+             w1: document.querySelector('.hl .w1').textContent.trim(),
+             cv: document.querySelector('.ic[data-a="cv"]').getAttribute('href') };
+  });
+  check(boardEs.lang === 'es' && boardEs.w1 === 'Espacios,' && boardEs.cv === 'Wioleta-Wojcik-CV-ES.pdf',
+        `desktop: ES repaints the headline (${boardEs.w1}) and the résumé follows (${boardEs.cv})`);
+  await d.evaluate(() => { try { localStorage.setItem('wiola-board:lang', 'en'); } catch (e) {} });
+
   /* ================= CASE STUDIES ================= */
   /* A dead script is INVISIBLE on these pages. Their text is prerendered, so a
      `render()` that throws still leaves a page that looks and reads perfectly
@@ -266,6 +280,24 @@ try {
     });
     check(sw.after === sw.other && sw.cvAfter !== sw.cvBefore,
           `${slug}: language switch repaints and the résumé follows (${sw.cvBefore} → ${sw.cvAfter})`);
+
+    /* The third language. Spanish was added in one pass over five files, so
+       this proves each page actually carries an ES model, that the first
+       heading really changes, and that the résumé link lands on the ES PDF. */
+    const es = await d.evaluate(async () => {
+      const cv = () => document.querySelector('footer.foot a[data-a="cv"]').getAttribute('href');
+      const h2 = () => (document.querySelector('#article h2') || {}).textContent || '';
+      const before = document.documentElement.lang;
+      const h2Before = h2();
+      document.querySelector('#lang button[data-lang="es"]').click();
+      await new Promise(r => setTimeout(r, 300));
+      const out = { lang: document.documentElement.lang, cv: cv(), changed: h2() !== h2Before,
+                    pressed: document.querySelector('#lang button[data-lang="es"]').getAttribute('aria-pressed') };
+      document.querySelector(`#lang button[data-lang="${before}"]`).click();
+      return out;
+    });
+    check(es.lang === 'es' && es.changed && es.cv.endsWith('-ES.pdf') && es.pressed === 'true',
+          `${slug}: Spanish repaints the article and the résumé follows (${es.cv})`);
   }
 
   /* the prerendered text is there with scripting off */

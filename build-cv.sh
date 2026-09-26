@@ -1,6 +1,6 @@
 #!/bin/bash
-# Build the CV PDFs from their HTML sources — English and Norwegian.
-# (Norwegian is a working draft, pending native review, like the site copy.)
+# Build the CV PDFs from their HTML sources — English, Norwegian and Spanish.
+# (Norwegian and Spanish are working drafts, pending native review, like the site copy.)
 # Two steps per language:
 #   1. Chrome renders cv*.html → PDF (equal @page margins, natural flow).
 #   2. PyMuPDF paints the site's broken-white ground (#F8F5EF) behind every
@@ -9,8 +9,8 @@
 #      white otherwise). Layout is untouched; only the background is added.
 #
 # The portfolio's résumé link (index.html) follows the language switch:
-# EN → Wioleta-Wojcik-CV.pdf, NO → Wioleta-Wojcik-CV-NO.pdf. Keep those
-# output names in sync with the `cvfile` values in index.html's T model.
+# EN → Wioleta-Wojcik-CV.pdf, NO → Wioleta-Wojcik-CV-NO.pdf, ES → Wioleta-Wojcik-CV-ES.pdf.
+# Keep those output names in sync with the `cvfile` values in index.html's T model.
 set -e
 cd "$(dirname "$0")"
 
@@ -20,12 +20,13 @@ CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 BUILDS=(
   "cv.html|Wioleta-Wojcik-CV.pdf"
   "cv-no.html|Wioleta-Wojcik-CV-NO.pdf"
+  "cv-es.html|Wioleta-Wojcik-CV-ES.pdf"
 )
 
 for pair in "${BUILDS[@]}"; do
   SRC="${pair%%|*}"
   OUT="${pair##*|}"
-  RAW="/tmp/${SRC%.html}-raw.pdf"
+  RAW="${TMPDIR:-/tmp}/${SRC%.html}-raw.pdf"
 
   "$CHROME" --headless --disable-gpu --no-pdf-header-footer --virtual-time-budget=6000 \
     --print-to-pdf="$RAW" "file://$PWD/$SRC"

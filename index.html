@@ -18,6 +18,7 @@
 <meta property="og:image:alt" content="Wioleta Maria Wójcik">
 <meta property="og:locale" content="en_GB">
 <meta property="og:locale:alternate" content="nb_NO">
+<meta property="og:locale:alternate" content="es_ES">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Wioleta Wójcik — Service Designer &amp; Architect">
 <meta name="twitter:description" content="Interactive portfolio of Wioleta Maria Wójcik, a Service Designer with an architect's background, based in Oslo, Norway.">
@@ -34,7 +35,7 @@
   "email": "mailto:wioleta.maria.wojcik@gmail.com",
   "address": { "@type": "PostalAddress", "addressLocality": "Oslo", "addressCountry": "NO" },
   "sameAs": ["https://www.linkedin.com/in/wioleta-maria-w%C3%B3jcik-7512a389/"],
-  "knowsLanguage": ["en", "pl", "nb"]
+  "knowsLanguage": ["en", "pl", "nb", "es"]
 }
 </script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%236D5C9D'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-weight='bold' font-size='21' text-anchor='middle' fill='%23FFFFFF'%3EW%3C/text%3E%3C/svg%3E">
@@ -502,11 +503,12 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
 }
 #lang::before{
   content:'';position:absolute;left:4px;top:4px;
-  width:calc(50% - 4px);height:calc(100% - 8px);
+  width:calc((100% - 8px) / 3);height:calc(100% - 8px);
   background:var(--accent);border-radius:18px;
   transition:transform .3s var(--ease);
 }
 #lang[data-l="no"]::before{transform:translateX(100%);}
+#lang[data-l="es"]::before{transform:translateX(200%);}
 #lang button{
   position:relative;z-index:1;border:0;background:none;cursor:pointer;
   font-family:var(--font-ui);font-size:10.5px;font-weight:500;
@@ -769,6 +771,7 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
 <div id="lang" role="group" data-l="en">
   <button type="button" data-lang="en" aria-pressed="true">EN</button>
   <button type="button" data-lang="no" aria-pressed="false">NO</button>
+  <button type="button" data-lang="es" aria-pressed="false">ES</button>
 </div>
 
 <div id="hint" aria-hidden="true">
@@ -784,8 +787,8 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
 
 <script>
 /* =========================================================
-   1. CONTENT — both languages live here.
-      Norwegian is a first draft, pending native review.
+   1. CONTENT — all three languages live here.
+      Norwegian and Spanish are first drafts, pending native review.
    ========================================================= */
 const T = {
   en:{
@@ -838,6 +841,43 @@ const T = {
     tips :{about:'Om meg',project:'Åpne mappen'},
     act  :{mail:'Kopier',li:'Åpne',cv:'Åpne PDF'},
     aria :{mail:'Gmail — send e-post',li:'LinkedIn-profil',cv:'Resume — åpne CV som PDF'}
+  },
+  es:{
+    words:['Espacios,',
+     'sistemas,',
+     'personas.'],
+    role:'Diseñadora de servicios<br>&amp; arquitecta',
+    loc:'Oslo, Noruega',
+    cardTitle:'Ven a decir <em>¡hola!</em>',
+    t1:'Check-in<br>de huéspedes',   /* two lines, or the fan's next folder hides the end */
+    t2:'Hilo conductor',
+    t3:'Entre<br>líneas',
+    t4:'Caminos del cuidado',
+    m1:'RepApp&nbsp;· Tableta&nbsp;· UX/UI&nbsp;· Diseño&nbsp;de&nbsp;servicios',
+    m2:'Escuelas&nbsp;· Diseño&nbsp;de&nbsp;servicios',
+    m3:'Producto&nbsp;· Diseñado&nbsp;y&nbsp;construido',
+    m4:'Arquitectura&nbsp;· Diseño&nbsp;de&nbsp;servicios',
+    hint:'Arrastra, haz clic y explora',
+    aboutHint:'Sobre mí. Gira la foto para leer.',
+    reset:'Restablecer',
+    copied:'¡Copiado!',
+    cvfile:'Wioleta-Wojcik-CV-ES.pdf',
+    aboutLead:'Diseño donde se encuentran el espacio, los sistemas y las personas.',
+    aboutBody:'Trabajo en diseño de servicios para retos sociales y públicos, con la mirada de una arquitecta. Detrás hay ocho años de diseño de producto de principio a fin, siempre a partir de la investigación. La IA es central en mi forma de trabajar: convierte la investigación en productos que funcionan.',
+    tips:{
+      about:'Sobre mí',
+      project:'Abrir carpeta'
+    },
+    act:{
+      mail:'Copiar',
+      li:'Abrir',
+      cv:'Abrir PDF'
+    },
+    aria:{
+      mail:'Gmail — escribir a Wioleta',
+      li:'Perfil de LinkedIn',
+      cv:'Currículum — abrir el CV en PDF'
+    }
   }
 };
 
@@ -853,7 +893,7 @@ let suppressClick = false; // set right after a drag so it isn't read as a click
 
 /* ---------- language ---------- */
 function paint(l, animate){
-  const t = T[l];
+  const t = T[l] || T.en;
   const apply = ()=>{
     h1.querySelector('.w1').innerHTML = t.words[0];
     h1.querySelector('.w2').innerHTML = t.words[1];
@@ -866,7 +906,7 @@ function paint(l, animate){
       const a = t.aria[el.dataset.a];
       if(a !== undefined) el.setAttribute('aria-label', a);
     });
-    /* the résumé link follows the language switch: EN → English PDF, NO → Norwegian */
+    /* the résumé link follows the language switch: EN → English PDF, NO → Norwegian, ES → Spanish */
     const cv = document.querySelector('.ic[data-a="cv"]');
     if(cv && t.cvfile) cv.setAttribute('href', t.cvfile);
     document.documentElement.lang = l;

@@ -18,6 +18,7 @@
 <meta property="og:image:alt" content="A travel rep in an airport terminal holding a tablet showing the RepApp excursions screen, arriving passengers on the floor below">
 <meta property="og:locale" content="en_GB">
 <meta property="og:locale:alternate" content="nb_NO">
+<meta property="og:locale:alternate" content="es_ES">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="RepApp — Service design case study · Wioleta Wójcik">
 <meta name="twitter:description" content="RepApp replaced the paper list travel reps carried into every airport arrival.">
@@ -33,7 +34,7 @@
   "image": "https://wioletawojcik.com/RepApp/assets/hero-photo.jpg",
   "genre": "Service design",
   "description": "RepApp replaced the paper list travel reps carried into every airport arrival.",
-  "inLanguage": ["en", "nb"],
+  "inLanguage": ["en", "nb", "es"],
   "author": {
     "@type": "Person",
     "name": "Wioleta Maria Wójcik",
@@ -129,11 +130,12 @@ body::before{
 }
 #lang::before{
   content:'';position:absolute;left:4px;top:4px;
-  width:calc(50% - 4px);height:calc(100% - 8px);
+  width:calc((100% - 8px) / 3);height:calc(100% - 8px);
   background:var(--accent);border-radius:18px;
   transition:transform .3s var(--ease);
 }
 #lang[data-l="no"]::before{transform:translateX(100%);}
+#lang[data-l="es"]::before{transform:translateX(200%);}
 #lang button{
   position:relative;z-index:1;border:0;background:none;cursor:pointer;
   font-family:var(--font-ui);font-size:10.5px;font-weight:500;
@@ -470,6 +472,7 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
 <div id="lang" role="group" data-l="en">
   <button type="button" data-lang="en" aria-pressed="true">EN</button>
   <button type="button" data-lang="no" aria-pressed="false">NO</button>
+  <button type="button" data-lang="es" aria-pressed="false">ES</button>
 </div>
 
 <!-- ── main ────────────────────────────────────────────────── -->
@@ -600,10 +603,10 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
 
 <script>
 /* =========================================================
-   CONTENT MODEL — the whole case study, both languages.
-   English is Wioleta's finished copy; Norwegian is a first
-   draft, pending review by a native speaker (same status as
-   the board's NO strings). Editing content = editing here.
+   CONTENT MODEL — the whole case study, three languages.
+   English is Wioleta's finished copy; Norwegian and Spanish
+   are first drafts, pending review by native speakers (same
+   status as the board's NO/ES strings). Editing content = editing here.
 
    Each section: { id, nav, eyebrow, h, body[], sub?, list?,
    listType?, asset(s)?, close? }. Assets reference ASSETS by id.
@@ -670,6 +673,54 @@ const T = {
       {k:'År',          v:'2020 — 2023'},
       {k:'Plattform',   v:'Offline-nettbrett'}
     ]
+  },
+  es:{
+    back:'Todos los proyectos',
+    markSub:'Caso de estudio de diseño de servicios',
+    kicker:'Caso de estudio · Diseño de servicios',
+    dek:'RepApp sustituyó la lista en papel que los representantes llevaban a cada llegada en el aeropuerto.',
+    glance:{
+      eyebrow:'De un vistazo',
+      problem:{
+        k:'Problema',
+        v:'Un representante recibía cada vuelo con una lista A4 impresa y <strong>más de 100 nombres</strong> que marcar. Los mismos datos se introducían <strong>tres veces</strong>, y en los aeropuertos a menudo no había cobertura. La hora más intensa del viaje funcionaba en papel.'
+      },
+      role:{
+        k:'Mi papel',
+        v:'<strong>Diseñadora de UX e interfaz.</strong> Detecté a los representantes desatendidos durante el rediseño de la plataforma de Itaka y me hice cargo del diseño de servicio desde ahí: investigación de campo, definición del MVP, diseño de interacción y prototipos, y pruebas de campo en aeropuertos. El desarrollo lo hizo el equipo interno, dentro de un equipo de diseño pequeño.'
+      },
+      value:{
+        k:'Valor',
+        items:['<strong>Más de un 50 % más rápido:</strong> el representante despacha el aeropuerto en menos de la mitad del tiempo que llevaba la lista en papel',
+         '<strong>Fin de la doble entrada:</strong> un único registro sin conexión sustituyó las tardes de Excel y la reintroducción del responsable, más de un 30 % menos de trabajo administrativo',
+         '<strong>1,44 M de pasajeros:</strong> gestionados con la app en 2023, tres años después del lanzamiento'],
+        note:'Producto lanzado, 2020 · cifras publicadas por Resabee Travel Tech'
+      }
+    },
+    footNext:'Ven a decir <em>¡hola!</em>',
+    cvfile:'Wioleta-Wojcik-CV-ES.pdf',
+    footBack:'Volver a todos los proyectos',
+    footNote:'Reconstrucciones de la interfaz redibujadas en 2026: los archivos de diseño originales no están en mi poder. El producto en producción ha seguido evolucionando con el equipo interno.',
+    meta:[{
+        k:'Papel',
+        v:'Diseñadora de UX e interfaz'
+      },
+      {
+        k:'Disciplina',
+        v:'Diseño de servicios · Investigación de campo'
+      },
+      {
+        k:'Contexto',
+        v:'Itaka · Viajes'
+      },
+      {
+        k:'Año',
+        v:'2020 — 2023'
+      },
+      {
+        k:'Plataforma',
+        v:'Tableta offline-first'
+      }]
   }
 };
 
@@ -681,124 +732,149 @@ const ASSETS = {
      (assets/folder-peek.html, raw collage sources gitignored) */
   hero:{ type:'img', wide:true, src:'RepApp/assets/hero-photo.webp',
     cap:{en:'An arrivals hall, a rep, the day’s excursions on screen. The tablet took over the job the printed A4 used to do here. Interface reconstruction, 2026, composited into a photo.',
-         no:'En ankomsthall, en vert, dagens utflukter på skjermen. Nettbrettet tok over jobben den utskrevne A4-en pleide å gjøre her. Grensesnitt tegnet på nytt, 2026, montert inn i et foto.'} },
+         no:'En ankomsthall, en vert, dagens utflukter på skjermen. Nettbrettet tok over jobben den utskrevne A4-en pleide å gjøre her. Grensesnitt tegnet på nytt, 2026, montert inn i et foto.',
+         es:'Una sala de llegadas, un representante, las excursiones del día en pantalla. La tableta asumió el trabajo que aquí hacía el A4 impreso. Reconstrucción de la interfaz, 2026, montada sobre una fotografía.'} },
 
   night:{ type:'img', src:'RepApp/assets/attendance-night.webp', wide:true,
     cap:{en:'A night arrival met from the rebuilt list: the family that walks up as one group is one row, one tap. Interface reconstruction, 2026, composited into a photo.',
-         no:'En nattankomst møtt fra den ombygde lista: familien som kommer som én gruppe er én rad, ett trykk. Grensesnitt tegnet på nytt, 2026, montert inn i et foto.'} },
+         no:'En nattankomst møtt fra den ombygde lista: familien som kommer som én gruppe er én rad, ett trykk. Grensesnitt tegnet på nytt, 2026, montert inn i et foto.',
+         es:'Una llegada nocturna atendida desde la lista rediseñada: la familia que se acerca como un solo grupo es una fila, un toque. Reconstrucción de la interfaz, 2026, montada sobre una fotografía.'} },
 
   states:{ type:'img', src:'RepApp/assets/checkin-attendance-states.webp', wide:true,
     cap:{en:'Checked in as a group by default, opened traveller-by-traveller only when the field needs it.',
-         no:'Sjekket inn som gruppe som standard, åpnet reisende for reisende bare når feltet krever det.'} },
+         no:'Sjekket inn som gruppe som standard, åpnet reisende for reisende bare når feltet krever det.',
+         es:'Check-in por grupo por defecto, abierto viajero a viajero solo cuando el campo lo exige.'} },
 
   context:{ type:'img', src:'RepApp/assets/photo-context.webp',
     cap:{en:'A destination rep with the printed Itaka clipboard and pen — the guest-facing job, and the paper tool, that no one had yet designed for.',
-         no:'En destinasjonsvert med den trykte Itaka-permen og pennen — den gjestevendte jobben, og papirverktøyet, som ingen ennå hadde designet for.'} },
+         no:'En destinasjonsvert med den trykte Itaka-permen og pennen — den gjestevendte jobben, og papirverktøyet, som ingen ennå hadde designet for.',
+         es:'Una representante de destino con la carpeta impresa de Itaka y un bolígrafo: el trabajo de cara al huésped, y la herramienta de papel, para los que nadie había diseñado todavía.'} },
 
   before:{ type:'img', src:'RepApp/assets/before-paper-list.webp', wide:true,
     cap:{en:'The printed A4 arrivals list — ticked by hand at the gate, then keyed into Excel and re-keyed into the enterprise system. The same data, entered three times. Reconstruction, 2026.',
-         no:'Den utskrevne A4-ankomstlista — huket av for hånd ved gaten, så tastet inn i Excel og tastet på nytt inn i bedriftssystemet. Samme data, lagt inn tre ganger. Rekonstruksjon, 2026.'} },
+         no:'Den utskrevne A4-ankomstlista — huket av for hånd ved gaten, så tastet inn i Excel og tastet på nytt inn i bedriftssystemet. Samme data, lagt inn tre ganger. Rekonstruksjon, 2026.',
+         es:'La lista de llegadas A4 impresa: marcada a mano en la puerta de embarque, luego tecleada en Excel y tecleada de nuevo en el sistema corporativo. Los mismos datos, introducidos tres veces. Reconstrucción, 2026.'} },
 
   offline:{ type:'img', src:'RepApp/assets/offline-architecture.webp', wide:true,
     cap:{en:'Offline-first: the airport had no signal, so every action was captured on the device, queued, and reconciled with the enterprise system only on reconnection. Diagram, 2026.',
-         no:'Offline først: flyplassen hadde ingen dekning, så hver handling ble fanget opp på enheten, lagt i kø og synkronisert med bedriftssystemet først ved gjenoppkobling. Diagram, 2026.'} },
+         no:'Offline først: flyplassen hadde ingen dekning, så hver handling ble fanget opp på enheten, lagt i kø og synkronisert med bedriftssystemet først ved gjenoppkobling. Diagram, 2026.',
+         es:'Offline-first: el aeropuerto no tenía cobertura, así que cada acción se registraba en el dispositivo, se ponía en cola y se conciliaba con el sistema corporativo solo al recuperar la conexión. Diagrama, 2026.'} },
 
   slide:{ type:'img', src:'RepApp/assets/slide.webp', wide:true,
     cap:{en:'The competitive slide from the winning pitch — every operator already equips its reps; Itaka was the last one on paper. Reframed from “efficiency for the reps” to a gap the room could see. Reconstruction, redrawn 2026; competitors anonymised, grid illustrative.',
-         no:'Lysbildet om konkurrentene fra pitchen som gikk gjennom — alle operatører utstyrer allerede vertene sine; Itaka var den siste på papir. Omformulert fra «effektivitet for vertene» til en mangel ledelsen kunne se. Rekonstruksjon, tegnet på nytt 2026; konkurrenter anonymisert, rutenett illustrativt.'} },
+         no:'Lysbildet om konkurrentene fra pitchen som gikk gjennom — alle operatører utstyrer allerede vertene sine; Itaka var den siste på papir. Omformulert fra «effektivitet for vertene» til en mangel ledelsen kunne se. Rekonstruksjon, tegnet på nytt 2026; konkurrenter anonymisert, rutenett illustrativt.',
+         es:'La diapositiva de competencia de la presentación que se aprobó: todos los operadores ya equipan a sus representantes; Itaka era el último en papel. Reformulada de «eficiencia para los representantes» a una carencia que la sala podía ver. Reconstrucción, redibujada en 2026; competidores anonimizados, cuadrícula ilustrativa.'} },
 
   matrix:{ type:'img', src:'RepApp/assets/priorities-matrix.webp', wide:true,
     cap:{en:'The MVP rule as a 2×2 — a feature had to help the rep and earn money to ship. Only the top-right quadrant survived; reporting, the feature the reps needed most, was cut for later. Redrawn 2026.',
-         no:'MVP-regelen som en 2×2 — en funksjon måtte både hjelpe verten og tjene penger for å bli lansert. Bare øvre høyre kvadrant overlevde; rapportering, funksjonen vertene trengte mest, ble kuttet til senere. Tegnet på nytt 2026.'} },
+         no:'MVP-regelen som en 2×2 — en funksjon måtte både hjelpe verten og tjene penger for å bli lansert. Bare øvre høyre kvadrant overlevde; rapportering, funksjonen vertene trengte mest, ble kuttet til senere. Tegnet på nytt 2026.',
+         es:'La regla del MVP como una matriz 2×2: una función tenía que ayudar al representante y generar ingresos para lanzarse. Solo sobrevivió el cuadrante superior derecho; los informes, la función que más necesitaban los representantes, se aplazaron. Redibujada en 2026.'} },
 
   scale:{ type:'img', src:'RepApp/assets/scale.webp', wide:true,
     cap:{en:'A4, tablet and phone at true relative size. The tablet stayed close to the page, so the two-handed, guest-facing gesture survived — and left room to play excursion video; the phone was too small to show or to share. Reconstruction, redrawn 2026.',
-         no:'A4, nettbrett og telefon i riktig relativ størrelse. Nettbrettet lå nær arket, så det tohåndige, gjestevendte grepet overlevde — og ga plass til å vise utfluktsvideo; telefonen var for liten til å vise eller dele. Rekonstruksjon, tegnet på nytt 2026.'} },
+         no:'A4, nettbrett og telefon i riktig relativ størrelse. Nettbrettet lå nær arket, så det tohåndige, gjestevendte grepet overlevde — og ga plass til å vise utfluktsvideo; telefonen var for liten til å vise eller dele. Rekonstruksjon, tegnet på nytt 2026.',
+         es:'A4, tableta y teléfono a tamaño relativo real. La tableta se quedó cerca de la hoja, así que el gesto a dos manos, de cara al huésped, sobrevivió, y dejó sitio para reproducir vídeos de excursiones; el teléfono era demasiado pequeño para mostrar o compartir. Reconstrucción, redibujada en 2026.'} },
 
   screens:{ type:'img', src:'RepApp/assets/screens.webp', wide:true,
     cap:{en:'The three-tab MVP in sequence — Attendance, Hotels, Transfers — built to follow the arrival in the order it actually happens, on one offline app. Interface reconstruction, redrawn 2026.',
-         no:'MVP-en med tre faner, i rekkefølge — Oppmøte, Hoteller, Transport — bygd for å følge ankomsten i den rekkefølgen den faktisk skjer, i én offline-app. Grensesnitt tegnet på nytt, 2026.'} },
+         no:'MVP-en med tre faner, i rekkefølge — Oppmøte, Hoteller, Transport — bygd for å følge ankomsten i den rekkefølgen den faktisk skjer, i én offline-app. Grensesnitt tegnet på nytt, 2026.',
+         es:'El MVP de tres pestañas en secuencia, Asistencia, Hoteles y Traslados, construido para seguir la llegada en el orden en que ocurre de verdad, en una sola app sin conexión. Reconstrucción de la interfaz, redibujada en 2026.'} },
 
   excursions:{ type:'img', src:'RepApp/assets/excursions-sale.webp', wide:true,
     cap:{en:'The Excursions tab: local trips browsed and sold beside check-in, offline, with video to show the guest. Interface reconstruction, 2026; offers, prices and photos illustrative.',
-         no:'«Utflukter»-fanen: lokale turer vist og solgt ved siden av innsjekken, offline, med video å vise gjesten. Grensesnitt tegnet på nytt, 2026; tilbud, priser og bilder er illustrative.'} },
+         no:'«Utflukter»-fanen: lokale turer vist og solgt ved siden av innsjekken, offline, med video å vise gjesten. Grensesnitt tegnet på nytt, 2026; tilbud, priser og bilder er illustrative.',
+         es:'La pestaña Excursiones: salidas locales consultadas y vendidas junto al check-in, sin conexión, con vídeo para mostrar al huésped. Reconstrucción de la interfaz, 2026; ofertas, precios y fotos ilustrativos.'} },
 
   contrast:{ type:'img', src:'RepApp/assets/contrast-comparison.webp', wide:true,
     cap:{en:'The same list indoors and in direct sun — contrast as a functional decision, written into the hardware spec. Interface reconstruction, 2026.',
-         no:'Samme liste innendørs og i direkte sol — kontrast som en funksjonell beslutning, skrevet inn i maskinvarespesifikasjonen. Grensesnitt tegnet på nytt, 2026.'} },
+         no:'Samme liste innendørs og i direkte sol — kontrast som en funksjonell beslutning, skrevet inn i maskinvarespesifikasjonen. Grensesnitt tegnet på nytt, 2026.',
+         es:'La misma lista en interior y a pleno sol: el contraste como decisión funcional, escrita en la especificación del hardware. Reconstrucción de la interfaz, 2026.'} },
 
   showcase:{ type:'img', src:'RepApp/assets/excursions-in-hands.webp', wide:true,
     cap:{en:'The Excursions tab in a rep’s hands at the gate: local trips browsed and sold from the tablet, offline. Interface reconstruction, 2026, composited into a photo.',
-         no:'«Utflukter»-fanen i en verts hender ved gaten: lokale turer vist og solgt fra nettbrettet, offline. Grensesnitt tegnet på nytt, 2026, montert inn i et foto.'} },
+         no:'«Utflukter»-fanen i en verts hender ved gaten: lokale turer vist og solgt fra nettbrettet, offline. Grensesnitt tegnet på nytt, 2026, montert inn i et foto.',
+         es:'La pestaña Excursiones en manos de un representante en la puerta de embarque: salidas locales consultadas y vendidas desde la tableta, sin conexión. Reconstrucción de la interfaz, 2026, montada sobre una fotografía.'} },
 
   team:{ type:'img', src:'RepApp/assets/team.webp', wide:true,
     cap:{en:'The gamified team-standings view — points and a monthly ranking of who sold most, individual figures visible to the whole team. It lifted sales sharply, and named a loser every month. Interface reconstruction, redrawn 2026; names and figures illustrative.',
-         no:'Den gamifiserte visningen av lagstatistikk — poeng og en månedlig rangering av hvem som solgte mest, med individuelle tall synlige for hele laget. Den løftet salget kraftig, og kåret en taper hver måned. Grensesnitt tegnet på nytt 2026; navn og tall er illustrative.'} }
+         no:'Den gamifiserte visningen av lagstatistikk — poeng og en månedlig rangering av hvem som solgte mest, med individuelle tall synlige for hele laget. Den løftet salget kraftig, og kåret en taper hver måned. Grensesnitt tegnet på nytt 2026; navn og tall er illustrative.',
+         es:'La vista gamificada de clasificación del equipo: puntos y un ranking mensual de quién vendió más, con cifras individuales visibles para todo el equipo. Disparó las ventas, y cada mes señaló a un perdedor. Reconstrucción de la interfaz, redibujada en 2026; nombres y cifras ilustrativos.'} }
 };
 
 const SECTIONS = [
   {
-    id:'origin', nav:{en:'The find',no:'Funnet'},
-    eyebrow:{en:'01 · Origin',no:'01 · Opphav'},
+    id:'origin', nav:{en:'The find',no:'Funnet', es:'El hallazgo'},
+    eyebrow:{en:'01 · Origin',no:'01 · Opphav', es:'01 · Origen'},
     h:{en:'Nobody had designed anything for the destination reps yet',
-       no:'Ingen hadde designet noe for destinasjonsvertene ennå'},
+       no:'Ingen hadde designet noe for destinasjonsvertene ennå',
+       es:'Nadie había diseñado nada todavía para los representantes de destino'},
     body:{
       en:['The project surfaced during Itaka’s platform redesign. The destination reps meet flights, run transfers and sell excursions across <strong>more than 100 destinations</strong>, and <strong>no one had built a tool for them</strong>. That gap became a brief.'],
-      no:['Prosjektet dukket opp under redesignet av Itakas plattform. Destinasjonsvertene møter fly, kjører transport og selger utflukter på <strong>over 100 destinasjoner</strong>, og <strong>ingen hadde bygd et verktøy for dem</strong>. Den mangelen ble til et oppdrag.']
+      no:['Prosjektet dukket opp under redesignet av Itakas plattform. Destinasjonsvertene møter fly, kjører transport og selger utflukter på <strong>over 100 destinasjoner</strong>, og <strong>ingen hadde bygd et verktøy for dem</strong>. Den mangelen ble til et oppdrag.'],
+      es:['El proyecto surgió durante el rediseño de la plataforma de Itaka. Los representantes de destino reciben vuelos, gestionan traslados y venden excursiones en <strong>más de 100 destinos</strong>, y <strong>nadie había construido una herramienta para ellos</strong>. Esa carencia se convirtió en un encargo.']
     },
     assets:['context']
   },
   {
-    id:'paper', nav:{en:'The paper list',no:'Papirlista'},
-    eyebrow:{en:'02 · The problem',no:'02 · Problemet'},
+    id:'paper', nav:{en:'The paper list',no:'Papirlista', es:'La lista en papel'},
+    eyebrow:{en:'02 · The problem',no:'02 · Problemet', es:'02 · El problema'},
     h:{en:'A rep met every flight with a printed A4 list and over 100 names to check',
-       no:'En vert møtte hvert fly med en utskrevet A4-liste og over 100 navn å sjekke av'},
+       no:'En vert møtte hvert fly med en utskrevet A4-liste og over 100 navn å sjekke av',
+       es:'Un representante recibía cada vuelo con una lista A4 impresa y más de 100 nombres que marcar'},
     body:{
       en:['Everything on that paper was typed into Excel that evening, then retyped by the department manager into our enterprise system. <strong>The same information was entered three times.</strong>'],
-      no:['Alt på det arket ble tastet inn i Excel samme kveld, og deretter tastet inn på nytt av avdelingslederen i bedriftssystemet vårt. <strong>Den samme informasjonen ble lagt inn tre ganger.</strong>']
+      no:['Alt på det arket ble tastet inn i Excel samme kveld, og deretter tastet inn på nytt av avdelingslederen i bedriftssystemet vårt. <strong>Den samme informasjonen ble lagt inn tre ganger.</strong>'],
+      es:['Todo lo que había en ese papel se tecleaba en Excel esa misma tarde, y luego el responsable del departamento lo volvía a teclear en nuestro sistema corporativo. <strong>La misma información se introducía tres veces.</strong>']
     },
     assets:['before'],
     sub:{
-      h:{en:'Nothing could assume a signal',no:'Ingenting kunne forutsette dekning'},
+      h:{en:'Nothing could assume a signal',no:'Ingenting kunne forutsette dekning', es:'Nada podía dar por hecha la cobertura'},
       body:{
         en:['Destination airports frequently had no working internet. <strong>Offline was not a fallback</strong>, it was the condition the whole architecture sat on.'],
-        no:['Destinasjonsflyplassene hadde ofte ikke fungerende internett. <strong>Offline var ikke en reserveløsning</strong>, det var forutsetningen hele arkitekturen hvilte på.']
+        no:['Destinasjonsflyplassene hadde ofte ikke fungerende internett. <strong>Offline var ikke en reserveløsning</strong>, det var forutsetningen hele arkitekturen hvilte på.'],
+        es:['Los aeropuertos de destino a menudo no tenían internet operativo. <strong>El modo sin conexión no era un plan B</strong>, era la condición sobre la que se asentaba toda la arquitectura.']
       },
       assets:['offline']
     }
   },
   {
-    id:'pitch', nav:{en:'The pitch',no:'Pitchen'},
-    eyebrow:{en:'03 · Buy-in',no:'03 · Forankring'},
+    id:'pitch', nav:{en:'The pitch',no:'Pitchen', es:'La presentación'},
+    eyebrow:{en:'03 · Buy-in',no:'03 · Forankring', es:'03 · Aprobación'},
     h:{en:'The first pitch failed, because it made the wrong case',
-       no:'Den første pitchen strandet, fordi den la fram feil sak'},
+       no:'Den første pitchen strandet, fordi den la fram feil sak',
+       es:'La primera presentación fracasó, porque defendía el argumento equivocado'},
     body:{
       en:['The first pitch led with efficiency for the reps. The room was deciding on budget, and travel had just stopped. <strong>A second pitch, built on research and on what competitors were already doing, passed.</strong> The first argument had been <strong>correct and irrelevant at once</strong>.'],
-      no:['Den første pitchen ledet med effektivitet for vertene. Ledelsen skulle bestemme budsjett, og reiselivet hadde nettopp stoppet opp. <strong>En ny pitch, bygd på research og på hva konkurrentene allerede gjorde, gikk gjennom.</strong> Det første argumentet hadde vært <strong>riktig og irrelevant på én gang</strong>.']
+      no:['Den første pitchen ledet med effektivitet for vertene. Ledelsen skulle bestemme budsjett, og reiselivet hadde nettopp stoppet opp. <strong>En ny pitch, bygd på research og på hva konkurrentene allerede gjorde, gikk gjennom.</strong> Det første argumentet hadde vært <strong>riktig og irrelevant på én gang</strong>.'],
+      es:['La primera presentación se apoyaba en la eficiencia para los representantes. La sala decidía sobre presupuesto, y los viajes acababan de pararse. <strong>Una segunda presentación, construida sobre la investigación y sobre lo que la competencia ya hacía, se aprobó.</strong> El primer argumento había sido <strong>correcto e irrelevante a la vez</strong>.']
     },
     assets:['slide']
   },
   {
-    id:'research', nav:{en:'Research window',no:'Innsiktsvindu'},
-    eyebrow:{en:'04 · Research',no:'04 · Innsikt'},
+    id:'research', nav:{en:'Research window',no:'Innsiktsvindu', es:'Ventana de investigación'},
+    eyebrow:{en:'04 · Research',no:'04 · Innsikt', es:'04 · Investigación'},
     h:{en:'The pandemic emptied the destinations and opened the research window',
-       no:'Pandemien tømte destinasjonene og åpnet innsiktsvinduet'},
+       no:'Pandemien tømte destinasjonene og åpnet innsiktsvinduet',
+       es:'La pandemia vació los destinos y abrió la ventana de investigación'},
     body:{
       en:['Reps are normally impossible to reach, abroad and in motion through peak season. <strong>In 2020 they were employed with almost no guests.</strong> Two to three months went into <strong>interviewing around ten of them</strong>, and into building <strong>the observation instrument</strong> our Product Owner then used at destination airports.'],
-      no:['Verter er normalt umulige å få tak i, i utlandet og i bevegelse gjennom høysesongen. <strong>I 2020 var de ansatt med nesten ingen gjester.</strong> To til tre måneder gikk med til å <strong>intervjue rundt ti av dem</strong>, og til å bygge <strong>observasjonsverktøyet</strong> vår Product Owner deretter brukte på destinasjonsflyplassene.']
+      no:['Verter er normalt umulige å få tak i, i utlandet og i bevegelse gjennom høysesongen. <strong>I 2020 var de ansatt med nesten ingen gjester.</strong> To til tre måneder gikk med til å <strong>intervjue rundt ti av dem</strong>, og til å bygge <strong>observasjonsverktøyet</strong> vår Product Owner deretter brukte på destinasjonsflyplassene.'],
+      es:['Los representantes suelen ser imposibles de localizar, en el extranjero y en movimiento durante la temporada alta. <strong>En 2020 estaban contratados casi sin huéspedes.</strong> Dos o tres meses se dedicaron a <strong>entrevistar a una decena de ellos</strong> y a construir <strong>el instrumento de observación</strong> que nuestra Product Owner usó después en los aeropuertos de destino.']
     }
   },
   {
-    id:'scope', nav:{en:'The MVP rule',no:'MVP-regelen'},
-    eyebrow:{en:'05 · Scope',no:'05 · Omfang'},
+    id:'scope', nav:{en:'The MVP rule',no:'MVP-regelen', es:'La regla del MVP'},
+    eyebrow:{en:'05 · Scope',no:'05 · Omfang', es:'05 · Alcance'},
     h:{en:'Only features that helped the rep and earned money at once could ship',
-       no:'Bare funksjoner som både hjalp verten og tjente penger med en gang kunne lanseres'},
+       no:'Bare funksjoner som både hjalp verten og tjente penger med en gang kunne lanseres',
+       es:'Solo podían lanzarse las funciones que ayudaban al representante y generaban ingresos a la vez'},
     body:{
       en:['With no budget, anything doing only one of those jobs could not survive review. <strong>That rule decided the scope, and cut the feature the reps needed most.</strong>'],
-      no:['Uten budsjett kunne ingenting som bare gjorde én av de jobbene overleve vurderingen. <strong>Den regelen avgjorde omfanget, og kuttet funksjonen vertene trengte mest.</strong>']
+      no:['Uten budsjett kunne ingenting som bare gjorde én av de jobbene overleve vurderingen. <strong>Den regelen avgjorde omfanget, og kuttet funksjonen vertene trengte mest.</strong>'],
+      es:['Sin presupuesto, nada que hiciera solo una de esas dos cosas sobrevivía a la revisión. <strong>Esa regla decidió el alcance, y recortó la función que más necesitaban los representantes.</strong>']
     },
     sub:{
-      h:{en:'What was scoped out',no:'Det som ble tatt ut av omfanget'},
+      h:{en:'What was scoped out',no:'Det som ble tatt ut av omfanget', es:'Lo que quedó fuera del alcance'},
       list:{
         en:['<strong>Reporting and system integration.</strong> What reps needed most. It shipped later.',
             '<strong>Contactless check-in.</strong> Blocked on the consumer app’s backlog, not on us.',
@@ -806,30 +882,37 @@ const SECTIONS = [
         no:['<strong>Rapportering og systemintegrasjon.</strong> Det vertene trengte mest. Det kom senere.',
             '<strong>Kontaktløs innsjekk.</strong> Blokkert av backloggen til forbrukerappen, ikke av oss.',
             '<strong>Alt som ikke kunne forsvare seg kommersielt.</strong>'],
+        es:['<strong>Informes e integración con el sistema.</strong> Lo que más necesitaban los representantes. Se lanzó más tarde.',
+         '<strong>Check-in sin contacto.</strong> Bloqueado por el backlog de la app de consumo, no por nosotros.',
+         '<strong>Todo lo que no pudiera defenderse comercialmente.</strong>'],
         type:'ul'
       },
       assets:['matrix']
     }
   },
   {
-    id:'tablet', nav:{en:'The tablet',no:'Nettbrettet'},
-    eyebrow:{en:'06 · Device',no:'06 · Enhet'},
+    id:'tablet', nav:{en:'The tablet',no:'Nettbrettet', es:'La tableta'},
+    eyebrow:{en:'06 · Device',no:'06 · Enhet', es:'06 · Dispositivo'},
     h:{en:'The reps chose the tablet, and their reasoning was about their hands',
-       no:'Vertene valgte nettbrettet, og begrunnelsen deres handlet om hendene'},
+       no:'Vertene valgte nettbrettet, og begrunnelsen deres handlet om hendene',
+       es:'Los representantes eligieron la tableta, y su razonamiento tenía que ver con sus manos'},
     body:{
       en:['<strong>Both options went to the reps.</strong> They had worked from A4 held in both hands and turned toward the guest. A phone would have changed the format and the tool in one week. <strong>The tablet kept the gesture</strong>, and let them show excursion video while selling.'],
-      no:['<strong>Begge alternativene gikk til vertene.</strong> De hadde jobbet fra A4 holdt i begge hender og vendt mot gjesten. En telefon ville ha endret formatet og verktøyet på én uke. <strong>Nettbrettet beholdt bevegelsen</strong>, og lot dem vise utfluktsvideo mens de solgte.']
+      no:['<strong>Begge alternativene gikk til vertene.</strong> De hadde jobbet fra A4 holdt i begge hender og vendt mot gjesten. En telefon ville ha endret formatet og verktøyet på én uke. <strong>Nettbrettet beholdt bevegelsen</strong>, og lot dem vise utfluktsvideo mens de solgte.'],
+      es:['<strong>Las dos opciones se pusieron en manos de los representantes.</strong> Habían trabajado con un A4 sujeto con las dos manos y girado hacia el huésped. Un teléfono habría cambiado el formato y la herramienta en una misma semana. <strong>La tableta conservó el gesto</strong>, y les permitió mostrar vídeos de excursiones mientras vendían.']
     },
     assets:['scale']
   },
   {
-    id:'mvp', nav:{en:'The MVP',no:'MVP-en'},
-    eyebrow:{en:'07 · The build',no:'07 · Løsningen'},
+    id:'mvp', nav:{en:'The MVP',no:'MVP-en', es:'El MVP'},
+    eyebrow:{en:'07 · The build',no:'07 · Løsningen', es:'07 · La solución'},
     h:{en:'The MVP followed the arrival in the order it actually happens',
-       no:'MVP-en fulgte ankomsten i den rekkefølgen den faktisk skjer'},
+       no:'MVP-en fulgte ankomsten i den rekkefølgen den faktisk skjer',
+       es:'El MVP siguió la llegada en el orden en que ocurre de verdad'},
     body:{
       en:['<strong>Three tabs, matching what a rep does between gate and coach.</strong>'],
-      no:['<strong>Tre faner, i takt med det en vert gjør mellom gate og buss.</strong>']
+      no:['<strong>Tre faner, i takt med det en vert gjør mellom gate og buss.</strong>'],
+      es:['<strong>Tres pestañas, en línea con lo que hace un representante entre la puerta de embarque y el autocar.</strong>']
     },
     list:{
       en:['<strong>Attendance</strong> — search by surname or reservation number',
@@ -838,71 +921,84 @@ const SECTIONS = [
       no:['<strong>Oppmøte</strong> — søk på etternavn eller reservasjonsnummer',
           '<strong>Hoteller</strong> — hvilken gruppe skal hvor',
           '<strong>Transport</strong> — hvilken buss, hvilket tidspunkt, begge retninger'],
+      es:['<strong>Asistencia</strong>: búsqueda por apellido o número de reserva',
+       '<strong>Hoteles</strong>: qué grupo va a dónde',
+       '<strong>Traslados</strong>: qué autocar, a qué hora, en ambos sentidos'],
       type:'ol'
     },
     body2:{
       en:['Excursion sales sat alongside, also offline.'],
-      no:['Utfluktssalg lå ved siden av, også offline.']
+      no:['Utfluktssalg lå ved siden av, også offline.'],
+      es:['La venta de excursiones iba al lado, también sin conexión.']
     },
     assets:['screens','excursions']
   },
   {
-    id:'checkin', nav:{en:'Check-in rebuilt',no:'Innsjekk bygd om'},
-    eyebrow:{en:'08 · The decision',no:'08 · Avgjørelsen'},
+    id:'checkin', nav:{en:'Check-in rebuilt',no:'Innsjekk bygd om', es:'Check-in rediseñado'},
+    eyebrow:{en:'08 · The decision',no:'08 · Avgjørelsen', es:'08 · La decisión'},
     h:{en:'We built check-in around the passenger, and field testing proved that wrong',
-       no:'Vi bygde innsjekken rundt passasjeren, og felttesting viste at det var feil'},
+       no:'Vi bygde innsjekken rundt passasjeren, og felttesting viste at det var feil',
+       es:'Construimos el check-in en torno al pasajero, y las pruebas de campo demostraron que era un error'},
     body:{
       en:['Our database stores people individually, so that is how the first build worked. In the field <strong>a family of five walked up as one group</strong> and the rep tapped five times. On paper, one stroke of a pen covered all five. Digitising the data model would have made the job slower than paper, so <strong>we rebuilt check-in around the reservation</strong>.'],
-      no:['Databasen vår lagrer mennesker enkeltvis, så det var slik den første versjonen fungerte. I felt kom <strong>en familie på fem opp som én gruppe</strong>, og verten trykket fem ganger. På papir dekket ett pennestrøk alle fem. Å digitalisere datamodellen ville gjort jobben tregere enn papir, så <strong>vi bygde innsjekken om rundt reservasjonen</strong>.']
+      no:['Databasen vår lagrer mennesker enkeltvis, så det var slik den første versjonen fungerte. I felt kom <strong>en familie på fem opp som én gruppe</strong>, og verten trykket fem ganger. På papir dekket ett pennestrøk alle fem. Å digitalisere datamodellen ville gjort jobben tregere enn papir, så <strong>vi bygde innsjekken om rundt reservasjonen</strong>.'],
+      es:['Nuestra base de datos guarda a las personas de una en una, así que así funcionó la primera versión. En el campo, <strong>una familia de cinco se acercó como un solo grupo</strong> y el representante tocó cinco veces. En papel, un solo trazo de bolígrafo cubría a los cinco. Digitalizar el modelo de datos habría hecho el trabajo más lento que el papel, así que <strong>reconstruimos el check-in en torno a la reserva</strong>.']
     },
     assets:['night','states']
   },
   {
-    id:'sunlight', nav:{en:'Sunlight',no:'Sollys'},
-    eyebrow:{en:'09 · Constraint',no:'09 · Begrensning'},
+    id:'sunlight', nav:{en:'Sunlight',no:'Sollys', es:'Luz solar'},
+    eyebrow:{en:'09 · Constraint',no:'09 · Begrensning', es:'09 · Restricción'},
     h:{en:'The reps warned us about sunlight before we built anything',
-       no:'Vertene advarte oss om sollyset før vi bygde noe som helst'},
+       no:'Vertene advarte oss om sollyset før vi bygde noe som helst',
+       es:'Los representantes nos avisaron del sol antes de que construyéramos nada'},
     body:{
       en:['They warned us in interviews that <strong>nothing would be readable in full sun</strong>, and testing confirmed it. Across 100 destinations we could not solve this for one climate, so <strong>contrast went into the hardware specification</strong>.'],
-      no:['De advarte oss i intervjuene om at <strong>ingenting ville være leselig i full sol</strong>, og testingen bekreftet det. På tvers av 100 destinasjoner kunne vi ikke løse dette for ett klima, så <strong>kontrast gikk inn i maskinvarespesifikasjonen</strong>.']
+      no:['De advarte oss i intervjuene om at <strong>ingenting ville være leselig i full sol</strong>, og testingen bekreftet det. På tvers av 100 destinasjoner kunne vi ikke løse dette for ett klima, så <strong>kontrast gikk inn i maskinvarespesifikasjonen</strong>.'],
+      es:['Nos avisaron en las entrevistas de que <strong>nada sería legible a pleno sol</strong>, y las pruebas lo confirmaron. En 100 destinos no podíamos resolverlo para un solo clima, así que <strong>el contraste pasó a la especificación del hardware</strong>.']
     },
     assets:['contrast']
   },
   {
-    id:'results', nav:{en:'Results',no:'Resultater'},
-    eyebrow:{en:'10 · Outcome',no:'10 · Resultat'},
+    id:'results', nav:{en:'Results',no:'Resultater', es:'Resultados'},
+    eyebrow:{en:'10 · Outcome',no:'10 · Resultat', es:'10 · Resultado'},
     h:{en:'Over 50% less time at the airport, and a whole layer of retyping gone',
-       no:'Over 50 % mindre tid på flyplassen, og et helt lag med dobbeltarbeid borte'},
+       no:'Over 50 % mindre tid på flyplassen, og et helt lag med dobbeltarbeid borte',
+       es:'Más de un 50 % menos de tiempo en el aeropuerto, y toda una capa de reintroducción de datos eliminada'},
     body:{
       en:['Once reporting connected to the enterprise system, <strong>the rep’s Excel work and the manager’s re-entry disappeared</strong>.'],
-      no:['Da rapporteringen ble koblet til bedriftssystemet, forsvant <strong>vertens Excel-arbeid og lederens dobbeltregistrering</strong>.']
+      no:['Da rapporteringen ble koblet til bedriftssystemet, forsvant <strong>vertens Excel-arbeid og lederens dobbeltregistrering</strong>.'],
+      es:['Cuando los informes se conectaron al sistema corporativo, <strong>desaparecieron el trabajo en Excel del representante y la reintroducción del responsable</strong>.']
     },
     stats:{
-      src:{en:'Reported by Resabee Travel Tech',no:'Rapportert av Resabee Travel Tech'},
+      src:{en:'Reported by Resabee Travel Tech',no:'Rapportert av Resabee Travel Tech', es:'Cifras publicadas por Resabee Travel Tech'},
       items:[
-        {fig:'50%+', lab:{en:'less time at the airport',no:'mindre tid på flyplassen'}},
-        {fig:'30%+', lab:{en:'less back-office work',no:'mindre kontorarbeid'}},
-        {fig:'1 442 793', lab:{en:'passengers handled in 2023, three years after launch',no:'passasjerer håndtert i 2023, tre år etter lansering'}}
+        {fig:'50%+', lab:{en:'less time at the airport',no:'mindre tid på flyplassen', es:'menos tiempo en el aeropuerto'}},
+        {fig:'30%+', lab:{en:'less back-office work',no:'mindre kontorarbeid', es:'menos trabajo administrativo'}},
+        {fig:'1 442 793', lab:{en:'passengers handled in 2023, three years after launch',no:'passasjerer håndtert i 2023, tre år etter lansering', es:'pasajeros gestionados en 2023, tres años después del lanzamiento'}}
       ]
     },
     assets:['showcase']
   },
   {
-    id:'gamification', nav:{en:'Gamification',no:'Gamifisering'},
-    eyebrow:{en:'11 · The tension',no:'11 · Dilemmaet'},
+    id:'gamification', nav:{en:'Gamification',no:'Gamifisering', es:'Gamificación'},
+    eyebrow:{en:'11 · The tension',no:'11 · Dilemmaet', es:'11 · La tensión'},
     h:{en:'Gamification lifted sales, and the unease it left has stayed',
-       no:'Gamifisering løftet salget, og ubehaget det etterlot har blitt værende'},
+       no:'Gamifisering løftet salget, og ubehaget det etterlot har blitt værende',
+       es:'La gamificación disparó las ventas, y la incomodidad que dejó sigue ahí'},
     body:{
       en:['When reporting shipped, we added points and team rankings showing who sold most each month. <strong>Sales rose sharply.</strong> The pressure to repay the hardware was real, and so is the discomfort of publishing individual figures inside a team that lives and works together.'],
-      no:['Da rapporteringen ble lansert, la vi til poeng og lagrangeringer som viste hvem som solgte mest hver måned. <strong>Salget steg kraftig.</strong> Presset for å tjene inn maskinvaren var reelt, og det samme er ubehaget ved å publisere individuelle tall i et team som lever og jobber sammen.']
+      no:['Da rapporteringen ble lansert, la vi til poeng og lagrangeringer som viste hvem som solgte mest hver måned. <strong>Salget steg kraftig.</strong> Presset for å tjene inn maskinvaren var reelt, og det samme er ubehaget ved å publisere individuelle tall i et team som lever og jobber sammen.'],
+      es:['Cuando se lanzaron los informes, añadimos puntos y clasificaciones de equipo que mostraban quién vendía más cada mes. <strong>Las ventas subieron con fuerza.</strong> La presión por amortizar el hardware era real, y también lo es la incomodidad de publicar cifras individuales dentro de un equipo que vive y trabaja junto.']
     },
     assets:['team']
   },
   {
-    id:'reflection', nav:{en:'Reflection',no:'Refleksjon'},
-    eyebrow:{en:'12 · Lessons',no:'12 · Lærdom'},
+    id:'reflection', nav:{en:'Reflection',no:'Refleksjon', es:'Reflexión'},
+    eyebrow:{en:'12 · Lessons',no:'12 · Lærdom', es:'12 · Lecciones'},
     h:{en:'What the project taught, and what would change next time',
-       no:'Det prosjektet lærte bort, og hva som ville endret seg neste gang'},
+       no:'Det prosjektet lærte bort, og hva som ville endret seg neste gang',
+       es:'Lo que enseñó el proyecto, y lo que cambiaría la próxima vez'},
     list:{
       en:['<strong>A correct argument is not a persuasive one.</strong> The criteria the room used had to be found first.',
           '<strong>Both product-changing findings came from watching, not asking.</strong>',
@@ -916,11 +1012,18 @@ const SECTIONS = [
           '<strong>Ressurser er verdt å forhandle om før man sier ja</strong>, ikke etterpå.',
           '<strong>Om vertene stolte på synkroniseringen ble aldri testet.</strong> En vert som ikke gjør det, beholder en papirkopi, og papiret blir værende.',
           '<strong>GDPR setter grensen for snarveier.</strong> Et engangsbygg med gjestedata kan bare gå så langt.'],
+      es:['<strong>Un argumento correcto no es un argumento persuasivo.</strong> Primero había que descubrir los criterios que usaba la sala.',
+       '<strong>Los dos hallazgos que cambiaron el producto vinieron de observar, no de preguntar.</strong>',
+       '<strong>Los sistemas cargan con supuestos sobre sus usuarios.</strong> El check-in por pasajero salió del esquema de datos, no de una decisión.',
+       '<strong>Los recursos merecen negociarse antes de decir que sí</strong>, no después.',
+       '<strong>Nunca se comprobó si los representantes confiaban en la sincronización.</strong> Un representante que no confía guarda una copia en papel, y el papel se queda.',
+       '<strong>El RGPD marca el límite de los atajos.</strong> Una versión desechable con datos de huéspedes solo puede llegar hasta cierto punto.'],
       type:'ul'
     },
     close:{
       en:'Today I would prototype before the first pitch, not after the rejection.',
-      no:'I dag ville jeg prototypet før den første pitchen, ikke etter avslaget.'
+      no:'I dag ville jeg prototypet før den første pitchen, ikke etter avslaget.',
+      es:'Hoy prototiparía antes de la primera presentación, no después del rechazo.'
     }
   }
 ];
@@ -946,7 +1049,7 @@ function assetHTML(id, L){
   }
   /* placeholder */
   const clock = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>';
-  const tag = L==='no' ? 'Makett underveis' : 'Mockup in progress';
+  const tag = ({no:'Makett underveis', es:'Maqueta en curso'})[L] || 'Mockup in progress';
   return `<figure class="fig reveal${wideCls}">
     <div class="ph" data-ratio="${a.ratio}">
       <span class="lab">${clock}${tag}</span>
@@ -984,7 +1087,7 @@ function glanceHTML(g){
 }
 
 function render(L){
-  const t = T[L];
+  const t = T[L] || T.en;
 
   /* header text */
   document.querySelectorAll('[data-t]').forEach(el=>{
@@ -992,7 +1095,7 @@ function render(L){
   });
   document.querySelector('.back span').textContent = t.back;
   /* The résumé follows the language switch, exactly as it does on the board:
-     EN → the English PDF, NO → the Norwegian one. */
+     EN → the English PDF, NO → the Norwegian one, ES → the Spanish one. */
   const cvLink = document.querySelector('footer.foot a[data-a="cv"]');
   if(cvLink && t.cvfile) cvLink.setAttribute('href', t.cvfile);
 
@@ -1049,11 +1152,11 @@ function render(L){
 }
 
 // Kontrola „sierotek" na końcu wersu: krótkie spójniki nie zostają same na końcu linii.
-// Sklejamy „and"/„og" z następnym słowem nierozdzielającą spacją ( ), więc schodzą razem.
+// Sklejamy „and"/„og"/„y"/„o" z następnym słowem nierozdzielającą spacją ( ), więc schodzą razem.
 function noRunts(root){
   if(!root) return;
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-  const rx = /\b(and|og)\b[ \t ]+/gi;
+  const rx = /\b(and|og|y|o|e|u)\b[ \t ]+/gi;
   let n;
   while((n = walker.nextNode())){
     n.nodeValue = n.nodeValue.replace(rx, '$1 ');
@@ -1115,7 +1218,7 @@ langEl.addEventListener('click', e=>{
   const lbImg = document.getElementById('lbImg');
   const lbCap = document.getElementById('lbCap');
   const lbClose = document.getElementById('lbClose');
-  const CLOSE_LABEL = {en:'Close', no:'Lukk'};
+  const CLOSE_LABEL = {en:'Close', no:'Lukk', es:'Cerrar'};
   let lastFocus = null, hideTimer = null;
 
   function open(img){

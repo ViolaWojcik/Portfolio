@@ -18,6 +18,7 @@
 <meta property="og:image:alt" content="An archive postcard of the historic oncology hospital: a long brick ward wing and a gothic chapel around a garden courtyard">
 <meta property="og:locale" content="en_GB">
 <meta property="og:locale:alternate" content="nb_NO">
+<meta property="og:locale:alternate" content="es_ES">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Paths, not plans — Service design case study · Wioleta Wójcik">
 <meta name="twitter:description" content="Reading a heritage hospital as a service in motion, and redrawing how patients and staff move through it.">
@@ -33,7 +34,7 @@
   "image": "https://wioletawojcik.com/hospital-wayfinding/assets/hero-postcard.png",
   "genre": "Service design",
   "description": "Reading a heritage hospital as a service in motion, and redrawing how patients and staff move through it.",
-  "inLanguage": ["en", "nb"],
+  "inLanguage": ["en", "nb", "es"],
   "author": {
     "@type": "Person",
     "name": "Wioleta Maria Wójcik",
@@ -124,11 +125,12 @@ body::before{
 }
 #lang::before{
   content:'';position:absolute;left:4px;top:4px;
-  width:calc(50% - 4px);height:calc(100% - 8px);
+  width:calc((100% - 8px) / 3);height:calc(100% - 8px);
   background:var(--accent);border-radius:18px;
   transition:transform .3s var(--ease);
 }
 #lang[data-l="no"]::before{transform:translateX(100%);}
+#lang[data-l="es"]::before{transform:translateX(200%);}
 #lang button{
   position:relative;z-index:1;border:0;background:none;cursor:pointer;
   font-family:var(--font-ui);font-size:10.5px;font-weight:500;
@@ -440,6 +442,7 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
 <div id="lang" role="group" data-l="en">
   <button type="button" data-lang="en" aria-pressed="true">EN</button>
   <button type="button" data-lang="no" aria-pressed="false">NO</button>
+  <button type="button" data-lang="es" aria-pressed="false">ES</button>
 </div>
 
 <main class="main">
@@ -545,10 +548,10 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
 
 <script>
 /* =========================================================
-   CONTENT MODEL — the whole case study, both languages.
-   English is the finished copy; Norwegian is a first draft,
-   pending review by a native speaker (same status as the
-   board's NO strings).
+   CONTENT MODEL — the whole case study, three languages.
+   English is the finished copy; Norwegian and Spanish are
+   first drafts, pending review by native speakers (same
+   status as the board's NO/ES strings).
 
    INTEGRITY: real client work, shown only through anonymised,
    illustrative reconstructions. No hospital/firm named, no
@@ -620,108 +623,181 @@ const T = {
       {k:'År',          v:'2016'},
       {k:'Omfang',      v:'Pasientreiser, arealanalyse, soner'}
     ]
+  },
+  es:{
+    back:'Todos los proyectos',
+    wordmark:'Caminos, no planos',
+    markSub:'Caso de estudio de diseño de servicios',
+    kicker:'Caso de estudio · Arquitectura · Diseño de servicios',
+    title:'Caminos, no planos',
+    dek:'Un complejo hospitalario protegido que no podía reconstruirse.<br>Así que la auditoría siguió los caminos de pacientes y personal, no los planos, y eso nos permitió hacer que funcionara mejor.',
+    glance:{
+      eyebrow:'De un vistazo',
+      problem:{
+        k:'Problema',
+        v:'Un hospital oncológico en funcionamiento dentro de un complejo histórico: quimioterapia sillón contra sillón, familias sin dónde sentarse, un diagnóstico repartido en <strong>cinco visitas</strong> y meses de espera. Nuestra medición mostró por qué. Las salas para pacientes ocupaban el <strong>14 %</strong> del edificio, menos que el <strong>15 %</strong> alquilado a un inquilino comercial. El hospital tenía espacio; la atención no lo recibía.'
+      },
+      role:{
+        k:'Mi papel',
+        v:'<strong>Arquitecta, trabajando como diseñadora de servicios.</strong> Tres meses de entrevistas, observación y trabajo de campo en un equipo mixto de Vita Management, arquitectos junto a recursos humanos y economía. Yo aporté la evidencia espacial: recorridos de pacientes mapeados por tratamiento, cada sala medida, la reorganización probada como una simulación numérica.'
+      },
+      value:{
+        k:'Valor',
+        items:['<strong>Financiado:</strong> el hospital consiguió fondos de renovación gracias a la auditoría',
+         '<strong>14 % → 24 %:</strong> la parte del edificio para pacientes en la reorganización simulada, casi el doble',
+         '<strong>Construido en días:</strong> la lavandería junto a quimioterapia se convirtió en admisión y consultas, solo con tabiques'],
+        note:'Trabajo real para un cliente · anonimizado · porcentajes de nuestra auditoría'
+      }
+    },
+    footNext:'Ven a decir <em>¡hola!</em>',
+    cvfile:'Wioleta-Wojcik-CV-ES.pdf',
+    footBack:'Volver a todos los proyectos',
+    footNote:'Trabajo real para un cliente, mostrado mediante reconstrucciones anonimizadas e ilustrativas. Ni el hospital ni el estudio se nombran, y no se reproduce ningún plano original. Diagramas redibujados en 2026; los porcentajes proceden de nuestro análisis de uso del espacio del complejo, y las cuotas objetivo de la simulación de reorganización están redondeadas.',
+    meta:[{
+        k:'Papel',
+        v:'Arquitecta · Diseñadora de servicios'
+      },
+      {
+        k:'Equipo',
+        v:'Arquitectos · RR. HH. · Economía'
+      },
+      {
+        k:'Contexto',
+        v:'Complejo hospitalario oncológico histórico (anonimizado)'
+      },
+      {
+        k:'Año',
+        v:'2016'
+      },
+      {
+        k:'Alcance',
+        v:'Recorridos de pacientes, análisis de uso del espacio, zonificación'
+      }]
   }
 };
 
 const ASSETS = {
   hero:{ type:'img', src:'hospital-wayfinding/assets/hero-postcard.webp', wide:true,
     cap:{en:'The hospital not long after it opened: brick wings around a garden, and the church at its corner. Period postcard, early 1900s.',
-         no:'Sykehuset ikke lenge etter at det åpnet: teglfløyer rundt en hage, og kirken i hjørnet. Postkort fra tidlig 1900-tall.'} },
+         no:'Sykehuset ikke lenge etter at det åpnet: teglfløyer rundt en hage, og kirken i hjørnet. Postkort fra tidlig 1900-tall.',
+         es:'El hospital poco después de abrir: alas de ladrillo alrededor de un jardín, y la iglesia en su esquina. Postal de época, principios del siglo XX.'} },
 
   area:{ type:'img', src:'hospital-wayfinding/assets/area-analysis.webp', wide:true,
     cap:{en:'Where the space went: the whole complex by use. Rooms for patients 14%, a commercial tenant 15%, auxiliary rooms 19%, offices 9%, circulation 29%. Redrawn from our audit, anonymised, 2026.',
-         no:'Hvor plassen ble av: hele komplekset etter bruk. Pasientrom 14%, en kommersiell leietaker 15%, birom 19%, kontorer 9%, kommunikasjon 29%. Tegnet på nytt fra vår revisjon, anonymisert, 2026.'} },
+         no:'Hvor plassen ble av: hele komplekset etter bruk. Pasientrom 14%, en kommersiell leietaker 15%, birom 19%, kontorer 9%, kommunikasjon 29%. Tegnet på nytt fra vår revisjon, anonymisert, 2026.',
+         es:'A dónde fue el espacio: todo el complejo por uso. Salas para pacientes 14 %, un inquilino comercial 15 %, salas auxiliares 19 %, oficinas 9 %, circulación 29 %. Redibujado a partir de nuestra auditoría, anonimizado, 2026.'} },
 
   spaceplan:{ type:'img', src:'hospital-wayfinding/assets/space-use-plan.webp', wide:true,
     cap:{en:'Where each use sat: the plan tinted by function, beside the whole-complex shares. Raised ground floor, schematic; tints illustrative, shares from our audit, 2026.',
-         no:'Hvor hver bruk satt: planen farget etter funksjon, ved siden av andelene for hele komplekset. Hevet førsteetasje, skjematisk; farger illustrative, andeler fra revisjonen vår, 2026.'} },
+         no:'Hvor hver bruk satt: planen farget etter funksjon, ved siden av andelene for hele komplekset. Hevet førsteetasje, skjematisk; farger illustrative, andeler fra revisjonen vår, 2026.',
+         es:'Dónde se situaba cada uso: la planta coloreada por función, junto a las cuotas de todo el complejo. Planta baja elevada, esquemática; colores ilustrativos, cuotas de nuestra auditoría, 2026.'} },
 
   journey:{ type:'img', src:'hospital-wayfinding/assets/journey-diagnostic.webp', wide:true,
     cap:{en:'The diagnostic path, before and after: five visits and months of waiting, compressed to three visits and days once a coordinator held the thread. Illustrative reconstruction, 2026.',
-         no:'Diagnoseforløpet, før og etter: fem besøk og måneders venting, presset ned til tre besøk og dager da en koordinator holdt tråden. Illustrerende rekonstruksjon, 2026.'} },
+         no:'Diagnoseforløpet, før og etter: fem besøk og måneders venting, presset ned til tre besøk og dager da en koordinator holdt tråden. Illustrerende rekonstruksjon, 2026.',
+         es:'El recorrido diagnóstico, antes y después: cinco visitas y meses de espera, comprimidos en tres visitas y días una vez que una coordinadora sostuvo el hilo. Reconstrucción ilustrativa, 2026.'} },
 
   findings:{ type:'img', src:'hospital-wayfinding/assets/perspectives.webp', wide:true,
     cap:{en:'Two readings of one plan: the patient worn down desk to desk and queue to queue, the staff withdrawing behind the station wall. Illustrative reconstruction, 2026.',
-         no:'To lesninger av samme plan: pasienten slites ned fra luke til luke og kø til kø, personalet trekker seg tilbake bak vaktrommets vegg. Illustrerende rekonstruksjon, 2026.'} },
+         no:'To lesninger av samme plan: pasienten slites ned fra luke til luke og kø til kø, personalet trekker seg tilbake bak vaktrommets vegg. Illustrerende rekonstruksjon, 2026.',
+         es:'Dos lecturas de un mismo plano: el paciente desgastado de mostrador en mostrador y de cola en cola, el personal replegándose tras el muro del control. Reconstrucción ilustrativa, 2026.'} },
 
   constraint:{ type:'img', src:'hospital-wayfinding/assets/constraint.webp', wide:true,
     cap:{en:'A protected door frame too narrow for a hospital bed, no widening without the conservator. Illustrative reconstruction; dimensions illustrative, 2026.',
-         no:'En fredet dørkarm for smal for en sykehusseng, ingen utvidelse uten vernemyndigheten. Illustrerende rekonstruksjon; mål er illustrative, 2026.'} },
+         no:'En fredet dørkarm for smal for en sykehusseng, ingen utvidelse uten vernemyndigheten. Illustrerende rekonstruksjon; mål er illustrative, 2026.',
+         es:'Un marco de puerta protegido demasiado estrecho para una cama de hospital, sin posibilidad de ensancharlo sin el conservador de patrimonio. Reconstrucción ilustrativa; dimensiones ilustrativas, 2026.'} },
 
   paths:{ type:'img', src:'hospital-wayfinding/assets/paths-service-map-sketch.webp', wide:true,
     cap:{en:'Three layers over one complex: patient journeys by treatment, staff routes by specialism, and the ambulance approach. Illustrative reconstruction, 2026.',
-         no:'Tre lag over ett kompleks: pasientreiser etter behandling, personalruter etter spesialisering, og ambulanseadkomsten. Illustrerende rekonstruksjon, 2026.'} },
+         no:'Tre lag over ett kompleks: pasientreiser etter behandling, personalruter etter spesialisering, og ambulanseadkomsten. Illustrerende rekonstruksjon, 2026.',
+         es:'Tres capas sobre un mismo complejo: recorridos de pacientes por tratamiento, rutas del personal por especialidad, y el acceso de ambulancias. Reconstrucción ilustrativa, 2026.'} },
 
   laundry:{ type:'img', src:'hospital-wayfinding/assets/laundry-before-after.webp', wide:true,
     cap:{en:'The quick win: a laundry beside chemotherapy became registration and consulting rooms, using partition walls and no demolition. Illustrative reconstruction, 2026.',
-         no:'Det raske grepet: et vaskeri ved siden av cellegiftavdelingen ble resepsjon og konsultasjonsrom, med lettvegger og uten riving. Illustrerende rekonstruksjon, 2026.'} },
+         no:'Det raske grepet: et vaskeri ved siden av cellegiftavdelingen ble resepsjon og konsultasjonsrom, med lettvegger og uten riving. Illustrerende rekonstruksjon, 2026.',
+         es:'La victoria rápida: una lavandería junto a quimioterapia se convirtió en admisión y consultas, con tabiques y sin demoliciones. Reconstrucción ilustrativa, 2026.'} },
 
   future:{ type:'img', src:'hospital-wayfinding/assets/future.webp', wide:true,
     cap:{en:'The concept as three screens. Left, the doctor\'s own patient base: one profile per person, the photo large enough to remember a face, not a case number. Right, the patient\'s phone: a home screen with today\'s chemotherapy cleared by their named doctor, the nurse who will receive them and results the moment they are ready, plus a live companion chat. Forward-looking concept, not a shipped product.',
-         no:'Konseptet som tre skjermer. Til venstre legens egen pasientbase: én profil per person, med bilde stort nok til å huske et ansikt, ikke et saksnummer. Til høyre pasientens telefon: en startskjerm med dagens cellegift klarert av deres egen lege, sykepleieren som tar imot, og svar i samme øyeblikk de er klare, pluss en levende chat med en følgesvenn. Fremtidskonsept, ikke et lansert produkt.'} }
+         no:'Konseptet som tre skjermer. Til venstre legens egen pasientbase: én profil per person, med bilde stort nok til å huske et ansikt, ikke et saksnummer. Til høyre pasientens telefon: en startskjerm med dagens cellegift klarert av deres egen lege, sykepleieren som tar imot, og svar i samme øyeblikk de er klare, pluss en levende chat med en følgesvenn. Fremtidskonsept, ikke et lansert produkt.',
+         es:'El concepto en tres pantallas. A la izquierda, la propia base de pacientes del médico: un perfil por persona, con la foto lo bastante grande para recordar una cara, no un número de expediente. A la derecha, el móvil del paciente: una pantalla de inicio con la quimioterapia de hoy autorizada por su médico de referencia, la enfermera que lo recibirá y los resultados en el momento en que estén listos, además de un chat de acompañamiento en vivo. Concepto de futuro, no un producto lanzado.'} }
 };
 
 const SECTIONS = [
   {
-    id:'patient', nav:{en:'The patient\'s day',no:'Pasientens dag'},
-    eyebrow:{en:'01 · The patient',no:'01 · Pasienten'},
+    id:'patient', nav:{en:'The patient\'s day',no:'Pasientens dag', es:'El día del paciente'},
+    eyebrow:{en:'01 · The patient',no:'01 · Pasienten', es:'01 · El paciente'},
     h:{en:'Before treatment could begin, the system sent patients on a paper chase',
-       no:'Før behandlingen kunne begynne, sendte systemet pasientene på papirjakt'},
+       no:'Før behandlingen kunne begynne, sendte systemet pasientene på papirjakt',
+       es:'Antes de que pudiera empezar el tratamiento, el sistema enviaba a los pacientes a una carrera de papeles'},
     body:{
       en:['To start treatment, a patient first had to survive the paperwork. The journey we mapped ran through <strong>roughly five separate visits</strong>: a referral, a registration desk, a specialist issuing orders for tests, the tests themselves in a separate building, then back to the doctor for the results. Waiting for results took <strong>two to three weeks</strong>; waiting for the next appointment could take <strong>three to four months</strong>.',
           'These were oncology patients, people in the hardest weeks of their lives. The complex asked them to <strong>walk to another building to collect a signature</strong>, return to a doctor for a confirmation, and only then go on to tests or therapy. Every failure of the system <strong>landed on the person least able to absorb it</strong>.'],
       no:['For å starte behandling måtte pasienten først overleve papirarbeidet. Reisen vi kartla gikk gjennom <strong>omtrent fem separate besøk</strong>: en henvisning, en resepsjonsluke, en spesialist som skrev ut rekvisisjoner, selve prøvene i et eget bygg, og så tilbake til legen for svarene. Å vente på svar tok <strong>to til tre uker</strong>; å vente på neste time kunne ta <strong>tre til fire måneder</strong>.',
-          'Dette var kreftpasienter, mennesker i de tyngste ukene av livet. Komplekset ba dem <strong>gå til et annet bygg for å hente en underskrift</strong>, tilbake til en lege for en bekreftelse, og først da videre til prøver eller behandling. Hver svikt i systemet <strong>landet på den personen som hadde minst å ta imot med</strong>.']
+          'Dette var kreftpasienter, mennesker i de tyngste ukene av livet. Komplekset ba dem <strong>gå til et annet bygg for å hente en underskrift</strong>, tilbake til en lege for en bekreftelse, og først da videre til prøver eller behandling. Hver svikt i systemet <strong>landet på den personen som hadde minst å ta imot med</strong>.'],
+      es:['Para empezar el tratamiento, el paciente primero tenía que sobrevivir al papeleo. El recorrido que mapeamos pasaba por <strong>unas cinco visitas separadas</strong>: una derivación, un mostrador de admisión, un especialista que emitía volantes para pruebas, las pruebas en sí en un edificio aparte, y de vuelta al médico para los resultados. Esperar los resultados llevaba <strong>de dos a tres semanas</strong>; esperar la siguiente cita podía llevar <strong>de tres a cuatro meses</strong>.',
+       'Eran pacientes oncológicos, personas en las semanas más duras de su vida. El complejo les pedía <strong>caminar hasta otro edificio para recoger una firma</strong>, volver a un médico para una confirmación, y solo entonces seguir a las pruebas o a la terapia. Cada fallo del sistema <strong>caía sobre la persona menos capaz de absorberlo</strong>.']
     },
     assets:['journey']
   },
   {
-    id:'fieldwork', nav:{en:'Three months inside',no:'Tre måneder inne'},
-    eyebrow:{en:'02 · Fieldwork',no:'02 · Feltarbeid'},
+    id:'fieldwork', nav:{en:'Three months inside',no:'Tre måneder inne', es:'Tres meses dentro'},
+    eyebrow:{en:'02 · Fieldwork',no:'02 · Feltarbeid', es:'02 · Trabajo de campo'},
     h:{en:'We spent three months inside the hospital before drawing a single line',
-       no:'Vi tilbrakte tre måneder inne i sykehuset før vi tegnet en eneste strek'},
+       no:'Vi tilbrakte tre måneder inne i sykehuset før vi tegnet en eneste strek',
+       es:'Pasamos tres meses dentro del hospital antes de trazar una sola línea'},
     body:{
       en:['The brief was an <strong>audit and optimisation of the hospital\'s space</strong>, and we treated it as service research rather than a drawing exercise. A mixed team, <strong>architects alongside HR and economics specialists</strong>, interviewed doctors, nurses and patients, observed wards and waiting areas at different hours, and walked every route the building forced on people.',
           'We traced <strong>movement rather than floor area</strong>: patient journeys split by treatment, chemotherapy, radiotherapy and combined; staff routes by specialism; even the ambulance approach. Each layer showed where the service broke, and where it could be rejoined.'],
       no:['Oppdraget var en <strong>revisjon og optimalisering av sykehusets arealer</strong>, og vi behandlet det som tjenesteforskning, ikke en tegneøvelse. Et blandet team, <strong>arkitekter sammen med spesialister i HR og økonomi</strong>, intervjuet leger, sykepleiere og pasienter, observerte avdelinger og venteområder til ulike tider, og gikk hver eneste rute bygget tvang folk gjennom.',
-          'Vi sporet <strong>bevegelse i stedet for gulvareal</strong>: pasientreiser delt etter behandling, cellegift, stråling og kombinert; personalruter etter spesialisering; til og med ambulanseadkomsten. Hvert lag viste hvor tjenesten brøt sammen, og hvor den kunne settes sammen igjen.']
+          'Vi sporet <strong>bevegelse i stedet for gulvareal</strong>: pasientreiser delt etter behandling, cellegift, stråling og kombinert; personalruter etter spesialisering; til og med ambulanseadkomsten. Hvert lag viste hvor tjenesten brøt sammen, og hvor den kunne settes sammen igjen.'],
+      es:['El encargo era una <strong>auditoría y optimización del espacio del hospital</strong>, y lo tratamos como investigación de servicios y no como un ejercicio de dibujo. Un equipo mixto, <strong>arquitectos junto a especialistas en recursos humanos y economía</strong>, entrevistó a médicos, enfermeras y pacientes, observó plantas y salas de espera a distintas horas, y recorrió cada ruta que el edificio imponía a las personas.',
+       'Rastreamos <strong>el movimiento y no la superficie</strong>: recorridos de pacientes separados por tratamiento, quimioterapia, radioterapia y combinado; rutas del personal por especialidad; incluso el acceso de ambulancias. Cada capa mostraba dónde se rompía el servicio, y dónde podía volver a unirse.']
     },
     assets:['paths']
   },
   {
-    id:'people', nav:{en:'Two perspectives',no:'To perspektiver'},
-    eyebrow:{en:'03 · The people',no:'03 · Menneskene'},
+    id:'people', nav:{en:'Two perspectives',no:'To perspektiver', es:'Dos perspectivas'},
+    eyebrow:{en:'03 · The people',no:'03 · Menneskene', es:'03 · Las personas'},
     h:{en:'Patients had run out of patience. Staff had built themselves shelters.',
-       no:'Pasientene hadde sluppet opp for tålmodighet. Personalet hadde bygget seg tilfluktsrom.'},
+       no:'Pasientene hadde sluppet opp for tålmodighet. Personalet hadde bygget seg tilfluktsrom.',
+       es:'A los pacientes se les había agotado la paciencia. El personal se había construido refugios.'},
     body:{
       en:['<strong>A sick person has no reserves left.</strong> When an inefficient system asks them to queue at a third desk or walk one more corridor, they do not adapt, they wear down. In our interviews the frustration was constant, and it was aimed at the building as much as at anyone working in it.',
           'The staff side read differently. Doctors and nurses who had worked for years next to suffering had learned, understandably, to protect themselves. <strong>Nurse stations had grown into small refuges</strong>, oversized and closed off, places to withdraw to. We read that as a signal rather than a fault: <strong>the same layout that exhausted patients was pushing the people caring for them into retreat</strong>. Any redesign would have to give both sides room, calm for patients and their families, and open, workable bases for staff who no longer needed to hide.'],
       no:['<strong>Et sykt menneske har ingen reserver igjen.</strong> Når et ineffektivt system ber dem stille seg i kø ved en tredje luke eller gå enda en korridor, tilpasser de seg ikke, de slites ned. I intervjuene våre var frustrasjonen konstant, og den var rettet mot bygget like mye som mot noen som jobbet der.',
-          'Personalsiden leste annerledes. Leger og sykepleiere som hadde jobbet i årevis ved siden av lidelse, hadde forståelig nok lært å beskytte seg selv. <strong>Vaktrommene hadde vokst til små tilfluktsrom</strong>, for store og lukkede, steder å trekke seg tilbake til. Vi leste det som et signal, ikke en feil: <strong>den samme planløsningen som utmattet pasientene, presset de som pleide dem inn i retrett</strong>. Ethvert nytt grep måtte gi begge sider rom, ro for pasienter og familier, og åpne, brukbare baser for ansatte som ikke lenger trengte å gjemme seg.']
+          'Personalsiden leste annerledes. Leger og sykepleiere som hadde jobbet i årevis ved siden av lidelse, hadde forståelig nok lært å beskytte seg selv. <strong>Vaktrommene hadde vokst til små tilfluktsrom</strong>, for store og lukkede, steder å trekke seg tilbake til. Vi leste det som et signal, ikke en feil: <strong>den samme planløsningen som utmattet pasientene, presset de som pleide dem inn i retrett</strong>. Ethvert nytt grep måtte gi begge sider rom, ro for pasienter og familier, og åpne, brukbare baser for ansatte som ikke lenger trengte å gjemme seg.'],
+      es:['<strong>Una persona enferma no tiene reservas.</strong> Cuando un sistema ineficiente le pide hacer cola en un tercer mostrador o recorrer un pasillo más, no se adapta, se desgasta. En nuestras entrevistas la frustración era constante, y apuntaba al edificio tanto como a cualquiera que trabajara en él.',
+       'El lado del personal se leía de otra manera. Médicos y enfermeras que llevaban años trabajando junto al sufrimiento habían aprendido, comprensiblemente, a protegerse. <strong>Los controles de enfermería habían crecido hasta ser pequeños refugios</strong>, sobredimensionados y cerrados, lugares a los que retirarse. Lo leímos como una señal y no como un fallo: <strong>la misma distribución que agotaba a los pacientes empujaba a quienes los cuidaban a replegarse</strong>. Cualquier rediseño tendría que dar espacio a los dos lados, calma para los pacientes y sus familias, y bases abiertas y funcionales para un personal que ya no necesitara esconderse.']
     },
     assets:['findings']
   },
   {
-    id:'analysis', nav:{en:'Where the space went',no:'Hvor plassen ble av'},
-    eyebrow:{en:'04 · The analysis',no:'04 · Analysen'},
+    id:'analysis', nav:{en:'Where the space went',no:'Hvor plassen ble av', es:'A dónde fue el espacio'},
+    eyebrow:{en:'04 · The analysis',no:'04 · Analysen', es:'04 · El análisis'},
     h:{en:'Patients held less of the hospital than a commercial tenant',
-       no:'Pasientene hadde mindre av sykehuset enn en kommersiell leietaker'},
+       no:'Pasientene hadde mindre av sykehuset enn en kommersiell leietaker',
+       es:'Los pacientes ocupaban menos hospital que un inquilino comercial'},
     body:{
       en:['The complex had grown for over a century, wing by wing, until the clear U-shaped plan it began with lay buried in extensions. The hospital\'s core complaint was that there was no room: <strong>chemotherapy chair to chair</strong>, crowded wards, no space for a family to sit with a patient. So we <strong>measured what the building actually did, room by room and floor by floor</strong>, and drew the first complete picture of how its area was used.',
           'Circulation, the corridors, stairs and lifts, took 29% of the complex. For a historic hospital of this shape that is normal, and it was not the finding. The finding was the rest: <strong>rooms for patients came to 14% of the building, while 15% was rented out to an external company</strong>, 19% went to auxiliary rooms, kitchens, stores and technical space, and another 9% to offices. The lease itself was understandable: renting space out earned money the hospital needed to stay afloat. Which is exactly why outside funding mattered so much, as <strong>the way to hand that space back to patients instead of squeezing them to the limit</strong>. <strong>The hospital did have space. It just was not spending it on care.</strong>'],
       no:['Komplekset hadde vokst i over hundre år, fløy for fløy, til den klare U-formede planen det startet med lå begravd i tilbygg. Sykehusets kjerneproblem var at det ikke fantes plass: <strong>cellegift stol ved stol</strong>, overfylte avdelinger, ingen plass til en familie hos pasienten. Så vi <strong>målte hva bygget faktisk gjorde, rom for rom og etasje for etasje</strong>, og tegnet det første komplette bildet av hvordan arealet ble brukt.',
-          'Kommunikasjon, korridorene, trappene og heisene, tok 29% av komplekset. For et historisk sykehus med denne formen er det normalt, og det var ikke funnet. Funnet var resten: <strong>pasientrommene utgjorde 14% av bygget, mens 15% var leid ut til et eksternt firma</strong>, 19% gikk til birom, kjøkken, lager og tekniske rom, og ytterligere 9% til kontorer. Utleien i seg selv var forståelig: å leie ut rom ga inntekter sykehuset trengte for å holde seg flytende. Nettopp derfor betydde ekstern finansiering så mye, som <strong>veien til å gi den plassen tilbake til pasientene i stedet for å presse dem til grensen</strong>. <strong>Sykehuset hadde plass. Det brukte den bare ikke på omsorg.</strong>']
+          'Kommunikasjon, korridorene, trappene og heisene, tok 29% av komplekset. For et historisk sykehus med denne formen er det normalt, og det var ikke funnet. Funnet var resten: <strong>pasientrommene utgjorde 14% av bygget, mens 15% var leid ut til et eksternt firma</strong>, 19% gikk til birom, kjøkken, lager og tekniske rom, og ytterligere 9% til kontorer. Utleien i seg selv var forståelig: å leie ut rom ga inntekter sykehuset trengte for å holde seg flytende. Nettopp derfor betydde ekstern finansiering så mye, som <strong>veien til å gi den plassen tilbake til pasientene i stedet for å presse dem til grensen</strong>. <strong>Sykehuset hadde plass. Det brukte den bare ikke på omsorg.</strong>'],
+      es:['El complejo había crecido durante más de un siglo, ala a ala, hasta que la clara planta en U con la que empezó quedó enterrada bajo ampliaciones. La queja central del hospital era que no había sitio: <strong>quimioterapia sillón contra sillón</strong>, plantas abarrotadas, ningún espacio para que una familia se sentara con un paciente. Así que <strong>medimos lo que el edificio hacía en realidad, sala por sala y planta por planta</strong>, y trazamos la primera imagen completa de cómo se usaba su superficie.',
+       'La circulación, los pasillos, escaleras y ascensores, ocupaba el 29 % del complejo. Para un hospital histórico con esta forma es normal, y no era el hallazgo. El hallazgo era el resto: <strong>las salas para pacientes sumaban el 14 % del edificio, mientras que el 15 % estaba alquilado a una empresa externa</strong>, el 19 % iba a salas auxiliares, cocinas, almacenes y espacio técnico, y otro 9 % a oficinas. El alquiler en sí era comprensible: alquilar espacio daba un dinero que el hospital necesitaba para mantenerse a flote. Justo por eso la financiación externa importaba tanto, como <strong>la manera de devolver ese espacio a los pacientes en lugar de apretarlos hasta el límite</strong>. <strong>El hospital sí tenía espacio. Simplemente no lo estaba gastando en atención.</strong>']
     },
     assets:['spaceplan','area']
   },
   {
-    id:'findings', nav:{en:'What the audit found',no:'Hva revisjonen fant'},
-    eyebrow:{en:'05 · Findings',no:'05 · Funn'},
+    id:'findings', nav:{en:'What the audit found',no:'Hva revisjonen fant', es:'Lo que encontró la auditoría'},
+    eyebrow:{en:'05 · Findings',no:'05 · Funn', es:'05 · Hallazgos'},
     h:{en:'We named the problems, and wrote down who was paying for each one',
-       no:'Vi navnga problemene, og skrev ned hvem som betalte for hvert av dem'},
+       no:'Vi navnga problemene, og skrev ned hvem som betalte for hvert av dem',
+       es:'Nombramos los problemas, y anotamos quién pagaba por cada uno'},
     body:{
       en:['The audit\'s job was to make problems visible and precise, so they could be fixed, funded or challenged, not patched quietly one by one. A sample from the list:'],
-      no:['Revisjonens jobb var å gjøre problemene synlige og presise, slik at de kunne løses, finansieres eller utfordres, ikke lappes stille ett for ett. Et utvalg fra listen:']
+      no:['Revisjonens jobb var å gjøre problemene synlige og presise, slik at de kunne løses, finansieres eller utfordres, ikke lappes stille ett for ett. Et utvalg fra listen:'],
+      es:['El trabajo de la auditoría era hacer los problemas visibles y precisos, para que pudieran resolverse, financiarse o discutirse, no parchearse en silencio uno a uno. Una muestra de la lista:']
     },
     list:{
       en:['<strong>Registration was scattered</strong> across desks and buildings, so every stage of a visit began with finding the right queue',
@@ -734,54 +810,69 @@ const SECTIONS = [
           '<strong>Cellegiften gikk stol ved stol</strong>, uten plass til en pårørende ved pasientens side gjennom behandlingen',
           '<strong>Avdelingene fungerte som gjennomgangskorridorer</strong> hvem som helst kunne vandre inn i, så hvile og privatliv var et sjansespill',
           '<strong>Den historiske bygningskroppen kjempet mot sykehuslogistikken</strong>: fredede dørkarmer for smale for en moderne seng, i et vernet bygg der vegger ikke bare kunne slås gjennom'],
+      es:['<strong>La admisión estaba dispersa</strong> entre mostradores y edificios, así que cada etapa de una visita empezaba por encontrar la cola correcta',
+       '<strong>La señalización había crecido sin criterio</strong> durante décadas, y buena parte no tenía sentido, señalando funciones que se habían trasladado años antes',
+       '<strong>La quimioterapia se administraba sillón contra sillón</strong>, sin sitio para que un familiar acompañara al paciente durante el tratamiento',
+       '<strong>Las plantas funcionaban como pasillos de paso</strong> en los que cualquiera podía entrar, así que el descanso y la intimidad dependían de la suerte',
+       '<strong>La fábrica histórica peleaba contra la logística hospitalaria</strong>: marcos de puerta protegidos demasiado estrechos para una cama moderna, en un edificio catalogado donde no se podía simplemente abrir un muro'],
       type:'ul'
     },
     assets:['constraint']
   },
   {
-    id:'weight', nav:{en:'The human weight',no:'Den menneskelige vekten'},
-    eyebrow:{en:'06 · The stakes',no:'06 · Alvoret'},
+    id:'weight', nav:{en:'The human weight',no:'Den menneskelige vekten', es:'El peso humano'},
+    eyebrow:{en:'06 · The stakes',no:'06 · Alvoret', es:'06 · Lo que estaba en juego'},
     h:{en:'Some interviews could not be repeated a week later',
-       no:'Noen intervjuer kunne ikke gjentas en uke senere'},
+       no:'Noen intervjuer kunne ikke gjentas en uke senere',
+       es:'Algunas entrevistas no pudieron repetirse una semana después'},
     body:{
       en:['Part of the fieldwork ran through the palliative ward, where patients met their doctors and a support group at set hours. We would interview a patient about their week, their room, the distance to the bathroom. Sometimes, by the next visit, that person was gone.',
           'We carried those conversations through the audit with particular care, because they were the clearest evidence of <strong>what the building owed the people inside it</strong>. Not efficiency for its own sake, but calm, the closeness of family, and days not spent walking corridors.'],
       no:['En del av feltarbeidet gikk gjennom den palliative avdelingen, der pasienter møtte legene sine og en støttegruppe til faste tider. Vi intervjuet en pasient om uken deres, rommet deres, avstanden til badet. Noen ganger, ved neste besøk, var den personen borte.',
-          'Vi bar de samtalene gjennom revisjonen med særlig varsomhet, for de var det tydeligste beviset på <strong>hva bygget skyldte menneskene inne i det</strong>. Ikke effektivitet for sin egen del, men ro, nærhet til familien, og dager som ikke ble brukt på å gå korridorer.']
+          'Vi bar de samtalene gjennom revisjonen med særlig varsomhet, for de var det tydeligste beviset på <strong>hva bygget skyldte menneskene inne i det</strong>. Ikke effektivitet for sin egen del, men ro, nærhet til familien, og dager som ikke ble brukt på å gå korridorer.'],
+      es:['Parte del trabajo de campo pasaba por la unidad de paliativos, donde los pacientes se reunían con sus médicos y con un grupo de apoyo a horas fijas. Entrevistábamos a un paciente sobre su semana, su habitación, la distancia hasta el baño. A veces, en la siguiente visita, esa persona ya no estaba.',
+       'Llevamos esas conversaciones a lo largo de la auditoría con especial cuidado, porque eran la prueba más clara de <strong>lo que el edificio debía a las personas que había dentro</strong>. No eficiencia por sí misma, sino calma, la cercanía de la familia, y días no gastados recorriendo pasillos.']
     }
   },
   {
-    id:'value', nav:{en:'What the audit changed',no:'Hva revisjonen endret'},
-    eyebrow:{en:'07 · The value',no:'07 · Verdien'},
+    id:'value', nav:{en:'What the audit changed',no:'Hva revisjonen endret', es:'Lo que cambió la auditoría'},
+    eyebrow:{en:'07 · The value',no:'07 · Verdien', es:'07 · El valor'},
     h:{en:'The audit became the hospital\'s case for change, and the first change was almost free',
-       no:'Revisjonen ble sykehusets sak for endring, og den første endringen var nesten gratis'},
+       no:'Revisjonen ble sykehusets sak for endring, og den første endringen var nesten gratis',
+       es:'La auditoría se convirtió en el argumento del hospital para cambiar, y el primer cambio fue casi gratis'},
     body:{
       en:['Our proposal reorganised the complex into <strong>functional zones that followed the building\'s original logic</strong>: bed wards in the wings, a medical core for surgery and treatment, and one public zone gathering admissions, the outpatient clinic and diagnostics. We then ran the new balance as a numbers simulation on the plans: auxiliary and technical space tightened, part of the lease given up, and the recovered floor turned into rooms for patients, including <strong>separate chemotherapy rooms with space for a family member to stay through treatment</strong>.',
           'The measured, named list of problems did its work beyond the drawings too. On the strength of the audit, <strong>the hospital secured funding to renovate and improve conditions for its patients</strong>.',
           'And one fix refused to wait. The hospital still ran its own laundry in a large room directly beside chemotherapy. We proposed <strong>moving the laundry out to an external provider and freeing the room for patients</strong>, and that is what happened: with partition walls alone it <strong>became the registration desk and consulting rooms next to treatment</strong>, the walk between buildings disappeared from the patient\'s day, and <strong>the hospital built it almost at once</strong>.'],
       no:['Forslaget vårt omorganiserte komplekset i <strong>funksjonelle soner som fulgte byggets opprinnelige logikk</strong>: sengeavdelinger i fløyene, en medisinsk kjerne for kirurgi og behandling, og én offentlig sone som samlet mottak, poliklinikk og diagnostikk. Deretter kjørte vi den nye balansen som en tallsimulering på planene: birom og tekniske arealer strammet inn, deler av utleien gitt opp, og det gjenvunne gulvet gjort om til pasientrom, inkludert <strong>egne cellegiftrom med plass til at en pårørende kan bli gjennom behandlingen</strong>.',
           'Den målte, navngitte problemlisten gjorde jobben sin utenfor tegningene også. På grunnlag av revisjonen <strong>sikret sykehuset midler til å oppgradere og bedre forholdene for pasientene sine</strong>.',
-          'Og ett grep nektet å vente. Sykehuset drev fortsatt sitt eget vaskeri i et stort rom rett ved cellegiftavdelingen. Vi foreslo å <strong>sette vaskeriet ut til en ekstern leverandør og frigjøre rommet for pasientene</strong>, og det var det som skjedde: med bare lettvegger ble det <strong>resepsjonen og konsultasjonsrommene ved siden av behandlingen</strong>, turen mellom byggene forsvant fra pasientens dag, og <strong>sykehuset bygde det nesten med en gang</strong>.']
+          'Og ett grep nektet å vente. Sykehuset drev fortsatt sitt eget vaskeri i et stort rom rett ved cellegiftavdelingen. Vi foreslo å <strong>sette vaskeriet ut til en ekstern leverandør og frigjøre rommet for pasientene</strong>, og det var det som skjedde: med bare lettvegger ble det <strong>resepsjonen og konsultasjonsrommene ved siden av behandlingen</strong>, turen mellom byggene forsvant fra pasientens dag, og <strong>sykehuset bygde det nesten med en gang</strong>.'],
+      es:['Nuestra propuesta reorganizó el complejo en <strong>zonas funcionales que seguían la lógica original del edificio</strong>: plantas de hospitalización en las alas, un núcleo médico para cirugía y tratamiento, y una única zona pública que reunía admisión, consultas externas y diagnóstico. Después ejecutamos el nuevo equilibrio como una simulación numérica sobre los planos: espacio auxiliar y técnico ajustado, parte del alquiler cedido, y la superficie recuperada convertida en salas para pacientes, incluidas <strong>salas de quimioterapia separadas con sitio para que un familiar se quede durante el tratamiento</strong>.',
+       'La lista medida y nombrada de problemas hizo su trabajo también más allá de los planos. Gracias a la auditoría, <strong>el hospital consiguió financiación para renovar y mejorar las condiciones de sus pacientes</strong>.',
+       'Y un arreglo se negó a esperar. El hospital seguía gestionando su propia lavandería en una sala grande justo al lado de quimioterapia. Propusimos <strong>externalizar la lavandería y liberar la sala para los pacientes</strong>, y eso es lo que ocurrió: solo con tabiques <strong>se convirtió en el mostrador de admisión y las consultas junto al tratamiento</strong>, el paseo entre edificios desapareció del día del paciente, y <strong>el hospital lo construyó casi de inmediato</strong>.']
     },
     assets:['laundry'],
     stats:{
       src:{en:'Audit outcomes and simulation targets · rounded, anonymised',
-           no:'Resultater av revisjonen og simuleringsmål · avrundet, anonymisert'},
+           no:'Resultater av revisjonen og simuleringsmål · avrundet, anonymisert',
+           es:'Resultados de la auditoría y objetivos de la simulación · redondeados, anonimizados'},
       items:[
-        {fig:'14% → 24%', lab:{en:'rooms for patients in the simulated reorganisation, almost double',no:'pasientrom i den simulerte omorganiseringen, nesten det dobbelte'}},
-        {fig:'19% → 13%', lab:{en:'auxiliary space after tightening, with the laundry moved out',no:'birom etter innstramming, med vaskeriet flyttet ut'}},
-        {fig:'Funded', lab:{en:'the hospital secured renovation money on the strength of the audit',no:'sykehuset sikret midler til oppgradering på grunnlag av revisjonen'}}
+        {fig:'14% → 24%', lab:{en:'rooms for patients in the simulated reorganisation, almost double',no:'pasientrom i den simulerte omorganiseringen, nesten det dobbelte', es:'salas para pacientes en la reorganización simulada, casi el doble'}},
+        {fig:'19% → 13%', lab:{en:'auxiliary space after tightening, with the laundry moved out',no:'birom etter innstramming, med vaskeriet flyttet ut', es:'espacio auxiliar tras el ajuste, con la lavandería externalizada'}},
+        {fig:'Funded', lab:{en:'the hospital secured renovation money on the strength of the audit',no:'sykehuset sikret midler til oppgradering på grunnlag av revisjonen', es:'el hospital consiguió fondos de renovación gracias a la auditoría'}}
       ]
     }
   },
   {
-    id:'reflection', nav:{en:'What I learned',no:'Det jeg lærte'},
-    eyebrow:{en:'08 · Reflection',no:'08 · Refleksjon'},
+    id:'reflection', nav:{en:'What I learned',no:'Det jeg lærte', es:'Lo que aprendí'},
+    eyebrow:{en:'08 · Reflection',no:'08 · Refleksjon', es:'08 · Reflexión'},
     h:{en:'What the project showed, and where it could go next',
-       no:'Det prosjektet viste, og hvor det kan gå videre'},
+       no:'Det prosjektet viste, og hvor det kan gå videre',
+       es:'Lo que mostró el proyecto, y hacia dónde podría ir'},
     body:{
       en:['<strong>A system should carry its own complexity</strong>, instead of quietly handing it to the people moving through it.'],
-      no:['<strong>Et system bør bære sin egen kompleksitet</strong>, i stedet for stille å gi den videre til menneskene som beveger seg gjennom det.']
+      no:['<strong>Et system bør bære sin egen kompleksitet</strong>, i stedet for stille å gi den videre til menneskene som beveger seg gjennom det.'],
+      es:['<strong>Un sistema debería cargar con su propia complejidad</strong>, en lugar de pasársela en silencio a las personas que lo atraviesan.']
     },
     list:{
       en:['<strong>Space is evidence.</strong> Measuring the building room by room turned complaints into numbers, and numbers into a funding case. That is what architectural training brings to service design: the ability to read, measure and prove what a space is actually doing',
@@ -794,22 +885,31 @@ const SECTIONS = [
           '<strong>Noen vegger flytter seg aldri.</strong> I et fredet kulturminne kan man ikke gjøre alt, og å late som noe annet kaster bort alles tid. Jobben er å navngi det som ligger fast og redesigne alt som ikke gjør det: flyt, funksjoner, soner',
           '<strong>Et sykehus er en liten by.</strong> Fløyer rundt en hagegård, en ambulanseadkomst, et eget diagnostikkbygg: reisene krysset uterom mellom byggene, så tenkningen måtte være urban like mye som arkitektonisk',
           '<strong>De to fagene trenger hverandre.</strong> Intervjuer og observasjon fant det som gjorde vondt; planer og mål viste hvorfor; redesignet trengte begge. Det er sømmen der jeg jobber, mellom arkitektur og UX'],
+      es:['<strong>El espacio es evidencia.</strong> Medir el edificio sala por sala convirtió las quejas en números, y los números en un argumento para la financiación. Eso es lo que la formación en arquitectura aporta al diseño de servicios: la capacidad de leer, medir y demostrar lo que un espacio está haciendo en realidad',
+       '<strong>La clave está en los caminos, no en los planos.</strong> Observa el servicio real moverse a lo largo de días, horas y tipos de usuario antes de tocar un solo muro',
+       '<strong>Algunos muros nunca se mueven.</strong> En un monumento protegido no se puede hacer todo, y fingir lo contrario hace perder el tiempo a todos. El trabajo consiste en nombrar lo que está fijo y rediseñar todo lo que no lo está: flujos, funciones, zonas',
+       '<strong>Un hospital es una pequeña ciudad.</strong> Alas alrededor de un patio ajardinado, un acceso de ambulancias, un edificio de diagnóstico aparte: los recorridos cruzaban espacio abierto entre edificios, así que el pensamiento tenía que ser tan urbano como arquitectónico',
+       '<strong>Las dos disciplinas se necesitan.</strong> Las entrevistas y la observación encontraron lo que dolía; los planos y la medición mostraron por qué; el rediseño necesitaba ambas. Esa es la costura en la que trabajo, entre la arquitectura y la UX'],
       type:'ul'
     },
     sub:{
       h:{en:'Where this could go next: digitise the journey itself',
-         no:'Hvor dette kan gå videre: digitaliser selve reisen'},
+         no:'Hvor dette kan gå videre: digitaliser selve reisen',
+         es:'Hacia dónde podría ir: digitalizar el propio recorrido'},
       body:{
         en:['If we ran this project today, the next step would be digital. The doctor keeps their own base of patients: <strong>one profile per person</strong>, with the photo large enough that a doctor <strong>remembers a face and not a case number</strong>, notes shared across the team, and referrals and prescriptions issued in the same tool.',
             'The patient carries the same system in their pocket. A home screen says when today\'s chemotherapy is, that <strong>their named doctor has cleared it</strong> and which nurse will receive them; lab results arrive the moment they are ready. <strong>A live AI companion</strong> answers questions at any hour and stays alongside palliative patients through the hardest stretch. Every step that once meant a desk, a queue or a walk between buildings <strong>becomes a notification</strong>.'],
         no:['Om vi kjørte dette prosjektet i dag, ville neste steg vært digitalt. Legen beholder sin egen pasientbase: <strong>én profil per person</strong>, med bilde stort nok til at en lege <strong>husker et ansikt og ikke et saksnummer</strong>, notater delt i teamet, og henvisninger og resepter utstedt i samme verktøy.',
-            'Pasienten bærer det samme systemet i lommen. En startskjerm sier når dagens cellegift er, at <strong>deres egen lege har klarert den</strong> og hvilken sykepleier som tar imot; prøvesvar kommer i samme øyeblikk de er klare. <strong>En levende AI-følgesvenn</strong> svarer på spørsmål når som helst og blir hos palliative pasienter gjennom den tyngste tiden. Hvert steg som før betydde en luke, en kø eller en tur mellom bygg, <strong>blir en varsling</strong>.']
+            'Pasienten bærer det samme systemet i lommen. En startskjerm sier når dagens cellegift er, at <strong>deres egen lege har klarert den</strong> og hvilken sykepleier som tar imot; prøvesvar kommer i samme øyeblikk de er klare. <strong>En levende AI-følgesvenn</strong> svarer på spørsmål når som helst og blir hos palliative pasienter gjennom den tyngste tiden. Hvert steg som før betydde en luke, en kø eller en tur mellom bygg, <strong>blir en varsling</strong>.'],
+        es:['Si hiciéramos este proyecto hoy, el siguiente paso sería digital. El médico conserva su propia base de pacientes: <strong>un perfil por persona</strong>, con la foto lo bastante grande para que un médico <strong>recuerde una cara y no un número de expediente</strong>, notas compartidas con el equipo, y derivaciones y recetas emitidas en la misma herramienta.',
+         'El paciente lleva el mismo sistema en el bolsillo. Una pantalla de inicio le dice cuándo es la quimioterapia de hoy, que <strong>su médico de referencia la ha autorizado</strong> y qué enfermera lo recibirá; los resultados de laboratorio llegan en el momento en que están listos. <strong>Un acompañante de IA en vivo</strong> responde preguntas a cualquier hora y se queda junto a los pacientes paliativos durante el tramo más duro. Cada paso que antes significaba un mostrador, una cola o un paseo entre edificios <strong>se convierte en una notificación</strong>.']
       },
       assets:['future']
     },
     close:{
       en:'Nobody should cross a campus to collect what a notification can carry.',
-      no:'Ingen burde krysse et område for å hente det en varsling kan bære.'
+      no:'Ingen burde krysse et område for å hente det en varsling kan bære.',
+      es:'Nadie debería cruzar un campus para recoger lo que puede llevar una notificación.'
     }
   }
 ];
@@ -832,7 +932,7 @@ function assetHTML(id, L){
     </figure>`;
   }
   const clock = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>';
-  const tag = L==='no' ? 'Grafikk underveis' : 'Graphic in progress';
+  const tag = ({no:'Grafikk underveis', es:'Gráfico en curso'})[L] || 'Graphic in progress';
   return `<figure class="fig reveal${wideCls}">
     <div class="ph" data-ratio="${a.ratio}">
       <span class="lab">${clock}${tag}</span>
@@ -868,11 +968,11 @@ function glanceHTML(g){
 }
 
 // Kontrola „sierotek" na końcu wersu: krótkie spójniki nie zostają same na końcu linii.
-// Sklejamy „and"/„og" z następnym słowem nierozdzielającą spacją ( ), więc schodzą razem.
+// Sklejamy „and"/„og"/„y"/„o" z następnym słowem nierozdzielającą spacją ( ), więc schodzą razem.
 function noRunts(root){
   if(!root) return;
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-  const rx = /\b(and|og)\b[ \t ]+/gi;
+  const rx = /\b(and|og|y|o|e|u)\b[ \t ]+/gi;
   let n;
   while((n = walker.nextNode())){
     n.nodeValue = n.nodeValue.replace(rx, '$1 ');
@@ -880,14 +980,14 @@ function noRunts(root){
 }
 
 function render(L){
-  const t = T[L];
+  const t = T[L] || T.en;
 
   document.querySelectorAll('[data-t]').forEach(el=>{
     const k = el.dataset.t; if(t[k] !== undefined) el.innerHTML = t[k];
   });
   document.querySelector('.back span').textContent = t.back;
   /* The résumé follows the language switch, exactly as it does on the board:
-     EN → the English PDF, NO → the Norwegian one. */
+     EN → the English PDF, NO → the Norwegian one, ES → the Spanish one. */
   const cvLink = document.querySelector('footer.foot a[data-a="cv"]');
   if(cvLink && t.cvfile) cvLink.setAttribute('href', t.cvfile);
 
@@ -983,7 +1083,7 @@ langEl.addEventListener('click', e=>{
   const lbImg = document.getElementById('lbImg');
   const lbCap = document.getElementById('lbCap');
   const lbClose = document.getElementById('lbClose');
-  const CLOSE_LABEL = {en:'Close', no:'Lukk'};
+  const CLOSE_LABEL = {en:'Close', no:'Lukk', es:'Cerrar'};
   let lastFocus = null, hideTimer = null;
 
   function open(img){
