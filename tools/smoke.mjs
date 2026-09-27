@@ -15,7 +15,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const CASES = ['repapp', 'red-thread', 'between-the-lines', 'hospital-wayfinding'];
+const CASES = ['repapp', 'red-thread', 'between-the-lines', 'hospital-wayfinding', 'fleet-console'];
 
 const pass = [], fail = [];
 const check = (ok, msg) => (ok ? pass : fail).push(msg);
@@ -171,8 +171,8 @@ try {
   await d.waitForTimeout(3200);
 
   const folders = await d.$$eval('#fan > *', els => els.map(e => ({ tag: e.tagName, href: e.getAttribute('href') })));
-  check(folders.length === 4 && folders.every(f => f.tag === 'A' && f.href),
-        `desktop: all four folders are real <a href> (${folders.map(f => f.href).join(', ')})`);
+  check(folders.length === 5 && folders.every(f => f.tag === 'A' && f.href),
+        `desktop: all five folders are real <a href> (${folders.map(f => f.href).join(', ')})`);
 
   for (const [name, sel] of [['Gmail', '.ic[data-a="mail"]'], ['LinkedIn', '.ic[data-a="li"]'], ['Resume', '.ic[data-a="cv"]']]) {
     const r = await topmostAt(d, sel);

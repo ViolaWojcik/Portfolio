@@ -37,8 +37,8 @@ import { dirname, join, extname } from 'node:path';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
-const DIRS = ['RepApp', 'red-thread', 'between-the-lines', 'hospital-wayfinding'];
-const PAGES = ['repapp.html', 'red-thread.html', 'between-the-lines.html', 'hospital-wayfinding.html'];
+const DIRS = ['RepApp', 'red-thread', 'between-the-lines', 'hospital-wayfinding', 'fleet-console'];
+const PAGES = ['repapp.html', 'red-thread.html', 'between-the-lines.html', 'hospital-wayfinding.html', 'fleet-console.html'];
 
 /* The lightbox is `max-width:min(1400px,94vw)`, so 1600 covers it at 1× with
    room to spare. Beyond that the extra pixels are only ever thrown away. */

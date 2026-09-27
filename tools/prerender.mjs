@@ -37,6 +37,7 @@ const PAGES = [
   'red-thread.html',
   'between-the-lines.html',
   'hospital-wayfinding.html',
+  'fleet-console.html',
 ];
 
 /* The containers `render()` fills. Each is empty in the source; we bake the

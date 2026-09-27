@@ -108,17 +108,19 @@
   /* folder scatter — a hand-placed constellation, not a mechanical staircase.
      Each folder gets an explicit offset inside #fan; placeFan() anchors the
      whole group under the headline. Left→right: Hospitals, RepApp, Red thread,
-     Between the lines. Heights alternate high/low so it reads as "laid out by
-     hand". The pile is ordered by currency: Between the lines (2026, built and
-     shipped) rides on top (front), then Red thread (2026), RepApp (2020–23),
-     and Hospitals (2016) sits back-most. Same order as the mobile stack. */
+     Between the lines, Metal in the oil. Heights alternate high/low so it reads
+     as "laid out by hand". The pile is ordered by currency: Metal in the oil
+     (2026, design system + working prototype) rides on top (front), then
+     Between the lines (2026), Red thread (2026), RepApp (2020–23), and
+     Hospitals (2016) sits back-most. Same order as the mobile stack. */
   --fold-w:      228px;  /* folder card — sized to match the contact card, so the
                             projects hold their own against photo + card */
   --fold-h:      142px;
   --fan-f4-x:      0px;  --fan-f4-y:  78px;  /* Hospitals — leftmost, low, back-most */
   --fan-f1-x:    131px;  --fan-f1-y:   8px;  /* RepApp    — Guest check-in, high */
   --fan-f2-x:    320px;  --fan-f2-y:  73px;  /* Red thread — low */
-  --fan-f3-x:    464px;  --fan-f3-y:  18px;  /* Between the lines — high right, on top */
+  --fan-f3-x:    464px;  --fan-f3-y:  18px;  /* Between the lines — high right */
+  --fan-f5-x:    612px;  --fan-f5-y:  66px;  /* Metal in the oil — low, front-most */
 
   --font-display:'Instrument Serif','Iowan Old Style',Georgia,serif;
   --font-ui:'Inter',ui-sans-serif,-apple-system,'Segoe UI',sans-serif;
@@ -412,16 +414,17 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
    ========================================================= */
 #fan{
   position:absolute;left:8vw;bottom:11vh;
-  width:calc(var(--fold-w) + var(--fan-f3-x));
+  width:calc(var(--fold-w) + var(--fan-f5-x));
   height:calc(var(--fold-h) + var(--fan-f4-y));
 }
 #fan .obj{transition:left .45s var(--ease),top .45s var(--ease);}
 /* back → front: a scattered constellation so each title stays readable.
-   Cascade runs left → right: Hospitals sits back-most, Between the lines on top. */
+   Cascade runs left → right: Hospitals sits back-most, Metal in the oil on top. */
 #fan .obj[data-k="f4"]{left:var(--fan-f4-x); top:var(--fan-f4-y); z-index:1;}
 #fan .obj[data-k="f1"]{left:var(--fan-f1-x); top:var(--fan-f1-y); z-index:2;}
 #fan .obj[data-k="f2"]{left:var(--fan-f2-x); top:var(--fan-f2-y); z-index:3;}
 #fan .obj[data-k="f3"]{left:var(--fan-f3-x); top:var(--fan-f3-y); z-index:4;}
+#fan .obj[data-k="f5"]{left:var(--fan-f5-x); top:var(--fan-f5-y); z-index:5;}
 
 .folder{
   position:relative;width:var(--fold-w);height:var(--fold-h);
@@ -479,6 +482,13 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
   background:var(--accent-tint) url("between-the-lines/assets/folder-peek.jpg") center top/cover no-repeat;
 }
 .ready .obj[data-k="f3"].grab:hover .folder .sheet{transform:translateY(-30px);}
+/* f5 (Metal in the oil): the sheet is a print of the case-study hero — the
+   technician's tablet at sunset with the service order on it, duotoned into
+   the board's lilac. */
+.obj[data-k="f5"] .folder .sheet{
+  background:var(--accent-tint) url("fleet-console/assets/folder-peek.jpg") center top/cover no-repeat;
+}
+.ready .obj[data-k="f5"].grab:hover .folder .sheet{transform:translateY(-30px);}
 .folder .body{
   position:absolute;left:0;right:0;top:15px;bottom:0;z-index:1;
   background:var(--paper);border-radius:0 4px 4px 4px;padding:17px 18px;
@@ -739,6 +749,13 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
   <div id="fan">
     <!-- Source order = reading order: most current first. It is the mobile
          stack, the tab order, and the fan's back-to-front order reversed. -->
+    <a class="obj grab" data-k="f5" data-tip="project" href="fleet-console.html" draggable="false"
+       style="--rot:2.2deg;--d:2.06s;--lit:2.66s;">
+      <div class="inner"><div class="folder">
+        <span class="tab"><i></i></span><span class="sheet"></span>
+        <div class="body"><div class="ttl" data-t="t5">Metal<br>in the oil</div><div class="mt" data-t="m5">Wind&nbsp;fleet&nbsp;· Enterprise&nbsp;UI&nbsp;· Design&nbsp;system</div></div>
+      </div></div>
+    </a>
     <a class="obj grab" data-k="f3" data-tip="project" href="between-the-lines.html" draggable="false"
        style="--rot:-2.5deg;--d:1.94s;--lit:2.54s;">
       <div class="inner"><div class="folder">
@@ -803,6 +820,8 @@ const T = {
     t2   :'Red thread',
     t3   :'Between<br>the lines',
     t4   :'Moving<br>through care',   /* two lines: the back-most slot is half covered */
+    t5   :'Metal<br>in the oil',
+    m5   :'Wind&nbsp;fleet&nbsp;· Enterprise&nbsp;UI&nbsp;· Design&nbsp;system',
     m1   :'RepApp&nbsp;· Tablet&nbsp;· UX/UI&nbsp;· Service&nbsp;design',
     m2   :'Schools&nbsp;· Service&nbsp;design',
     m3   :'Product&nbsp;· Designed&nbsp;&amp;&nbsp;built',
@@ -829,6 +848,8 @@ const T = {
     t2   :'Rød tråd',
     t3   :'Mellom<br>linjene',
     t4   :'Gjennom<br>omsorgen',
+    t5   :'Metall<br>i oljen',
+    m5   :'Vindpark&nbsp;· Enterprise&nbsp;UI&nbsp;· Designsystem',
     m1   :'RepApp&nbsp;· Nettbrett&nbsp;· UX/UI&nbsp;· Tjenestedesign',
     m2   :'Skole&nbsp;· Tjenestedesign',
     m3   :'Produkt&nbsp;· Designet&nbsp;&amp;&nbsp;bygget',
@@ -856,6 +877,8 @@ const T = {
     t2:'Hilo conductor',
     t3:'Entre<br>líneas',
     t4:'Caminos<br>del cuidado',
+    t5:'Metal<br>en el aceite',
+    m5:'Parque&nbsp;eólico&nbsp;· UI&nbsp;empresarial&nbsp;· Sistema&nbsp;de&nbsp;diseño',
     m1:'RepApp&nbsp;· Tableta&nbsp;· UX/UI&nbsp;· Diseño&nbsp;de&nbsp;servicios',
     m2:'Escuelas&nbsp;· Diseño&nbsp;de&nbsp;servicios',
     m3:'Producto&nbsp;· Diseñado&nbsp;y&nbsp;construido',
@@ -1304,7 +1327,7 @@ function clearHeadline(){
    source order. Safe only once the entrance is over (.ready), so re-parenting a
    folder doesn't replay its `enter` animation. */
 function resetPositions(){
-  ['f3','f2','f1','f4'].forEach(k=>{      // reading order, same as the source
+  ['f5','f3','f2','f1','f4'].forEach(k=>{ // reading order, same as the source
     const o = document.querySelector('.obj[data-k="'+k+'"]');
     if(o) fan.appendChild(o);                 // back into the fan, in order
   });

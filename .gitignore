@@ -85,3 +85,8 @@ between-the-lines/assets/captures/
 # the Lighthouse audit. Neither the dependencies nor the reports are published.
 node_modules/
 tools/reports/
+
+# local MCP server config (Figma desktop), not part of the site
+.mcp.json
+
+fleet-console/assets/captures/

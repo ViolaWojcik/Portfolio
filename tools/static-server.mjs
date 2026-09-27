@@ -60,8 +60,9 @@ function send(res, status, path, acceptEncoding = '') {
   createReadStream(path).pipe(res);
 }
 
-/** Start the server on an ephemeral port. Resolves to `{ server, port, origin }`. */
-export function serve(root) {
+/** Start the server on an ephemeral port (or a fixed one, for the desktop-app preview).
+    Resolves to `{ server, port, origin }`. */
+export function serve(root, fixedPort = 0) {
   const server = createServer(async (req, res) => {
     const rel = normalize(decodeURIComponent(req.url.split('?')[0]))
       .replace(/^(\.\.[/\\])+/, '');
@@ -79,7 +80,7 @@ export function serve(root) {
   });
 
   return new Promise(resolve => {
-    server.listen(0, '127.0.0.1', () => {
+    server.listen(fixedPort, '127.0.0.1', () => {
       const { port } = server.address();
       resolve({ server, port, origin: `http://127.0.0.1:${port}` });
     });
