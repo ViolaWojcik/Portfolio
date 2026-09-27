@@ -19,7 +19,7 @@ import { serve } from './static-server.mjs';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT  = join(ROOT, 'tools', 'reports');
 
-const PAGES = ['', 'repapp', 'red-thread', 'between-the-lines', 'hospital-wayfinding', 'fleet-console'];
+const PAGES = ['', 'repapp', 'red-thread', 'between-the-lines', 'hospital-wayfinding', 'fleet-console', 'accessibility'];
 
 /* A perfect performance score is not the goal — the board is a deliberately
    animated canvas and the case studies carry large photographs. Accessibility

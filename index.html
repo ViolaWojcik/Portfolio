@@ -105,22 +105,21 @@
   --settle: cubic-bezier(.16,.84,.44,1);
   --t-lift: .45s;
 
-  /* folder scatter — a hand-placed constellation, not a mechanical staircase.
-     Each folder gets an explicit offset inside #fan; placeFan() anchors the
-     whole group under the headline. Left→right: Hospitals, RepApp, Red thread,
-     Between the lines, Metal in the oil. Heights alternate high/low so it reads
-     as "laid out by hand". The pile is ordered by currency: Metal in the oil
-     (2026, design system + working prototype) rides on top (front), then
-     Between the lines (2026), Red thread (2026), RepApp (2020–23), and
-     Hospitals (2016) sits back-most. Same order as the mobile stack. */
+  /* the folder drawer. One slot per folder, --fan-step apart, so at rest each
+     folder shows its tab and the first word of its title and the next folder
+     covers the rest, the way files sit in a drawer. Three heights, scattered
+     by hand so no two neighbours sit level (the --y values below, in FOLDER
+     FAN). A folder takes the slot that matches its place in the source: the
+     last <a> in #fan is leftmost and back-most, the first is rightmost and on
+     top, so adding a folder is adding an <a> and the geometry follows. Hover
+     or focus raises one folder to the front and parts the others around it. */
   --fold-w:      228px;  /* folder card — sized to match the contact card, so the
                             projects hold their own against photo + card */
   --fold-h:      142px;
-  --fan-f4-x:      0px;  --fan-f4-y:  78px;  /* Hospitals — leftmost, low, back-most */
-  --fan-f1-x:    131px;  --fan-f1-y:   8px;  /* RepApp    — Guest check-in, high */
-  --fan-f2-x:    320px;  --fan-f2-y:  73px;  /* Red thread — low */
-  --fan-f3-x:    464px;  --fan-f3-y:  18px;  /* Between the lines — high right */
-  --fan-f5-x:    612px;  --fan-f5-y:  66px;  /* Metal in the oil — low, front-most */
+  --fan-n:          6;   /* folders in the drawer; the script overwrites it with the real count */
+  --fan-step:     92px;  /* at rest: what each folder shows of itself before the next covers it */
+  --fan-spread:   16px;  /* per slot of distance from the raised folder, while the drawer is parted */
+  --fan-drop:     96px;  /* the lowest slot sits this far below the highest */
 
   --font-display:'Instrument Serif','Iowan Old Style',Georgia,serif;
   --font-ui:'Inter',ui-sans-serif,-apple-system,'Segoe UI',sans-serif;
@@ -414,17 +413,30 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
    ========================================================= */
 #fan{
   position:absolute;left:8vw;bottom:11vh;
-  width:calc(var(--fold-w) + var(--fan-f5-x));
-  height:calc(var(--fold-h) + var(--fan-f4-y));
+  /* the box reserves the drawer's PARTED width, so placeFan() keeps it clear of
+     the contact card even while the folders are spread around a raised one */
+  width:calc(var(--fold-w) + (var(--fan-n) - 1) * (var(--fan-step) + var(--fan-spread)));
+  height:calc(var(--fold-h) + var(--fan-drop));
 }
 #fan .obj{transition:left .45s var(--ease),top .45s var(--ease);}
-/* back → front: a scattered constellation so each title stays readable.
-   Cascade runs left → right: Hospitals sits back-most, Metal in the oil on top. */
-#fan .obj[data-k="f4"]{left:var(--fan-f4-x); top:var(--fan-f4-y); z-index:1;}
-#fan .obj[data-k="f1"]{left:var(--fan-f1-x); top:var(--fan-f1-y); z-index:2;}
-#fan .obj[data-k="f2"]{left:var(--fan-f2-x); top:var(--fan-f2-y); z-index:3;}
-#fan .obj[data-k="f3"]{left:var(--fan-f3-x); top:var(--fan-f3-y); z-index:4;}
-#fan .obj[data-k="f5"]{left:var(--fan-f5-x); top:var(--fan-f5-y); z-index:5;}
+/* slots by place in the source, counted from the end: the last <a> is slot 0,
+   leftmost and back-most; the first is rightmost and on top. --i is the slot;
+   --h (set on #fan by the script) is the slot of the raised folder, and every
+   other folder moves --fan-spread per slot of distance away from it. With no
+   --h the second term is zero and the drawer is closed. */
+#fan > .obj{
+  left:calc(var(--i) * var(--fan-step) + (var(--i) - var(--h, var(--i))) * var(--fan-spread));
+  top:var(--y);
+}
+#fan > .obj:nth-last-child(1){--i:0;--y:88px;z-index:1;}
+#fan > .obj:nth-last-child(2){--i:1;--y:12px;z-index:2;}
+#fan > .obj:nth-last-child(3){--i:2;--y:64px;z-index:3;}
+#fan > .obj:nth-last-child(4){--i:3;--y:0px;z-index:4;}
+#fan > .obj:nth-last-child(5){--i:4;--y:96px;z-index:5;}
+#fan > .obj:nth-last-child(6){--i:5;--y:32px;z-index:6;}
+/* the raised folder comes to the front whole, so its title reads in full
+   whatever covers it at rest; keyboard focus does exactly what hover does */
+#fan > .obj:hover,#fan > .obj:focus-visible{z-index:10;}
 
 .folder{
   position:relative;width:var(--fold-w);height:var(--fold-h);
@@ -433,18 +445,20 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
   transition-delay:var(--lit,0s);
 }
 .obj.lit .folder{filter:var(--fs-rest);}
-.ready .grab:hover .folder{transition-delay:0s;filter:var(--fs-hover);}
+.ready .grab:hover .folder,.ready .grab:focus-visible .folder{transition-delay:0s;filter:var(--fs-hover);}
 .obj.dragging .folder{transition-delay:0s;filter:var(--fs-lift);}
 /* folders carry their shadow on .folder, not .inner */
 #fan .obj .inner,.obj[data-k^="f"] .inner{box-shadow:none!important;}
 
-.folder .tab{position:absolute;top:0;left:0;width:78px;height:15px;background:var(--paper);border-radius:4px 7px 0 0;}
-.folder .tab i{
-  position:absolute;left:13px;top:6px;width:26px;height:2px;border-radius:2px;
-  background:var(--accent);opacity:.55;
-  transition:width .5s var(--ease),opacity .5s var(--ease);
+.folder .tab{position:absolute;top:0;left:0;width:100px;height:15px;background:var(--paper);border-radius:4px 7px 0 0;}
+/* one word on the tab, the way a file tab is labelled: at rest it is the part
+   of a folder the drawer leaves uncovered (the tab is 100px, the step 92) */
+.folder .tab .tl{
+  position:absolute;left:10px;top:0;line-height:15px;white-space:nowrap;
+  font-size:8px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-mute);transition:color .3s var(--ease);
 }
-.ready .grab:hover .folder .tab i{width:50px;opacity:1;}
+.ready .grab:hover .folder .tab .tl,.grab:focus-visible .folder .tab .tl{color:var(--accent);}
 .folder .sheet{
   position:absolute;left:14px;right:14px;top:9px;height:70px;
   background:var(--accent-tint);
@@ -453,7 +467,7 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
   transform:translateY(14px);opacity:0;z-index:0;
   transition:transform .55s var(--ease),opacity .45s var(--ease);
 }
-.ready .grab:hover .folder .sheet{transform:translateY(-11px);opacity:1;}
+.ready .grab:hover .folder .sheet,.ready .grab:focus-visible .folder .sheet{transform:translateY(-11px);opacity:1;}
 /* f4 (Hospitals): the sheet is a print of the case-study hero — the period
    postcard duotoned into the board's lilac, peeking out like a photo left
    inside the folder. Other folders keep the plain tinted sheet until their
@@ -461,34 +475,41 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
 .obj[data-k="f4"] .folder .sheet{
   background:var(--accent-tint) url("hospital-wayfinding/assets/folder-peek.jpg") center top/cover no-repeat;
 }
-.ready .obj[data-k="f4"].grab:hover .folder .sheet{transform:translateY(-30px);}
+.ready .obj[data-k="f4"].grab:hover .folder .sheet,.ready .obj[data-k="f4"].grab:focus-visible .folder .sheet{transform:translateY(-30px);}
 /* f2 (Red thread): the sheet is a print like f4's — the walk-to-school
    photo duotoned into the board's lilac, with the case's red thread
    drawn over it. Case red lives only on this print. */
 .obj[data-k="f2"] .folder .sheet{
   background:var(--accent-tint) url("red-thread/assets/folder-peek.jpg") center top/cover no-repeat;
 }
-.ready .obj[data-k="f2"].grab:hover .folder .sheet{transform:translateY(-30px);}
+.ready .obj[data-k="f2"].grab:hover .folder .sheet,.ready .obj[data-k="f2"].grab:focus-visible .folder .sheet{transform:translateY(-30px);}
 /* f1 (RepApp): the sheet is a print of the case-study hero — the rep
    with the tablet above the arrivals hall, duotoned into the board's lilac. */
 .obj[data-k="f1"] .folder .sheet{
   background:var(--accent-tint) url("RepApp/assets/folder-peek.jpg") center top/cover no-repeat;
 }
-.ready .obj[data-k="f1"].grab:hover .folder .sheet{transform:translateY(-30px);}
+.ready .obj[data-k="f1"].grab:hover .folder .sheet,.ready .obj[data-k="f1"].grab:focus-visible .folder .sheet{transform:translateY(-30px);}
 /* f3 (Between the Lines): the sheet is a print of the desktop app —
    the Insights card with the week's headline, duotoned into the
    board's lilac. */
 .obj[data-k="f3"] .folder .sheet{
   background:var(--accent-tint) url("between-the-lines/assets/folder-peek.jpg") center top/cover no-repeat;
 }
-.ready .obj[data-k="f3"].grab:hover .folder .sheet{transform:translateY(-30px);}
+.ready .obj[data-k="f3"].grab:hover .folder .sheet,.ready .obj[data-k="f3"].grab:focus-visible .folder .sheet{transform:translateY(-30px);}
 /* f5 (Metal in the oil): the sheet is a print of the case-study hero — the
    technician's tablet at sunset with the service order on it, duotoned into
    the board's lilac. */
 .obj[data-k="f5"] .folder .sheet{
   background:var(--accent-tint) url("fleet-console/assets/folder-peek.jpg") center top/cover no-repeat;
 }
-.ready .obj[data-k="f5"].grab:hover .folder .sheet{transform:translateY(-30px);}
+.ready .obj[data-k="f5"].grab:hover .folder .sheet,.ready .obj[data-k="f5"].grab:focus-visible .folder .sheet{transform:translateY(-30px);}
+/* f6 (The design excludes): the sheet is a print of the notes page, the
+   sentence itself in the page's own type, duotoned into the board's lilac
+   like the other prints. */
+.obj[data-k="f6"] .folder .sheet{
+  background:var(--accent-tint) url("accessibility/assets/folder-peek.jpg") center top/cover no-repeat;
+}
+.ready .obj[data-k="f6"].grab:hover .folder .sheet,.ready .obj[data-k="f6"].grab:focus-visible .folder .sheet{transform:translateY(-30px);}
 .folder .body{
   position:absolute;left:0;right:0;top:15px;bottom:0;z-index:1;
   background:var(--paper);border-radius:0 4px 4px 4px;padding:17px 18px;
@@ -748,39 +769,47 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
   <!-- ── folder fan ────────────────────────────────────────── -->
   <div id="fan">
     <!-- Source order = reading order: most current first. It is the mobile
-         stack, the tab order, and the fan's back-to-front order reversed. -->
+         stack, the tab order, and the drawer's right-to-left order: the first
+         <a> here sits rightmost and on top. Adding a folder = adding an <a>. -->
     <a class="obj grab" data-k="f5" data-tip="project" href="fleet-console.html" draggable="false"
-       style="--rot:2.2deg;--d:2.06s;--lit:2.66s;">
+       style="--rot:1.6deg;--d:2.18s;--lit:2.78s;">
       <div class="inner"><div class="folder">
-        <span class="tab"><i></i></span><span class="sheet"></span>
+        <span class="tab"><span class="tl" data-t="k5">turbines</span></span><span class="sheet"></span>
         <div class="body"><div class="ttl" data-t="t5">Metal<br>in the oil</div><div class="mt" data-t="m5">Wind&nbsp;fleet&nbsp;· Enterprise&nbsp;UI&nbsp;· Design&nbsp;system</div></div>
       </div></div>
     </a>
-    <a class="obj grab" data-k="f3" data-tip="project" href="between-the-lines.html" draggable="false"
-       style="--rot:-2.5deg;--d:1.94s;--lit:2.54s;">
+    <a class="obj grab" data-k="f6" data-tip="project" href="accessibility.html" draggable="false"
+       style="--rot:-1.8deg;--d:2.06s;--lit:2.66s;">
       <div class="inner"><div class="folder">
-        <span class="tab"><i></i></span><span class="sheet"></span>
+        <span class="tab"><span class="tl" data-t="k6">accessibility</span></span><span class="sheet"></span>
+        <div class="body"><div class="ttl" data-t="t6">The design<br>excludes</div><div class="mt" data-t="m6">2026&nbsp;· Accessibility&nbsp;· 13&nbsp;audits</div></div>
+      </div></div>
+    </a>
+    <a class="obj grab" data-k="f3" data-tip="project" href="between-the-lines.html" draggable="false"
+       style="--rot:-1.4deg;--d:1.94s;--lit:2.54s;">
+      <div class="inner"><div class="folder">
+        <span class="tab"><span class="tl" data-t="k3">journal</span></span><span class="sheet"></span>
         <div class="body"><div class="ttl" data-t="t3">Between<br>the lines</div><div class="mt" data-t="m3">Product&nbsp;· Designed&nbsp;&amp;&nbsp;built</div></div>
       </div></div>
     </a>
     <a class="obj grab" data-k="f2" data-tip="project" href="red-thread.html" draggable="false"
-       style="--rot:3.4deg;--d:1.82s;--lit:2.42s;">
+       style="--rot:1.8deg;--d:1.82s;--lit:2.42s;">
       <div class="inner"><div class="folder">
-        <span class="tab"><i></i></span><span class="sheet"></span>
+        <span class="tab"><span class="tl" data-t="k2">schools</span></span><span class="sheet"></span>
         <div class="body"><div class="ttl" data-t="t2">Red thread</div><div class="mt" data-t="m2">Schools&nbsp;· Service&nbsp;design</div></div>
       </div></div>
     </a>
     <a class="obj grab" data-k="f1" data-tip="project" href="repapp.html" draggable="false"
-       style="--rot:-3.5deg;--d:1.70s;--lit:2.30s;">
+       style="--rot:-1.2deg;--d:1.70s;--lit:2.30s;">
       <div class="inner"><div class="folder">
-        <span class="tab"><i></i></span><span class="sheet"></span>
+        <span class="tab"><span class="tl" data-t="k1">check-in</span></span><span class="sheet"></span>
         <div class="body"><div class="ttl" data-t="t1">Guest check-in</div><div class="mt" data-t="m1">RepApp&nbsp;· Tablet&nbsp;· UX/UI&nbsp;· Service&nbsp;design</div></div>
       </div></div>
     </a>
     <a class="obj grab" data-k="f4" data-tip="project" href="hospital-wayfinding.html" draggable="false"
-       style="--rot:4deg;--d:1.58s;--lit:2.18s;">
+       style="--rot:2deg;--d:1.58s;--lit:2.18s;">
       <div class="inner"><div class="folder">
-        <span class="tab"><i></i></span><span class="sheet"></span>
+        <span class="tab"><span class="tl" data-t="k4">hospitals</span></span><span class="sheet"></span>
         <div class="body"><div class="ttl" data-t="t4">Moving<br>through care</div><div class="mt" data-t="m4">Architecture&nbsp;· Service&nbsp;design</div></div>
       </div></div>
     </a>
@@ -821,11 +850,15 @@ const T = {
     t3   :'Between<br>the lines',
     t4   :'Moving<br>through care',   /* two lines: the back-most slot is half covered */
     t5   :'Metal<br>in the oil',
-    m5   :'Wind&nbsp;fleet&nbsp;· Enterprise&nbsp;UI&nbsp;· Design&nbsp;system',
-    m1   :'RepApp&nbsp;· Tablet&nbsp;· UX/UI&nbsp;· Service&nbsp;design',
-    m2   :'Schools&nbsp;· Service&nbsp;design',
-    m3   :'Product&nbsp;· Designed&nbsp;&amp;&nbsp;built',
-    m4   :'Architecture&nbsp;· Service&nbsp;design',
+    m5   :'2026&nbsp;· Wind&nbsp;fleet&nbsp;· Enterprise&nbsp;UI&nbsp;· Design&nbsp;system',
+    m1   :'2020&nbsp;· RepApp&nbsp;· Tablet&nbsp;· UX/UI&nbsp;· Service&nbsp;design',
+    m2   :'2026&nbsp;· Schools&nbsp;· Service&nbsp;design',
+    m3   :'2026&nbsp;· Product&nbsp;· Designed&nbsp;&amp;&nbsp;built',
+    m4   :'2016&nbsp;· Architecture&nbsp;· Service&nbsp;design',
+    t6   :'The design<br>excludes',
+    m6   :'2026&nbsp;· Accessibility&nbsp;· 13&nbsp;audits',
+    /* one word on each folder's tab: what a folder shows of itself in the drawer */
+    k1:'check-in', k2:'schools', k3:'journal', k4:'hospitals', k5:'turbines', k6:'accessibility',
     hint :'Grab, click and explore',
     aboutHint:'About me. Flip the photo to read.',
     reset:'Reset layout',
@@ -849,11 +882,14 @@ const T = {
     t3   :'Mellom<br>linjene',
     t4   :'Gjennom<br>omsorgen',
     t5   :'Metall<br>i oljen',
-    m5   :'Vindpark&nbsp;· Enterprise&nbsp;UI&nbsp;· Designsystem',
-    m1   :'RepApp&nbsp;· Nettbrett&nbsp;· UX/UI&nbsp;· Tjenestedesign',
-    m2   :'Skole&nbsp;· Tjenestedesign',
-    m3   :'Produkt&nbsp;· Designet&nbsp;&amp;&nbsp;bygget',
-    m4   :'Arkitektur&nbsp;· Tjenestedesign',
+    m5   :'2026&nbsp;· Vindpark&nbsp;· Enterprise&nbsp;UI&nbsp;· Designsystem',
+    m1   :'2020&nbsp;· RepApp&nbsp;· Nettbrett&nbsp;· UX/UI&nbsp;· Tjenestedesign',
+    m2   :'2026&nbsp;· Skole&nbsp;· Tjenestedesign',
+    m3   :'2026&nbsp;· Produkt&nbsp;· Designet&nbsp;&amp;&nbsp;bygget',
+    m4   :'2016&nbsp;· Arkitektur&nbsp;· Tjenestedesign',
+    t6   :'Designet<br>utestenger',
+    m6   :'2026&nbsp;· Universell&nbsp;utforming&nbsp;· 13&nbsp;nettsteder',
+    k1:'innsjekk', k2:'skoler', k3:'dagbok', k4:'sykehus', k5:'turbiner', k6:'tilgjengelighet',
     hint :'Ta tak, klikk og utforsk',
     aboutHint:'Om meg. Snu bildet for å lese.',
     reset:'Tilbakestill',
@@ -878,11 +914,14 @@ const T = {
     t3:'Entre<br>líneas',
     t4:'Caminos<br>del cuidado',
     t5:'Metal<br>en el aceite',
-    m5:'Parque&nbsp;eólico&nbsp;· UI&nbsp;empresarial&nbsp;· Sistema&nbsp;de&nbsp;diseño',
-    m1:'RepApp&nbsp;· Tableta&nbsp;· UX/UI&nbsp;· Diseño&nbsp;de&nbsp;servicios',
-    m2:'Escuelas&nbsp;· Diseño&nbsp;de&nbsp;servicios',
-    m3:'Producto&nbsp;· Diseñado&nbsp;y&nbsp;construido',
-    m4:'Arquitectura&nbsp;· Diseño&nbsp;de&nbsp;servicios',
+    m5:'2026&nbsp;· Parque&nbsp;eólico&nbsp;· UI&nbsp;empresarial&nbsp;· Sistema&nbsp;de&nbsp;diseño',
+    m1:'2020&nbsp;· RepApp&nbsp;· Tableta&nbsp;· UX/UI&nbsp;· Diseño&nbsp;de&nbsp;servicios',
+    m2:'2026&nbsp;· Escuelas&nbsp;· Diseño&nbsp;de&nbsp;servicios',
+    m3:'2026&nbsp;· Producto&nbsp;· Diseñado&nbsp;y&nbsp;construido',
+    m4:'2016&nbsp;· Arquitectura&nbsp;· Diseño&nbsp;de&nbsp;servicios',
+    t6:'El diseño<br>excluye',
+    m6:'2026&nbsp;· Accesibilidad&nbsp;· 13&nbsp;auditorías',
+    k1:'check-in', k2:'escuelas', k3:'diario', k4:'hospitales', k5:'turbinas', k6:'accesibilidad',
     hint:'Arrastra, haz clic y explora',
     aboutHint:'Sobre mí. Gira la foto para leer.',
     reset:'Restablecer',
@@ -974,6 +1013,11 @@ const objs = [...document.querySelectorAll('.obj')];
    we snapshot it first — restoring the snapshot on resize drops every computed
    position and hands the objects back to the stylesheet. */
 const css0 = new Map(objs.map(o=> [o, o.getAttribute('style') || '']));
+/* the drawer's reading order, taken from the source once: resetPositions()
+   puts dragged-out folders back in this order, and the stylesheet sizes the
+   drawer's box from the count */
+const fanOrder = [...fan.children].map(o=> o.dataset.k);
+fan.style.setProperty('--fan-n', fan.children.length);
 requestAnimationFrame(()=> objs.forEach(o=> o.classList.add('lit')));
 
 setTimeout(()=>{
@@ -981,12 +1025,26 @@ setTimeout(()=>{
   /* one more right-column pass now that every rect is settled; the left/top
      transition turns any correction into a gentle glide */
   if(!mobile() && !dragging) clearRightColumn();
-  const inv = document.querySelector('[data-k="f3"]');   /* the folder on top of the pile */
+  const inv = fan.firstElementChild;   /* the folder on top of the pile: first in the source */
   if(inv && !matchMedia('(prefers-reduced-motion: reduce)').matches){
     inv.classList.add('invite');
     setTimeout(()=> inv.classList.remove('invite'), 1300);
   }
 }, 3600);
+
+/* the drawer parts around one folder. --h on #fan is the slot of the folder
+   under the pointer (or holding focus); the stylesheet moves every other
+   folder by --fan-spread per slot of distance, so the raised one stays put
+   under the cursor and the rest make room. Slots count from the end of the
+   source (the last <a> is slot 0, leftmost). Cleared when the pointer leaves,
+   when focus moves out, when a folder is dragged out, and on reset. */
+const slotOf = o=> [...fan.children].reverse().indexOf(o);
+function raise(o){ const i = slotOf(o); if(i >= 0) fan.style.setProperty('--h', i); }
+function lower(){ fan.style.removeProperty('--h'); }
+fan.addEventListener('pointerover', e=>{ const o = e.target.closest('#fan > .obj'); if(o && !dragging) raise(o); });
+fan.addEventListener('pointerleave', lower);
+fan.addEventListener('focusin',  e=>{ const o = e.target.closest('#fan > .obj'); if(o) raise(o); });
+fan.addEventListener('focusout', e=>{ if(!fan.contains(e.relatedTarget)) lower(); });
 
 /* the hint retires the moment the board is actually touched */
 const hintEl = document.getElementById('hint');
@@ -1005,6 +1063,7 @@ function detach(o){
   const b = board.getBoundingClientRect();
   const r = o.getBoundingClientRect();
   o.dataset.free = '1';
+  lower();                                   // the drawer closes behind it
   board.appendChild(o);
   o.style.left = (r.left - b.left) + 'px';
   o.style.top  = (r.top  - b.top ) + 'px';
@@ -1327,7 +1386,7 @@ function clearHeadline(){
    source order. Safe only once the entrance is over (.ready), so re-parenting a
    folder doesn't replay its `enter` animation. */
 function resetPositions(){
-  ['f5','f3','f2','f1','f4'].forEach(k=>{ // reading order, same as the source
+  fanOrder.forEach(k=>{                     // reading order, same as the source
     const o = document.querySelector('.obj[data-k="'+k+'"]');
     if(o) fan.appendChild(o);                 // back into the fan, in order
   });
@@ -1338,6 +1397,7 @@ function resetPositions(){
     delete o.dataset.free;
   });
   fan.style.left = fan.style.top = fan.style.bottom = '';
+  lower();
   z = 10;
 }
 

@@ -16,6 +16,9 @@ import { dirname, join } from 'node:path';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const CASES = ['repapp', 'red-thread', 'between-the-lines', 'hospital-wayfinding', 'fleet-console'];
+/* the accessibility notes: same chrome as a case study, a different form (notes
+   on a desk, no TOC, no section spy), so it gets its own checks below */
+const NOTES = 'accessibility';
 
 const pass = [], fail = [];
 const check = (ok, msg) => (ok ? pass : fail).push(msg);
@@ -108,6 +111,7 @@ try {
   for (const [name, sel] of [
     ['Gmail', '.ic[data-a="mail"]'], ['LinkedIn', '.ic[data-a="li"]'], ['Resume', '.ic[data-a="cv"]'],
     ...CASES.map(c => [c, `a[href="${c === 'repapp' ? 'repapp' : c}.html"]`]),
+    [NOTES, `a[href="${NOTES}.html"]`],
   ]) {
     const r = await topmostAt(m, sel);
     check(r.reachable, `mobile: ${name} is tappable${r.reachable ? '' : ` — blocked by ${r.blockedBy}`}`);
@@ -171,8 +175,29 @@ try {
   await d.waitForTimeout(3200);
 
   const folders = await d.$$eval('#fan > *', els => els.map(e => ({ tag: e.tagName, href: e.getAttribute('href') })));
-  check(folders.length === 5 && folders.every(f => f.tag === 'A' && f.href),
-        `desktop: all five folders are real <a href> (${folders.map(f => f.href).join(', ')})`);
+  check(folders.length === 6 && folders.every(f => f.tag === 'A' && f.href),
+        `desktop: all six folders are real <a href> (${folders.map(f => f.href).join(', ')})`);
+
+  /* the drawer: one folder per slot, and hovering one parts the others around it */
+  const drawer = await d.evaluate(async () => {
+    const fan = document.getElementById('fan');
+    const xs = () => [...fan.children].map(a => Math.round(a.getBoundingClientRect().left));
+    const rest = xs();
+    const mid = fan.children[3];                 // a folder with neighbours on both sides
+    mid.dispatchEvent(new PointerEvent('pointerover', { bubbles: true }));
+    await new Promise(r => setTimeout(r, 600));
+    const open = xs();
+    const z = getComputedStyle(mid).zIndex;
+    fan.dispatchEvent(new PointerEvent('pointerleave', { bubbles: false }));
+    await new Promise(r => setTimeout(r, 600));
+    const closed = xs();
+    const spread = [...new Set(rest.slice(1).map((x, i) => x - rest[i]))];
+    return { spread, moved: open.some((x, i) => x !== rest[i]), stayed: open[3] === rest[3], z, closed: closed.join() === rest.join() };
+  });
+  check(drawer.spread.length === 1 && drawer.spread[0] < 0,
+        `desktop: the drawer lays the folders ${Math.abs(drawer.spread[0] || 0)}px apart, evenly`);
+  check(drawer.moved && drawer.stayed && drawer.closed,
+        `desktop: hovering a folder parts the others around it and the drawer closes again`);
 
   for (const [name, sel] of [['Gmail', '.ic[data-a="mail"]'], ['LinkedIn', '.ic[data-a="li"]'], ['Resume', '.ic[data-a="cv"]']]) {
     const r = await topmostAt(d, sel);
@@ -190,8 +215,13 @@ try {
   });
   check(deskMail === true, 'desktop: Gmail copies the address instead of firing mailto:');
 
-  /* dragging a folder must not follow its href */
+  /* dragging a folder must not follow its href. In the drawer a folder's centre
+     sits under its right-hand neighbour at rest, so first hover the part that
+     shows (the left 92px), which raises the folder to the front — exactly what
+     a hand does — and only then take hold of it in the middle. */
   const box = await d.locator('a[href="red-thread.html"]').boundingBox();
+  await d.mouse.move(box.x + 46, box.y + box.height / 2);
+  await d.waitForTimeout(500);
   await d.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
   await d.mouse.down();
   for (let i = 1; i <= 10; i++) {
@@ -300,10 +330,61 @@ try {
           `${slug}: Spanish repaints the article and the résumé follows (${es.cv})`);
   }
 
+  /* ================= ACCESSIBILITY NOTES ================= */
+  jsErrors.length = 0;
+  await d.goto(`${origin}/${NOTES}`, { waitUntil: 'networkidle' });
+  const notes = await d.evaluate(() => ({
+    h1: document.querySelectorAll('h1').length,
+    cards: document.querySelectorAll('#article .note').length,
+    h2: document.querySelectorAll('#article h2').length,
+  }));
+  check(notes.h1 === 1 && notes.cards === 5 && notes.h2 >= 5,
+        `${NOTES}: one <h1>, five notes on the desk, ${notes.h2} group headings`);
+  check(jsErrors.length === 0, jsErrors.length
+    ? `${NOTES}: uncaught error on load — ${jsErrors[0]}`
+    : `${NOTES}: no uncaught errors on load`);
+
+  const nsw = await d.evaluate(async () => {
+    const cv = () => document.querySelector('footer.foot a[data-a="cv"]').getAttribute('href');
+    const h1 = () => document.querySelector('h1').textContent;
+    const before = document.documentElement.lang, h1Before = h1(), cvBefore = cv();
+    const other = before === 'no' ? 'en' : 'no';
+    document.querySelector(`#lang button[data-lang="${other}"]`).click();
+    await new Promise(r => setTimeout(r, 300));
+    const out = { other, after: document.documentElement.lang, changed: h1() !== h1Before, cvBefore, cvAfter: cv() };
+    document.querySelector(`#lang button[data-lang="${before}"]`).click();
+    return out;
+  });
+  check(nsw.after === nsw.other && nsw.changed && nsw.cvAfter !== nsw.cvBefore,
+        `${NOTES}: language switch repaints the title and the résumé follows (${nsw.cvBefore} → ${nsw.cvAfter})`);
+
+  const nes = await d.evaluate(async () => {
+    const before = document.documentElement.lang;
+    const h1Before = document.querySelector('h1').textContent;
+    document.querySelector('#lang button[data-lang="es"]').click();
+    await new Promise(r => setTimeout(r, 300));
+    const out = { lang: document.documentElement.lang, changed: document.querySelector('h1').textContent !== h1Before,
+                  cv: document.querySelector('footer.foot a[data-a="cv"]').getAttribute('href') };
+    document.querySelector(`#lang button[data-lang="${before}"]`).click();
+    return out;
+  });
+  check(nes.lang === 'es' && nes.changed && nes.cv.endsWith('-ES.pdf'),
+        `${NOTES}: Spanish repaints the title and the résumé follows (${nes.cv})`);
+
+  /* the page's own demonstration: focus a control and the readout names it */
+  const readout = await d.evaluate(async () => {
+    const a = document.querySelector('#article .btns a');
+    a.focus();
+    await new Promise(r => setTimeout(r, 50));
+    return { name: a.textContent.trim(), line: document.getElementById('readout').textContent };
+  });
+  check(readout.line.includes(readout.name),
+        `${NOTES}: the Tab readout names the focused control (${readout.line})`);
+
   /* the prerendered text is there with scripting off */
   const nojs = await browser.newContext({ javaScriptEnabled: false });
   const n = await nojs.newPage();
-  for (const slug of CASES) {
+  for (const slug of [...CASES, NOTES]) {
     await n.goto(`${origin}/${slug}`, { waitUntil: 'domcontentloaded' });
     const r = await n.evaluate(() => ({
       chars: document.querySelector('#article').textContent.trim().length,

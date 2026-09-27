@@ -38,6 +38,7 @@ const PAGES = [
   'between-the-lines.html',
   'hospital-wayfinding.html',
   'fleet-console.html',
+  'accessibility.html',   /* the notes page: same mechanism, only #article and the data-t leaves */
 ];
 
 /* The containers `render()` fills. Each is empty in the source; we bake the
@@ -112,7 +113,10 @@ try {
       document.querySelectorAll('#toc a.on').forEach(e => e.classList.remove('on'));
 
       const out = { containers: {}, text: {} };
-      for (const { id } of containers) out.containers[id] = document.getElementById(id).innerHTML;
+      for (const { id } of containers) {
+        const el = document.getElementById(id);
+        if (el) out.containers[id] = el.innerHTML;   /* a page may not have every container */
+      }
       document.querySelectorAll('[data-t]').forEach(el => {
         out.text[el.dataset.t] = { html: el.innerHTML, tag: el.tagName.toLowerCase() };
       });
@@ -124,6 +128,7 @@ try {
     let html = before;
 
     for (const { id, tag } of CONTAINERS) {
+      if (harvest.containers[id] === undefined) continue;
       html = replaceInner(
         html,
         new RegExp(`<${tag}\\b[^>]*\\bid="${id}"[^>]*>`),
