@@ -236,6 +236,8 @@ h1.title{
   background:var(--accent);border-radius:22px;padding:9px 16px;text-decoration:none;
   transition:transform .2s var(--ease),box-shadow .2s var(--ease);
 }
+.glance .g-links{display:flex;flex-wrap:wrap;gap:0 10px;}
+.glance .g-live-link--alt{color:var(--accent);background:var(--accent-tint);}
 .glance .g-live-link:hover{transform:translateY(-1px);box-shadow:var(--sh-rest);}
 .glance .g-live-link:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
 .glance .g-live-link svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
@@ -485,7 +487,7 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
       <ul class="g-list"><li><strong>22 of 51:</strong> every number the interface quotes is counted from nine years of real turbine logs, not invented for a mockup</li><li><strong>Median 21 days:</strong> the warning a true flag buys, which is what makes “keep watching” a real option instead of a polite one</li><li><strong>One token chain:</strong> Figma variables to CSS custom properties to a Tailwind theme, so the library and&nbsp;the running prototype cannot drift apart</li></ul>
     </div>
     <div class="g-row"><div class="g-k">Try it</div>
-      <a class="g-live-link" href="https://violawojcik.github.io/fleet-console/" target="_blank" rel="noopener">Open the prototype<svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H9M17 7v8"></path></svg></a>
+      <div class="g-links"><a class="g-live-link" href="https://violawojcik.github.io/fleet-console/" target="_blank" rel="noopener">Open the prototype<svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H9M17 7v8"></path></svg></a><a class="g-live-link g-live-link--alt" href="https://www.figma.com/design/MZInnUxno6SY95v9W7D4ap/" target="_blank" rel="noopener">Open the Figma file<svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H9M17 7v8"></path></svg></a></div>
       <div class="g-stack-k">Stack</div>
       <div class="g-chips"><span class="g-chip">Figma variables</span><span class="g-chip">shadcn/ui</span><span class="g-chip">Vite</span><span class="g-chip">React</span><span class="g-chip">TypeScript</span><span class="g-chip">Tailwind 4</span><span class="g-chip">Python</span><span class="g-chip">Playwright</span><span class="g-chip">GitHub Pages</span></div>
       <div class="g-src">Self-initiated concept, not a shipped product · data from Cubico Sustainable Investments, CC-BY-4.0 · base rates counted, not estimated</div>
@@ -600,6 +602,7 @@ const T = {
       live:{
         k:'Try it',
         link:{href:'https://violawojcik.github.io/fleet-console/', label:'Open the prototype'},
+        figma:{href:'https://www.figma.com/design/MZInnUxno6SY95v9W7D4ap/', label:'Open the Figma file'},
         stackLabel:'Stack',
         stack:['Figma variables','shadcn/ui','Vite','React','TypeScript','Tailwind 4','Python','Playwright','GitHub Pages'],
         note:'Self-initiated concept, not a shipped product · data from Cubico Sustainable Investments, CC-BY-4.0 · base rates counted, not estimated'
@@ -639,6 +642,7 @@ const T = {
       live:{
         k:'Prøv den',
         link:{href:'https://violawojcik.github.io/fleet-console/', label:'Åpne prototypen'},
+        figma:{href:'https://www.figma.com/design/MZInnUxno6SY95v9W7D4ap/', label:'Åpne Figma-filen'},
         stackLabel:'Stack',
         stack:['Figma variables','shadcn/ui','Vite','React','TypeScript','Tailwind 4','Python','Playwright','GitHub Pages'],
         note:'Eget konsept, ikke et lansert produkt · data fra Cubico Sustainable Investments, CC-BY-4.0 · grunnrater telt, ikke anslått'
@@ -678,6 +682,7 @@ const T = {
       live:{
         k:'Pruébalo',
         link:{href:'https://violawojcik.github.io/fleet-console/', label:'Abrir el prototipo'},
+        figma:{href:'https://www.figma.com/design/MZInnUxno6SY95v9W7D4ap/', label:'Abrir el archivo de Figma'},
         stackLabel:'Stack',
         stack:['Figma variables','shadcn/ui','Vite','React','TypeScript','Tailwind 4','Python','Playwright','GitHub Pages'],
         note:'Concepto propio, no un producto lanzado · datos de Cubico Sustainable Investments, CC-BY-4.0 · tasas base contadas, no estimadas'
@@ -958,7 +963,7 @@ function glanceHTML(g){
       <ul class="g-list">${items}</ul>
     </div>
     <div class="g-row"><div class="g-k">${g.live.k}</div>
-      <a class="g-live-link" href="${g.live.link.href}" target="_blank" rel="noopener">${g.live.link.label}${arrow}</a>
+      <div class="g-links"><a class="g-live-link" href="${g.live.link.href}" target="_blank" rel="noopener">${g.live.link.label}${arrow}</a>${g.live.figma ? `<a class="g-live-link g-live-link--alt" href="${g.live.figma.href}" target="_blank" rel="noopener">${g.live.figma.label}${arrow}</a>` : ''}</div>
       <div class="g-stack-k">${g.live.stackLabel}</div>
       <div class="g-chips">${chips}</div>
       <div class="g-src">${g.live.note}</div>
