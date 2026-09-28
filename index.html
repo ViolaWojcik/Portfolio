@@ -468,10 +468,13 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
   background:var(--accent-tint);
   border:1px solid rgba(109,92,157,.32);
   border-radius:2px;
-  transform:translateY(14px);opacity:0;z-index:0;
-  transition:transform .55s var(--ease),opacity .45s var(--ease);
+  /* at rest the print shows a 4px edge above the body, to the right of the
+     tab: the sign that something is inside, the way a desktop folder shows a
+     sliver of paper. Hover or focus slides it out. */
+  transform:translateY(2px);z-index:0;
+  transition:transform .55s var(--ease);
 }
-.ready .grab:hover .folder .sheet,.ready .grab:focus-visible .folder .sheet{transform:translateY(-11px);opacity:1;}
+.ready .grab:hover .folder .sheet,.ready .grab:focus-visible .folder .sheet{transform:translateY(-11px);}
 /* f4 (Hospitals): the sheet is a print of the case-study hero — the period
    postcard duotoned into the board's lilac, peeking out like a photo left
    inside the folder. Other folders keep the plain tinted sheet until their
@@ -786,7 +789,7 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
        style="--rot:-1.8deg;--d:2.06s;--lit:2.66s;">
       <div class="inner"><div class="folder">
         <span class="tab"></span><span class="sheet"></span>
-        <div class="body"><div class="ttl" data-t="t6">The design<br>excludes</div><div class="mt" data-t="m6">2026&nbsp;· Accessibility&nbsp;· 13&nbsp;audits</div></div>
+        <div class="body"><div class="ttl" data-t="t6">The design<br>excludes</div><div class="mt" data-t="m6">2026&nbsp;· Accessibility&nbsp;· Audit&nbsp;notes</div></div>
       </div></div>
     </a>
     <a class="obj grab" data-k="f3" data-tip="project" href="between-the-lines.html" draggable="false"
@@ -860,7 +863,7 @@ const T = {
     m3   :'2026&nbsp;· Product&nbsp;· Designed&nbsp;&amp;&nbsp;built',
     m4   :'2016&nbsp;· Architecture&nbsp;· Service&nbsp;design',
     t6   :'The design<br>excludes',
-    m6   :'2026&nbsp;· Accessibility&nbsp;· 13&nbsp;audits',
+    m6   :'2026&nbsp;· Accessibility&nbsp;· Audit&nbsp;notes',
     hint :'Grab, click and explore',
     aboutHint:'About me. Flip the photo to read.',
     reset:'Reset layout',
@@ -890,7 +893,7 @@ const T = {
     m3   :'2026&nbsp;· Produkt&nbsp;· Designet&nbsp;&amp;&nbsp;bygget',
     m4   :'2016&nbsp;· Arkitektur&nbsp;· Tjenestedesign',
     t6   :'Designet<br>utestenger',
-    m6   :'2026&nbsp;· Universell&nbsp;utforming&nbsp;· 13&nbsp;nettsteder',
+    m6   :'2026&nbsp;· Universell&nbsp;utforming&nbsp;· Notater',
     hint :'Ta tak, klikk og utforsk',
     aboutHint:'Om meg. Snu bildet for å lese.',
     reset:'Tilbakestill',
@@ -921,7 +924,7 @@ const T = {
     m3:'2026&nbsp;· Producto&nbsp;· Diseñado&nbsp;y&nbsp;construido',
     m4:'2016&nbsp;· Arquitectura&nbsp;· Diseño&nbsp;de&nbsp;servicios',
     t6:'El diseño<br>excluye',
-    m6:'2026&nbsp;· Accesibilidad&nbsp;· 13&nbsp;auditorías',
+    m6:'2026&nbsp;· Accesibilidad&nbsp;· Notas&nbsp;de&nbsp;auditoría',
     hint:'Arrastra, haz clic y explora',
     aboutHint:'Sobre mí. Gira la foto para leer.',
     reset:'Restablecer',

@@ -159,10 +159,11 @@ header.head{padding:9vh 0 0;}
   font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
   color:var(--accent);margin-bottom:22px;
 }
+/* two lines by design: the first clause, then the second. The size is
+   chosen so "The design excludes," fits one line down to a 390px phone. */
 h1.title{
   font-family:var(--font-display);font-weight:400;
-  font-size:clamp(44px,6.4vw,84px);line-height:.98;letter-spacing:-.02em;color:var(--ink);
-  max-width:14ch;
+  font-size:clamp(38px,6.2vw,84px);line-height:.98;letter-spacing:-.02em;color:var(--ink);
 }
 .lede{
   margin-top:26px;max-width:62ch;
@@ -299,8 +300,8 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
     </a>
 
     <header class="head">
-      <div class="kicker" data-t="kicker"><!--prerendered-->Accessibility · thirteen audits · 2026<!--/prerendered--></div>
-      <h1 class="title" data-t="title"><!--prerendered-->The design excludes, not the person.<!--/prerendered--></h1>
+      <div class="kicker" data-t="kicker"><!--prerendered-->Accessibility audits · 2026<!--/prerendered--></div>
+      <h1 class="title" data-t="title"><!--prerendered-->The design excludes,<br>not the person.<!--/prerendered--></h1>
       <p class="lede" data-t="lede1"><!--prerendered-->Between August and September 2026 I checked <strong>thirteen Norwegian websites</strong> against the accessibility rules that apply to them, and sent each company <strong>five notes with the fix written next to each one</strong>. Here is what I found, without the names, with examples from a bank, an insurance company and a food producer.<!--/prerendered--></p>
       <p class="lede" data-t="lede2"><!--prerendered--><strong>The pages people buy from were in good order.</strong> On the insurer's site I measured contrast on 550 text elements and found no failure, and all 365 controls had a name. On the bank's mortgage page the 33 headings ran without a level skipped, and every slider in the loan calculator read its value out correctly. <strong>The failures sat somewhere else</strong>, on site after site: in a document platform, in a recruitment system rented from a supplier, in a language setting made once when the site was built. Nobody had decided to leave anyone out. <strong>The design did it on its own, in the places no team was looking at.</strong><!--/prerendered--></p>
     </header>
@@ -346,7 +347,7 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
   <section class="sec sec-method" aria-labelledby="rules-h">
     <div>
       <h2 class="h" id="rules-h">What the rules say</h2>
-      <p>Private businesses in Norway must meet <strong>35 WCAG criteria</strong> under the regulations on universal design of ICT. Public bodies must meet <strong>48</strong> and publish a statement on uustatus.no. The European Accessibility Act has applied in the EU since June 2025. In Norway it is delayed and has no date.</p>
+      <p>Private businesses in Norway must meet <strong>35 WCAG criteria</strong> on websites and apps aimed at the public, under the regulations on universal design of ICT: the A and AA criteria of WCAG 2.0, minus three on time-based media. Public bodies must meet <strong>48</strong>, from WCAG 2.1, and publish an accessibility statement on uustatus.no. The twelve criteria that WCAG 2.1 added are not required of private businesses. The European Accessibility Act has applied in the EU since June 2025. Norway has not yet decided to take it into the EEA Agreement, so it is not part of Norwegian law and has no date. The numbers are the supervisory authority's, Uutilsynet, not my reading of the law.</p>
       <h2 class="h">How I checked</h2>
       <p>An automated pass over each site first, then everything by hand: real key presses, contrast measured against what is actually painted underneath, the heading order read out, the PDF files opened. <strong>The tools report what the code says, and that is not always what happens on screen.</strong> On one site the stylesheet switched the focus ring off and the tool reported a failure. When I pressed Tab, the browser drew its own ring, so there was no failure. <strong>Every note here was confirmed by hand before it was written down.</strong> I did not check anything behind a login, the apps, or text on photographs.</p>
     </div>
@@ -383,7 +384,7 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
           <span>Gmail</span>
         </a>
       </div>
-      <p class="note" data-t="footNote"><!--prerendered-->Thirteen sets of notes, written between 22 August and 17 September 2026 and sent to the organisations they describe. The findings on this page are quoted from three of the most recent ones.<!--/prerendered--></p>
+      <p class="note" data-t="footNote"><!--prerendered-->The notes were written between 22 August and 17 September 2026 and sent to the organisations they describe. The findings on this page are quoted from three of the most recent ones.<!--/prerendered--></p>
     </footer>
   </div>
 </main>
@@ -399,8 +400,8 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
 const T = {
   en:{
     back:'Back to all projects',
-    kicker:'Accessibility · thirteen audits · 2026',
-    title:'The design excludes, not the person.',
+    kicker:'Accessibility audits · 2026',
+    title:'The design excludes,<br>not the person.',
     lede1:'Between August and September 2026 I checked <strong>thirteen Norwegian websites</strong> against the accessibility rules that apply to them, and sent each company <strong>five notes with the fix written next to each one</strong>. Here is what I found, without the names, with examples from a bank, an insurance company and a food producer.',
     lede2:'<strong>The pages people buy from were in good order.</strong> On the insurer\'s site I measured contrast on 550 text elements and found no failure, and all 365 controls had a name. On the bank\'s mortgage page the 33 headings ran without a level skipped, and every slider in the loan calculator read its value out correctly. <strong>The failures sat somewhere else</strong>, on site after site: in a document platform, in a recruitment system rented from a supplier, in a language setting made once when the site was built. Nobody had decided to leave anyone out. <strong>The design did it on its own, in the places no team was looking at.</strong>',
     notesH:'Five of the notes',
@@ -431,7 +432,7 @@ const T = {
       title:'The busiest page announces itself by its domain name',
       body:'The first heading on the insurer\'s front page is hidden from view and reads the domain name. The sentence the company chose to greet people with sits one level below it. <strong>I would not report this as a failure</strong>, because there is one heading and the page works. But <strong>the first thing read out on the page most customers land on is a web address</strong>. The fix is to promote the visible line and let the hidden one go. Nothing moves on screen.' },
     rulesH:'What the rules say',
-    rules:'Private businesses in Norway must meet <strong>35 WCAG criteria</strong> under the regulations on universal design of ICT. Public bodies must meet <strong>48</strong> and publish a statement on uustatus.no. The European Accessibility Act has applied in the EU since June 2025. In Norway it is delayed and has no date.',
+    rules:'Private businesses in Norway must meet <strong>35 WCAG criteria</strong> on websites and apps aimed at the public, under the regulations on universal design of ICT: the A and AA criteria of WCAG 2.0, minus three on time-based media. Public bodies must meet <strong>48</strong>, from WCAG 2.1, and publish an accessibility statement on uustatus.no. The twelve criteria that WCAG 2.1 added are not required of private businesses. The European Accessibility Act has applied in the EU since June 2025. Norway has not yet decided to take it into the EEA Agreement, so it is not part of Norwegian law and has no date. The numbers are the supervisory authority\'s, Uutilsynet, not my reading of the law.',
     methodH:'How I checked',
     method:'An automated pass over each site first, then everything by hand: real key presses, contrast measured against what is actually painted underneath, the heading order read out, the PDF files opened. <strong>The tools report what the code says, and that is not always what happens on screen.</strong> On one site the stylesheet switched the focus ring off and the tool reported a failure. When I pressed Tab, the browser drew its own ring, so there was no failure. <strong>Every note here was confirmed by hand before it was written down.</strong> I did not check anything behind a login, the apps, or text on photographs.',
     courseH:'Course',
@@ -444,13 +445,13 @@ const T = {
     close:'In a building, the escape plan is judged by how it reads to someone who has never seen it, on the day they need it. I read websites the same way. The complete notes, with the company\'s name on them, went to that company. This page keeps what I saw and the fix, and leaves the name out.',
     footBack:'Back to all projects',
     footNext:'Come say <em>hi!</em>',
-    footNote:'Thirteen sets of notes, written between 22 August and 17 September 2026 and sent to the organisations they describe. The findings on this page are quoted from three of the most recent ones.',
+    footNote:'The notes were written between 22 August and 17 September 2026 and sent to the organisations they describe. The findings on this page are quoted from three of the most recent ones.',
     cvfile:'Wioleta-Wojcik-CV.pdf'
   },
   no:{
     back:'Tilbake til alle prosjekter',
-    kicker:'Universell utforming · tretten nettsteder · 2026',
-    title:'Designet utestenger, ikke mennesket.',
+    kicker:'Tilgjengelighetsrevisjoner · 2026',
+    title:'Designet utestenger,<br>ikke mennesket.',
     lede1:'Mellom august og september 2026 gikk jeg gjennom <strong>tretten norske nettsteder</strong> opp mot kravene til universell utforming som gjelder for dem, og sendte hvert selskap <strong>fem notater med løsningen skrevet ved siden av hvert funn</strong>. Her er det jeg fant, uten navnene, med eksempler fra en bank, et forsikringsselskap og en matprodusent.',
     lede2:'<strong>Sidene folk kjøper fra var i god stand.</strong> På forsikringsselskapets nettsted målte jeg kontrasten på 550 tekstelementer og fant ingen feil, og alle 365 kontrollene hadde et navn. På bankens boliglånsside fulgte de 33 overskriftene etter hverandre uten at et nivå ble hoppet over, og hver glidebryter i lånekalkulatoren leste opp verdien sin riktig. <strong>Feilene satt et annet sted</strong>, på nettsted etter nettsted: i en dokumentplattform, i et rekrutteringssystem leid fra en leverandør, i en språkinnstilling som ble gjort én gang da nettstedet ble bygget. Ingen hadde bestemt seg for å stenge noen ute. <strong>Designet gjorde det på egen hånd, på de stedene ingen team så på.</strong>',
     notesH:'Fem av notatene',
@@ -481,7 +482,7 @@ const T = {
       title:'Den travleste siden presenterer seg med sitt eget domenenavn',
       body:'Den første overskriften på forsikringsselskapets forside er skjult og inneholder domenenavnet. Setningen selskapet valgte for å hilse på folk med, ligger ett nivå under. <strong>Jeg ville ikke rapportert dette som en feil</strong>, for det finnes én overskrift og siden fungerer. Men <strong>det første som blir lest opp på siden de fleste kundene lander på, er en nettadresse</strong>. Løsningen er å løfte den synlige linjen og la den skjulte gå. Ingenting flytter seg på skjermen.' },
     rulesH:'Hva reglene sier',
-    rules:'Private virksomheter i Norge må oppfylle <strong>35 WCAG-kriterier</strong> etter forskriften om universell utforming av IKT. Offentlige virksomheter må oppfylle <strong>48</strong> og publisere en tilgjengelighetserklæring på uustatus.no. EUs tilgjengelighetsdirektiv har gjeldt i EU siden juni 2025. I Norge er innføringen utsatt og har ingen dato.',
+    rules:'Private virksomheter i Norge må oppfylle <strong>35 WCAG-kriterier</strong> på nettsteder og apper rettet mot allmennheten, etter forskriften om universell utforming av IKT-løsninger: nivå A og AA i WCAG 2.0, uten tre kriterier om tidsbaserte medier. Offentlige virksomheter må oppfylle <strong>48</strong>, fra WCAG 2.1, og publisere en tilgjengelighetserklæring på uustatus.no. De tolv kriteriene som kom med WCAG 2.1, er ikke krav til private virksomheter. EUs tilgjengelighetsdirektiv har gjeldt i EU siden juni 2025. Norge har ennå ikke avgjort om direktivet skal tas inn i EØS-avtalen, så det er ikke norsk lov og har ingen dato. Tallene er tilsynsmyndighetens, Uutilsynet, ikke min tolkning av loven.',
     methodH:'Slik sjekket jeg',
     method:'Først en automatisk gjennomgang av hvert nettsted, deretter alt for hånd: ekte tastetrykk, kontrast målt mot det som faktisk er tegnet under, overskriftsrekkefølgen lest opp, PDF-filene åpnet. <strong>Verktøyene rapporterer det koden sier, og det er ikke alltid det som skjer på skjermen.</strong> På ett nettsted slo stilarket av fokusrammen, og verktøyet rapporterte en feil. Da jeg trykket Tab, tegnet nettleseren sin egen ramme, så det var ingen feil. <strong>Hvert notat her ble bekreftet for hånd før det ble skrevet ned.</strong> Jeg sjekket ikke noe bak innlogging, appene eller tekst på fotografier.',
     courseH:'Kurs',
@@ -494,13 +495,13 @@ const T = {
     close:'I en bygning blir rømningsplanen bedømt etter hvordan den leses av en som aldri har sett den, den dagen de trenger den. Jeg leser nettsteder på samme måte. De fullstendige notatene, med selskapets navn på, gikk til det selskapet. Denne siden beholder det jeg så og løsningen, og utelater navnet.',
     footBack:'Tilbake til alle prosjekter',
     footNext:'Kom og si <em>hei!</em>',
-    footNote:'Tretten sett med notater, skrevet mellom 22. august og 17. september 2026 og sendt til organisasjonene de handler om. Funnene på denne siden er hentet fra tre av de nyeste. Den norske teksten er et utkast og venter på gjennomlesing av en som har norsk som morsmål.',
+    footNote:'Notatene ble skrevet mellom 22. august og 17. september 2026 og sendt til organisasjonene de handler om. Funnene på denne siden er hentet fra tre av de nyeste. Den norske teksten er et utkast og venter på gjennomlesing av en som har norsk som morsmål.',
     cvfile:'Wioleta-Wojcik-CV-NO.pdf'
   },
   es:{
     back:'Volver a todos los proyectos',
-    kicker:'Accesibilidad · trece sitios web · 2026',
-    title:'El diseño excluye, no la persona.',
+    kicker:'Auditorías de accesibilidad · 2026',
+    title:'El diseño excluye,<br>no la persona.',
     lede1:'Entre agosto y septiembre de 2026 revisé <strong>trece sitios web noruegos</strong> según las normas de accesibilidad que se les aplican, y envié a cada empresa <strong>cinco notas con la solución escrita junto a cada una</strong>. Esto es lo que encontré, sin los nombres, con ejemplos de un banco, una aseguradora y una empresa de alimentación.',
     lede2:'<strong>Las páginas desde las que la gente compra estaban en buen estado.</strong> En el sitio de la aseguradora medí el contraste de 550 elementos de texto y no encontré ningún fallo, y los 365 controles tenían nombre. En la página de hipotecas del banco, los 33 encabezados seguían su orden sin saltarse ningún nivel, y cada control deslizante de la calculadora leía su valor correctamente. <strong>Los fallos estaban en otro sitio</strong>, en un sitio web tras otro: en una plataforma de documentos, en un sistema de selección de personal alquilado a un proveedor, en un ajuste de idioma hecho una sola vez al construir el sitio. Nadie había decidido dejar a nadie fuera. <strong>El diseño lo hizo por su cuenta, en los lugares que ningún equipo miraba.</strong>',
     notesH:'Cinco de las notas',
@@ -531,7 +532,7 @@ const T = {
       title:'La página más visitada se presenta con su propio nombre de dominio',
       body:'El primer encabezado de la portada de la aseguradora está oculto y contiene el nombre del dominio. La frase que la empresa eligió para recibir a la gente está un nivel por debajo. <strong>No lo señalaría como un fallo</strong>, porque hay un encabezado y la página funciona. Pero <strong>lo primero que se lee en voz alta en la página a la que llegan la mayoría de los clientes es una dirección web</strong>. La solución es subir la línea visible y dejar ir la oculta. Nada se mueve en pantalla.' },
     rulesH:'Lo que dicen las normas',
-    rules:'Las empresas privadas en Noruega deben cumplir <strong>35 criterios WCAG</strong> según el reglamento de diseño universal de las TIC. Los organismos públicos deben cumplir <strong>48</strong> y publicar una declaración en uustatus.no. La Ley Europea de Accesibilidad se aplica en la UE desde junio de 2025. En Noruega su implantación está retrasada y no tiene fecha.',
+    rules:'Las empresas privadas en Noruega deben cumplir <strong>35 criterios WCAG</strong> en los sitios web y aplicaciones dirigidos al público, según el reglamento de diseño universal de las TIC: los criterios de nivel A y AA de WCAG 2.0, menos tres sobre contenido multimedia dependiente del tiempo. Los organismos públicos deben cumplir <strong>48</strong>, de WCAG 2.1, y publicar una declaración de accesibilidad en uustatus.no. Los doce criterios que añadió WCAG 2.1 no se exigen a las empresas privadas. La Ley Europea de Accesibilidad se aplica en la UE desde junio de 2025. Noruega aún no ha decidido incorporarla al Acuerdo del EEE, así que no forma parte de la legislación noruega y no tiene fecha. Las cifras son de la autoridad supervisora, Uutilsynet, no de mi interpretación de la ley.',
     methodH:'Cómo lo comprobé',
     method:'Primero una pasada automática por cada sitio, y después todo a mano: pulsaciones de teclas reales, el contraste medido sobre lo que realmente hay pintado debajo, el orden de los encabezados leído, los archivos PDF abiertos. <strong>Las herramientas informan de lo que dice el código, y eso no siempre es lo que pasa en pantalla.</strong> En un sitio, la hoja de estilos apagaba el anillo de foco y la herramienta señaló un fallo. Cuando pulsé Tab, el navegador dibujó su propio anillo, así que no había fallo. <strong>Cada nota de esta página se confirmó a mano antes de escribirla.</strong> No revisé nada que estuviera tras un inicio de sesión, ni las aplicaciones, ni el texto sobre fotografías.',
     courseH:'Curso',
@@ -544,7 +545,7 @@ const T = {
     close:'En un edificio, el plan de evacuación se juzga por cómo lo lee alguien que nunca lo ha visto, el día que lo necesita. Yo leo los sitios web de la misma manera. Las notas completas, con el nombre de la empresa, fueron a esa empresa. Esta página conserva lo que vi y la solución, y deja fuera el nombre.',
     footBack:'Volver a todos los proyectos',
     footNext:'Ven a decir <em>¡hola!</em>',
-    footNote:'Trece conjuntos de notas, escritos entre el 22 de agosto y el 17 de septiembre de 2026 y enviados a las organizaciones que describen. Los hallazgos de esta página están tomados de tres de los más recientes. El texto en español es un borrador pendiente de revisión por una persona nativa.',
+    footNote:'Las notas se escribieron entre el 22 de agosto y el 17 de septiembre de 2026 y se enviaron a las organizaciones que describen. Los hallazgos de esta página están tomados de tres de los más recientes. El texto en español es un borrador pendiente de revisión por una persona nativa.',
     cvfile:'Wioleta-Wojcik-CV-ES.pdf'
   }
 };
