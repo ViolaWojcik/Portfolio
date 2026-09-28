@@ -292,6 +292,18 @@ try {
       ? `${slug}: uncaught error on load — ${jsErrors[0]}`
       : `${slug}: no uncaught errors on load`);
 
+    /* the footer's Gmail link behaves like the board's: on a desktop the click
+       copies the address rather than firing a mailto: that may go nowhere */
+    const footMail = await d.evaluate(() => {
+      const a = document.querySelector('footer.foot a[data-a="mail"]');
+      if (!a) return null;
+      let prevented = null;
+      const spy = e => { prevented = e.defaultPrevented; e.preventDefault(); };
+      document.addEventListener('click', spy); a.click(); document.removeEventListener('click', spy);
+      return prevented;
+    });
+    check(footMail === true, `${slug}: the footer's Gmail link copies the address instead of firing mailto:`);
+
     /* Proof of life. Flipping the language is the cheapest thing that forces
        render() to do real work, and the résumé href riding along proves the
        language-aware part of the footer too. Reads the CURRENT language first
@@ -343,6 +355,14 @@ try {
   check(jsErrors.length === 0, jsErrors.length
     ? `${NOTES}: uncaught error on load — ${jsErrors[0]}`
     : `${NOTES}: no uncaught errors on load`);
+  const notesMail = await d.evaluate(() => {
+    const a = document.querySelector('footer.foot a[data-a="mail"]');
+    let prevented = null;
+    const spy = e => { prevented = e.defaultPrevented; e.preventDefault(); };
+    document.addEventListener('click', spy); a.click(); document.removeEventListener('click', spy);
+    return prevented;
+  });
+  check(notesMail === true, `${NOTES}: the footer's Gmail link copies the address instead of firing mailto:`);
 
   const nsw = await d.evaluate(async () => {
     const cv = () => document.querySelector('footer.foot a[data-a="cv"]').getAttribute('href');

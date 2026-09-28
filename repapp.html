@@ -632,6 +632,7 @@ const T = {
       }
     },
     footNext:'Come say <em>hi!</em>',
+    copied:'Copied!',   /* the mail link's label right after a copy */
     cvfile:'Wioleta-Wojcik-CV.pdf',
     footBack:'Back to all projects',
     footNote:'Interface reconstructions redrawn in 2026 — the original design files are not in my possession. The live product has since evolved with the in-house team.',
@@ -663,6 +664,7 @@ const T = {
       }
     },
     footNext:'Kom og si <em>hei!</em>',
+    copied:'Kopiert!',   /* the mail link's label right after a copy */
     cvfile:'Wioleta-Wojcik-CV-NO.pdf',
     footBack:'Tilbake til alle prosjekter',
     footNote:'Grensesnittene er tegnet på nytt i 2026 — de originale designfilene er ikke i min besittelse. Det live produktet har siden utviklet seg videre med det interne teamet.',
@@ -698,6 +700,7 @@ const T = {
       }
     },
     footNext:'Ven a decir <em>¡hola!</em>',
+    copied:'¡Copiado!',   /* the mail link's label right after a copy */
     cvfile:'Wioleta-Wojcik-CV-ES.pdf',
     footBack:'Volver a todos los proyectos',
     footNote:'Reconstrucciones de la interfaz redibujadas en 2026: los archivos de diseño originales no están en mi poder. El producto en producción ha seguido evolucionando con el equipo interno.',
@@ -1258,6 +1261,42 @@ langEl.addEventListener('click', e=>{
 let lang = 'en';
 try{ lang = localStorage.getItem(LANG_KEY) || 'en'; }catch(e){}
 render(lang);
+
+/* ---- mail: copy on a desktop, open the mail app on a phone ----
+   The same rule as the contact card on the board. On a desktop a mailto:
+   often dead-ends (a blank tab, or nothing at all, when no mail client is set
+   up), so the click copies the address and the link's label says "Copied" for
+   a beat. On a phone the mailto: is honoured and the mail app opens. The href
+   stays a real mailto:, so right-click "copy address" and the keyboard still
+   work. Delegated, so a mail link that render() draws later counts too. */
+document.addEventListener('click', e=>{
+  const a = e.target.closest('a[href^="mailto:"]');
+  if(!a || matchMedia('(pointer:coarse)').matches) return;
+  e.preventDefault();
+  const addr  = a.getAttribute('href').replace(/^mailto:/, '');
+  const label = a.querySelector('span') || a;
+  const flash = ()=>{
+    const was = label.textContent;
+    label.setAttribute('aria-live', 'polite');
+    label.textContent = (T[langEl.dataset.l] || T.en).copied;
+    setTimeout(()=>{ label.textContent = was; }, 1900);
+  };
+  /* older/insecure contexts lack the async Clipboard API — a throwaway
+     textarea + execCommand still lands the copy */
+  const fallback = ()=>{
+    const ta = document.createElement('textarea');
+    ta.value = addr; ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed'; ta.style.top = '-1000px'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); flash(); }catch(err){}
+    document.body.removeChild(ta);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(addr).then(flash).catch(fallback);
+  } else {
+    fallback();
+  }
+});
 </script>
 <script src="analytics.js" defer></script>
 </body>

@@ -580,6 +580,7 @@ const T = {
       }
     },
     footNext:'Come say <em>hi!</em>',
+    copied:'Copied!',   /* the mail link's label right after a copy */
     cvfile:'Wioleta-Wojcik-CV.pdf',
     footBack:'Back to all projects',
     footNote:'Real client work, shown through anonymised, illustrative reconstructions. The hospital and firm are not named and no original drawings are reproduced. Diagrams redrawn 2026; percentages come from our space-use analysis of the complex, and target shares from the reorganisation simulation are rounded.',
@@ -613,6 +614,7 @@ const T = {
       }
     },
     footNext:'Kom og si <em>hei!</em>',
+    copied:'Kopiert!',   /* the mail link's label right after a copy */
     cvfile:'Wioleta-Wojcik-CV-NO.pdf',
     footBack:'Tilbake til alle prosjekter',
     footNote:'Ekte klientarbeid, vist kun gjennom anonymiserte, illustrerende rekonstruksjoner. Sykehuset og firmaet er ikke navngitt, og ingen originaltegninger gjengis. Diagrammer tegnet på nytt 2026; prosentene kommer fra vår arealanalyse av komplekset, og målandelene fra omorganiserings-simuleringen er avrundet.',
@@ -650,6 +652,7 @@ const T = {
       }
     },
     footNext:'Ven a decir <em>¡hola!</em>',
+    copied:'¡Copiado!',   /* the mail link's label right after a copy */
     cvfile:'Wioleta-Wojcik-CV-ES.pdf',
     footBack:'Volver a todos los proyectos',
     footNote:'Trabajo real para un cliente, mostrado mediante reconstrucciones anonimizadas e ilustrativas. Ni el hospital ni el estudio se nombran, y no se reproduce ningún plano original. Diagramas redibujados en 2026; los porcentajes proceden de nuestro análisis de uso del espacio del complejo, y las cuotas objetivo de la simulación de reorganización están redondeadas.',
@@ -1121,6 +1124,42 @@ langEl.addEventListener('click', e=>{
 let lang = 'en';
 try{ lang = localStorage.getItem(LANG_KEY) || 'en'; }catch(e){}
 render(lang);
+
+/* ---- mail: copy on a desktop, open the mail app on a phone ----
+   The same rule as the contact card on the board. On a desktop a mailto:
+   often dead-ends (a blank tab, or nothing at all, when no mail client is set
+   up), so the click copies the address and the link's label says "Copied" for
+   a beat. On a phone the mailto: is honoured and the mail app opens. The href
+   stays a real mailto:, so right-click "copy address" and the keyboard still
+   work. Delegated, so a mail link that render() draws later counts too. */
+document.addEventListener('click', e=>{
+  const a = e.target.closest('a[href^="mailto:"]');
+  if(!a || matchMedia('(pointer:coarse)').matches) return;
+  e.preventDefault();
+  const addr  = a.getAttribute('href').replace(/^mailto:/, '');
+  const label = a.querySelector('span') || a;
+  const flash = ()=>{
+    const was = label.textContent;
+    label.setAttribute('aria-live', 'polite');
+    label.textContent = (T[langEl.dataset.l] || T.en).copied;
+    setTimeout(()=>{ label.textContent = was; }, 1900);
+  };
+  /* older/insecure contexts lack the async Clipboard API — a throwaway
+     textarea + execCommand still lands the copy */
+  const fallback = ()=>{
+    const ta = document.createElement('textarea');
+    ta.value = addr; ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed'; ta.style.top = '-1000px'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); flash(); }catch(err){}
+    document.body.removeChild(ta);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(addr).then(flash).catch(fallback);
+  } else {
+    fallback();
+  }
+});
 </script>
 <script src="analytics.js" defer></script>
 </body>

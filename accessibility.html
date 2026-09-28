@@ -445,6 +445,7 @@ const T = {
     close:'In a building, the escape plan is judged by how it reads to someone who has never seen it, on the day they need it. I read websites the same way. The complete notes, with the company\'s name on them, went to that company. This page keeps what I saw and the fix, and leaves the name out.',
     footBack:'Back to all projects',
     footNext:'Come say <em>hi!</em>',
+    copied:'Copied!',   /* the mail link's label right after a copy */
     footNote:'The notes were written between 22 August and 17 September 2026 and sent to the organisations they describe. The findings on this page are quoted from three of the most recent ones.',
     cvfile:'Wioleta-Wojcik-CV.pdf'
   },
@@ -495,6 +496,7 @@ const T = {
     close:'I en bygning blir rømningsplanen bedømt etter hvordan den leses av en som aldri har sett den, den dagen de trenger den. Jeg leser nettsteder på samme måte. De fullstendige notatene, med selskapets navn på, gikk til det selskapet. Denne siden beholder det jeg så og løsningen, og utelater navnet.',
     footBack:'Tilbake til alle prosjekter',
     footNext:'Kom og si <em>hei!</em>',
+    copied:'Kopiert!',   /* the mail link's label right after a copy */
     footNote:'Notatene ble skrevet mellom 22. august og 17. september 2026 og sendt til organisasjonene de handler om. Funnene på denne siden er hentet fra tre av de nyeste. Den norske teksten er et utkast og venter på gjennomlesing av en som har norsk som morsmål.',
     cvfile:'Wioleta-Wojcik-CV-NO.pdf'
   },
@@ -545,6 +547,7 @@ const T = {
     close:'En un edificio, el plan de evacuación se juzga por cómo lo lee alguien que nunca lo ha visto, el día que lo necesita. Yo leo los sitios web de la misma manera. Las notas completas, con el nombre de la empresa, fueron a esa empresa. Esta página conserva lo que vi y la solución, y deja fuera el nombre.',
     footBack:'Volver a todos los proyectos',
     footNext:'Ven a decir <em>¡hola!</em>',
+    copied:'¡Copiado!',   /* the mail link's label right after a copy */
     footNote:'Las notas se escribieron entre el 22 de agosto y el 17 de septiembre de 2026 y se enviaron a las organizaciones que describen. Los hallazgos de esta página están tomados de tres de los más recientes. El texto en español es un borrador pendiente de revisión por una persona nativa.',
     cvfile:'Wioleta-Wojcik-CV-ES.pdf'
   }
@@ -670,6 +673,42 @@ document.addEventListener('focusout', ()=>{
 let lang = 'en';
 try{ lang = localStorage.getItem(LANG_KEY) || 'en'; }catch(e){}
 render(lang);
+
+/* ---- mail: copy on a desktop, open the mail app on a phone ----
+   The same rule as the contact card on the board. On a desktop a mailto:
+   often dead-ends (a blank tab, or nothing at all, when no mail client is set
+   up), so the click copies the address and the link's label says "Copied" for
+   a beat. On a phone the mailto: is honoured and the mail app opens. The href
+   stays a real mailto:, so right-click "copy address" and the keyboard still
+   work. Delegated, so a mail link that render() draws later counts too. */
+document.addEventListener('click', e=>{
+  const a = e.target.closest('a[href^="mailto:"]');
+  if(!a || matchMedia('(pointer:coarse)').matches) return;
+  e.preventDefault();
+  const addr  = a.getAttribute('href').replace(/^mailto:/, '');
+  const label = a.querySelector('span') || a;
+  const flash = ()=>{
+    const was = label.textContent;
+    label.setAttribute('aria-live', 'polite');
+    label.textContent = (T[langEl.dataset.l] || T.en).copied;
+    setTimeout(()=>{ label.textContent = was; }, 1900);
+  };
+  /* older/insecure contexts lack the async Clipboard API — a throwaway
+     textarea + execCommand still lands the copy */
+  const fallback = ()=>{
+    const ta = document.createElement('textarea');
+    ta.value = addr; ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed'; ta.style.top = '-1000px'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); flash(); }catch(err){}
+    document.body.removeChild(ta);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(addr).then(flash).catch(fallback);
+  } else {
+    fallback();
+  }
+});
 </script>
 <script src="analytics.js" defer></script>
 </body>

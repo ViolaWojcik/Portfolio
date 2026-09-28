@@ -670,6 +670,7 @@ const T = {
       }
     },
     footNext:'Come say <em>hi!</em>',
+    copied:'Copied!',   /* the mail link's label right after a copy */
     cvfile:'Wioleta-Wojcik-CV.pdf',
     footBack:'Back to all projects',
     footNote:'Designed and built in 2026 during the AI Product Masterclass (Nueve Design), then taken further as a working demo. No real users yet, so outcomes are qualitative, and any insight text shown is illustrative and labelled. It runs as a live, clickable demo, and every screen shown here is captured from the running build or drawn for this case.',
@@ -711,6 +712,7 @@ const T = {
       }
     },
     footNext:'Kom og si <em>hei!</em>',
+    copied:'Kopiert!',   /* the mail link's label right after a copy */
     cvfile:'Wioleta-Wojcik-CV-NO.pdf',
     footBack:'Tilbake til alle prosjekter',
     footNote:'Designet og bygget i 2026 under AI Product Masterclass (Nueve Design), og tatt videre som en fungerende demo. Ingen ekte brukere ennå, så resultatene er kvalitative, og all innsiktstekst som vises er illustrerende og merket. Den kjører som en live, klikkbar demo, og hver skjerm som vises her er hentet fra den kjørende appen eller tegnet for denne casen.',
@@ -772,6 +774,7 @@ const T = {
       }
     },
     footNext:'Ven a decir <em>¡hola!</em>',
+    copied:'¡Copiado!',   /* the mail link's label right after a copy */
     cvfile:'Wioleta-Wojcik-CV-ES.pdf',
     footBack:'Volver a todos los proyectos',
     footNote:'Diseñado y construido en 2026 durante el AI Product Masterclass (Nueve Design), y desarrollado después como demo funcional. Todavía sin usuarios reales, así que los resultados son cualitativos, y cualquier texto de insight que se muestra es ilustrativo y está etiquetado como tal. Funciona como una demo en vivo y clicable, y cada pantalla que aparece aquí está capturada de la versión en marcha o dibujada para este caso.',
@@ -1393,6 +1396,42 @@ langEl.addEventListener('click', e=>{
 let lang = 'en';
 try{ lang = localStorage.getItem(LANG_KEY) || 'en'; }catch(e){}
 render(lang);
+
+/* ---- mail: copy on a desktop, open the mail app on a phone ----
+   The same rule as the contact card on the board. On a desktop a mailto:
+   often dead-ends (a blank tab, or nothing at all, when no mail client is set
+   up), so the click copies the address and the link's label says "Copied" for
+   a beat. On a phone the mailto: is honoured and the mail app opens. The href
+   stays a real mailto:, so right-click "copy address" and the keyboard still
+   work. Delegated, so a mail link that render() draws later counts too. */
+document.addEventListener('click', e=>{
+  const a = e.target.closest('a[href^="mailto:"]');
+  if(!a || matchMedia('(pointer:coarse)').matches) return;
+  e.preventDefault();
+  const addr  = a.getAttribute('href').replace(/^mailto:/, '');
+  const label = a.querySelector('span') || a;
+  const flash = ()=>{
+    const was = label.textContent;
+    label.setAttribute('aria-live', 'polite');
+    label.textContent = (T[langEl.dataset.l] || T.en).copied;
+    setTimeout(()=>{ label.textContent = was; }, 1900);
+  };
+  /* older/insecure contexts lack the async Clipboard API — a throwaway
+     textarea + execCommand still lands the copy */
+  const fallback = ()=>{
+    const ta = document.createElement('textarea');
+    ta.value = addr; ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed'; ta.style.top = '-1000px'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); flash(); }catch(err){}
+    document.body.removeChild(ta);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(addr).then(flash).catch(fallback);
+  } else {
+    fallback();
+  }
+});
 </script>
 <script src="analytics.js" defer></script>
 </body>
