@@ -113,11 +113,23 @@
      last <a> in #fan is leftmost and back-most, the first is rightmost and on
      top, so adding a folder is adding an <a> and the geometry follows. Hover
      or focus raises one folder to the front and parts the others around it. */
+  /* the folder card itself, its tab, and the meta line on it: the board's
+     paper. A periwinkle was tried on 2026-09-28 and turned down: it broke the
+     one-material desk and needed a rim and cool shadows to stop the six
+     folders merging, so any recolour has to bring those with it. */
+  --fold-paper:  var(--paper);
+  --fold-tab:    var(--paper);
+  --fold-mute:   var(--ink-mute);
   --fold-w:      228px;  /* folder card — sized to match the contact card, so the
                             projects hold their own against photo + card */
   --fold-h:      142px;
   --fan-n:          6;   /* folders in the drawer; the script overwrites it with the real count */
-  --fan-step:     92px;  /* at rest: what each folder shows of itself before the next covers it */
+  --fan-step:    112px;  /* at rest: what each folder shows of itself before the next covers it.
+                            placeFan() sets the real value between --fan-step-min and -max:
+                            as wide as the room up to the contact card allows */
+  --fan-step-min: 92px;
+  --fan-step-max:112px;
+  --fan-card-gap: 64px;  /* the drawer never comes closer than this to the contact card */
   --fan-spread:   16px;  /* per slot of distance from the raised folder, while the drawer is parted */
   --fan-drop:     96px;  /* the lowest slot sits this far below the highest */
 
@@ -450,15 +462,7 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
 /* folders carry their shadow on .folder, not .inner */
 #fan .obj .inner,.obj[data-k^="f"] .inner{box-shadow:none!important;}
 
-.folder .tab{position:absolute;top:0;left:0;width:100px;height:15px;background:var(--paper);border-radius:4px 7px 0 0;}
-/* one word on the tab, the way a file tab is labelled: at rest it is the part
-   of a folder the drawer leaves uncovered (the tab is 100px, the step 92) */
-.folder .tab .tl{
-  position:absolute;left:10px;top:0;line-height:15px;white-space:nowrap;
-  font-size:8px;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--ink-mute);transition:color .3s var(--ease);
-}
-.ready .grab:hover .folder .tab .tl,.grab:focus-visible .folder .tab .tl{color:var(--accent);}
+.folder .tab{position:absolute;top:0;left:0;width:100px;height:15px;background:var(--fold-tab);border-radius:4px 7px 0 0;}
 .folder .sheet{
   position:absolute;left:14px;right:14px;top:9px;height:70px;
   background:var(--accent-tint);
@@ -512,11 +516,11 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
 .ready .obj[data-k="f6"].grab:hover .folder .sheet,.ready .obj[data-k="f6"].grab:focus-visible .folder .sheet{transform:translateY(-30px);}
 .folder .body{
   position:absolute;left:0;right:0;top:15px;bottom:0;z-index:1;
-  background:var(--paper);border-radius:0 4px 4px 4px;padding:17px 18px;
+  background:var(--fold-paper);border-radius:0 4px 4px 4px;padding:17px 18px;
   display:flex;flex-direction:column;justify-content:space-between;
 }
 .folder .ttl{font-family:var(--font-display);font-size:22px;line-height:1.05;letter-spacing:-.01em;font-weight:400;}
-.folder .mt{font-size:8.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-mute);line-height:1.55;}
+.folder .mt{font-size:8.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--fold-mute);line-height:1.55;}
 
 /* the one small invitation at the end of the entrance */
 @keyframes nudge{
@@ -774,42 +778,42 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
     <a class="obj grab" data-k="f5" data-tip="project" href="fleet-console.html" draggable="false"
        style="--rot:1.6deg;--d:2.18s;--lit:2.78s;">
       <div class="inner"><div class="folder">
-        <span class="tab"><span class="tl" data-t="k5">turbines</span></span><span class="sheet"></span>
+        <span class="tab"></span><span class="sheet"></span>
         <div class="body"><div class="ttl" data-t="t5">Metal<br>in the oil</div><div class="mt" data-t="m5">Wind&nbsp;fleet&nbsp;· Enterprise&nbsp;UI&nbsp;· Design&nbsp;system</div></div>
       </div></div>
     </a>
     <a class="obj grab" data-k="f6" data-tip="project" href="accessibility.html" draggable="false"
        style="--rot:-1.8deg;--d:2.06s;--lit:2.66s;">
       <div class="inner"><div class="folder">
-        <span class="tab"><span class="tl" data-t="k6">accessibility</span></span><span class="sheet"></span>
+        <span class="tab"></span><span class="sheet"></span>
         <div class="body"><div class="ttl" data-t="t6">The design<br>excludes</div><div class="mt" data-t="m6">2026&nbsp;· Accessibility&nbsp;· 13&nbsp;audits</div></div>
       </div></div>
     </a>
     <a class="obj grab" data-k="f3" data-tip="project" href="between-the-lines.html" draggable="false"
        style="--rot:-1.4deg;--d:1.94s;--lit:2.54s;">
       <div class="inner"><div class="folder">
-        <span class="tab"><span class="tl" data-t="k3">journal</span></span><span class="sheet"></span>
+        <span class="tab"></span><span class="sheet"></span>
         <div class="body"><div class="ttl" data-t="t3">Between<br>the lines</div><div class="mt" data-t="m3">Product&nbsp;· Designed&nbsp;&amp;&nbsp;built</div></div>
       </div></div>
     </a>
     <a class="obj grab" data-k="f2" data-tip="project" href="red-thread.html" draggable="false"
        style="--rot:1.8deg;--d:1.82s;--lit:2.42s;">
       <div class="inner"><div class="folder">
-        <span class="tab"><span class="tl" data-t="k2">schools</span></span><span class="sheet"></span>
+        <span class="tab"></span><span class="sheet"></span>
         <div class="body"><div class="ttl" data-t="t2">Red thread</div><div class="mt" data-t="m2">Schools&nbsp;· Service&nbsp;design</div></div>
       </div></div>
     </a>
     <a class="obj grab" data-k="f1" data-tip="project" href="repapp.html" draggable="false"
        style="--rot:-1.2deg;--d:1.70s;--lit:2.30s;">
       <div class="inner"><div class="folder">
-        <span class="tab"><span class="tl" data-t="k1">check-in</span></span><span class="sheet"></span>
+        <span class="tab"></span><span class="sheet"></span>
         <div class="body"><div class="ttl" data-t="t1">Guest check-in</div><div class="mt" data-t="m1">RepApp&nbsp;· Tablet&nbsp;· UX/UI&nbsp;· Service&nbsp;design</div></div>
       </div></div>
     </a>
     <a class="obj grab" data-k="f4" data-tip="project" href="hospital-wayfinding.html" draggable="false"
        style="--rot:2deg;--d:1.58s;--lit:2.18s;">
       <div class="inner"><div class="folder">
-        <span class="tab"><span class="tl" data-t="k4">hospitals</span></span><span class="sheet"></span>
+        <span class="tab"></span><span class="sheet"></span>
         <div class="body"><div class="ttl" data-t="t4">Moving<br>through care</div><div class="mt" data-t="m4">Architecture&nbsp;· Service&nbsp;design</div></div>
       </div></div>
     </a>
@@ -857,8 +861,6 @@ const T = {
     m4   :'2016&nbsp;· Architecture&nbsp;· Service&nbsp;design',
     t6   :'The design<br>excludes',
     m6   :'2026&nbsp;· Accessibility&nbsp;· 13&nbsp;audits',
-    /* one word on each folder's tab: what a folder shows of itself in the drawer */
-    k1:'check-in', k2:'schools', k3:'journal', k4:'hospitals', k5:'turbines', k6:'accessibility',
     hint :'Grab, click and explore',
     aboutHint:'About me. Flip the photo to read.',
     reset:'Reset layout',
@@ -889,7 +891,6 @@ const T = {
     m4   :'2016&nbsp;· Arkitektur&nbsp;· Tjenestedesign',
     t6   :'Designet<br>utestenger',
     m6   :'2026&nbsp;· Universell&nbsp;utforming&nbsp;· 13&nbsp;nettsteder',
-    k1:'innsjekk', k2:'skoler', k3:'dagbok', k4:'sykehus', k5:'turbiner', k6:'tilgjengelighet',
     hint :'Ta tak, klikk og utforsk',
     aboutHint:'Om meg. Snu bildet for å lese.',
     reset:'Tilbakestill',
@@ -921,7 +922,6 @@ const T = {
     m4:'2016&nbsp;· Arquitectura&nbsp;· Diseño&nbsp;de&nbsp;servicios',
     t6:'El diseño<br>excluye',
     m6:'2026&nbsp;· Accesibilidad&nbsp;· 13&nbsp;auditorías',
-    k1:'check-in', k2:'escuelas', k3:'diario', k4:'hospitales', k5:'turbinas', k6:'accesibilidad',
     hint:'Arrastra, haz clic y explora',
     aboutHint:'Sobre mí. Gira la foto para leer.',
     reset:'Restablecer',
@@ -1298,7 +1298,14 @@ const KEEP_CLEAR = 48;   /* breathing room around the headline box */
 function placeFan(){
   const b  = board.getBoundingClientRect();
   const hl = document.getElementById('headline').getBoundingClientRect();
-  const fw = fan.offsetWidth  || 414;
+  const cs = getComputedStyle(fan);
+  const px = v=> parseFloat(cs.getPropertyValue(v)) || 0;
+  const n = fan.children.length, foldW = px('--fold-w'), spread = px('--fan-spread');
+  const stepMin = px('--fan-step-min'), stepMax = px('--fan-step-max'), cardGap = px('--fan-card-gap');
+  /* the drawer's parted width at a given step: what the box reserves */
+  const widthAt = step=> foldW + (n - 1) * (step + spread);
+  let step = stepMax;
+  let fw = widthAt(step);
   const fh = fan.offsetHeight || 150;
 
   fan.style.bottom = 'auto';
@@ -1314,18 +1321,25 @@ function placeFan(){
     left = Math.min(hl.right - b.left + KEEP_CLEAR, board.clientWidth - fw - 40);
   }
 
-  /* stay clear of the contact card: if the fan's right edge would cover the card
-     while the two share vertical space, slide the fan left until it clears (down
-     to a small left margin). Below the mobile breakpoint the board reflows to a
-     vertical stack, so this no longer applies. */
+  /* stay clear of the contact card: while the two share vertical space the
+     drawer keeps --fan-card-gap from the card, whatever else happens. First the
+     slots close up (down to --fan-step-min); if that is still too wide, the
+     whole drawer slides left (down to a small left margin). Below the mobile
+     breakpoint the board reflows to a vertical stack, so this no longer applies. */
   const cardEl = document.querySelector('.obj[data-k="card"]');
   if(cardEl){
     const c = cardEl.getBoundingClientRect();
     const cardL = c.left - b.left, cardT = c.top - b.top, cardB = c.bottom - b.top;
     const sharesRow = top < cardB && (top + fh) > cardT;
-    if(sharesRow) left = Math.min(left, cardL - KEEP_CLEAR - fw);
+    if(sharesRow){
+      const room = cardL - cardGap - left;
+      step = Math.floor(Math.max(stepMin, Math.min(stepMax, (room - foldW) / (n - 1) - spread)));
+      fw = widthAt(step);
+      left = Math.min(left, cardL - cardGap - fw);
+    }
   }
 
+  fan.style.setProperty('--fan-step', step + 'px');
   fan.style.left = Math.max(left, 24) + 'px';
   fan.style.top  = top + 'px';
 }
