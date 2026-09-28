@@ -12,18 +12,18 @@
 <meta property="og:url" content="https://wioletawojcik.com/fleet-console.html">
 <meta property="og:title" content="Metal in the oil — Enterprise UI case study · Wioleta Wójcik">
 <meta property="og:description" content="A model flags a gearbox and hands the operator a number. The console shows what the number is made of, so a person can disagree. Figma design system, working prototype, open turbine data.">
-<meta property="og:image" content="https://wioletawojcik.com/fleet-console/assets/hero-photo.jpg">
-<meta property="og:image:width" content="1536">
-<meta property="og:image:height" content="1024">
-<meta property="og:image:alt" content="A technician holding a tablet at sunset in front of wind turbines; on the screen, the service order from the fleet console in night mode">
+<meta property="og:image" content="https://wioletawojcik.com/fleet-console/assets/hero-field.jpg">
+<meta property="og:image:width" content="1479">
+<meta property="og:image:height" content="1063">
+<meta property="og:image:alt" content="Someone sitting in a green field with a laptop, looking at a wind turbine against the evening sky">
 <meta property="og:locale" content="en_GB">
 <meta property="og:locale:alternate" content="nb_NO">
 <meta property="og:locale:alternate" content="es_ES">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Metal in the oil — Enterprise UI case study · Wioleta Wójcik">
 <meta name="twitter:description" content="A model flags a gearbox and hands the operator a number. The console shows what the number is made of, so a person can disagree. Figma design system, working prototype, open turbine data.">
-<meta name="twitter:image" content="https://wioletawojcik.com/fleet-console/assets/hero-photo.jpg">
-<meta name="twitter:image:alt" content="A technician holding a tablet at sunset in front of wind turbines; on the screen, the service order from the fleet console in night mode">
+<meta name="twitter:image" content="https://wioletawojcik.com/fleet-console/assets/hero-field.jpg">
+<meta name="twitter:image:alt" content="Someone sitting in a green field with a laptop, looking at a wind turbine against the evening sky">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -31,7 +31,7 @@
   "headline": "Metal in the oil",
   "name": "Metal in the oil",
   "url": "https://wioletawojcik.com/fleet-console.html",
-  "image": "https://wioletawojcik.com/fleet-console/assets/hero-photo.jpg",
+  "image": "https://wioletawojcik.com/fleet-console/assets/hero-field.jpg",
   "genre": "Enterprise UI · Design system",
   "description": "An operator console for a wind-turbine fleet: what a confidence number is made of, and how a person disagrees with it. Design system in Figma, working prototype, open data.",
   "inLanguage": ["en", "nb", "es"],
@@ -475,8 +475,8 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
   </div>
 
   <div id="hero"><!--prerendered--><figure class="fig reveal wide">
-      <img src="fleet-console/assets/hero-photo.webp" alt="The technician’s side of the same system: the service order for Penmanshiel 15 on a tablet, in night mode, with what the console saw and why the operator disagreed. Staged photograph; the screen is a capture of the working prototype." loading="lazy">
-      <figcaption><span>The technician’s side of the same system: the service order for Penmanshiel 15 on a tablet, in night mode, with what the console saw and&nbsp;why the operator disagreed. Staged photograph; the screen is a capture of the working prototype.</span></figcaption>
+      <img src="fleet-console/assets/hero-field.webp" alt="The setting: a turbine field at the end of the day, where the model’s number lands on somebody’s screen. Staged image, not a photograph of the farms in the data." loading="lazy">
+      <figcaption><span>The setting: a turbine field at the end of the day, where the model’s number lands on somebody’s screen. Staged image, not a photograph of the farms in the data.</span></figcaption>
     </figure><!--/prerendered--></div>
 
   <div class="col">
@@ -514,6 +514,9 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
       <h2 class="h">The library exists so one number cannot contradict itself across two screens</h2><p><strong>Base primitives come from the shadcn/ui Figma kit</strong>, and&nbsp;I did not redraw them. A button, an input, a radio group and&nbsp;a text area are plumbing, and&nbsp;drawing them again proves nothing. Everything the project actually exists for sits above that line and&nbsp;is mine: the row density scale, the lane and&nbsp;its marks, the data cell, the series palette for charts, the confidence bar and&nbsp;panel, the provenance line, the override path and&nbsp;the severity matrix. Twenty-seven component sets in all.</p><p>The set is built as <strong>variables first and&nbsp;components second</strong>. Colour, spacing, type, radius and&nbsp;motion live as Figma variables in six collections, and&nbsp;every component consumes them rather than carrying its own values. Colour is a decision as much as a token: <strong>black, white, metallic grey and&nbsp;one red, spent only on STOP</strong>, because a red-and-green pair fails colour-blind operators and&nbsp;“clear” has to stay quiet. Two modes come from the same 24 tokens, paper on metal by day and&nbsp;graphite by night, and&nbsp;the console switches at the wind farm’s own sunset. Density is a mode too, so <strong>the same lane can be shown at three row heights without a second component</strong>.</p><p>The chain runs one way and&nbsp;only one way: <strong>Figma variables become CSS custom properties, which become a Tailwind theme, which the prototype consumes.</strong> The variables are exported to a JSON file that generates the theme; nothing in the code carries a colour, a size or a duration of its own. The library and&nbsp;the running code read from the same source, so a value changed in one place cannot quietly disagree with the other. That is the whole reason the system was drawn before the prototype rather than traced back from it afterwards.</p></div><figure class="fig reveal wide">
       <img src="fleet-console/assets/system.webp" alt="The library as the prototype sees it: the 24 colour tokens in both modes, the three densities, the components drawn by the console’s own compiled stylesheet, the same lane at three row heights, and one token followed from a Figma variable to a component." loading="lazy">
       <figcaption><span>The library as the prototype sees it: the 24 colour tokens in both modes, the three densities, the components drawn by the console’s own compiled stylesheet, the same lane at three row heights, and&nbsp;one token followed from a Figma variable to a component.</span></figcaption>
+    </figure><figure class="fig reveal">
+      <img src="fleet-console/assets/photo-tablet-day.webp" alt="The technician’s side of the same system: a tablet on site, where the service order arrives. Staged image." loading="lazy">
+      <figcaption><span>The technician’s side of the same system: a tablet on site, where the service order arrives. Staged image.</span></figcaption>
     </figure></section><section class="sec" id="unsure"><div class="col">
       <div class="eyebrow"><b>05</b> · When the model is unsure</div>
       <h2 class="h">The panel shows what raised the confidence and&nbsp;what lowered it, in that order</h2><p>On 10 January 2023 one turbine at Kelmarsh logged a metal particle alarm that lasted five minutes while the machine ran at full power. More followed on 26 January, on 1, 5 and&nbsp;10 February. <strong>On the evening of 10 February the alarm crossed its daily threshold and&nbsp;the turbine stopped itself. Thirty-one days from first signal to forced outage.</strong></p><p>That is the case the panel is built for, and&nbsp;it is built to be doubted. It opens inline under the lane, so the six-week strip stays in view. The header carries the confidence in the display serif with its bar. Under it sits the statistical basis in one sentence, quoting the counted numbers rather than a vague claim of experience. Then two lists: <strong>what raised the confidence, each signal with its weight, and&nbsp;directly beneath it what lowered it, at the same weight.</strong> Counter-evidence is not folded away behind a control, because a reason the operator cannot see is a reason they cannot weigh. When nothing in the window lowers the number, the panel says so instead of hiding the heading.</p><p>Every line carries where it came from and&nbsp;how old it is, and&nbsp;<strong>a signal that is missing says so in words instead of resolving to zero.</strong> The flag keeps its own date and&nbsp;the confidence it had then, 0.17 on 10 January, so the growth of the number is visible. In the prototype the confidence is a printed rule rather than a trained model, a base of 0.06 plus 0.11 for each day with an alarm, plus the counted pattern, minus a recent service visit, minus a sensor that reported its own defect. A real product would replace the rule with a model; the panel would not change, because its job is to show the parts, whatever produces them.</p></div><figure class="fig reveal wide">
@@ -531,7 +534,10 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
       <figcaption><span>Measured, not assumed: contrast ratios of the tokens in both modes, the same chart under a deuteranopia simulation, and&nbsp;the keyboard path through the grid recorded on the running prototype, with the focus ring on a lane and&nbsp;inside the panel.</span></figcaption>
     </figure></section><section class="sec" id="test"><div class="col">
       <div class="eyebrow"><b>08</b> · What I would test</div>
-      <h2 class="h">No operator has used this yet, and&nbsp;that is the first thing I would change</h2><p>The honest limit of this project is that <strong>it has never met the person it is for.</strong> Everything above is reasoned from real data and&nbsp;real failure histories, which is a better foundation than taste, and&nbsp;it is still not the same as watching somebody use it at four in the morning.</p><p>Four questions would go first. <strong>Does anyone press “disagree”,</strong> or is it a button that reads well in a case study and&nbsp;dies in production, and&nbsp;if it dies, is that because disagreeing feels risky rather than hard. Does the bar beside the number actually get read faster than the number alone, or does it just look considered. Does “no signal” as a word stop operators from treating a blank as a zero, which is the failure it exists to prevent. And&nbsp;at what confidence does an operator stop watching and&nbsp;send somebody, because that threshold belongs to them and&nbsp;the interface should learn it rather than set it.</p></div><div class="col"><p class="close">A number nobody can argue with is not advice, it is an order.</p></div></section><!--/prerendered--></article>
+      <h2 class="h">No operator has used this yet, and&nbsp;that is the first thing I would change</h2><p>The honest limit of this project is that <strong>it has never met the person it is for.</strong> Everything above is reasoned from real data and&nbsp;real failure histories, which is a better foundation than taste, and&nbsp;it is still not the same as watching somebody use it at four in the morning.</p><p>Four questions would go first. <strong>Does anyone press “disagree”,</strong> or is it a button that reads well in a case study and&nbsp;dies in production, and&nbsp;if it dies, is that because disagreeing feels risky rather than hard. Does the bar beside the number actually get read faster than the number alone, or does it just look considered. Does “no signal” as a word stop operators from treating a blank as a zero, which is the failure it exists to prevent. And&nbsp;at what confidence does an operator stop watching and&nbsp;send somebody, because that threshold belongs to them and&nbsp;the interface should learn it rather than set it.</p></div><figure class="fig reveal wide">
+      <img src="fleet-console/assets/photo-tablet-night.webp" alt="After sunset the console switches itself to night mode, on the farm’s own clock. Staged image." loading="lazy">
+      <figcaption><span>After sunset the console switches itself to night mode, on the farm’s own clock. Staged image.</span></figcaption>
+    </figure><div class="col"><p class="close">A number nobody can argue with is not advice, it is an order.</p></div></section><!--/prerendered--></article>
 
   <div class="col">
     <footer class="foot reveal">
@@ -554,7 +560,7 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
           <span>Gmail</span>
         </a>
       </div>
-      <p class="note" data-t="footNote"><!--prerendered-->Self-initiated concept, not a shipped product. The data is open: ten-minute SCADA and&nbsp;event logs from the Kelmarsh and&nbsp;Penmanshiel wind farms, released by Cubico Sustainable Investments under CC-BY-4.0 (Zenodo records 16807551 and&nbsp;16807304). Base rates, coverage figures and&nbsp;episode counts on this page were computed from those logs; nothing on the screens is simulated data. The confidence in the prototype is a printed rule, not a trained model. Base primitives in the Figma file come from the shadcn/ui community kit; the photograph in the hero is staged, the screen on it is a real capture.<!--/prerendered--></p>
+      <p class="note" data-t="footNote"><!--prerendered-->Self-initiated concept, not a shipped product. The data is open: ten-minute SCADA and&nbsp;event logs from the Kelmarsh and&nbsp;Penmanshiel wind farms, released by Cubico Sustainable Investments under CC-BY-4.0 (Zenodo records 16807551 and&nbsp;16807304). Base rates, coverage figures and&nbsp;episode counts on this page were computed from those logs; nothing on the screens is simulated data. The confidence in the prototype is a printed rule, not a trained model. Base primitives in the Figma file come from the shadcn/ui community kit; the photographs on this page are staged images, not the farms in the data.<!--/prerendered--></p>
     </footer>
   </div>
 </main>
@@ -611,7 +617,7 @@ const T = {
     footNext:'Come say <em>hi!</em>',
     cvfile:'Wioleta-Wojcik-CV.pdf',
     footBack:'Back to all projects',
-    footNote:'Self-initiated concept, not a shipped product. The data is open: ten-minute SCADA and event logs from the Kelmarsh and Penmanshiel wind farms, released by Cubico Sustainable Investments under CC-BY-4.0 (Zenodo records 16807551 and 16807304). Base rates, coverage figures and episode counts on this page were computed from those logs; nothing on the screens is simulated data. The confidence in the prototype is a printed rule, not a trained model. Base primitives in the Figma file come from the shadcn/ui community kit; the photograph in the hero is staged, the screen on it is a real capture.',
+    footNote:'Self-initiated concept, not a shipped product. The data is open: ten-minute SCADA and event logs from the Kelmarsh and Penmanshiel wind farms, released by Cubico Sustainable Investments under CC-BY-4.0 (Zenodo records 16807551 and 16807304). Base rates, coverage figures and episode counts on this page were computed from those logs; nothing on the screens is simulated data. The confidence in the prototype is a printed rule, not a trained model. Base primitives in the Figma file come from the shadcn/ui community kit; the photographs on this page are staged images, not the farms in the data.',
     meta:[
       {k:'Role',  v:'Product designer · self-initiated'},
       {k:'Scope', v:'Design system, four screens, working prototype'},
@@ -651,7 +657,7 @@ const T = {
     footNext:'Kom og si <em>hei!</em>',
     cvfile:'Wioleta-Wojcik-CV-NO.pdf',
     footBack:'Tilbake til alle prosjekter',
-    footNote:'Eget konsept, ikke et lansert produkt. Dataene er åpne: ti-minutters SCADA- og hendelseslogger fra vindparkene Kelmarsh og Penmanshiel, utgitt av Cubico Sustainable Investments under CC-BY-4.0 (Zenodo 16807551 og 16807304). Grunnrater, dekningstall og episodetellinger på denne siden er beregnet fra de loggene; ingenting på skjermene er simulerte data. Sikkerhetstallet i prototypen er en utskrevet regel, ikke en trent modell. Grunnprimitivene i Figma-filen kommer fra shadcn/ui-settet; fotografiet i toppen er iscenesatt, skjermen på det er et ekte skjermbilde.',
+    footNote:'Eget konsept, ikke et lansert produkt. Dataene er åpne: ti-minutters SCADA- og hendelseslogger fra vindparkene Kelmarsh og Penmanshiel, utgitt av Cubico Sustainable Investments under CC-BY-4.0 (Zenodo 16807551 og 16807304). Grunnrater, dekningstall og episodetellinger på denne siden er beregnet fra de loggene; ingenting på skjermene er simulerte data. Sikkerhetstallet i prototypen er en utskrevet regel, ikke en trent modell. Grunnprimitivene i Figma-filen kommer fra shadcn/ui-settet; fotografiene på siden er iscenesatte bilder, ikke parkene i dataene.',
     meta:[
       {k:'Rolle',   v:'Produktdesigner · eget initiativ'},
       {k:'Omfang',  v:'Designsystem, fire skjermer, fungerende prototype'},
@@ -691,7 +697,7 @@ const T = {
     footNext:'Ven a decir <em>¡hola!</em>',
     cvfile:'Wioleta-Wojcik-CV-ES.pdf',
     footBack:'Volver a todos los proyectos',
-    footNote:'Concepto propio, no un producto lanzado. Los datos son abiertos: registros SCADA de diez minutos y registros de eventos de los parques eólicos de Kelmarsh y Penmanshiel, publicados por Cubico Sustainable Investments bajo CC-BY-4.0 (Zenodo 16807551 y 16807304). Las tasas base, las cifras de cobertura y los recuentos de episodios de esta página se calcularon a partir de esos registros; nada en las pantallas son datos simulados. La confianza del prototipo es una regla impresa, no un modelo entrenado. Las primitivas base del archivo de Figma proceden del kit de la comunidad shadcn/ui; la fotografía de la cabecera es una puesta en escena, la pantalla que aparece en ella es una captura real.',
+    footNote:'Concepto propio, no un producto lanzado. Los datos son abiertos: registros SCADA de diez minutos y registros de eventos de los parques eólicos de Kelmarsh y Penmanshiel, publicados por Cubico Sustainable Investments bajo CC-BY-4.0 (Zenodo 16807551 y 16807304). Las tasas base, las cifras de cobertura y los recuentos de episodios de esta página se calcularon a partir de esos registros; nada en las pantallas son datos simulados. La confianza del prototipo es una regla impresa, no un modelo entrenado. Las primitivas base del archivo de Figma proceden del kit de la comunidad shadcn/ui; las fotografías de esta página son imágenes escenificadas, no los parques de los datos.',
     meta:[
       {k:'Papel',   v:'Diseñadora de producto · iniciativa propia'},
       {k:'Alcance', v:'Sistema de diseño, cuatro pantallas, prototipo funcional'},
@@ -703,10 +709,18 @@ const T = {
 };
 
 const ASSETS = {
-  hero:{ type:'img', wide:true, src:'fleet-console/assets/hero-photo.webp',
-    cap:{en:'The technician’s side of the same system: the service order for Penmanshiel 15 on a tablet, in night mode, with what the console saw and why the operator disagreed. Staged photograph; the screen is a capture of the working prototype.',
-         no:'Teknikerens side av det samme systemet: serviceordren for Penmanshiel 15 på et nettbrett, i nattmodus, med det konsollen så og hvorfor operatøren var uenig. Iscenesatt fotografi; skjermen er et skjermbilde fra den fungerende prototypen.',
-         es:'El lado del técnico del mismo sistema: la orden de servicio de Penmanshiel 15 en una tableta, en modo nocturno, con lo que vio la consola y por qué discrepó el operador. Fotografía escenificada; la pantalla es una captura del prototipo funcional.'} },
+  hero:{ type:'img', wide:true, src:'fleet-console/assets/hero-field.webp',
+    cap:{en:'The setting: a turbine field at the end of the day, where the model’s number lands on somebody’s screen. Staged image, not a photograph of the farms in the data.',
+         no:'Stedet: et turbinfelt på slutten av dagen, der modellens tall lander på noens skjerm. Iscenesatt bilde, ikke et fotografi av parkene i dataene.',
+         es:'El escenario: un campo de turbinas al final del día, donde el número del modelo aterriza en la pantalla de alguien. Imagen escenificada, no una fotografía de los parques de los datos.'} },
+  tabletDay:{ type:'img', src:'fleet-console/assets/photo-tablet-day.webp',
+    cap:{en:'The technician’s side of the same system: a tablet on site, where the service order arrives. Staged image.',
+         no:'Teknikerens side av det samme systemet: et nettbrett ute i felt, der serviceordren kommer. Iscenesatt bilde.',
+         es:'El lado del técnico del mismo sistema: una tableta a pie de parque, donde llega la orden de servicio. Imagen escenificada.'} },
+  tabletNight:{ type:'img', wide:true, src:'fleet-console/assets/photo-tablet-night.webp',
+    cap:{en:'After sunset the console switches itself to night mode, on the farm’s own clock. Staged image.',
+         no:'Etter solnedgang bytter konsollen selv til nattmodus, på parkens egen klokke. Iscenesatt bilde.',
+         es:'Tras la puesta de sol la consola pasa sola al modo nocturno, con el reloj del propio parque. Imagen escenificada.'} },
   fleet:{ type:'img', wide:true, src:'fleet-console/assets/fleet.webp',
     cap:{en:'The fleet as lanes: one turbine per row over the last six weeks, frozen on 10 February 2023, the day Kelmarsh 4 stopped itself. Twenty real machines; every mark is a logged event. Capture of the working prototype.',
          no:'Flåten som baner: én turbin per rad over de siste seks ukene, frosset 10. februar 2023, dagen Kelmarsh 4 stoppet seg selv. Tjue ekte maskiner; hvert merke er en logget hendelse. Skjermbilde fra den fungerende prototypen.',
@@ -829,7 +843,7 @@ const SECTIONS = [
        'El conjunto está construido <strong>primero como variables y después como componentes</strong>. Color, espaciado, tipografía, radio y movimiento viven como variables de Figma en seis colecciones, y cada componente las consume en lugar de llevar sus propios valores. El color es tanto una decisión como un token: <strong>negro, blanco, gris metálico y un solo rojo, gastado solo en STOP</strong>, porque un par rojo-verde falla con operadores daltónicos y «clear» tiene que quedarse en silencio. Dos modos salen de los mismos 24 tokens, papel sobre metal de día y grafito de noche, y la consola cambia con la puesta de sol del propio parque. La densidad también es un modo, así que <strong>el mismo carril puede mostrarse con tres alturas de fila sin un segundo componente</strong>.',
        'La cadena corre en un solo sentido: <strong>las variables de Figma se convierten en propiedades CSS, que se convierten en un tema de Tailwind, que consume el prototipo.</strong> Las variables se exportan a un archivo JSON que genera el tema; nada en el código lleva un color, un tamaño o una duración propios. La biblioteca y el código en marcha leen de la misma fuente, así que un valor cambiado en un sitio no puede discrepar en silencio del otro. Esa es toda la razón por la que el sistema se dibujó antes que el prototipo, en vez de calcarlo después.']
     },
-    assets:['system']
+    assets:['system','tabletDay']
   },
   {
     id:'unsure', nav:{en:'When it is unsure', no:'Når den er usikker', es:'Cuando no está seguro'},
@@ -902,6 +916,7 @@ const SECTIONS = [
       es:['El límite honesto de este proyecto es que <strong>nunca ha conocido a la persona para la que está hecho.</strong> Todo lo anterior está razonado a partir de datos reales e historiales reales de fallos, que es una base mejor que el gusto, y aun así no es lo mismo que ver a alguien usarlo a las cuatro de la mañana.',
        'Cuatro preguntas irían primero. <strong>¿Pulsa alguien «disagree»,</strong> o es un botón que se lee bien en un caso de estudio y muere en producción, y si muere, es porque discrepar da miedo y no porque sea difícil? ¿Se lee de verdad la barra junto al número más rápido que el número solo, o solo parece cuidada? ¿La palabra «no signal» evita que los operadores traten un blanco como un cero, que es el fallo que existe para impedir? ¿Y con qué confianza deja un operador de observar y envía a alguien? Ese umbral les pertenece, y la interfaz debería aprenderlo en lugar de fijarlo.']
     },
+    assets:['tabletNight'],
     close:{
       en:'A number nobody can argue with is not advice, it is an order.',
       no:'Et tall ingen kan si imot er ikke et råd, det er en ordre.',
