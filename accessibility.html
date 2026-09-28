@@ -197,14 +197,20 @@ h1.title{
 .note:nth-child(5){--rot:.3deg;}
 .note:hover{transform:translateY(-3px) rotate(0deg);box-shadow:var(--sh-card);}
 .note.judge{background:var(--accent-tint);grid-column:1 / -1;}
-.note h3{
+.note .crit{
   display:flex;flex-wrap:wrap;gap:6px;
-  font-family:var(--font-ui);font-weight:500;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:500;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--accent);
 }
-.note h3 span{
+.note .crit span{
   display:inline-block;padding:4px 9px;border-radius:12px;
   background:var(--paper);border:1px solid var(--accent-tint);
+}
+/* the title names the error in one plain sentence: what a reader who only
+   scans takes away, together with the two bold phrases in the paragraph */
+.note h3{
+  font-family:var(--font-display);font-weight:400;font-size:23px;line-height:1.15;letter-spacing:-.01em;
+  color:var(--ink);margin-top:16px;
 }
 .note .code{
   font-family:var(--font-mono);font-size:12.5px;line-height:1.5;color:var(--ink-soft);
@@ -212,7 +218,9 @@ h1.title{
   padding:8px 10px;margin:16px 0 14px;overflow-wrap:anywhere;
 }
 .note p{font-size:15.5px;line-height:1.65;color:var(--ink-soft);}
-.note h3 + p{margin-top:16px;}
+.note h3 + .code{margin-top:14px;}
+.note h3 + p{margin-top:12px;}
+.note p strong,.lede strong,.sec-method p strong{font-weight:500;color:var(--ink);}
 .note .where{font-size:11px;letter-spacing:.06em;color:var(--ink-mute);margin-top:16px;}
 .note.judge p{color:var(--ink);}
 .sample{margin-top:24px;font-size:15px;line-height:1.65;color:var(--ink-soft);max-width:62ch;}
@@ -293,8 +301,8 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
     <header class="head">
       <div class="kicker" data-t="kicker"><!--prerendered-->Accessibility · thirteen audits · 2026<!--/prerendered--></div>
       <h1 class="title" data-t="title"><!--prerendered-->The design excludes, not the person.<!--/prerendered--></h1>
-      <p class="lede" data-t="lede1"><!--prerendered-->Between August and September 2026 I checked thirteen Norwegian websites against the accessibility rules that apply to them, and sent each company five notes with the fix written next to each one. Here is what I found, without the names.<!--/prerendered--></p>
-      <p class="lede" data-t="lede2"><!--prerendered-->The pages people buy from were in good order. On the insurer's site I measured contrast on 550 text elements and found no failure, and all 365 controls had a name. On the bank's mortgage page the 33 headings ran without a level skipped, and every slider in the loan calculator read its value out correctly. The failures sat somewhere else, on site after site: in a document platform, in a recruitment system rented from a supplier, in a language setting made once when the site was built. Nobody had decided to leave anyone out. The design did it on its own, in the places no team was looking at.<!--/prerendered--></p>
+      <p class="lede" data-t="lede1"><!--prerendered-->Between August and September 2026 I checked <strong>thirteen Norwegian websites</strong> against the accessibility rules that apply to them, and sent each company <strong>five notes with the fix written next to each one</strong>. Here is what I found, without the names, with examples from a bank, an insurance company and a food producer.<!--/prerendered--></p>
+      <p class="lede" data-t="lede2"><!--prerendered--><strong>The pages people buy from were in good order.</strong> On the insurer's site I measured contrast on 550 text elements and found no failure, and all 365 controls had a name. On the bank's mortgage page the 33 headings ran without a level skipped, and every slider in the loan calculator read its value out correctly. <strong>The failures sat somewhere else</strong>, on site after site: in a document platform, in a recruitment system rented from a supplier, in a language setting made once when the site was built. Nobody had decided to leave anyone out. <strong>The design did it on its own, in the places no team was looking at.</strong><!--/prerendered--></p>
     </header>
 
     <!-- the notes, the rules, the method, the course and the try-it strip are
@@ -303,39 +311,44 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
     <article id="article"><!--prerendered--><section class="sec sec-notes" aria-labelledby="notes-h">
     <h2 class="h" id="notes-h">Five of the notes</h2>
     <div class="notes"><article class="note">
-    <h3><span>3.1.1 Language of page</span><span>Level A</span></h3>
+    <p class="crit"><span>3.1.1 Language of page</span><span>Level A</span></p>
+    <h3>The design system portal is marked as Norwegian and written in English</h3>
     <div class="code">&lt;html lang="nb"&gt;  "Welcome" · "Accessibility checklist"</div>
-    <p>The bank's design system portal is marked as Norwegian and written in English, on all twelve pages I checked. A screen reader picks its voice from that mark, so a Norwegian voice reads the English text, and it does not come out as an accent. It comes out as different words. This is the site the bank's own designers are sent to for accessibility guidance. The fix is one line in the template.</p>
+    <p>On all twelve pages of the bank's design system portal that I checked, the page language says Norwegian and the text is English. A screen reader picks its voice from that mark, so a Norwegian voice reads the English text, and it does not come out as an accent. <strong>It comes out as different words.</strong> This is the site the bank's own designers are sent to for accessibility guidance. <strong>The fix is one line in the template.</strong></p>
     <p class="where">A bank · September 2026</p>
   </article><article class="note">
-    <h3><span>2.4.1 Bypass blocks</span><span>Level A</span></h3>
+    <p class="crit"><span>2.4.1 Bypass blocks</span><span>Level A</span></p>
+    <h3>The skip link has nowhere to go</h3>
     <div class="code">&lt;a href="#"&gt;Hopp til innhold&lt;/a&gt;</div>
-    <p>The first thing the Tab key reaches on the insurer's site is the skip link, and it looks right. Its target is empty. I pressed Enter and nothing happened. So a person using a keyboard passes 14 more stops before the first line of the page, on every page, on every visit, and the one control made to spare them that is the one that does nothing. The fix is one attribute in one component.</p>
+    <p>The first thing the Tab key reaches on the insurer's site is the skip link, and it looks right. Its target is empty. I pressed Enter and nothing happened. So a person using a keyboard <strong>passes 14 more stops before the first line of the page, on every page, on every visit</strong>, and the one control made to spare them that is the one that does nothing. <strong>The fix is one attribute in one component.</strong></p>
     <p class="where">An insurance company · September 2026</p>
   </article><article class="note">
-    <h3><span>1.3.1 Info and relationships</span><span>Level A</span></h3>
+    <p class="crit"><span>1.3.1 Info and relationships</span><span>Level A</span></p>
+    <h3>Six policy documents, 103 pages, and not one heading a screen reader can use</h3>
     <div class="code">StructTreeRoot: none · /Lang: none · same title on all six</div>
-    <p>The terms behind six insurance products are 103 pages of PDF with no headings, no language and the same internal title on all six. A screen reader gets one unbroken run of text, spoken in whatever voice it happens to be set to. This is the document you read before you buy, and the one you go back to on the day something has happened. The fix is three settings in the template that writes the documents, set once for every product.</p>
+    <p>The terms behind six insurance products are 103 pages of PDF with no headings, no language and the same internal title on all six. <strong>A screen reader gets one unbroken run of text</strong>, spoken in whatever voice it happens to be set to. This is the document you read before you buy, and the one you go back to on the day something has happened. <strong>The fix is three settings in the template that writes the documents</strong>, set once for every product.</p>
     <p class="where">The same insurance company</p>
   </article><article class="note">
-    <h3><span>1.3.1 Info and relationships</span><span>Level A</span></h3>
-    <div class="code">&lt;p&gt;&lt;strong&gt;&lt;span style="font-size:24.0pt"&gt;About us&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;</div>
-    <p>Twelve of the bank's thirteen job adverts have no headings inside the text, only bold text at 24 points. In a thousand words with one heading there is nothing to move between, so the only way to the requirements and the deadline is to listen from the top, in order. The thirteenth advert has real headings, in the same field of the same system, so the pattern to copy is the bank's own.</p>
-    <p class="where">The same bank · recruitment site</p>
+    <p class="crit"><span>2.4.4 Link purpose</span><span>Level A</span></p>
+    <h3>Ten links on the careers page have no name, so a screen reader reads out the web address</h3>
+    <div class="code">&lt;a href="/careers/apprentices"&gt;&lt;img src="…" alt=""&gt;&lt;/a&gt;   &lt;h3&gt;Apprentices&lt;/h3&gt;</div>
+    <p>On a food producer's careers page, 12 of the 67 visible controls have no accessible name, and ten of them are the same component: a card whose link holds only a picture with an empty alt, while the words that say where it goes sit beside the link, outside it. With no name, the browser falls back to the address. <strong>Someone listening hears the web address spelled out in fragments where the page says "Apprentices".</strong> Pulled up as a list of links, which is how many people move through a page they do not know, the careers page offers ten addresses and ten "Les mer". <strong>The fix is to put the link around the heading text and leave the picture decorative.</strong> One component, on two of the company's sites.</p>
+    <p class="where">A food producer · September 2026</p>
   </article>
       <article class="note judge">
-        <h3><span>A judgement call, not a failure</span></h3>
-        <p>The first heading on the insurer's front page is hidden from view and reads the domain name. The sentence the company chose to greet people with sits one level below it. I would not report this as a failure, because there is one heading and the page works. But the first thing read out on the page most customers land on is a web address. The fix is to promote the visible line and let the hidden one go. Nothing moves on screen.</p>
+        <p class="crit"><span>A judgement call, not a failure</span></p>
+        <h3>The busiest page announces itself by its domain name</h3>
+        <p>The first heading on the insurer's front page is hidden from view and reads the domain name. The sentence the company chose to greet people with sits one level below it. <strong>I would not report this as a failure</strong>, because there is one heading and the page works. But <strong>the first thing read out on the page most customers land on is a web address</strong>. The fix is to promote the visible line and let the hidden one go. Nothing moves on screen.</p>
       </article>
     </div>
-    <p class="sample">One complete set of notes, with the names taken out, is here as a PDF: <a href="accessibility/assets/Wioleta-Wojcik-accessibility-notes-sample.pdf">Sample notes, four pages</a>.</p>
+    <p class="sample">The food producer's complete notes, with the names taken out, are here as a PDF: <a href="accessibility/assets/Wioleta-Wojcik-accessibility-notes-sample.pdf">Sample notes, four pages</a>.</p>
   </section>
   <section class="sec sec-method" aria-labelledby="rules-h">
     <div>
       <h2 class="h" id="rules-h">What the rules say</h2>
-      <p>Private businesses in Norway must meet 35 WCAG criteria under the regulations on universal design of ICT. Public bodies must meet 48 and publish a statement on uustatus.no. The European Accessibility Act has applied in the EU since June 2025. In Norway it is delayed and has no date.</p>
+      <p>Private businesses in Norway must meet <strong>35 WCAG criteria</strong> under the regulations on universal design of ICT. Public bodies must meet <strong>48</strong> and publish a statement on uustatus.no. The European Accessibility Act has applied in the EU since June 2025. In Norway it is delayed and has no date.</p>
       <h2 class="h">How I checked</h2>
-      <p>An automated pass over each site first, then everything by hand: real key presses, contrast measured against what is actually painted underneath, the heading order read out, the PDF files opened. The tools report what the code says, and that is not always what happens on screen. On one site the stylesheet switched the focus ring off and the tool reported a failure. When I pressed Tab, the browser drew its own ring, so there was no failure. Every note here was confirmed by hand before it was written down. I did not check anything behind a login, the apps, or text on photographs.</p>
+      <p>An automated pass over each site first, then everything by hand: real key presses, contrast measured against what is actually painted underneath, the heading order read out, the PDF files opened. <strong>The tools report what the code says, and that is not always what happens on screen.</strong> On one site the stylesheet switched the focus ring off and the tool reported a failure. When I pressed Tab, the browser drew its own ring, so there was no failure. <strong>Every note here was confirmed by hand before it was written down.</strong> I did not check anything behind a login, the apps, or text on photographs.</p>
     </div>
     <div>
       <h2 class="h">Course</h2>
@@ -370,7 +383,7 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
           <span>Gmail</span>
         </a>
       </div>
-      <p class="note" data-t="footNote"><!--prerendered-->Thirteen sets of notes, written between 22 August and 17 September 2026 and sent to the organisations they describe. The findings on this page are quoted from the two most recent ones.<!--/prerendered--></p>
+      <p class="note" data-t="footNote"><!--prerendered-->Thirteen sets of notes, written between 22 August and 17 September 2026 and sent to the organisations they describe. The findings on this page are quoted from three of the most recent ones.<!--/prerendered--></p>
     </footer>
   </div>
 </main>
@@ -388,135 +401,150 @@ const T = {
     back:'Back to all projects',
     kicker:'Accessibility · thirteen audits · 2026',
     title:'The design excludes, not the person.',
-    lede1:'Between August and September 2026 I checked thirteen Norwegian websites against the accessibility rules that apply to them, and sent each company five notes with the fix written next to each one. Here is what I found, without the names.',
-    lede2:'The pages people buy from were in good order. On the insurer\'s site I measured contrast on 550 text elements and found no failure, and all 365 controls had a name. On the bank\'s mortgage page the 33 headings ran without a level skipped, and every slider in the loan calculator read its value out correctly. The failures sat somewhere else, on site after site: in a document platform, in a recruitment system rented from a supplier, in a language setting made once when the site was built. Nobody had decided to leave anyone out. The design did it on its own, in the places no team was looking at.',
+    lede1:'Between August and September 2026 I checked <strong>thirteen Norwegian websites</strong> against the accessibility rules that apply to them, and sent each company <strong>five notes with the fix written next to each one</strong>. Here is what I found, without the names, with examples from a bank, an insurance company and a food producer.',
+    lede2:'<strong>The pages people buy from were in good order.</strong> On the insurer\'s site I measured contrast on 550 text elements and found no failure, and all 365 controls had a name. On the bank\'s mortgage page the 33 headings ran without a level skipped, and every slider in the loan calculator read its value out correctly. <strong>The failures sat somewhere else</strong>, on site after site: in a document platform, in a recruitment system rented from a supplier, in a language setting made once when the site was built. Nobody had decided to leave anyone out. <strong>The design did it on its own, in the places no team was looking at.</strong>',
     notesH:'Five of the notes',
     level:'Level A',
     notes:[
       { crit:'3.1.1 Language of page',
+        title:'The design system portal is marked as Norwegian and written in English',
         code:'&lt;html lang="nb"&gt;  "Welcome" · "Accessibility checklist"',
-        body:'The bank\'s design system portal is marked as Norwegian and written in English, on all twelve pages I checked. A screen reader picks its voice from that mark, so a Norwegian voice reads the English text, and it does not come out as an accent. It comes out as different words. This is the site the bank\'s own designers are sent to for accessibility guidance. The fix is one line in the template.',
+        body:'On all twelve pages of the bank\'s design system portal that I checked, the page language says Norwegian and the text is English. A screen reader picks its voice from that mark, so a Norwegian voice reads the English text, and it does not come out as an accent. <strong>It comes out as different words.</strong> This is the site the bank\'s own designers are sent to for accessibility guidance. <strong>The fix is one line in the template.</strong>',
         where:'A bank · September 2026' },
       { crit:'2.4.1 Bypass blocks',
+        title:'The skip link has nowhere to go',
         code:'&lt;a href="#"&gt;Hopp til innhold&lt;/a&gt;',
-        body:'The first thing the Tab key reaches on the insurer\'s site is the skip link, and it looks right. Its target is empty. I pressed Enter and nothing happened. So a person using a keyboard passes 14 more stops before the first line of the page, on every page, on every visit, and the one control made to spare them that is the one that does nothing. The fix is one attribute in one component.',
+        body:'The first thing the Tab key reaches on the insurer\'s site is the skip link, and it looks right. Its target is empty. I pressed Enter and nothing happened. So a person using a keyboard <strong>passes 14 more stops before the first line of the page, on every page, on every visit</strong>, and the one control made to spare them that is the one that does nothing. <strong>The fix is one attribute in one component.</strong>',
         where:'An insurance company · September 2026' },
       { crit:'1.3.1 Info and relationships',
+        title:'Six policy documents, 103 pages, and not one heading a screen reader can use',
         code:'StructTreeRoot: none · /Lang: none · same title on all six',
-        body:'The terms behind six insurance products are 103 pages of PDF with no headings, no language and the same internal title on all six. A screen reader gets one unbroken run of text, spoken in whatever voice it happens to be set to. This is the document you read before you buy, and the one you go back to on the day something has happened. The fix is three settings in the template that writes the documents, set once for every product.',
+        body:'The terms behind six insurance products are 103 pages of PDF with no headings, no language and the same internal title on all six. <strong>A screen reader gets one unbroken run of text</strong>, spoken in whatever voice it happens to be set to. This is the document you read before you buy, and the one you go back to on the day something has happened. <strong>The fix is three settings in the template that writes the documents</strong>, set once for every product.',
         where:'The same insurance company' },
-      { crit:'1.3.1 Info and relationships',
-        code:'&lt;p&gt;&lt;strong&gt;&lt;span style="font-size:24.0pt"&gt;About us&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;',
-        body:'Twelve of the bank\'s thirteen job adverts have no headings inside the text, only bold text at 24 points. In a thousand words with one heading there is nothing to move between, so the only way to the requirements and the deadline is to listen from the top, in order. The thirteenth advert has real headings, in the same field of the same system, so the pattern to copy is the bank\'s own.',
-        where:'The same bank · recruitment site' }
+      { crit:'2.4.4 Link purpose',
+        title:'Ten links on the careers page have no name, so a screen reader reads out the web address',
+        code:'&lt;a href="/careers/apprentices"&gt;&lt;img src="…" alt=""&gt;&lt;/a&gt;   &lt;h3&gt;Apprentices&lt;/h3&gt;',
+        body:'On a food producer\'s careers page, 12 of the 67 visible controls have no accessible name, and ten of them are the same component: a card whose link holds only a picture with an empty alt, while the words that say where it goes sit beside the link, outside it. With no name, the browser falls back to the address. <strong>Someone listening hears the web address spelled out in fragments where the page says "Apprentices".</strong> Pulled up as a list of links, which is how many people move through a page they do not know, the careers page offers ten addresses and ten "Les mer". <strong>The fix is to put the link around the heading text and leave the picture decorative.</strong> One component, on two of the company\'s sites.',
+        where:'A food producer · September 2026' }
     ],
     judge:{ chip:'A judgement call, not a failure',
-      body:'The first heading on the insurer\'s front page is hidden from view and reads the domain name. The sentence the company chose to greet people with sits one level below it. I would not report this as a failure, because there is one heading and the page works. But the first thing read out on the page most customers land on is a web address. The fix is to promote the visible line and let the hidden one go. Nothing moves on screen.' },
+      title:'The busiest page announces itself by its domain name',
+      body:'The first heading on the insurer\'s front page is hidden from view and reads the domain name. The sentence the company chose to greet people with sits one level below it. <strong>I would not report this as a failure</strong>, because there is one heading and the page works. But <strong>the first thing read out on the page most customers land on is a web address</strong>. The fix is to promote the visible line and let the hidden one go. Nothing moves on screen.' },
     rulesH:'What the rules say',
-    rules:'Private businesses in Norway must meet 35 WCAG criteria under the regulations on universal design of ICT. Public bodies must meet 48 and publish a statement on uustatus.no. The European Accessibility Act has applied in the EU since June 2025. In Norway it is delayed and has no date.',
+    rules:'Private businesses in Norway must meet <strong>35 WCAG criteria</strong> under the regulations on universal design of ICT. Public bodies must meet <strong>48</strong> and publish a statement on uustatus.no. The European Accessibility Act has applied in the EU since June 2025. In Norway it is delayed and has no date.',
     methodH:'How I checked',
-    method:'An automated pass over each site first, then everything by hand: real key presses, contrast measured against what is actually painted underneath, the heading order read out, the PDF files opened. The tools report what the code says, and that is not always what happens on screen. On one site the stylesheet switched the focus ring off and the tool reported a failure. When I pressed Tab, the browser drew its own ring, so there was no failure. Every note here was confirmed by hand before it was written down. I did not check anything behind a login, the apps, or text on photographs.',
+    method:'An automated pass over each site first, then everything by hand: real key presses, contrast measured against what is actually painted underneath, the heading order read out, the PDF files opened. <strong>The tools report what the code says, and that is not always what happens on screen.</strong> On one site the stylesheet switched the focus ring off and the tool reported a failure. When I pressed Tab, the browser drew its own ring, so there was no failure. <strong>Every note here was confirmed by hand before it was written down.</strong> I did not check anything behind a login, the apps, or text on photographs.',
     courseH:'Course',
     course:'Introduction to Web Accessibility, W3Cx. Taught by the W3C Web Accessibility Initiative with UNESCO IITE, 16 to 20 hours. Completed in September 2026.',
     tryH:'Try it here',
     tryP:'Press Tab to move through this page. The line under the buttons shows the name a screen reader reads out for the element you are on.',
-    sampleP:'One complete set of notes, with the names taken out, is here as a PDF: <a href="accessibility/assets/Wioleta-Wojcik-accessibility-notes-sample.pdf">Sample notes, four pages</a>.',
+    sampleP:'The food producer\'s complete notes, with the names taken out, are here as a PDF: <a href="accessibility/assets/Wioleta-Wojcik-accessibility-notes-sample.pdf">Sample notes, four pages</a>.',
     btnBoard:'Back to the board', btnSample:'Sample notes (PDF)', btnMail:'Send me an email',
     tryNone:'nothing has focus yet', roleLink:'link', roleButton:'button', rolePressed:'pressed',
     close:'In a building, the escape plan is judged by how it reads to someone who has never seen it, on the day they need it. I read websites the same way. The complete notes, with the company\'s name on them, went to that company. This page keeps what I saw and the fix, and leaves the name out.',
     footBack:'Back to all projects',
     footNext:'Come say <em>hi!</em>',
-    footNote:'Thirteen sets of notes, written between 22 August and 17 September 2026 and sent to the organisations they describe. The findings on this page are quoted from the two most recent ones.',
+    footNote:'Thirteen sets of notes, written between 22 August and 17 September 2026 and sent to the organisations they describe. The findings on this page are quoted from three of the most recent ones.',
     cvfile:'Wioleta-Wojcik-CV.pdf'
   },
   no:{
     back:'Tilbake til alle prosjekter',
     kicker:'Universell utforming · tretten nettsteder · 2026',
     title:'Designet utestenger, ikke mennesket.',
-    lede1:'Mellom august og september 2026 gikk jeg gjennom tretten norske nettsteder opp mot kravene til universell utforming som gjelder for dem, og sendte hvert selskap fem notater med løsningen skrevet ved siden av hvert funn. Her er det jeg fant, uten navnene.',
-    lede2:'Sidene folk kjøper fra var i god stand. På forsikringsselskapets nettsted målte jeg kontrasten på 550 tekstelementer og fant ingen feil, og alle 365 kontrollene hadde et navn. På bankens boliglånsside fulgte de 33 overskriftene etter hverandre uten at et nivå ble hoppet over, og hver glidebryter i lånekalkulatoren leste opp verdien sin riktig. Feilene satt et annet sted, på nettsted etter nettsted: i en dokumentplattform, i et rekrutteringssystem leid fra en leverandør, i en språkinnstilling som ble gjort én gang da nettstedet ble bygget. Ingen hadde bestemt seg for å stenge noen ute. Designet gjorde det på egen hånd, på de stedene ingen team så på.',
+    lede1:'Mellom august og september 2026 gikk jeg gjennom <strong>tretten norske nettsteder</strong> opp mot kravene til universell utforming som gjelder for dem, og sendte hvert selskap <strong>fem notater med løsningen skrevet ved siden av hvert funn</strong>. Her er det jeg fant, uten navnene, med eksempler fra en bank, et forsikringsselskap og en matprodusent.',
+    lede2:'<strong>Sidene folk kjøper fra var i god stand.</strong> På forsikringsselskapets nettsted målte jeg kontrasten på 550 tekstelementer og fant ingen feil, og alle 365 kontrollene hadde et navn. På bankens boliglånsside fulgte de 33 overskriftene etter hverandre uten at et nivå ble hoppet over, og hver glidebryter i lånekalkulatoren leste opp verdien sin riktig. <strong>Feilene satt et annet sted</strong>, på nettsted etter nettsted: i en dokumentplattform, i et rekrutteringssystem leid fra en leverandør, i en språkinnstilling som ble gjort én gang da nettstedet ble bygget. Ingen hadde bestemt seg for å stenge noen ute. <strong>Designet gjorde det på egen hånd, på de stedene ingen team så på.</strong>',
     notesH:'Fem av notatene',
     level:'Nivå A',
     notes:[
       { crit:'3.1.1 Språk på siden',
+        title:'Portalen for designsystemet er merket som norsk og skrevet på engelsk',
         code:'&lt;html lang="nb"&gt;  "Welcome" · "Accessibility checklist"',
-        body:'Bankens portal for designsystemet er merket som norsk og skrevet på engelsk, på alle de tolv sidene jeg sjekket. En skjermleser velger stemme ut fra den merkingen, så en norsk stemme leser den engelske teksten, og resultatet er ikke en aksent. Resultatet er andre ord. Dette er nettstedet bankens egne designere blir sendt til for å lære om universell utforming. Løsningen er én linje i malen.',
+        body:'På alle de tolv sidene i bankens portal for designsystemet som jeg sjekket, sier sidespråket norsk og teksten er engelsk. En skjermleser velger stemme ut fra den merkingen, så en norsk stemme leser den engelske teksten, og resultatet er ikke en aksent. <strong>Resultatet er andre ord.</strong> Dette er nettstedet bankens egne designere blir sendt til for å lære om universell utforming. <strong>Løsningen er én linje i malen.</strong>',
         where:'En bank · september 2026' },
       { crit:'2.4.1 Hoppe over blokker',
+        title:'«Hopp til innhold»-lenken peker ingen steder',
         code:'&lt;a href="#"&gt;Hopp til innhold&lt;/a&gt;',
-        body:'Det første tabulatortasten når på forsikringsselskapets nettsted er «Hopp til innhold»-lenken, og den ser riktig ut. Lenken peker ingen steder. Jeg trykket Enter og ingenting skjedde. Dermed passerer en person som bruker tastatur 14 stopp til før første linje på siden, på hver side, ved hvert besøk, og den ene kontrollen som er laget for å spare dem for det, er den som ikke gjør noe. Løsningen er ett attributt i én komponent.',
+        body:'Det første tabulatortasten når på forsikringsselskapets nettsted er «Hopp til innhold»-lenken, og den ser riktig ut. Lenken peker ingen steder. Jeg trykket Enter og ingenting skjedde. Dermed <strong>passerer en person som bruker tastatur 14 stopp til før første linje på siden, på hver side, ved hvert besøk</strong>, og den ene kontrollen som er laget for å spare dem for det, er den som ikke gjør noe. <strong>Løsningen er ett attributt i én komponent.</strong>',
         where:'Et forsikringsselskap · september 2026' },
       { crit:'1.3.1 Informasjon og relasjoner',
+        title:'Seks vilkårsdokumenter, 103 sider, og ikke én overskrift en skjermleser kan bruke',
         code:'StructTreeRoot: none · /Lang: none · samme tittel på alle seks',
-        body:'Vilkårene bak seks forsikringsprodukter er 103 sider PDF uten overskrifter, uten språk og med samme interne tittel på alle seks. En skjermleser får én sammenhengende tekst, lest opp med den stemmen den tilfeldigvis er satt til. Dette er dokumentet du leser før du kjøper, og det du går tilbake til den dagen noe har skjedd. Løsningen er tre innstillinger i malen som skriver dokumentene, satt én gang for hvert produkt.',
+        body:'Vilkårene bak seks forsikringsprodukter er 103 sider PDF uten overskrifter, uten språk og med samme interne tittel på alle seks. <strong>En skjermleser får én sammenhengende tekst</strong>, lest opp med den stemmen den tilfeldigvis er satt til. Dette er dokumentet du leser før du kjøper, og det du går tilbake til den dagen noe har skjedd. <strong>Løsningen er tre innstillinger i malen som skriver dokumentene</strong>, satt én gang for hvert produkt.',
         where:'Det samme forsikringsselskapet' },
-      { crit:'1.3.1 Informasjon og relasjoner',
-        code:'&lt;p&gt;&lt;strong&gt;&lt;span style="font-size:24.0pt"&gt;About us&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;',
-        body:'Tolv av bankens tretten stillingsannonser har ingen overskrifter inne i teksten, bare fet skrift i 24 punkt. I tusen ord med én overskrift er det ingenting å bevege seg mellom, så den eneste veien til kravene og fristen er å lytte fra toppen, i rekkefølge. Den trettende annonsen har ekte overskrifter, i det samme feltet i det samme systemet, så mønsteret å kopiere er bankens eget.',
-        where:'Den samme banken · rekrutteringssiden' }
+      { crit:'2.4.4 Lenkeformål',
+        title:'Ti lenker på karrieresiden har ikke noe navn, så skjermleseren leser opp nettadressen',
+        code:'&lt;a href="/karriere/laerlinger"&gt;&lt;img src="…" alt=""&gt;&lt;/a&gt;   &lt;h3&gt;Lærlinger&lt;/h3&gt;',
+        body:'På karrieresiden til en matprodusent har 12 av de 67 synlige kontrollene ikke noe tilgjengelig navn, og ti av dem er den samme komponenten: et kort der lenken bare inneholder et bilde med tom alt-tekst, mens ordene som sier hvor den fører, står ved siden av lenken, utenfor den. Uten navn faller nettleseren tilbake på adressen. <strong>Den som lytter, hører nettadressen stavet i biter der siden sier «Lærlinger».</strong> Hentet opp som en liste over lenker, som er slik mange beveger seg gjennom en side de ikke kjenner, tilbyr karrieresiden ti adresser og ti «Les mer». <strong>Løsningen er å legge lenken rundt overskriftsteksten og la bildet være dekorativt.</strong> Én komponent, på to av selskapets nettsteder.',
+        where:'En matprodusent · september 2026' }
     ],
     judge:{ chip:'En vurdering, ikke en feil',
-      body:'Den første overskriften på forsikringsselskapets forside er skjult og inneholder domenenavnet. Setningen selskapet valgte for å hilse på folk med, ligger ett nivå under. Jeg ville ikke rapportert dette som en feil, for det finnes én overskrift og siden fungerer. Men det første som blir lest opp på siden de fleste kundene lander på, er en nettadresse. Løsningen er å løfte den synlige linjen og la den skjulte gå. Ingenting flytter seg på skjermen.' },
+      title:'Den travleste siden presenterer seg med sitt eget domenenavn',
+      body:'Den første overskriften på forsikringsselskapets forside er skjult og inneholder domenenavnet. Setningen selskapet valgte for å hilse på folk med, ligger ett nivå under. <strong>Jeg ville ikke rapportert dette som en feil</strong>, for det finnes én overskrift og siden fungerer. Men <strong>det første som blir lest opp på siden de fleste kundene lander på, er en nettadresse</strong>. Løsningen er å løfte den synlige linjen og la den skjulte gå. Ingenting flytter seg på skjermen.' },
     rulesH:'Hva reglene sier',
-    rules:'Private virksomheter i Norge må oppfylle 35 WCAG-kriterier etter forskriften om universell utforming av IKT. Offentlige virksomheter må oppfylle 48 og publisere en tilgjengelighetserklæring på uustatus.no. EUs tilgjengelighetsdirektiv har gjeldt i EU siden juni 2025. I Norge er innføringen utsatt og har ingen dato.',
+    rules:'Private virksomheter i Norge må oppfylle <strong>35 WCAG-kriterier</strong> etter forskriften om universell utforming av IKT. Offentlige virksomheter må oppfylle <strong>48</strong> og publisere en tilgjengelighetserklæring på uustatus.no. EUs tilgjengelighetsdirektiv har gjeldt i EU siden juni 2025. I Norge er innføringen utsatt og har ingen dato.',
     methodH:'Slik sjekket jeg',
-    method:'Først en automatisk gjennomgang av hvert nettsted, deretter alt for hånd: ekte tastetrykk, kontrast målt mot det som faktisk er tegnet under, overskriftsrekkefølgen lest opp, PDF-filene åpnet. Verktøyene rapporterer det koden sier, og det er ikke alltid det som skjer på skjermen. På ett nettsted slo stilarket av fokusrammen, og verktøyet rapporterte en feil. Da jeg trykket Tab, tegnet nettleseren sin egen ramme, så det var ingen feil. Hvert notat her ble bekreftet for hånd før det ble skrevet ned. Jeg sjekket ikke noe bak innlogging, appene eller tekst på fotografier.',
+    method:'Først en automatisk gjennomgang av hvert nettsted, deretter alt for hånd: ekte tastetrykk, kontrast målt mot det som faktisk er tegnet under, overskriftsrekkefølgen lest opp, PDF-filene åpnet. <strong>Verktøyene rapporterer det koden sier, og det er ikke alltid det som skjer på skjermen.</strong> På ett nettsted slo stilarket av fokusrammen, og verktøyet rapporterte en feil. Da jeg trykket Tab, tegnet nettleseren sin egen ramme, så det var ingen feil. <strong>Hvert notat her ble bekreftet for hånd før det ble skrevet ned.</strong> Jeg sjekket ikke noe bak innlogging, appene eller tekst på fotografier.',
     courseH:'Kurs',
     course:'Introduction to Web Accessibility, W3Cx. Undervist av W3C Web Accessibility Initiative sammen med UNESCO IITE, 16 til 20 timer. Fullført i september 2026.',
     tryH:'Prøv selv',
     tryP:'Trykk Tab for å bevege deg gjennom denne siden. Linjen under knappene viser navnet en skjermleser leser opp for elementet du står på.',
-    sampleP:'Ett fullstendig sett med notater, med navnene fjernet, ligger her som PDF: <a href="accessibility/assets/Wioleta-Wojcik-accessibility-notes-sample.pdf">Eksempel på notatene, fire sider</a>.',
+    sampleP:'Matprodusentens fullstendige notater, med navnene fjernet, ligger her som PDF: <a href="accessibility/assets/Wioleta-Wojcik-accessibility-notes-sample.pdf">Eksempel på notatene, fire sider</a>.',
     btnBoard:'Tilbake til prosjektene', btnSample:'Eksempel på notatene (PDF)', btnMail:'Send meg en e-post',
     tryNone:'ingenting har fokus ennå', roleLink:'lenke', roleButton:'knapp', rolePressed:'trykket inn',
     close:'I en bygning blir rømningsplanen bedømt etter hvordan den leses av en som aldri har sett den, den dagen de trenger den. Jeg leser nettsteder på samme måte. De fullstendige notatene, med selskapets navn på, gikk til det selskapet. Denne siden beholder det jeg så og løsningen, og utelater navnet.',
     footBack:'Tilbake til alle prosjekter',
     footNext:'Kom og si <em>hei!</em>',
-    footNote:'Tretten sett med notater, skrevet mellom 22. august og 17. september 2026 og sendt til organisasjonene de handler om. Funnene på denne siden er hentet fra de to nyeste. Den norske teksten er et utkast og venter på gjennomlesing av en som har norsk som morsmål.',
+    footNote:'Tretten sett med notater, skrevet mellom 22. august og 17. september 2026 og sendt til organisasjonene de handler om. Funnene på denne siden er hentet fra tre av de nyeste. Den norske teksten er et utkast og venter på gjennomlesing av en som har norsk som morsmål.',
     cvfile:'Wioleta-Wojcik-CV-NO.pdf'
   },
   es:{
     back:'Volver a todos los proyectos',
     kicker:'Accesibilidad · trece sitios web · 2026',
     title:'El diseño excluye, no la persona.',
-    lede1:'Entre agosto y septiembre de 2026 revisé trece sitios web noruegos según las normas de accesibilidad que se les aplican, y envié a cada empresa cinco notas con la solución escrita junto a cada una. Esto es lo que encontré, sin los nombres.',
-    lede2:'Las páginas desde las que la gente compra estaban en buen estado. En el sitio de la aseguradora medí el contraste de 550 elementos de texto y no encontré ningún fallo, y los 365 controles tenían nombre. En la página de hipotecas del banco, los 33 encabezados seguían su orden sin saltarse ningún nivel, y cada control deslizante de la calculadora leía su valor correctamente. Los fallos estaban en otro sitio, en un sitio web tras otro: en una plataforma de documentos, en un sistema de selección de personal alquilado a un proveedor, en un ajuste de idioma hecho una sola vez al construir el sitio. Nadie había decidido dejar a nadie fuera. El diseño lo hizo por su cuenta, en los lugares que ningún equipo miraba.',
+    lede1:'Entre agosto y septiembre de 2026 revisé <strong>trece sitios web noruegos</strong> según las normas de accesibilidad que se les aplican, y envié a cada empresa <strong>cinco notas con la solución escrita junto a cada una</strong>. Esto es lo que encontré, sin los nombres, con ejemplos de un banco, una aseguradora y una empresa de alimentación.',
+    lede2:'<strong>Las páginas desde las que la gente compra estaban en buen estado.</strong> En el sitio de la aseguradora medí el contraste de 550 elementos de texto y no encontré ningún fallo, y los 365 controles tenían nombre. En la página de hipotecas del banco, los 33 encabezados seguían su orden sin saltarse ningún nivel, y cada control deslizante de la calculadora leía su valor correctamente. <strong>Los fallos estaban en otro sitio</strong>, en un sitio web tras otro: en una plataforma de documentos, en un sistema de selección de personal alquilado a un proveedor, en un ajuste de idioma hecho una sola vez al construir el sitio. Nadie había decidido dejar a nadie fuera. <strong>El diseño lo hizo por su cuenta, en los lugares que ningún equipo miraba.</strong>',
     notesH:'Cinco de las notas',
     level:'Nivel A',
     notes:[
       { crit:'3.1.1 Idioma de la página',
+        title:'El portal del sistema de diseño está marcado como noruego y escrito en inglés',
         code:'&lt;html lang="nb"&gt;  "Welcome" · "Accessibility checklist"',
-        body:'El portal del sistema de diseño del banco está marcado como noruego y escrito en inglés, en las doce páginas que revisé. Un lector de pantalla elige la voz a partir de esa marca, así que una voz noruega lee el texto en inglés, y el resultado no es un acento. Son otras palabras. Este es el sitio al que el banco envía a sus propios diseñadores para aprender sobre accesibilidad. La solución es una línea en la plantilla.',
+        body:'En las doce páginas del portal del sistema de diseño del banco que revisé, el idioma de la página dice noruego y el texto está en inglés. Un lector de pantalla elige la voz a partir de esa marca, así que una voz noruega lee el texto en inglés, y el resultado no es un acento. <strong>Son otras palabras.</strong> Este es el sitio al que el banco envía a sus propios diseñadores para aprender sobre accesibilidad. <strong>La solución es una línea en la plantilla.</strong>',
         where:'Un banco · septiembre de 2026' },
       { crit:'2.4.1 Evitar bloques',
+        title:'El enlace para saltar al contenido no lleva a ninguna parte',
         code:'&lt;a href="#"&gt;Hopp til innhold&lt;/a&gt;',
-        body:'Lo primero que alcanza la tecla Tab en el sitio de la aseguradora es el enlace para saltar al contenido, y parece correcto. Su destino está vacío. Pulsé Intro y no pasó nada. Así que una persona que usa el teclado pasa por 14 paradas más antes de la primera línea de la página, en cada página, en cada visita, y el único control hecho para ahorrárselo es el que no hace nada. La solución es un atributo en un componente.',
+        body:'Lo primero que alcanza la tecla Tab en el sitio de la aseguradora es el enlace para saltar al contenido, y parece correcto. Su destino está vacío. Pulsé Intro y no pasó nada. Así que una persona que usa el teclado <strong>pasa por 14 paradas más antes de la primera línea de la página, en cada página, en cada visita</strong>, y el único control hecho para ahorrárselo es el que no hace nada. <strong>La solución es un atributo en un componente.</strong>',
         where:'Una aseguradora · septiembre de 2026' },
       { crit:'1.3.1 Información y relaciones',
+        title:'Seis documentos de condiciones, 103 páginas, y ni un solo encabezado que un lector de pantalla pueda usar',
         code:'StructTreeRoot: none · /Lang: none · el mismo título en los seis',
-        body:'Las condiciones de seis productos de seguros son 103 páginas de PDF sin encabezados, sin idioma y con el mismo título interno en los seis. Un lector de pantalla recibe un texto continuo, leído con la voz que tenga configurada en ese momento. Este es el documento que lees antes de comprar, y al que vuelves el día en que algo ha pasado. La solución son tres ajustes en la plantilla que genera los documentos, hechos una vez para cada producto.',
+        body:'Las condiciones de seis productos de seguros son 103 páginas de PDF sin encabezados, sin idioma y con el mismo título interno en los seis. <strong>Un lector de pantalla recibe un texto continuo</strong>, leído con la voz que tenga configurada en ese momento. Este es el documento que lees antes de comprar, y al que vuelves el día en que algo ha pasado. <strong>La solución son tres ajustes en la plantilla que genera los documentos</strong>, hechos una vez para cada producto.',
         where:'La misma aseguradora' },
-      { crit:'1.3.1 Información y relaciones',
-        code:'&lt;p&gt;&lt;strong&gt;&lt;span style="font-size:24.0pt"&gt;About us&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;',
-        body:'Doce de las trece ofertas de empleo del banco no tienen encabezados dentro del texto, solo texto en negrita de 24 puntos. En mil palabras con un solo encabezado no hay nada entre lo que moverse, así que el único camino hasta los requisitos y el plazo es escuchar desde el principio, en orden. La decimotercera oferta tiene encabezados reales, en el mismo campo del mismo sistema, así que el patrón a copiar es el del propio banco.',
-        where:'El mismo banco · portal de empleo' }
+      { crit:'2.4.4 Propósito de los enlaces',
+        title:'Diez enlaces de la página de empleo no tienen nombre, así que el lector de pantalla lee la dirección web',
+        code:'&lt;a href="/empleo/aprendices"&gt;&lt;img src="…" alt=""&gt;&lt;/a&gt;   &lt;h3&gt;Aprendices&lt;/h3&gt;',
+        body:'En la página de empleo de una empresa de alimentación, 12 de los 67 controles visibles no tienen nombre accesible, y diez de ellos son el mismo componente: una tarjeta cuyo enlace solo contiene una imagen con alt vacío, mientras las palabras que dicen adónde lleva están junto al enlace, fuera de él. Sin nombre, el navegador recurre a la dirección. <strong>Quien escucha oye la dirección web deletreada a trozos donde la página dice «Aprendices».</strong> Sacada como lista de enlaces, que es como muchas personas recorren una página que no conocen, la página de empleo ofrece diez direcciones y diez «Les mer». <strong>La solución es poner el enlace alrededor del texto del encabezado y dejar la imagen como decorativa.</strong> Un componente, en dos de los sitios de la empresa.',
+        where:'Una empresa de alimentación · septiembre de 2026' }
     ],
     judge:{ chip:'Una valoración, no un fallo',
-      body:'El primer encabezado de la portada de la aseguradora está oculto y contiene el nombre del dominio. La frase que la empresa eligió para recibir a la gente está un nivel por debajo. No lo señalaría como un fallo, porque hay un encabezado y la página funciona. Pero lo primero que se lee en voz alta en la página a la que llegan la mayoría de los clientes es una dirección web. La solución es subir la línea visible y dejar ir la oculta. Nada se mueve en pantalla.' },
+      title:'La página más visitada se presenta con su propio nombre de dominio',
+      body:'El primer encabezado de la portada de la aseguradora está oculto y contiene el nombre del dominio. La frase que la empresa eligió para recibir a la gente está un nivel por debajo. <strong>No lo señalaría como un fallo</strong>, porque hay un encabezado y la página funciona. Pero <strong>lo primero que se lee en voz alta en la página a la que llegan la mayoría de los clientes es una dirección web</strong>. La solución es subir la línea visible y dejar ir la oculta. Nada se mueve en pantalla.' },
     rulesH:'Lo que dicen las normas',
-    rules:'Las empresas privadas en Noruega deben cumplir 35 criterios WCAG según el reglamento de diseño universal de las TIC. Los organismos públicos deben cumplir 48 y publicar una declaración en uustatus.no. La Ley Europea de Accesibilidad se aplica en la UE desde junio de 2025. En Noruega su implantación está retrasada y no tiene fecha.',
+    rules:'Las empresas privadas en Noruega deben cumplir <strong>35 criterios WCAG</strong> según el reglamento de diseño universal de las TIC. Los organismos públicos deben cumplir <strong>48</strong> y publicar una declaración en uustatus.no. La Ley Europea de Accesibilidad se aplica en la UE desde junio de 2025. En Noruega su implantación está retrasada y no tiene fecha.',
     methodH:'Cómo lo comprobé',
-    method:'Primero una pasada automática por cada sitio, y después todo a mano: pulsaciones de teclas reales, el contraste medido sobre lo que realmente hay pintado debajo, el orden de los encabezados leído, los archivos PDF abiertos. Las herramientas informan de lo que dice el código, y eso no siempre es lo que pasa en pantalla. En un sitio, la hoja de estilos apagaba el anillo de foco y la herramienta señaló un fallo. Cuando pulsé Tab, el navegador dibujó su propio anillo, así que no había fallo. Cada nota de esta página se confirmó a mano antes de escribirla. No revisé nada que estuviera tras un inicio de sesión, ni las aplicaciones, ni el texto sobre fotografías.',
+    method:'Primero una pasada automática por cada sitio, y después todo a mano: pulsaciones de teclas reales, el contraste medido sobre lo que realmente hay pintado debajo, el orden de los encabezados leído, los archivos PDF abiertos. <strong>Las herramientas informan de lo que dice el código, y eso no siempre es lo que pasa en pantalla.</strong> En un sitio, la hoja de estilos apagaba el anillo de foco y la herramienta señaló un fallo. Cuando pulsé Tab, el navegador dibujó su propio anillo, así que no había fallo. <strong>Cada nota de esta página se confirmó a mano antes de escribirla.</strong> No revisé nada que estuviera tras un inicio de sesión, ni las aplicaciones, ni el texto sobre fotografías.',
     courseH:'Curso',
     course:'Introduction to Web Accessibility, W3Cx. Impartido por la Web Accessibility Initiative del W3C junto con el IITE de la UNESCO, de 16 a 20 horas. Completado en septiembre de 2026.',
     tryH:'Pruébalo aquí',
     tryP:'Pulsa Tab para moverte por esta página. La línea bajo los botones muestra el nombre que un lector de pantalla lee para el elemento en el que estás.',
-    sampleP:'Un conjunto completo de notas, con los nombres eliminados, está aquí en PDF: <a href="accessibility/assets/Wioleta-Wojcik-accessibility-notes-sample.pdf">Notas de muestra, cuatro páginas</a>.',
+    sampleP:'Las notas completas de la empresa de alimentación, con los nombres eliminados, están aquí en PDF: <a href="accessibility/assets/Wioleta-Wojcik-accessibility-notes-sample.pdf">Notas de muestra, cuatro páginas</a>.',
     btnBoard:'Volver a los proyectos', btnSample:'Notas de muestra (PDF)', btnMail:'Enviarme un correo',
     tryNone:'nada tiene el foco todavía', roleLink:'enlace', roleButton:'botón', rolePressed:'pulsado',
     close:'En un edificio, el plan de evacuación se juzga por cómo lo lee alguien que nunca lo ha visto, el día que lo necesita. Yo leo los sitios web de la misma manera. Las notas completas, con el nombre de la empresa, fueron a esa empresa. Esta página conserva lo que vi y la solución, y deja fuera el nombre.',
     footBack:'Volver a todos los proyectos',
     footNext:'Ven a decir <em>¡hola!</em>',
-    footNote:'Trece conjuntos de notas, escritos entre el 22 de agosto y el 17 de septiembre de 2026 y enviados a las organizaciones que describen. Los hallazgos de esta página están tomados de los dos más recientes. El texto en español es un borrador pendiente de revisión por una persona nativa.',
+    footNote:'Trece conjuntos de notas, escritos entre el 22 de agosto y el 17 de septiembre de 2026 y enviados a las organizaciones que describen. Los hallazgos de esta página están tomados de tres de los más recientes. El texto en español es un borrador pendiente de revisión por una persona nativa.',
     cvfile:'Wioleta-Wojcik-CV-ES.pdf'
   }
 };
@@ -533,7 +561,8 @@ const ICON = {
 
 function noteHTML(n, t){
   return `<article class="note">
-    <h3><span>${n.crit}</span><span>${t.level}</span></h3>
+    <p class="crit"><span>${n.crit}</span><span>${t.level}</span></p>
+    <h3>${n.title}</h3>
     <div class="code">${n.code}</div>
     <p>${n.body}</p>
     <p class="where">${n.where}</p>
@@ -546,7 +575,8 @@ function articleHTML(t){
     <h2 class="h" id="notes-h">${t.notesH}</h2>
     <div class="notes">${notes}
       <article class="note judge">
-        <h3><span>${t.judge.chip}</span></h3>
+        <p class="crit"><span>${t.judge.chip}</span></p>
+        <h3>${t.judge.title}</h3>
         <p>${t.judge.body}</p>
       </article>
     </div>
