@@ -215,6 +215,8 @@ h1.title{
 .note h3 + p{margin-top:16px;}
 .note .where{font-size:11px;letter-spacing:.06em;color:var(--ink-mute);margin-top:16px;}
 .note.judge p{color:var(--ink);}
+.sample{margin-top:24px;font-size:15px;line-height:1.65;color:var(--ink-soft);max-width:62ch;}
+.sample a{text-decoration-thickness:.7px;text-underline-offset:2.5px;}
 
 /* the rules, the method, the course, the try ------------- */
 .sec-method{
@@ -326,6 +328,7 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
         <p>The first heading on the insurer's front page is hidden from view and reads the domain name. The sentence the company chose to greet people with sits one level below it. I would not report this as a failure, because there is one heading and the page works. But the first thing read out on the page most customers land on is a web address. The fix is to promote the visible line and let the hidden one go. Nothing moves on screen.</p>
       </article>
     </div>
+    <p class="sample">One complete set of notes, with the names taken out, is here as a PDF: <a href="accessibility/assets/Wioleta-Wojcik-accessibility-notes-sample.pdf">Sample notes, four pages</a>.</p>
   </section>
   <section class="sec sec-method" aria-labelledby="rules-h">
     <div>
@@ -341,7 +344,7 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
       <p>Press Tab to move through this page. The line under the buttons shows the name a screen reader reads out for the element you are on.</p>
       <div class="btns">
         <a class="btn" href="index.html"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"></path></svg><span>Back to the board</span></a>
-        <a class="btn" href="Wioleta-Wojcik-CV.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V7.5z"></path><path d="M14 3v4.5h4.5M9 13h6M9 16.5h4"></path></svg><span>Open my CV (PDF)</span></a>
+        <a class="btn" href="accessibility/assets/Wioleta-Wojcik-accessibility-notes-sample.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V7.5z"></path><path d="M14 3v4.5h4.5M9 13h6M9 16.5h4"></path></svg><span>Sample notes (PDF)</span></a>
         <a class="btn" href="mailto:wioleta.maria.wojcik@gmail.com"><svg viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="1.5"></rect><path d="M2.5 6.5 12 13l9.5-6.5"></path></svg><span>Send me an email</span></a>
       </div>
       <p class="readout" id="readout" aria-hidden="true">nothing has focus yet</p>
@@ -417,7 +420,8 @@ const T = {
     course:'Introduction to Web Accessibility, W3Cx. Taught by the W3C Web Accessibility Initiative with UNESCO IITE, 16 to 20 hours. Completed in September 2026.',
     tryH:'Try it here',
     tryP:'Press Tab to move through this page. The line under the buttons shows the name a screen reader reads out for the element you are on.',
-    btnBoard:'Back to the board', btnCv:'Open my CV (PDF)', btnMail:'Send me an email',
+    sampleP:'One complete set of notes, with the names taken out, is here as a PDF: <a href="accessibility/assets/Wioleta-Wojcik-accessibility-notes-sample.pdf">Sample notes, four pages</a>.',
+    btnBoard:'Back to the board', btnSample:'Sample notes (PDF)', btnMail:'Send me an email',
     tryNone:'nothing has focus yet', roleLink:'link', roleButton:'button', rolePressed:'pressed',
     close:'In a building, the escape plan is judged by how it reads to someone who has never seen it, on the day they need it. I read websites the same way. The complete notes, with the company\'s name on them, went to that company. This page keeps what I saw and the fix, and leaves the name out.',
     footBack:'Back to all projects',
@@ -461,7 +465,8 @@ const T = {
     course:'Introduction to Web Accessibility, W3Cx. Undervist av W3C Web Accessibility Initiative sammen med UNESCO IITE, 16 til 20 timer. Fullført i september 2026.',
     tryH:'Prøv selv',
     tryP:'Trykk Tab for å bevege deg gjennom denne siden. Linjen under knappene viser navnet en skjermleser leser opp for elementet du står på.',
-    btnBoard:'Tilbake til prosjektene', btnCv:'Åpne CV-en min (PDF)', btnMail:'Send meg en e-post',
+    sampleP:'Ett fullstendig sett med notater, med navnene fjernet, ligger her som PDF: <a href="accessibility/assets/Wioleta-Wojcik-accessibility-notes-sample.pdf">Eksempel på notatene, fire sider</a>.',
+    btnBoard:'Tilbake til prosjektene', btnSample:'Eksempel på notatene (PDF)', btnMail:'Send meg en e-post',
     tryNone:'ingenting har fokus ennå', roleLink:'lenke', roleButton:'knapp', rolePressed:'trykket inn',
     close:'I en bygning blir rømningsplanen bedømt etter hvordan den leses av en som aldri har sett den, den dagen de trenger den. Jeg leser nettsteder på samme måte. De fullstendige notatene, med selskapets navn på, gikk til det selskapet. Denne siden beholder det jeg så og løsningen, og utelater navnet.',
     footBack:'Tilbake til alle prosjekter',
@@ -505,7 +510,8 @@ const T = {
     course:'Introduction to Web Accessibility, W3Cx. Impartido por la Web Accessibility Initiative del W3C junto con el IITE de la UNESCO, de 16 a 20 horas. Completado en septiembre de 2026.',
     tryH:'Pruébalo aquí',
     tryP:'Pulsa Tab para moverte por esta página. La línea bajo los botones muestra el nombre que un lector de pantalla lee para el elemento en el que estás.',
-    btnBoard:'Volver a los proyectos', btnCv:'Abrir mi CV (PDF)', btnMail:'Enviarme un correo',
+    sampleP:'Un conjunto completo de notas, con los nombres eliminados, está aquí en PDF: <a href="accessibility/assets/Wioleta-Wojcik-accessibility-notes-sample.pdf">Notas de muestra, cuatro páginas</a>.',
+    btnBoard:'Volver a los proyectos', btnSample:'Notas de muestra (PDF)', btnMail:'Enviarme un correo',
     tryNone:'nada tiene el foco todavía', roleLink:'enlace', roleButton:'botón', rolePressed:'pulsado',
     close:'En un edificio, el plan de evacuación se juzga por cómo lo lee alguien que nunca lo ha visto, el día que lo necesita. Yo leo los sitios web de la misma manera. Las notas completas, con el nombre de la empresa, fueron a esa empresa. Esta página conserva lo que vi y la solución, y deja fuera el nombre.',
     footBack:'Volver a todos los proyectos',
@@ -544,6 +550,7 @@ function articleHTML(t){
         <p>${t.judge.body}</p>
       </article>
     </div>
+    <p class="sample">${t.sampleP}</p>
   </section>
   <section class="sec sec-method" aria-labelledby="rules-h">
     <div>
@@ -559,7 +566,7 @@ function articleHTML(t){
       <p>${t.tryP}</p>
       <div class="btns">
         <a class="btn" href="index.html">${ICON.back}<span>${t.btnBoard}</span></a>
-        <a class="btn" href="${t.cvfile}" target="_blank" rel="noopener">${ICON.cv}<span>${t.btnCv}</span></a>
+        <a class="btn" href="accessibility/assets/Wioleta-Wojcik-accessibility-notes-sample.pdf" target="_blank" rel="noopener">${ICON.cv}<span>${t.btnSample}</span></a>
         <a class="btn" href="mailto:wioleta.maria.wojcik@gmail.com">${ICON.mail}<span>${t.btnMail}</span></a>
       </div>
       <p class="readout" id="readout" aria-hidden="true">${t.tryNone}</p>
