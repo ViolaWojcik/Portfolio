@@ -171,6 +171,16 @@ h1.title{
 }
 .lede + .lede{margin-top:18px;}
 
+/* hero photo: a little wider than the reading column, like the case studies */
+figure.hero{
+  margin:44px 0 0;width:min(920px,88vw);position:relative;left:50%;transform:translateX(-50%);
+}
+figure.hero img{
+  display:block;width:100%;height:auto;border-radius:4px;
+  box-shadow:var(--sh-card);background:var(--paper-warm);
+}
+figure.hero figcaption{margin-top:14px;font-size:12px;line-height:1.5;color:var(--ink-mute);}
+
 /* small heads over each group, the same voice as the kicker */
 .h{
   font-size:10.5px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
@@ -276,6 +286,7 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
 @media (max-width:720px){
   .main{padding:0 22px 80px;}
   header.head{padding-top:12vh;}
+  figure.hero{width:100%;left:0;transform:none;}
   .note{padding:22px 20px 20px;}
   #lang{top:18px;right:18px;}
 }
@@ -305,6 +316,11 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
       <p class="lede" data-t="lede1"><!--prerendered-->Between August and September 2026 I checked <strong>thirteen Norwegian websites</strong> against the accessibility rules that apply to them, and sent each company <strong>five notes with the fix written next to each one</strong>. Here is what I found, without the names, with examples from a bank, an insurance company and a food producer.<!--/prerendered--></p>
       <p class="lede" data-t="lede2"><!--prerendered--><strong>The pages people buy from were in good order.</strong> On the insurer's site I measured contrast on 550 text elements and found no failure, and all 365 controls had a name. On the bank's mortgage page the 33 headings ran without a level skipped, and every slider in the loan calculator read its value out correctly. <strong>The failures sat somewhere else</strong>, on site after site: in a document platform, in a recruitment system rented from a supplier, in a language setting made once when the site was built. Nobody had decided to leave anyone out. <strong>The design did it on its own, in the places no team was looking at.</strong><!--/prerendered--></p>
     </header>
+
+    <figure class="hero">
+      <img id="hero-img" src="accessibility/assets/hero-photo.webp" width="1672" height="941" alt="A person in headphones reads a page on a laptop, one hand resting on a braille display in front of it." fetchpriority="high">
+      <figcaption data-t="heroCap"><!--prerendered-->How a page gets checked: a screen reader in the ears, a braille display under the hand, the page on the screen. Staged image.<!--/prerendered--></figcaption>
+    </figure>
 
     <!-- the notes, the rules, the method, the course and the try-it strip are
          rendered from T by render(); tools/prerender.mjs bakes the result in
@@ -399,6 +415,8 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
    ========================================================= */
 const T = {
   en:{
+    heroCap:'How a page gets checked: a screen reader in the ears, a braille display under the hand, the page on the screen. Staged image.',
+    heroAlt:'A person in headphones reads a page on a laptop, one hand resting on a braille display in front of it.',
     back:'Back to all projects',
     kicker:'Accessibility audits · 2026',
     title:'The design excludes,<br>not the person.',
@@ -450,6 +468,8 @@ const T = {
     cvfile:'Wioleta-Wojcik-CV.pdf'
   },
   no:{
+    heroCap:'Slik sjekkes en side: skjermleser i ørene, leselist under hånden, siden på skjermen. Iscenesatt bilde.',
+    heroAlt:'En person med hodetelefoner leser en side på en bærbar PC, med en hånd på en leselist foran seg.',
     back:'Tilbake til alle prosjekter',
     kicker:'Tilgjengelighetsrevisjoner · 2026',
     title:'Designet utestenger,<br>ikke mennesket.',
@@ -501,6 +521,8 @@ const T = {
     cvfile:'Wioleta-Wojcik-CV-NO.pdf'
   },
   es:{
+    heroCap:'Cómo se comprueba una página: lector de pantalla en los oídos, línea braille bajo la mano, la página en pantalla. Imagen escenificada.',
+    heroAlt:'Una persona con auriculares lee una página en un portátil, con una mano sobre una línea braille delante.',
     back:'Volver a todos los proyectos',
     kicker:'Auditorías de accesibilidad · 2026',
     title:'El diseño excluye,<br>no la persona.',
@@ -615,6 +637,7 @@ function render(L){
   document.querySelectorAll('[data-t]').forEach(el=>{
     const k = el.dataset.t; if(t[k] !== undefined) el.innerHTML = t[k];
   });
+  document.getElementById('hero-img').alt = t.heroAlt;
   document.getElementById('article').innerHTML = articleHTML(t);
   /* the résumé follows the language, here and in the footer */
   const cv = document.querySelector('footer.foot a[data-a="cv"]');
