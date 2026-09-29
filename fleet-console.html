@@ -475,7 +475,7 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
   </div>
 
   <div id="hero"><!--prerendered--><figure class="fig reveal wide">
-      <img src="fleet-console/assets/hero-field.webp" alt="The setting: a turbine field at the end of the day, where the model’s number lands on somebody’s screen. Staged image, not a photograph of the farms in the data." loading="lazy">
+      <img src="fleet-console/assets/hero-field.webp?v=2" alt="The setting: a turbine field at the end of the day, where the model’s number lands on somebody’s screen. Staged image, not a photograph of the farms in the data." loading="lazy">
       <figcaption><span>The setting: a turbine field at the end of the day, where the model’s number lands on somebody’s screen. Staged image, not a photograph of the farms in the data.</span></figcaption>
     </figure><!--/prerendered--></div>
 
@@ -515,7 +515,7 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
       <img src="fleet-console/assets/system.webp" alt="The library as the prototype sees it: the 24 colour tokens in both modes, the three densities, the components drawn by the console’s own compiled stylesheet, the same lane at three row heights, and one token followed from a Figma variable to a component." loading="lazy">
       <figcaption><span>The library as the prototype sees it: the 24 colour tokens in both modes, the three densities, the components drawn by the console’s own compiled stylesheet, the same lane at three row heights, and&nbsp;one token followed from a Figma variable to a component.</span></figcaption>
     </figure><figure class="fig reveal wide">
-      <img src="fleet-console/assets/photo-tablet-day.webp" alt="The technician’s side of the same system: a tablet on site, where the service order arrives. Staged image." loading="lazy">
+      <img src="fleet-console/assets/photo-tablet-day.webp?v=2" alt="The technician’s side of the same system: a tablet on site, where the service order arrives. Staged image." loading="lazy">
       <figcaption><span>The technician’s side of the same system: a tablet on site, where the service order arrives. Staged image.</span></figcaption>
     </figure></section><section class="sec" id="unsure"><div class="col">
       <div class="eyebrow"><b>05</b> · When the model is unsure</div>
@@ -535,8 +535,8 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
     </figure></section><section class="sec" id="test"><div class="col">
       <div class="eyebrow"><b>08</b> · What I would test</div>
       <h2 class="h">No operator has used this yet. That is the first thing I would change.</h2><p>The honest limit of this project: <strong>it has never met the person it is for.</strong> Everything above is reasoned from real data and&nbsp;real failure histories. That is a better foundation than taste. It is still not the same as watching somebody use it at four in the morning.</p><p>Four questions would go first. <strong>Does anyone press “disagree”?</strong> Or is it a button that reads well in a case study and&nbsp;dies in production, and&nbsp;if it dies, is that because disagreeing feels risky rather than hard? Is the bar beside the number read faster than the number alone, or does it only look considered? Does the word “no signal” stop operators from treating a blank as a zero? And&nbsp;at what confidence does an operator stop watching and&nbsp;send somebody? That threshold belongs to them. The interface should learn it, not set it.</p></div><figure class="fig reveal wide">
-      <img src="fleet-console/assets/photo-tablet-night.webp" alt="After sunset the console switches itself to night mode, on the farm’s own clock. Staged image." loading="lazy">
-      <figcaption><span>After sunset the console switches itself to night mode, on the farm’s own clock. Staged image.</span></figcaption>
+      <img src="fleet-console/assets/photo-tablet-night.webp?v=2" alt="The operator’s panel on a tablet, out where the first test belongs: with the person who has to make the call. Staged image." loading="lazy">
+      <figcaption><span>The operator’s panel on a tablet, out where the first test belongs: with the person who has to make the call. Staged image.</span></figcaption>
     </figure><div class="col"><p class="close">A number nobody can argue with is not advice. It is an order.</p></div></section><!--/prerendered--></article>
 
   <div class="col">
@@ -712,18 +712,18 @@ const T = {
 };
 
 const ASSETS = {
-  hero:{ type:'img', wide:true, src:'fleet-console/assets/hero-field.webp',
+  hero:{ type:'img', wide:true, src:'fleet-console/assets/hero-field.webp?v=2',
     cap:{en:'The setting: a turbine field at the end of the day, where the model’s number lands on somebody’s screen. Staged image, not a photograph of the farms in the data.',
          no:'Stedet: et turbinfelt på slutten av dagen, der modellens tall lander på noens skjerm. Iscenesatt bilde, ikke et fotografi av parkene i dataene.',
          es:'El escenario: un campo de turbinas al final del día, donde el número del modelo aterriza en la pantalla de alguien. Imagen escenificada, no una fotografía de los parques de los datos.'} },
-  tabletDay:{ type:'img', wide:true, src:'fleet-console/assets/photo-tablet-day.webp',
+  tabletDay:{ type:'img', wide:true, src:'fleet-console/assets/photo-tablet-day.webp?v=2',
     cap:{en:'The technician’s side of the same system: a tablet on site, where the service order arrives. Staged image.',
          no:'Teknikerens side av det samme systemet: et nettbrett ute i felt, der serviceordren kommer. Iscenesatt bilde.',
          es:'El lado del técnico del mismo sistema: una tableta a pie de parque, donde llega la orden de servicio. Imagen escenificada.'} },
-  tabletNight:{ type:'img', wide:true, src:'fleet-console/assets/photo-tablet-night.webp',
-    cap:{en:'After sunset the console switches itself to night mode, on the farm’s own clock. Staged image.',
-         no:'Etter solnedgang bytter konsollen selv til nattmodus, på parkens egen klokke. Iscenesatt bilde.',
-         es:'Tras la puesta de sol la consola pasa sola al modo nocturno, con el reloj del propio parque. Imagen escenificada.'} },
+  tabletNight:{ type:'img', wide:true, src:'fleet-console/assets/photo-tablet-night.webp?v=2',
+    cap:{en:'The operator’s panel on a tablet, out where the first test belongs: with the person who has to make the call. Staged image.',
+         no:'Operatørens panel på et nettbrett, der den første testen hører hjemme: hos personen som må ta avgjørelsen. Iscenesatt bilde.',
+         es:'El panel del operador en una tableta, donde toca la primera prueba: con la persona que tiene que decidir. Imagen escenificada.'} },
   fleet:{ type:'img', wide:true, src:'fleet-console/assets/fleet.webp',
     cap:{en:'The fleet as lanes: one turbine per row over the last six weeks, frozen on 10 February 2023, the day Kelmarsh 4 stopped itself. Twenty real machines; every mark is a logged event. Capture of the working prototype.',
          no:'Flåten som baner: én turbin per rad over de siste seks ukene, frosset 10. februar 2023, dagen Kelmarsh 4 stoppet seg selv. Tjue ekte maskiner; hvert merke er en logget hendelse. Skjermbilde fra den fungerende prototypen.',
