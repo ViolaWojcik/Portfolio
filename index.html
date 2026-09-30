@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Wioleta Wójcik — AI Product Design</title>
+<title>Wioleta Wójcik — AI Product Designer</title>
 <meta name="description" content="Interactive portfolio of Wioleta Maria Wójcik: AI product design built on accessibility principles, with an architect's background. Based in Oslo, Norway.">
 <link rel="canonical" href="https://wioletawojcik.com/">
 <meta name="author" content="Wioleta Maria Wójcik">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Wioleta Wójcik">
 <meta property="og:url" content="https://wioletawojcik.com/">
-<meta property="og:title" content="Wioleta Wójcik — AI Product Design">
+<meta property="og:title" content="Wioleta Wójcik — AI Product Designer">
 <meta property="og:description" content="Interactive portfolio of Wioleta Maria Wójcik: AI product design built on accessibility principles, with an architect's background. Based in Oslo, Norway.">
 <meta property="og:image" content="https://wioletawojcik.com/my%20photo.png">
 <meta property="og:image:width" content="1414">
@@ -20,7 +20,7 @@
 <meta property="og:locale:alternate" content="nb_NO">
 <meta property="og:locale:alternate" content="es_ES">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Wioleta Wójcik — AI Product Design">
+<meta name="twitter:title" content="Wioleta Wójcik — AI Product Designer">
 <meta name="twitter:description" content="Interactive portfolio of Wioleta Maria Wójcik: AI product design built on accessibility principles, with an architect's background. Based in Oslo, Norway.">
 <meta name="twitter:image" content="https://wioletawojcik.com/my%20photo.png">
 <meta name="twitter:image:alt" content="Wioleta Maria Wójcik">
@@ -331,8 +331,8 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
 .polanote{
   width:204px;height:100%;
   background:var(--paper);border-radius:1px;
-  padding:22px 18px;
-  display:flex;flex-direction:column;justify-content:center;gap:13px;
+  padding:18px 16px;
+  display:flex;flex-direction:column;justify-content:center;gap:11px;
 }
 .polanote .lead{
   font-family:var(--font-display);font-size:19px;line-height:1.16;color:var(--ink);
@@ -345,6 +345,9 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
 .polanote .body{
   font-family:var(--font-ui);font-size:11px;line-height:1.5;color:var(--ink-soft);
 }
+.polanote .body .s{display:block;}   /* every sentence starts on its own line (see formatNote) */
+.polanote .body .s + .s{margin-top:4px;}   /* a breath between sentences, so it reads as lines, not a block */
+.polanote .lead,.polanote .body .s{text-wrap:balance;}   /* even line lengths; older browsers just wrap normally */
 /* "flip me" cue: the bottom-right corner of the paper curls up and a sliver of
    accent-tint peeks out from underneath — "something lies under this photo".
    Language-neutral and it lives in the paper margin, so the photo stays clean.
@@ -852,7 +855,7 @@ a.obj{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent
 const T = {
   en:{
     words:['Spaces,','systems,','people.'],
-    role :'AI Product Design',
+    role :'AI Product<br>Designer',
     loc  :'Oslo, Norway',
     cardTitle:'Come say <em>hi!</em>',
     t1   :'Guest check-in',
@@ -883,7 +886,7 @@ const T = {
   },
   no:{
     words:['Rom,','systemer,','mennesker.'],
-    role :'KI-produktdesign',
+    role :'Produktdesigner<br>med KI',
     loc  :'Oslo, Norge',
     cardTitle:'Kom og si <em>hei!</em>',
     t1   :'Gjesteinnsjekk',
@@ -914,7 +917,7 @@ const T = {
     words:['Espacios,',
      'sistemas,',
      'personas.'],
-    role:'Diseño de producto con IA',
+    role:'Diseñadora de<br>producto con IA',
     loc:'Oslo, Noruega',
     cardTitle:'Ven a decir <em>¡hola!</em>',
     t1:'Check-in<br>de huéspedes',   /* two lines, or the fan's next folder hides the end */
@@ -964,6 +967,32 @@ let dragging = false;   // true while an object is being dragged (mutes the tool
 let suppressClick = false; // set right after a drag so it isn't read as a click-through
 
 /* ---------- language ---------- */
+/* The note on the back of the polaroid reads as short lines, not a block: every
+   sentence starts on its own line, and no line ends on a small word. The small
+   words are glued to the word after them with a no-break space, here at paint
+   time, so the strings in T stay clean (the thesis is copied and grepped verbatim
+   elsewhere). One list per language; add a word here if a line ends on it. */
+const SMALL = {
+  en:['i','a','an','the','and','or','but','in','on','at','of','to','by','as','it','is','my','with'],
+  no:['jeg','i','og','en','et','på','å','av','om','de','til','med','som','for','er','før'],
+  es:['y','o','e','u','a','de','en','la','el','lo','los','las','un','una','se','me','que','con','por','del']
+};
+function glue(s, l){
+  const small = SMALL[l] || SMALL.en;
+  return s.split(' ').map((w, i, all)=>
+    w + (i < all.length - 1 ? (small.includes(w.toLowerCase()) ? ' ' : ' ') : '')
+  ).join('');
+}
+function formatNote(t, l){
+  const lead = document.querySelector('.polanote .lead');
+  const body = document.querySelector('.polanote .body');
+  if(lead && t.aboutLead) lead.innerHTML = glue(t.aboutLead, l);
+  if(body && t.aboutBody){
+    const sentences = t.aboutBody.match(/[^.!?]+[.!?]+/g) || [t.aboutBody];
+    body.innerHTML = sentences.map(s=>'<span class="s">' + glue(s.trim(), l) + '</span>').join('');
+  }
+}
+
 function paint(l, animate){
   const t = T[l] || T.en;
   const apply = ()=>{
@@ -974,6 +1003,7 @@ function paint(l, animate){
       const k = el.dataset.t;
       if(t[k] !== undefined) el.innerHTML = t[k];
     });
+    formatNote(t, l);
     document.querySelectorAll('[data-a]').forEach(el=>{
       const a = t.aria[el.dataset.a];
       if(a !== undefined) el.setAttribute('aria-label', a);
