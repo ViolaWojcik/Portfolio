@@ -35,8 +35,7 @@
   /* Project API key from PostHog → Project settings. Public by design: it can
      only write events, never read them. NOT the personal key ("phx_…"), which
      would hand over the whole account.
-     Empty key = this whole file is a no-op, which is what you want while
-     working on the site locally. */
+     Empty key = this whole file is a no-op. */
   var KEY = 'phc_wbYZGRmnAzF5FrZyXT2dujFsWS8z2bWjD5mMMTawTCup';
 
   /* Must match the region the PostHog account was created in. EU accounts use
@@ -47,6 +46,17 @@
   var ASSETS = 'https://eu-assets.i.posthog.com/static/array.js';
 
   if (!KEY) return;
+
+  /* ---------- local copies ----------
+   *
+   * Only the published site is measured. The key is always set, so a local
+   * dev server, the prerender and the test suite would otherwise each land in
+   * the dashboards as a real visitor (one session on localhost:8091 added 8
+   * pageviews to a 20-pageview week). Opening a page straight from disk
+   * (file://) counts as local too. */
+  var h = location.hostname;
+  if (location.protocol === 'file:' || h === 'localhost' || h === '127.0.0.1' ||
+      h === '[::1]' || /\.localhost$/.test(h)) return;
 
   /* ---------- the author's own visits ----------
    *
