@@ -273,6 +273,18 @@ const val = (v) => (v === null || v === undefined || v === '' ? '—' : String(v
    about what is known. */
 const source = (v) => (v === '$direct' ? 'wpisany bezpośrednio' : v === null || v === '' ? '—' : String(v));
 
+/* WHERE A VISIT CAME FROM
+ * The referrer alone undercounts AI assistants. ChatGPT usually opens its
+ * links with no referrer and appends ?utm_source=chatgpt.com instead, which
+ * posthog-js records as `utm_source`. Read by referrer, those visits landed
+ * under "wpisany bezpośrednio": 8 ChatGPT sessions between 13.09 and
+ * 06.10.2026 showed up as 1. So a campaign tag wins over the referrer.
+ *
+ * Both are read off the session's FIRST event (argMin over timestamp). A
+ * visitor who goes on from the board to a case study gets wioletawojcik.com
+ * as the referrer of that second page, which is navigation, not a source. */
+const SOURCE = `coalesce(nullIf(toString(properties.utm_source), ''), toString(properties.$referring_domain))`;
+
 const when = (iso) => {
   if (!iso) return '—';
   const d = new Date(iso);
@@ -387,10 +399,14 @@ async function main() {
     (
       await q(
         'sources',
-        `SELECT toString(properties.$referring_domain) AS src,
-                uniq(properties.$session_id) AS sessions,
-                count() AS events
-         FROM events WHERE ${WHERE} GROUP BY src ORDER BY events DESC LIMIT 15`
+        `SELECT src, uniq(sid) AS sessions, sum(n) AS events
+         FROM (
+           SELECT properties.$session_id AS sid,
+                  argMin(${SOURCE}, timestamp) AS src,
+                  count() AS n
+           FROM events WHERE ${WHERE} GROUP BY sid
+         )
+         GROUP BY src ORDER BY sessions DESC, events DESC LIMIT 15`
       )
     ).map((r) => [source(r.src), r.sessions, r.events])
   );
@@ -487,7 +503,7 @@ async function main() {
             countIf(event = 'case_study_read') AS finished,
             any(properties.$geoip_city_name) AS city,
             any(properties.$geoip_country_name) AS country,
-            any(properties.$referring_domain) AS src,
+            argMin(${SOURCE}, timestamp) AS src,
             any(properties.$device_type) AS device
      FROM events WHERE ${WHERE} GROUP BY sid ORDER BY started DESC LIMIT 20`
   );
