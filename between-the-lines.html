@@ -473,6 +473,35 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
        that never happens, so pin everything visible. -->
   <style>.reveal{opacity:1!important;transform:none!important;}</style>
 </noscript>
+<style>
+.explain{margin-top:8px;}
+.lvl{position:sticky;top:12px;z-index:20;border:1px solid var(--hair);border-radius:12px;padding:8px;margin:0 0 22px;background:var(--paper);box-shadow:0 6px 18px rgba(40,34,20,.08);}
+.lvl legend{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;}
+.lvl-o{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;}
+.lvl label{position:relative;display:block;cursor:pointer;}
+.lvl input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer;}
+.lvl span{display:flex;align-items:center;justify-content:center;min-height:44px;padding:6px 8px;border-radius:8px;text-align:center;font-size:13.5px;line-height:1.2;font-weight:500;color:var(--ink-soft);}
+.lvl input:hover + span{background:rgba(122,107,168,.10);}
+.lvl input:checked + span{background:#5E5088;color:#fff;}
+.lvl input:focus-visible + span{outline:2px solid #5E5088;outline-offset:2px;}
+.ex{border-top:1px solid var(--hair);padding:26px 0 28px;scroll-margin-top:90px;}
+.ex-h{display:flex;gap:14px;align-items:baseline;margin-bottom:14px;}
+.ex-n{font-size:12px;color:#5E5088;font-weight:500;font-variant-numeric:tabular-nums;}
+.ex h3{font-family:var(--font-display,'Instrument Serif',serif);font-weight:400;font-size:27px;line-height:1.15;color:var(--ink);margin:0;}
+.ex-term{margin:5px 0 0!important;font-size:12.5px!important;line-height:1.4!important;color:#6F695E!important;letter-spacing:.01em;}
+.ex-l{margin-left:30px;}
+.ex-l + .ex-l{margin-top:16px;}
+.ex-tag{margin:0 0 4px!important;font-size:11px!important;line-height:1.3!important;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:#5E5088!important;}
+.ex-l p:last-child{margin:0;}
+.explain:not([data-level="all"]) .ex-tag{display:none;}
+.explain[data-level="kid"] .ex-l:not([data-l="kid"]),
+.explain[data-level="pro"] .ex-l:not([data-l="pro"]),
+.explain[data-level="built"] .ex-l:not([data-l="built"]){display:none;}
+@media (max-width:900px){.lvl{top:62px;}}
+@media (max-width:560px){.lvl-o{grid-template-columns:1fr 1fr;}.ex-l{margin-left:0;}.ex h3{font-size:24px;}}
+@media print{.lvl{display:none}.ex-l{display:block!important}.ex-tag{display:block!important}}
+</style>
+<noscript><style>.lvl{display:none}.ex-l{display:block!important}.ex-tag{display:block!important}</style></noscript>
 </head>
 <body>
 
@@ -488,7 +517,7 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
     <div class="nm" data-t="wordmark"><!--prerendered-->Between the Lines<!--/prerendered--><!--/prerendered--></div>
     <div class="sub" data-t="markSub"><!--prerendered-->Product design case study<!--/prerendered--><!--/prerendered--></div>
   </div>
-  <nav class="toc" aria-label="Sections"><ol id="toc"><!--prerendered--><li><a href="#origin" data-to="origin"><span class="n">01</span><span>The origin</span></a></li><li><a href="#chatbot" data-to="chatbot"><span class="n">02</span><span>The quiet risk</span></a></li><li><a href="#extremes" data-to="extremes"><span class="n">03</span><span>Two extremes</span></a></li><li><a href="#norway" data-to="norway"><span class="n">04</span><span>The Norwegian frame</span></a></li><li><a href="#firstbuild" data-to="firstbuild"><span class="n">05</span><span>The first build</span></a></li><li><a href="#rule" data-to="rule"><span class="n">06</span><span>One rule</span></a></li><li><a href="#flow" data-to="flow"><span class="n">07</span><span>Write, then rate</span></a></li><li><a href="#grid" data-to="grid"><span class="n">08</span><span>Two axes</span></a></li><li><a href="#dictation" data-to="dictation"><span class="n">09</span><span>Voice, rebuilt</span></a></li><li><a href="#betweenlines" data-to="betweenlines"><span class="n">10</span><span>Between the lines</span></a></li><li><a href="#companion" data-to="companion"><span class="n">11</span><span>The Companion</span></a></li><li><a href="#clickable" data-to="clickable"><span class="n">12</span><span>A shipped product</span></a></li><li><a href="#access" data-to="access"><span class="n">13</span><span>Reachable</span></a></li><li><a href="#reflection" data-to="reflection"><span class="n">14</span><span>What it taught</span></a></li><li><a href="#sources" data-to="sources"><span class="n">15</span><span>Sources</span></a></li><!--/prerendered--><!--/prerendered--></ol></nav>
+  <nav class="toc" aria-label="Sections"><ol id="toc"><!--prerendered--><li><a href="#origin" data-to="origin"><span class="n">01</span><span>The origin</span></a></li><li><a href="#chatbot" data-to="chatbot"><span class="n">02</span><span>The quiet risk</span></a></li><li><a href="#extremes" data-to="extremes"><span class="n">03</span><span>Two extremes</span></a></li><li><a href="#norway" data-to="norway"><span class="n">04</span><span>The Norwegian frame</span></a></li><li><a href="#firstbuild" data-to="firstbuild"><span class="n">05</span><span>The first build</span></a></li><li><a href="#rule" data-to="rule"><span class="n">06</span><span>One rule</span></a></li><li><a href="#flow" data-to="flow"><span class="n">07</span><span>Write, then rate</span></a></li><li><a href="#grid" data-to="grid"><span class="n">08</span><span>Two axes</span></a></li><li><a href="#dictation" data-to="dictation"><span class="n">09</span><span>Voice, rebuilt</span></a></li><li><a href="#betweenlines" data-to="betweenlines"><span class="n">10</span><span>Between the lines</span></a></li><li><a href="#companion" data-to="companion"><span class="n">11</span><span>The Companion</span></a></li><li><a href="#clickable" data-to="clickable"><span class="n">12</span><span>How the AI works</span></a></li><li><a href="#access" data-to="access"><span class="n">13</span><span>Reachable</span></a></li><li><a href="#reflection" data-to="reflection"><span class="n">14</span><span>What it taught</span></a></li><li><a href="#sources" data-to="sources"><span class="n">15</span><span>Sources</span></a></li><!--/prerendered--><!--/prerendered--></ol></nav>
 </aside>
 
 <!-- ── language toggle ─────────────────────────────────────── -->
@@ -517,10 +546,10 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
 
   <div class="col">
     <div id="glance" class="glance reveal"><!--prerendered--><div class="g-eyebrow">At a glance</div>
-    <div class="g-row"><div class="g-k">Problem</div><div class="g-v">Journaling tools sit at two extremes: a blank page or a mood emoji. More and more people take their inner life to a general chatbot instead. In a 2025 US survey, <strong>~49%</strong> of people with an ongoing mental-health condition used one for support. <strong>The tool they confide in only agrees with them.</strong></div></div>
-    <div class="g-row"><div class="g-k">My role</div><div class="g-v"><strong>Product &amp; UX Designer, solo design and build.</strong> The journal started in the AI Product Masterclass (Nueve Design, 2026, a five-week intensive) and kept going after it ended. I designed it and took it to production. Writing separated from rating. Mood as a two-axis grid reachable by keyboard. Dictation rebuilt around Whisper. A Companion grounded in the journal. <strong>Past the course, it became a real product:</strong> accounts on a Postgres database, semantic search over entries, an OAuth&nbsp;2.1 authorisation server, and an MCP server that lets an AI assistant read and write the journal with the owner’s consent.</div></div>
+    <div class="g-row"><div class="g-k">Problem</div><div class="g-v">Journaling tools sit at two extremes: a blank page or a mood emoji. So more and more people take their inner life to a general chatbot. In a 2025 US survey, <strong>~49%</strong> of people with an ongoing mental-health condition used one for support. <strong>The tool they confide in mostly agrees with them.</strong></div></div>
+    <div class="g-row"><div class="g-k">My role</div><div class="g-v"><strong>Product &amp; UX Designer, solo design and build.</strong> The journal started in the AI Product Masterclass (Nueve Design, 2026), and I kept building it after the course. <strong>It is now a working product:</strong> accounts, search by meaning, an AI Companion grounded in the journal, and an MCP server that lets an AI assistant read and write it with the owner’s consent.</div></div>
     <div class="g-row"><div class="g-k">Value</div>
-      <ul class="g-list"><li><strong>Shipped live:</strong> a working product you can open and try, not a clickable mockup</li><li><strong>Write first, rate later:</strong> writing and judging are separate steps on one distraction-free screen</li><li><strong>Keyboard and screen reader throughout:</strong> including the two-axis mood grid, which answers to arrow keys and reads its position back in words</li><li><strong>Consent is the boundary:</strong> the deeper AI reflection is opt-in per entry, and an assistant reaches the journal only through OAuth the owner grants and can revoke</li></ul>
+      <ul class="g-list"><li><strong>Shipped live:</strong> a working product you can open and try</li><li><strong>Write first, rate later:</strong> writing and judging are two separate steps</li><li><strong>Keyboard and screen reader throughout:</strong> including the two-axis mood grid</li><li><strong>Consent is the boundary:</strong> the deeper AI reflection is opt-in per entry, and an assistant reaches the journal only with access the owner grants</li></ul>
     </div>
     <div class="g-row"><div class="g-k">Try it</div>
       <a class="g-live-link" href="https://between-the-lines-journal.vercel.app/" target="_blank" rel="noopener">Try it live<svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H9M17 7v8"></path></svg></a>
@@ -532,28 +561,28 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
 
   <article id="article"><!--prerendered--><section class="sec" id="origin"><div class="col">
       <div class="eyebrow"><b>01</b> · Origin</div>
-      <h2 class="h">A course exercise became a product with a point of view</h2><p>It started as a course project. A mentor suggested it as a way to learn a heavier, more technical toolchain. <strong>From the first sketch I steered it toward something I believed in.</strong> I added the features it actually needed, not the ones the exercise asked for. It could have stayed a throwaway. <strong>It grew into a working tool for self-knowledge.</strong></p></div></section><section class="sec" id="chatbot"><div class="col">
+      <h2 class="h">A course exercise became a product with a point of view</h2><p>It started as a course project, suggested by a mentor as a way to learn a more technical toolchain. I steered it toward something I believed in and kept building after the course ended.</p></div></section><section class="sec" id="chatbot"><div class="col">
       <div class="eyebrow"><b>02</b> · The problem</div>
-      <h2 class="h">People are already treating a chatbot as a therapist that only agrees with them</h2><p>Therapy is seen as expensive, or hard to trust. So people improvise. <strong>More and more of them bring their mental health to a general-purpose chatbot.</strong> It knows nothing about their week. The risk is quiet. <strong>These tools affirm rather than ground or challenge.</strong> They can state things with a confidence they have not earned.</p></div><figure class="fig reveal wide">
+      <h2 class="h">People are already treating a chatbot as a therapist that only agrees with them</h2><p>Therapy can feel expensive or hard to trust, so more people bring their mental health to a general-purpose chatbot. It knows nothing about their week. It tends to agree with them, and it can sound more certain than it should.</p></div><figure class="fig reveal wide">
       <img src="between-the-lines/assets/chatbot.webp" alt="The quiet risk, sketched: a chat that nods along, states things confidently, and knows nothing about the person's week." loading="lazy">
       <figcaption><span>The quiet risk, sketched: a chat that nods along, states things confidently, and knows nothing about the person's week.</span></figcaption>
     </figure><div class="col"><div class="stats reveal"><div class="src">US survey of people with an ongoing mental health condition. Sentio University, 2025.</div><div class="row"><div class="stat"><div class="fig">~49%</div><div class="lab">use a general-purpose language model for mental-health support</div></div></div></div></div></section><section class="sec" id="extremes"><div class="col">
       <div class="eyebrow"><b>03</b> · The landscape</div>
-      <h2 class="h">Most journaling apps are either an empty text box or a mood-emoji tracker</h2><p>The tools made for reflection sit at two extremes. The blank page gives you nowhere to start. <strong>The mood tracker shrinks a whole day to one tapped face.</strong> It never says anything back. <strong>Neither closes the loop between writing and understanding.</strong> That loop is the only reason to keep a journal.</p></div></section><section class="sec" id="norway"><div class="col">
+      <h2 class="h">Most journaling apps are either an empty text box or a mood-emoji tracker</h2><p>The blank page gives you nowhere to start. The mood tracker shrinks a whole day to one tapped face and never says anything back. Neither helps you understand what you wrote.</p></div></section><section class="sec" id="norway"><div class="col">
       <div class="eyebrow"><b>04</b> · Context</div>
       <h2 class="h">In a country that funds mental health heavily, it is still the costliest condition</h2><p>Norway spends more on mental health than almost any country. <strong>It is still the single costliest condition there</strong>, close to three percent of GDP. Care exists. Access is uneven. The everyday layer, the one with low stakes, is thin. <strong>There is room before and beside professional care</strong> for something cheap and private. Something that helps a person notice their own patterns.</p></div><div class="col"><div class="stats reveal"><div class="src">Public Norwegian sources. Illustrative, 2026.</div><div class="row"><div class="stat"><div class="fig">~3%</div><div class="lab">of GDP: mental disorders, the single costliest condition in Norway</div></div><div class="stat"><div class="fig">~20%</div><div class="lab">of new depression diagnoses referred to specialised care</div></div></div></div></div></section><section class="sec" id="firstbuild"><div class="col">
       <div class="eyebrow"><b>05</b> · Diagnosis</div>
-      <h2 class="h">The first build made the same mistake it set out to fix</h2><p>The first version worked. <strong>It had never really been designed.</strong> Writing, mood rating and tagging were crammed onto one screen. No focus. No payoff for the effort. <strong>It was the exact shape of the problem</strong>, staring back at me.</p></div><figure class="fig reveal wide">
+      <h2 class="h">The first version worked, but it asked for too much at once</h2><p>Writing, mood rating and tagging all sat on one screen. There was no focus while writing, and nothing came back for the effort.</p></div><figure class="fig reveal wide">
       <img src="between-the-lines/assets/before.webp" alt="v1 from the first build, audited finding by finding: writing, rating and tagging crammed onto one screen, with demo text." loading="lazy">
       <figcaption><span>v1 from the first build, audited finding by finding: writing, rating and tagging crammed onto one screen, with demo text.</span></figcaption>
     </figure></section><section class="sec" id="rule"><div class="col">
       <div class="eyebrow"><b>06</b> · Guiding policy</div>
-      <h2 class="h">One rule held the scope: an adjunct, never a replacement</h2><p>Every decision ran through one commitment. Complement care and self-knowledge. <strong>Never impersonate a therapist.</strong> Each reflection carries the same line: <strong>patterns in your own words, not a diagnosis</strong>.</p></div><div class="col"><h3 class="sh">The evidence base was the partner</h3><p>The design does not invent its own claims. It defers to validated psychology and cites it.</p><ul class="pts"><li><strong>Russell’s circumplex model of affect</strong>, for mood.</li><li><strong>Pennebaker’s expressive-writing research</strong>, for the language reflection.</li><li><strong>CBT vocabulary</strong>, for the prompts.</li><li><strong>Low-validity personality quizzes refused</strong>, such as MBTI and the Enneagram.</li></ul></div><figure class="fig reveal wide">
+      <h2 class="h">One rule set the scope: support care, never replace it</h2><p>The journal helps people notice their own patterns and never imitates a therapist. Each reflection carries the same line: patterns in your own words, not a diagnosis.</p></div><div class="col"><h3 class="sh">Built on established psychology</h3><ul class="pts"><li>Russell’s circumplex model of affect, for mood</li><li>Pennebaker’s expressive-writing research, for the language reflection</li><li>CBT vocabulary, for the prompts</li><li>No low-validity personality quizzes, such as MBTI or the Enneagram</li></ul></div><figure class="fig reveal wide">
       <img src="between-the-lines/assets/principle.webp" alt="The evidence base as the design partner: borrowed psychology, one refused shortcut, and the line that runs under everything." loading="lazy">
       <figcaption><span>The evidence base as the design partner: borrowed psychology, one refused shortcut, and the line that runs under everything.</span></figcaption>
     </figure></section><section class="sec" id="flow"><div class="col">
       <div class="eyebrow"><b>07</b> · The build</div>
-      <h2 class="h">A focused two-step flow: write first, rate later</h2><p><strong>Writing and judging are different mental modes. So they were separated.</strong> Step one is a distraction-free editor and nothing else. Step two comes only after the writing. It asks for mood and themes. One home, one task. The navigation and the clutter came out. <strong>Nothing floats over the writing surface.</strong></p></div><figure class="fig reveal phone">
+      <h2 class="h">A focused two-step flow: write first, rate later</h2><p>Writing and judging are different mental modes, so they became two steps. Step one is a distraction-free editor. Step two asks for mood and themes.</p></div><figure class="fig reveal phone">
       <img src="between-the-lines/assets/journey.webp" alt="The two-step entry in motion: write first, then the reflect step appears." loading="lazy">
       <figcaption><span>The two-step entry in motion: write first, then the reflect step appears.</span></figcaption>
     </figure><figure class="fig reveal scroll">
@@ -561,14 +590,14 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
       <figcaption><span>The Journal home: the entry timeline with the insight card and a single New entry action.</span></figcaption>
     </figure></section><section class="sec" id="grid"><div class="col">
       <div class="eyebrow"><b>08</b> · Component</div>
-      <h2 class="h">Mood became two axes, because calm and exhausted are not the same low</h2><p><strong>A single sad-to-happy scale hides half of how a day feels.</strong> Calm and exhausted both score low. They are not the same day. The emoji gave way to <strong>an Affect Grid</strong>: a square where one axis is mood and the other is energy, drawn from Russell’s circumplex. One placed dot captures both at once. Pleasant or heavy. Wired or worn out.</p></div><figure class="fig reveal phone">
+      <h2 class="h">Mood became two axes, because calm and exhausted are not the same low</h2><p>On a single sad-to-happy scale, calm and exhausted both score low, but they are very different days. So the emoji gave way to an Affect Grid, based on Russell’s circumplex: one axis for mood, one for energy, and one dot to capture both.</p></div><figure class="fig reveal phone">
       <img src="between-the-lines/assets/flow-2-reflect-affectgrid.webp" alt="The reflect step: the Affect Grid places one dot and reads it back as mood and energy." loading="lazy">
       <figcaption><span>The reflect step: the Affect Grid places one dot and reads it back as mood and energy.</span></figcaption>
     </figure></section><section class="sec" id="dictation"><div class="col">
       <div class="eyebrow"><b>09</b> · Iteration</div>
-      <h2 class="h">Dictation worked in Chrome and nowhere else, so it was rebuilt</h2><p>Voice input was added to lower the barrier to writing. The first version sat on the browser’s built-in speech API. <strong>It failed silently outside Chrome.</strong> It was torn out. <strong>The rebuild records audio and transcribes it server-side with Whisper.</strong> That works everywhere, including mobile. A small, honest loop: build, test, adapt, with a concrete cause.</p></div></section><section class="sec" id="betweenlines"><div class="col">
+      <h2 class="h">Dictation worked in Chrome and nowhere else, so it was rebuilt</h2><p>The first version used the browser’s speech API, which failed silently outside Chrome. The rebuild records audio and transcribes it on the server with Whisper, so dictation works everywhere, including on phones.</p></div></section><section class="sec" id="betweenlines"><div class="col">
       <div class="eyebrow"><b>10</b> · The payoff</div>
-      <h2 class="h">It reads between the lines only when asked</h2><p>The reward for journaling is the Between the Lines card. By default it shows <strong>a plain-language conclusion computed on the device</strong>. This week against last, next to a swipeable mood-and-energy trend. No model is called to produce it.</p><p>The deeper AI reflection is <strong>one deliberate tap away, and opt-in every time</strong>. By default no entry is sent off for reflection. What every entry does get is a search embedding, so it can be found later by meaning.</p><p>The entries live in the writer’s own account. <strong>The line this product defends is consent, not secrecy.</strong> Nothing is read for reflection that was not explicitly offered up. That is what personvern and GDPR actually ask for.</p></div><figure class="fig reveal phone">
+      <h2 class="h">It reads between the lines only when asked</h2><p>The reward for journaling is the Between the Lines card. By default it compares this week with the last, next to a mood and energy trend, with no language model involved.</p><p>A deeper AI reflection is one deliberate tap away. Every entry does get a search embedding, so it can be found later by meaning.</p></div><figure class="fig reveal phone">
       <img src="between-the-lines/assets/mobile-reflection-detail.webp" alt="A reflection in detail: the on-device conclusion with the honest privacy note underneath." loading="lazy">
       <figcaption><span>A reflection in detail: the on-device conclusion with the honest privacy note underneath.</span></figcaption>
     </figure><figure class="fig reveal wide">
@@ -576,12 +605,45 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
       <figcaption><span>The Insights card from the running build. The circled Saturday is the reason mood became two axes.</span></figcaption>
     </figure></section><section class="sec" id="companion"><div class="col">
       <div class="eyebrow"><b>11</b> · The Companion</div>
-      <h2 class="h">The Companion answers the chatbot problem instead of ignoring it</h2><p>A journal that reads between the lines invites an obvious next wish: someone to talk to about it. The product does not pretend that wish away. <strong>It ships a conversation built the other way round from the generic chatbot.</strong> The Companion opens from the page. It quotes what the week actually says. <strong>It hands a question back before it answers one.</strong> When the language crosses a crisis threshold, <strong>it drops the conversation and shows Norway’s real help lines</strong>, right in the thread. The same rule as everywhere else: an adjunct, never a therapist. Only now it can hold a conversation without breaking it.</p></div><figure class="fig reveal wide">
+      <h2 class="h">The Companion is built the opposite way from a generic chatbot</h2><p>It opens from your page and quotes what your week actually says. It asks a question back before it answers one. When a message in English or Norwegian signals a crisis, it stops the conversation and shows emergency numbers.</p></div><figure class="fig reveal wide">
       <img src="between-the-lines/assets/companion.webp" alt="The Companion in the running build: a grounded opening, a question handed back, and the crisis guardrail with Norway's real help lines." loading="lazy">
       <figcaption><span>The Companion in the running build: a grounded opening, a question handed back, and the crisis guardrail with Norway's real help lines.</span></figcaption>
-    </figure><div class="col"><p class="close">The reply to a chatbot that always agrees is not silence. It is a companion that asks back.</p></div></section><section class="sec" id="clickable"><div class="col">
-      <div class="eyebrow"><b>12</b> · Delivery</div>
-      <h2 class="h">From a course project to a product with accounts, payments and an API</h2><p>The point of the technical layer is <strong>a design that ships, not just a mockup</strong>. The course version ran on React and TypeScript, a Tiptap editor and Vercel serverless functions. Whisper did the dictation. Grok models wrote the reflections and the Companion’s replies.</p><p><strong>What it became after the course is the part worth reading.</strong> Entries moved into a Postgres database behind real accounts. Search became hybrid: meaning through pgvector embeddings, wording through trigrams. So “that argument in July” finds the entry that never used the word. Subscriptions run on Stripe with idempotent webhooks.</p><p>Then the journal grew <strong>an OAuth 2.1 authorisation server and an MCP server</strong>. An AI assistant can read and write it on the owner’s behalf. Dynamic client registration. PKCE. Refresh tokens that rotate. A reused token invalidates its whole chain.</p><p><strong>AI was the accelerator throughout. The judgement was mine.</strong> What to build. When it was genuinely done. Which shortcut to refuse. Every decision in that repository is one I can defend.</p></div><figure class="fig reveal wide">
+    </figure></section><section class="sec" id="clickable"><div class="col">
+      <div class="eyebrow"><b>12</b> · How it works</div>
+      <h2 class="h">The same system, explained to a ten-year-old, to a professional, and as it was built</h2><p>AI products affect people who will never read the code, so <strong>being able to explain the system is part of building it</strong>. Each part below has three explanations. Choose one, or read all three.</p></div><figure class="fig reveal wide">
+      <img src="between-the-lines/assets/system-map.webp" alt="The whole system on one page: what happens when you write, when you ask, and when an AI assistant connects. Violet boxes are the moments an AI model is called." loading="lazy">
+      <figcaption><span>The whole system on one page: what happens when you write, when you ask, and when an AI assistant connects. Violet boxes are the moments an AI model is called.</span></figcaption>
+    </figure><div class="col"><div class="explain" data-level="kid">
+    <fieldset class="lvl"><legend>Choose how it is explained</legend><div class="lvl-o"><label><input type="radio" name="lvl" value="kid" checked=""><span>Like I'm ten</span></label><label><input type="radio" name="lvl" value="pro"><span>For professionals</span></label><label><input type="radio" name="lvl" value="built"><span>How I built it</span></label><label><input type="radio" name="lvl" value="all"><span>All three</span></label></div></fieldset>
+    <article class="ex" id="ex-store">
+      <div class="ex-h"><span class="ex-n">01</span><div><h3>A private drawer for every person</h3><p class="ex-term">Postgres · row-level security</p></div></div>
+      <div class="ex-l" data-l="kid"><p class="ex-tag">Like I'm ten</p><p>Imagine a huge cupboard with a locked drawer for every person. When you open the app, the cupboard checks your key and opens only your drawer.</p></div><div class="ex-l" data-l="pro"><p class="ex-tag">For professionals</p><p>Entries live in Postgres on Supabase, with row-level security on every user table. Server routes use a privileged role, so each one limits its queries to the signed-in user.</p></div><div class="ex-l" data-l="built"><p class="ex-tag">How I built it</p><p>The first version kept entries in the browser, the cheapest way to test whether writing felt right. Once it did, I moved them into a database with accounts.</p></div>
+    </article><article class="ex" id="ex-embed">
+      <div class="ex-h"><span class="ex-n">02</span><div><h3>Finding an entry by what it means</h3><p class="ex-term">Embeddings · pgvector</p></div></div>
+      <div class="ex-l" data-l="kid"><p class="ex-tag">Like I'm ten</p><p>Picture a giant map where every diary page is a dot. Pages about similar things sit close together, even in different words. "Worn out after work" lands next to "exhausted from the office". Your question becomes a dot too, and the app looks nearby.</p></div><div class="ex-l" data-l="pro"><p class="ex-tag">For professionals</p><p>Each entry becomes one 1,536-dimension vector from OpenAI's text-embedding-3-small, stored in pgvector and compared by cosine similarity. Entries are short, so there is no chunking.</p></div><div class="ex-l" data-l="built"><p class="ex-tag">How I built it</p><p>Saving an entry must never fail because an AI service is down. So a database trigger only flags changed text, and a job running every two minutes computes the embeddings. If a run fails, the next one retries.</p></div>
+    </article><article class="ex" id="ex-hybrid">
+      <div class="ex-h"><span class="ex-n">03</span><div><h3>Searching in two ways at once</h3><p class="ex-term">Hybrid search · trigrams · RRF</p></div></div>
+      <div class="ex-l" data-l="kid"><p class="ex-tag">Like I'm ten</p><p>Two detectives look for the same page. One understands what you mean. The other checks the exact letters. Then they put their lists together, and a page that both of them found moves up.</p></div><div class="ex-l" data-l="pro"><p class="ex-tag">For professionals</p><p>The top 30 entries by cosine similarity and the top 30 by trigram similarity are merged with Reciprocal Rank Fusion (k = 20). A search for "that argument" can find an entry that never uses the word.</p></div><div class="ex-l" data-l="built"><p class="ex-tag">How I built it</p><p>Most demo entries are in Polish, and the database has no Polish dictionary. Trigrams compare small groups of letters, so they work in any language and cope with word endings and typos.</p></div>
+    </article><article class="ex" id="ex-floor">
+      <div class="ex-h"><span class="ex-n">04</span><div><h3>Knowing when nothing matches</h3><p class="ex-term">Similarity threshold · evaluation</p></div></div>
+      <div class="ex-l" data-l="kid"><p class="ex-tag">Like I'm ten</p><p>If you ask for a page that does not exist, a bad helper brings you something anyway, and you believe it. So we drew a line: a page that is not similar enough stays on the shelf.</p></div><div class="ex-l" data-l="pro"><p class="ex-tag">For professionals</p><p>Vector search always returns the nearest entries, even for nonsense. In the demo journal, gibberish scored up to 0.21 and real questions about 0.37 or higher, so the threshold went to 0.30.</p></div><div class="ex-l" data-l="built"><p class="ex-tag">How I built it</p><p>The first value, 0.15, would have handed 13% of the journal to the model for a nonsense query. I calibrated it once, with Claude Code, on a demo journal of 228 entries.</p></div>
+    </article><article class="ex" id="ex-rag">
+      <div class="ex-h"><span class="ex-n">05</span><div><h3>Looking things up before answering</h3><p class="ex-term">RAG · context design</p></div></div>
+      <div class="ex-l" data-l="kid"><p class="ex-tag">Like I'm ten</p><p>Before the Companion answers, a helper goes to the shelf and brings the pages that fit your question. It puts them on the desk, and the Companion answers from what is on the desk.</p></div><div class="ex-l" data-l="pro"><p class="ex-tag">For professionals</p><p>Retrieval-augmented generation. For a question through the API or MCP, the server embeds it, runs hybrid search and builds the context from the focus day, the last seven days and up to 12 matching entries. If search fails, the Companion still answers from recent entries.</p></div><div class="ex-l" data-l="built"><p class="ex-tag">How I built it</p><p>A test question about something from seven months earlier got an answer from the last two weeks, because only those entries were in context. Adding search then pushed the current week out, so recent and relevant entries became two separate sets.</p></div>
+    </article><article class="ex" id="ex-guard">
+      <div class="ex-h"><span class="ex-n">06</span><div><h3>Keeping the AI in its place</h3><p class="ex-term">System prompts · guardrails</p></div></div>
+      <div class="ex-l" data-l="kid"><p class="ex-tag">Like I'm ten</p><p>The Companion carries a card with rules. Do not pretend to be a doctor. Only talk about what this person wrote. If someone sounds in danger, stop chatting and show who can really help.</p></div><div class="ex-l" data-l="pro"><p class="ex-tag">For professionals</p><p>The system prompt forbids diagnoses and labels, and grounds replies in the person's entries. Prompts live on the server, so a browser cannot inject its own. A keyword check runs before the model is called.</p></div><div class="ex-l" data-l="built"><p class="ex-tag">How I built it</p><p>I kept the crisis check simple and independent of the model. When a message in English or Norwegian signals a crisis, the app skips the AI and shows emergency numbers in the conversation.</p></div>
+    </article><article class="ex" id="ex-models">
+      <div class="ex-h"><span class="ex-n">07</span><div><h3>An engine that can be swapped</h3><p class="ex-term">Model abstraction</p></div></div>
+      <div class="ex-l" data-l="kid"><p class="ex-tag">Like I'm ten</p><p>The AI is like the engine in a car. Newer engines keep coming out, so the car is built to let you change the engine without rebuilding the whole car.</p></div><div class="ex-l" data-l="pro"><p class="ex-tag">For professionals</p><p>Chat and embedding clients sit in one module: Grok for replies, OpenAI for embeddings. Changing the chat model is a one-line edit. Changing the embedding model means recomputing every stored vector.</p></div><div class="ex-l" data-l="built"><p class="ex-tag">How I built it</p><p>On the day the Companion launched, the provider retired the model I had chosen. Since then, each model name lives in one place.</p></div>
+    </article><article class="ex" id="ex-mcp">
+      <div class="ex-h"><span class="ex-n">08</span><div><h3>A universal plug for AI assistants</h3><p class="ex-term">Model Context Protocol (MCP)</p></div></div>
+      <div class="ex-l" data-l="kid"><p class="ex-tag">Like I'm ten</p><p>MCP is a universal plug for AI assistants. The journal has one socket and a list of what it can do, so an assistant like Claude can plug in and say "write this down" or "find that page".</p></div><div class="ex-l" data-l="pro"><p class="ex-tag">For professionals</p><p>A stateless MCP server over Streamable HTTP exposes six tools, such as create_entry, search_entries and ask_companion. Each has a typed schema, and the HTTP API and MCP share the same functions and rules.</p></div><div class="ex-l" data-l="built"><p class="ex-tag">How I built it</p><p>Tool descriptions turned out to be design work, with a model as the reader. The search tool tells it how to read the scores and that weak matches can come back. I use this connection myself: Claude can add an entry to my journal and read it back.</p></div>
+    </article><article class="ex" id="ex-oauth">
+      <div class="ex-h"><span class="ex-n">09</span><div><h3>A guest pass, never your password</h3><p class="ex-term">OAuth 2.1 · PKCE</p></div></div>
+      <div class="ex-l" data-l="kid"><p class="ex-tag">Like I'm ten</p><p>You would not give a stranger your house keys, so you give the assistant a guest pass. It works for one hour. If someone steals an old pass and tries to use it, the whole set stops working.</p></div><div class="ex-l" data-l="pro"><p class="ex-tag">For professionals</p><p>The journal is its own OAuth 2.1 authorisation server, with dynamic client registration, a consent screen and PKCE. Access tokens last one hour, refresh tokens rotate on every use, and replaying a used one revokes the chain.</p></div><div class="ex-l" data-l="built"><p class="ex-tag">How I built it</p><p>Claude's connectors do not accept a pasted API key, so connecting the journal needed a real authorisation flow. I specified the behaviour and the threat, a stolen token, and Claude Code wrote the implementation.</p></div>
+    </article>
+  </div></div><div class="col"><h3 class="sh">Who did what</h3><p>I wrote the requirements, worked out the architecture with Claude Code, made the product and safety decisions, and checked the results in the running product. <strong>Claude Code wrote most of the code.</strong> I am a designer who builds, and I can explain every part above. The journal has no real users yet.</p></div><figure class="fig reveal wide">
       <img src="between-the-lines/assets/showcase.webp" alt="Four screens from the running build: the journal home, the two-step entry, the Affect Grid, and the Insights card." loading="lazy">
       <figcaption><span>Four screens from the running build: the journal home, the two-step entry, the Affect Grid, and the Insights card.</span></figcaption>
     </figure><figure class="fig reveal wide">
@@ -589,11 +651,11 @@ footer.foot .next-h em{font-style:italic;color:var(--accent);}
       <figcaption><span>Between the Lines in the hand: the journal home with the week's trend, in a lifestyle photo.</span></figcaption>
     </figure><div class="col"><p class="close">Not a mockup to imagine, a product to open.</p></div></section><section class="sec" id="access"><div class="col">
       <div class="eyebrow"><b>13</b> · Accessibility</div>
-      <h2 class="h">The component that defines this product is the one most likely to lock someone out</h2><p>A square you drag a dot into is a pointer-only idea. And the two-axis grid is the heart of the product. <strong>It ships as a slider.</strong> Focusable. Driven by the arrow keys. It announces its position in words, “pleasant, low energy”, not as coordinates nobody can picture.</p><p>The Companion had the quieter version of the same bug. Its typing indicator carried an aria-label on a plain div. A plain div announces nothing. For a screen reader the wait was simply silence. <strong>It became a live region instead.</strong> Motion follows the system’s reduced-motion setting throughout.</p></div><div class="col"><p class="close">An automated scan catches the contrast. It does not catch a grid that only answers to a mouse.</p></div></section><section class="sec" id="reflection"><div class="col">
+      <h2 class="h">The component that defines this product is the one most likely to lock someone out</h2><p>A square you drag a dot into only works with a pointer, and it is the heart of this product. So it also works as a slider: focusable, driven by the arrow keys, and announcing its position in words, such as “pleasant, low energy”.</p><p>The Companion had a quieter bug: its typing indicator said nothing to a screen reader, so the wait was pure silence. It became a live region.</p></div><div class="col"><p class="close">An automated scan catches the contrast. It does not catch a grid that only answers to a mouse.</p></div></section><section class="sec" id="reflection"><div class="col">
       <div class="eyebrow"><b>14</b> · Lessons</div>
-      <h2 class="h">What the project taught, and where it goes next</h2><p><strong>Building it, rather than only drawing it, made every trade-off concrete.</strong></p><ul class="pts"><li><strong>Subtraction did more than addition.</strong> The navigation, the clutter and the crude single mood axis all came out.</li><li><strong>Constraints from the evidence base sharpened the work.</strong> They did not narrow it.</li><li><strong>The most honest feature is also the most trustworthy.</strong> On demand, clearly labelled, never pretending to diagnose.</li><li><strong>With no real users yet, every choice is still a hypothesis.</strong> Real journalers are the next test.</li></ul></div><div class="col"><p class="close">The product will keep developing: real journalers first, then deeper analysis of language over time.</p></div></section><section class="sec" id="sources"><div class="col">
+      <h2 class="h">What the project taught, and where it goes next</h2><ul class="pts"><li><strong>Removing things helped more than adding them.</strong> The navigation, the clutter and the single mood scale all came out.</li><li><strong>People can trust an AI feature that is on demand</strong>, clearly labelled and never diagnoses.</li><li><strong>With no real users yet, every choice is still a hypothesis.</strong> Testing with people who keep a journal comes next.</li></ul></div></section><section class="sec" id="sources"><div class="col">
       <div class="eyebrow"><b>15</b> · Sources</div>
-      <h2 class="h">The public material behind the framing</h2><p>Cited as references, not claimed as fieldwork. US usage data and Norwegian market context are kept separate. <strong>Re-verify the figures against the primary texts before any public use.</strong></p><ul class="pts"><li><strong>Sentio University (2025).</strong> Survey of people with an ongoing mental health condition; about half use language models for mental-health support.</li><li><strong>Healthline; Toronto Metropolitan University; Psychiatric Times (2025 to 2026).</strong> Expert warnings that chatbots affirm rather than challenge, can state false information confidently, and are an adjunct, not a replacement.</li><li><strong>Norwegian GP-DEP Study; NCDNOR.</strong> Depression treatment and referral patterns in Norwegian general practice, and uneven access to specialised care.</li><li><strong>ScienceDirect welfare-state review (2024).</strong> Mental disorders as the costliest condition in Norway, close to three percent of GDP.</li></ul></div></section><!--/prerendered--><!--/prerendered--></article>
+      <h2 class="h">The public material behind the framing</h2><ul class="pts"><li><strong>Sentio University (2025).</strong> Survey of people with an ongoing mental health condition; about half use language models for mental-health support.</li><li><strong>Healthline; Toronto Metropolitan University; Psychiatric Times (2025 to 2026).</strong> Expert warnings that chatbots affirm rather than challenge, can state false information confidently, and are an adjunct, not a replacement.</li><li><strong>Norwegian GP-DEP Study; NCDNOR.</strong> Depression treatment and referral patterns in Norwegian general practice, and uneven access to specialised care.</li><li><strong>ScienceDirect welfare-state review (2024).</strong> Mental disorders as the costliest condition in Norway, close to three percent of GDP.</li></ul></div></section><!--/prerendered--><!--/prerendered--></article>
 
   <div class="col">
     <footer class="foot reveal">
@@ -650,22 +712,31 @@ const T = {
     dek:'A journal that reflects your own patterns back to you.<br>In your own words, and never as a diagnosis.',
     glance:{
       eyebrow:'At a glance',
-      problem:{k:'Problem', v:'Journaling tools sit at two extremes: a blank page or a mood emoji. More and more people take their inner life to a general chatbot instead. In a 2025 US survey, <strong>~49%</strong> of people with an ongoing mental-health condition used one for support. <strong>The tool they confide in only agrees with them.</strong>'},
-      role:{k:'My role', v:'<strong>Product &amp; UX Designer, solo design and build.</strong> The journal started in the AI Product Masterclass (Nueve Design, 2026, a five-week intensive) and kept going after it ended. I designed it and took it to production. Writing separated from rating. Mood as a two-axis grid reachable by keyboard. Dictation rebuilt around Whisper. A Companion grounded in the journal. <strong>Past the course, it became a real product:</strong> accounts on a Postgres database, semantic search over entries, an OAuth&nbsp;2.1 authorisation server, and an MCP server that lets an AI assistant read and write the journal with the owner&rsquo;s consent.'},
+      problem:{
+        k:'Problem',
+        v:'Journaling tools sit at two extremes: a blank page or a mood emoji. So more and more people take their inner life to a general chatbot. In a 2025 US survey, <strong>~49%</strong> of people with an ongoing mental-health condition used one for support. <strong>The tool they confide in mostly agrees with them.</strong>'
+      },
+      role:{
+        k:'My role',
+        v:'<strong>Product &amp; UX Designer, solo design and build.</strong> The journal started in the AI Product Masterclass (Nueve Design, 2026), and I kept building it after the course. <strong>It is now a working product:</strong> accounts, search by meaning, an AI Companion grounded in the journal, and an MCP server that lets an AI assistant read and write it with the owner&rsquo;s consent.'
+      },
       value:{
         k:'Value',
         items:[
-          '<strong>Shipped live:</strong> a working product you can open and try, not a clickable mockup',
-          '<strong>Write first, rate later:</strong> writing and judging are separate steps on one distraction-free screen',
-          '<strong>Keyboard and screen reader throughout:</strong> including the two-axis mood grid, which answers to arrow keys and reads its position back in words',
-          '<strong>Consent is the boundary:</strong> the deeper AI reflection is opt-in per entry, and an assistant reaches the journal only through OAuth the owner grants and can revoke'
+          '<strong>Shipped live:</strong> a working product you can open and try',
+          '<strong>Write first, rate later:</strong> writing and judging are two separate steps',
+          '<strong>Keyboard and screen reader throughout:</strong> including the two-axis mood grid',
+          '<strong>Consent is the boundary:</strong> the deeper AI reflection is opt-in per entry, and an assistant reaches the journal only with access the owner grants'
         ]
       },
       live:{
         k:'Try it',
-        link:{href:'https://between-the-lines-journal.vercel.app/', label:'Try it live'},
+        link:{
+          href:'https://between-the-lines-journal.vercel.app/',
+          label:'Try it live'
+        },
         stackLabel:'Stack',
-        stack:['Vite','React','TypeScript','Tailwind','shadcn/ui','Tiptap','Supabase Postgres','pgvector','OAuth 2.1','MCP','Stripe','Vercel functions','xAI Grok','Groq Whisper'],
+        stack:['Vite', 'React', 'TypeScript', 'Tailwind', 'shadcn/ui', 'Tiptap', 'Supabase Postgres', 'pgvector', 'OAuth 2.1', 'MCP', 'Stripe', 'Vercel functions', 'xAI Grok', 'Groq Whisper'],
         note:'Solo course project · working demo · no real users yet'
       }
     },
@@ -692,22 +763,31 @@ const T = {
     dek:'En dagbok som speiler dine egne mønstre tilbake til deg.<br>Med dine egne ord, og aldri som en diagnose.',
     glance:{
       eyebrow:'Kort fortalt',
-      problem:{k:'Problem', v:'Dagbøker havner på to ytterpunkter: en blank side eller en humøremoji. Flere og flere tar heller innerlivet sitt til en generell chatbot. I en amerikansk undersøkelse fra 2025 brukte <strong>~49%</strong> av personer med en pågående psykisk lidelse en slik til støtte. <strong>Verktøyet de betror seg til, er bare enig med dem.</strong>'},
-      role:{k:'Min rolle', v:'<strong>Produkt- og UX-designer, design og bygg alene.</strong> Dagboken startet under AI Product Masterclass (Nueve Design, 2026, fem ukers intensiv) og fortsatte etter at kurset var over. Jeg designet den og tok den i produksjon. Skriving skilt fra vurdering. Humør som et rutenett med to akser, som også kan betjenes med tastatur. Diktering bygd om rundt Whisper. En Companion forankret i dagboken. <strong>Etter kurset ble det et ekte produkt:</strong> kontoer på en Postgres-database, semantisk søk i notatene, en OAuth&nbsp;2.1-autorisasjonsserver, og en MCP-server som lar en KI-assistent lese og skrive dagboken med eierens samtykke.'},
+      problem:{
+        k:'Problem',
+        v:'Dagbokverktøy ligger i to ytterpunkter: en tom side eller en humør-emoji. Derfor tar stadig flere det indre livet sitt til en generell chatbot. I en amerikansk undersøkelse fra 2025 brukte <strong>~49%</strong> av personer med en langvarig psykisk lidelse en slik chatbot som støtte. <strong>Verktøyet de betror seg til, er stort sett enig med dem.</strong>'
+      },
+      role:{
+        k:'Min rolle',
+        v:'<strong>Produkt- og UX-designer, design og utvikling alene.</strong> Dagboken startet i AI Product Masterclass (Nueve Design, 2026), og jeg fortsatte å bygge den etter kurset. <strong>Nå er den et fungerende produkt:</strong> kontoer, søk etter betydning, en KI-Companion forankret i dagboken og en MCP-server som lar en KI-assistent lese og skrive i den med eierens samtykke.'
+      },
       value:{
         k:'Verdi',
         items:[
-          '<strong>Lansert live:</strong> et fungerende produkt du kan åpne og prøve, ikke en klikkbar mockup',
-          '<strong>Skriv først, vurder etterpå:</strong> skriving og vurdering er separate steg på én distraksjonsfri flate',
-          '<strong>Tastatur og skjermleser hele veien:</strong> også humørrutenettet med to akser, som svarer på piltaster og leser posisjonen tilbake med ord',
-          '<strong>Samtykke er grensen:</strong> den dypere KI-refleksjonen er opt-in per notat, og en assistent når dagboken bare gjennom OAuth som eieren gir og kan trekke tilbake'
+          '<strong>Lansert:</strong> et fungerende produkt du kan åpne og prøve',
+          '<strong>Skriv først, vurder etterpå:</strong> skriving og vurdering er to separate trinn',
+          '<strong>Tastatur og skjermleser hele veien:</strong> også i humørrutenettet med to akser',
+          '<strong>Samtykke er grensen:</strong> den dypere KI-refleksjonen er opt-in per notat, og en assistent når dagboken bare med tilgang eieren gir'
         ]
       },
       live:{
         k:'Prøv det',
-        link:{href:'https://between-the-lines-journal.vercel.app/', label:'Prøv det live'},
+        link:{
+          href:'https://between-the-lines-journal.vercel.app/',
+          label:'Prøv det live'
+        },
         stackLabel:'Teknologi',
-        stack:['Vite','React','TypeScript','Tailwind','shadcn/ui','Tiptap','Supabase Postgres','pgvector','OAuth 2.1','MCP','Stripe','Vercel functions','xAI Grok','Groq Whisper'],
+        stack:['Vite', 'React', 'TypeScript', 'Tailwind', 'shadcn/ui', 'Tiptap', 'Supabase Postgres', 'pgvector', 'OAuth 2.1', 'MCP', 'Stripe', 'Vercel functions', 'xAI Grok', 'Groq Whisper'],
         note:'Solo kursprosjekt · fungerende demo · ingen reelle brukere ennå'
       }
     },
@@ -736,18 +816,20 @@ const T = {
       eyebrow:'De un vistazo',
       problem:{
         k:'Problema',
-        v:'Las herramientas de diario se sitúan en dos extremos: una página en blanco o un emoji de estado de ánimo. Cada vez más gente lleva su vida interior a un chatbot genérico. En una encuesta estadounidense de 2025, <strong>~49 %</strong> de las personas con un problema de salud mental en curso usaron uno como apoyo. <strong>La herramienta a la que se confían solo les da la razón.</strong>'
+        v:'Las herramientas para escribir un diario están en dos extremos: una página en blanco o un emoji de ánimo. Por eso cada vez más personas llevan su vida interior a un chatbot generalista. En una encuesta de EE. UU. de 2025, <strong>~49 %</strong> de las personas con un problema de salud mental continuado usaba uno como apoyo. <strong>La herramienta a la que se confían casi siempre les da la razón.</strong>'
       },
       role:{
         k:'Mi papel',
-        v:'<strong>Diseñadora de producto y UX, diseño y construcción en solitario.</strong> El diario nació en el AI Product Masterclass (Nueve Design, 2026, un intensivo de cinco semanas) y siguió después de que terminara. Lo diseñé y lo llevé a producción. La escritura separada de la valoración. El estado de ánimo como una cuadrícula de dos ejes accesible por teclado. El dictado reconstruido sobre Whisper. Un Companion anclado en el diario. <strong>Ya fuera del curso, se convirtió en un producto real:</strong> cuentas sobre una base de datos Postgres, búsqueda semántica en las entradas, un servidor de autorización OAuth&nbsp;2.1, y un servidor MCP que permite a un asistente de IA leer y escribir el diario con el consentimiento de su dueño.'
+        v:'<strong>Diseñadora de producto y UX, diseño y desarrollo en solitario.</strong> El diario empezó en el AI Product Masterclass (Nueve Design, 2026) y seguí construyéndolo después del curso. <strong>Hoy es un producto que funciona:</strong> cuentas, búsqueda por significado, un Companion de IA anclado en el diario y un servidor MCP que permite a un asistente de IA leerlo y escribir en él con el consentimiento de su dueño.'
       },
       value:{
         k:'Valor',
-        items:['<strong>Publicado y en marcha:</strong> un producto que funciona y que puedes abrir y probar, no una maqueta clicable',
-         '<strong>Primero escribe, valora después:</strong> escribir y juzgar son pasos separados en una única pantalla sin distracciones',
-         '<strong>Teclado y lector de pantalla de principio a fin:</strong> incluida la cuadrícula de dos ejes, que responde a las flechas y lee su posición en palabras',
-         '<strong>El consentimiento es la frontera:</strong> la reflexión más profunda con IA se activa entrada a entrada, y un asistente llega al diario solo a través de un OAuth que el dueño concede y puede revocar']
+        items:[
+          '<strong>Publicado:</strong> un producto que funciona y que puedes abrir y probar',
+          '<strong>Primero escribir, después valorar:</strong> escribir y juzgar son dos pasos separados',
+          '<strong>Teclado y lector de pantalla en todo:</strong> también en la cuadrícula de ánimo de dos ejes',
+          '<strong>El consentimiento es la frontera:</strong> la reflexión más profunda con IA se activa entrada a entrada, y un asistente llega al diario solo con el acceso que concede su dueño'
+        ]
       },
       live:{
         k:'Pruébalo',
@@ -756,20 +838,7 @@ const T = {
           label:'Probar la versión en vivo'
         },
         stackLabel:'Stack',
-        stack:['Vite',
-         'React',
-         'TypeScript',
-         'Tailwind',
-         'shadcn/ui',
-         'Tiptap',
-         'Supabase Postgres',
-         'pgvector',
-         'OAuth 2.1',
-         'MCP',
-         'Stripe',
-         'Vercel functions',
-         'xAI Grok',
-         'Groq Whisper'],
+        stack:['Vite', 'React', 'TypeScript', 'Tailwind', 'shadcn/ui', 'Tiptap', 'Supabase Postgres', 'pgvector', 'OAuth 2.1', 'MCP', 'Stripe', 'Vercel functions', 'xAI Grok', 'Groq Whisper'],
         note:'Proyecto de curso en solitario · demo funcional · todavía sin usuarios reales'
       }
     },
@@ -808,289 +877,851 @@ const T = {
 /* ---- assets: every plate is real — captures from the running build,
    annotated plates and photo composites; no placeholders left. ---- */
 const ASSETS = {
-  /* hero: the real desktop capture composited into the laptop photo
-     (compositing script sits next to the raw photo sources, outside
-     the repo); the board folder peeks a duotoned crop of this same
-     photo (assets/folder-peek.html) */
-  hero:{ type:'img', wide:true, src:'between-the-lines/assets/hero-photo.webp',
-    cap:{en:'An evening with the journal open: the week\'s entries on the left, the Insights card reading between them. The running build, composited into a photo.',
-         no:'En kveld med dagboken åpen: ukens notater til venstre, innsiktskortet som leser mellom dem. Den kjørende appen, montert inn i et foto.',
-         es:'Una tarde con el diario abierto: las entradas de la semana a la izquierda, la tarjeta de Insights leyendo entre ellas. La versión en marcha, montada sobre una fotografía.'} },
-
-  chatbot:{ type:'img', src:'between-the-lines/assets/chatbot.webp', wide:true,
-    cap:{en:'The quiet risk, sketched: a chat that nods along, states things confidently, and knows nothing about the person\'s week.',
-         no:'Den stille faren, skissert: en chat som nikker med, uttaler seg selvsikkert, og ikke vet noe om personens uke.',
-         es:'El riesgo silencioso, en boceto: un chat que asiente, afirma cosas con seguridad y no sabe nada de la semana de la persona.'} },
-
-  before:{ type:'img', src:'between-the-lines/assets/before.webp', wide:true,
-    cap:{en:'v1 from the first build, audited finding by finding: writing, rating and tagging crammed onto one screen, with demo text.',
-         no:'v1 fra den første versjonen, gjennomgått funn for funn: skriving, vurdering og merking klemt inn på én skjerm, med demotekst.',
-         es:'La v1 de la primera versión, auditada hallazgo a hallazgo: escritura, valoración y etiquetas apretadas en una sola pantalla, con texto de prueba.'} },
-
-  principle:{ type:'img', src:'between-the-lines/assets/principle.webp', wide:true,
-    cap:{en:'The evidence base as the design partner: borrowed psychology, one refused shortcut, and the line that runs under everything.',
-         no:'Kunnskapsgrunnlaget som designpartner: lånt psykologi, én avvist snarvei, og linjen som løper under alt.',
-         es:'La base de evidencia como socia de diseño: psicología prestada, un atajo rechazado, y la línea que corre por debajo de todo.'} },
-
-  flow:{ type:'img', src:'between-the-lines/assets/journey.webp', shape:'phone',
-    cap:{en:'The two-step entry in motion: write first, then the reflect step appears.',
-         no:'Totrinnsnotatet i bevegelse: skriv først, så dukker refleksjonssteget opp.',
-         es:'La entrada en dos pasos en movimiento: primero se escribe, después aparece el paso de reflexión.'} },
-
-  home:{ type:'img', src:'between-the-lines/assets/mobile-timeline.webp', shape:'scroll',
-    cap:{en:'The Journal home: the entry timeline with the insight card and a single New entry action.',
-         no:'Dagbokens startskjerm: notattidslinjen med innsiktskortet og én «Nytt notat»-handling.',
-         es:'La pantalla de inicio del diario: la línea temporal de entradas con la tarjeta de insight y una única acción, Nueva entrada.'} },
-
-  grid:{ type:'img', src:'between-the-lines/assets/flow-2-reflect-affectgrid.webp', shape:'phone',
-    cap:{en:'The reflect step: the Affect Grid places one dot and reads it back as mood and energy.',
-         no:'Refleksjonssteget: Affect Grid plasserer én prikk og leser den tilbake som humør og energi.',
-         es:'El paso de reflexión: el Affect Grid coloca un punto y lo lee como estado de ánimo y energía.'} },
-
-  card:{ type:'img', src:'between-the-lines/assets/mobile-reflection-detail.webp', shape:'phone',
-    cap:{en:'A reflection in detail: the on-device conclusion with the honest privacy note underneath.',
-         no:'En refleksjon i detalj: konklusjonen beregnet på enheten, med den ærlige personvernteksten under.',
-         es:'Una reflexión en detalle: la conclusión calculada en el dispositivo con la nota honesta de privacidad debajo.'} },
-
-  trend:{ type:'img', src:'between-the-lines/assets/trend.webp', wide:true,
-    cap:{en:'The Insights card from the running build. The circled Saturday is the reason mood became two axes.',
-         no:'Innsiktskortet fra den kjørende appen. Den innsirklede lørdagen er grunnen til at humør ble to akser.',
-         es:'La tarjeta de Insights de la versión en marcha. El sábado rodeado con un círculo es la razón de que el estado de ánimo pasara a tener dos ejes.'} },
-
-  companion:{ type:'img', src:'between-the-lines/assets/companion.webp', wide:true,
-    cap:{en:'The Companion in the running build: a grounded opening, a question handed back, and the crisis guardrail with Norway\'s real help lines.',
-         no:'Companion i den kjørende appen: en forankret åpning, et spørsmål gitt tilbake, og krisesikringen med Norges virkelige hjelpelinjer.',
-         es:'El Companion en la versión en marcha: una apertura anclada en el diario, una pregunta devuelta, y la barrera de crisis con las líneas de ayuda reales de Noruega.'} },
-
-  showcase:{ type:'img', src:'between-the-lines/assets/showcase.webp', wide:true,
-    cap:{en:'Four screens from the running build: the journal home, the two-step entry, the Affect Grid, and the Insights card.',
-         no:'Fire skjermer fra den kjørende appen: dagbokens startskjerm, totrinnsnotatet, Affect Grid, og innsiktskortet.',
-         es:'Cuatro pantallas de la versión en marcha: el inicio del diario, la entrada en dos pasos, el Affect Grid y la tarjeta de Insights.'} },
-
-  inhands:{ type:'img', wide:true, src:'between-the-lines/assets/in-hands.webp',
-    cap:{en:'Between the Lines in the hand: the journal home with the week\'s trend, in a lifestyle photo.',
-         no:'Mellom linjene i hånden: dagbokens startskjerm med ukens trend, i et livsstilsfoto.',
-         es:'Entre líneas en la mano: el inicio del diario con la tendencia de la semana, en una fotografía de estilo de vida.'} }
+  systemmap:{
+    type:'img',
+    src:'between-the-lines/assets/system-map.webp',
+    wide:true,
+    cap:{
+      en:'The whole system on one page: what happens when you write, when you ask, and when an AI assistant connects. Violet boxes are the moments an AI model is called.',
+      no:'Hele systemet på én side: hva som skjer når du skriver, når du spør, og når en KI-assistent kobler seg til. De fiolette boksene er øyeblikkene da en KI-modell blir brukt.',
+      es:'Todo el sistema en una página: qué ocurre cuando escribes, cuando preguntas y cuando se conecta un asistente de IA. Las cajas violetas son los momentos en que se llama a un modelo de IA.'
+    }
+  },
+  hero:{
+    type:'img',
+    wide:true,
+    src:'between-the-lines/assets/hero-photo.webp',
+    cap:{
+      en:'An evening with the journal open: the week\'s entries on the left, the Insights card reading between them. The running build, composited into a photo.',
+      no:'En kveld med dagboken åpen: ukens notater til venstre, innsiktskortet som leser mellom dem. Den kjørende appen, montert inn i et foto.',
+      es:'Una tarde con el diario abierto: las entradas de la semana a la izquierda, la tarjeta de Insights leyendo entre ellas. La versión en marcha, montada sobre una fotografía.'
+    }
+  },
+  chatbot:{
+    type:'img',
+    src:'between-the-lines/assets/chatbot.webp',
+    wide:true,
+    cap:{
+      en:'The quiet risk, sketched: a chat that nods along, states things confidently, and knows nothing about the person\'s week.',
+      no:'Den stille faren, skissert: en chat som nikker med, uttaler seg selvsikkert, og ikke vet noe om personens uke.',
+      es:'El riesgo silencioso, en boceto: un chat que asiente, afirma cosas con seguridad y no sabe nada de la semana de la persona.'
+    }
+  },
+  before:{
+    type:'img',
+    src:'between-the-lines/assets/before.webp',
+    wide:true,
+    cap:{
+      en:'v1 from the first build, audited finding by finding: writing, rating and tagging crammed onto one screen, with demo text.',
+      no:'v1 fra den første versjonen, gjennomgått funn for funn: skriving, vurdering og merking klemt inn på én skjerm, med demotekst.',
+      es:'La v1 de la primera versión, auditada hallazgo a hallazgo: escritura, valoración y etiquetas apretadas en una sola pantalla, con texto de prueba.'
+    }
+  },
+  principle:{
+    type:'img',
+    src:'between-the-lines/assets/principle.webp',
+    wide:true,
+    cap:{
+      en:'The evidence base as the design partner: borrowed psychology, one refused shortcut, and the line that runs under everything.',
+      no:'Kunnskapsgrunnlaget som designpartner: lånt psykologi, én avvist snarvei, og linjen som løper under alt.',
+      es:'La base de evidencia como socia de diseño: psicología prestada, un atajo rechazado, y la línea que corre por debajo de todo.'
+    }
+  },
+  flow:{
+    type:'img',
+    src:'between-the-lines/assets/journey.webp',
+    shape:'phone',
+    cap:{
+      en:'The two-step entry in motion: write first, then the reflect step appears.',
+      no:'Totrinnsnotatet i bevegelse: skriv først, så dukker refleksjonssteget opp.',
+      es:'La entrada en dos pasos en movimiento: primero se escribe, después aparece el paso de reflexión.'
+    }
+  },
+  home:{
+    type:'img',
+    src:'between-the-lines/assets/mobile-timeline.webp',
+    shape:'scroll',
+    cap:{
+      en:'The Journal home: the entry timeline with the insight card and a single New entry action.',
+      no:'Dagbokens startskjerm: notattidslinjen med innsiktskortet og én «Nytt notat»-handling.',
+      es:'La pantalla de inicio del diario: la línea temporal de entradas con la tarjeta de insight y una única acción, Nueva entrada.'
+    }
+  },
+  grid:{
+    type:'img',
+    src:'between-the-lines/assets/flow-2-reflect-affectgrid.webp',
+    shape:'phone',
+    cap:{
+      en:'The reflect step: the Affect Grid places one dot and reads it back as mood and energy.',
+      no:'Refleksjonssteget: Affect Grid plasserer én prikk og leser den tilbake som humør og energi.',
+      es:'El paso de reflexión: el Affect Grid coloca un punto y lo lee como estado de ánimo y energía.'
+    }
+  },
+  card:{
+    type:'img',
+    src:'between-the-lines/assets/mobile-reflection-detail.webp',
+    shape:'phone',
+    cap:{
+      en:'A reflection in detail: the on-device conclusion with the honest privacy note underneath.',
+      no:'En refleksjon i detalj: konklusjonen beregnet på enheten, med den ærlige personvernteksten under.',
+      es:'Una reflexión en detalle: la conclusión calculada en el dispositivo con la nota honesta de privacidad debajo.'
+    }
+  },
+  trend:{
+    type:'img',
+    src:'between-the-lines/assets/trend.webp',
+    wide:true,
+    cap:{
+      en:'The Insights card from the running build. The circled Saturday is the reason mood became two axes.',
+      no:'Innsiktskortet fra den kjørende appen. Den innsirklede lørdagen er grunnen til at humør ble to akser.',
+      es:'La tarjeta de Insights de la versión en marcha. El sábado rodeado con un círculo es la razón de que el estado de ánimo pasara a tener dos ejes.'
+    }
+  },
+  companion:{
+    type:'img',
+    src:'between-the-lines/assets/companion.webp',
+    wide:true,
+    cap:{
+      en:'The Companion in the running build: a grounded opening, a question handed back, and the crisis guardrail with Norway\'s real help lines.',
+      no:'Companion i den kjørende appen: en forankret åpning, et spørsmål gitt tilbake, og krisesikringen med Norges virkelige hjelpelinjer.',
+      es:'El Companion en la versión en marcha: una apertura anclada en el diario, una pregunta devuelta, y la barrera de crisis con las líneas de ayuda reales de Noruega.'
+    }
+  },
+  showcase:{
+    type:'img',
+    src:'between-the-lines/assets/showcase.webp',
+    wide:true,
+    cap:{
+      en:'Four screens from the running build: the journal home, the two-step entry, the Affect Grid, and the Insights card.',
+      no:'Fire skjermer fra den kjørende appen: dagbokens startskjerm, totrinnsnotatet, Affect Grid, og innsiktskortet.',
+      es:'Cuatro pantallas de la versión en marcha: el inicio del diario, la entrada en dos pasos, el Affect Grid y la tarjeta de Insights.'
+    }
+  },
+  inhands:{
+    type:'img',
+    wide:true,
+    src:'between-the-lines/assets/in-hands.webp',
+    cap:{
+      en:'Between the Lines in the hand: the journal home with the week\'s trend, in a lifestyle photo.',
+      no:'Mellom linjene i hånden: dagbokens startskjerm med ukens trend, i et livsstilsfoto.',
+      es:'Entre líneas en la mano: el inicio del diario con la tendencia de la semana, en una fotografía de estilo de vida.'
+    }
+  }
 };
 
-const SECTIONS = [
+/* Section 12: each part of the system, explained three ways. */
+const LEVELS = [
+  {id:'kid',   label:{en:'Like I\'m ten',      no:'Som om jeg er ti',  es:'Como si tuviera diez años'}},
+  {id:'pro',   label:{en:'For professionals',  no:'For fagfolk',       es:'Para profesionales'}},
+  {id:'built', label:{en:'How I built it',     no:'Slik bygde jeg det', es:'Cómo lo construí'}},
+  {id:'all',   label:{en:'All three',          no:'Alle tre',          es:'Las tres'}}
+];
+const LEVEL_LEGEND = {en:'Choose how it is explained', no:'Velg forklaring', es:'Elige la explicación'};
+
+const EXPLAIN = [
   {
-    id:'origin', nav:{en:'The origin',no:'Opphavet', es:'El origen'},
-    eyebrow:{en:'01 · Origin',no:'01 · Opphav', es:'01 · Origen'},
-    h:{en:'A course exercise became a product with a point of view',
-       no:'En kursøvelse ble et produkt med et ståsted',
-       es:'Un ejercicio de curso se convirtió en un producto con punto de vista'},
-    body:{
-      en:['It started as a course project. A mentor suggested it as a way to learn a heavier, more technical toolchain. <strong>From the first sketch I steered it toward something I believed in.</strong> I added the features it actually needed, not the ones the exercise asked for. It could have stayed a throwaway. <strong>It grew into a working tool for self-knowledge.</strong>'],
-      no:['Det begynte som et kursprosjekt. En mentor foreslo det som en måte å lære en tyngre, mer teknisk verktøykjede på. <strong>Fra den første skissen styrte jeg det mot noe jeg trodde på.</strong> Jeg la til funksjonene det faktisk trengte, ikke dem øvelsen ba om. Det kunne blitt en øvelse til søpla. <strong>Det vokste til et fungerende verktøy for selvinnsikt.</strong>'],
-      es:['Empezó como un proyecto de curso. Un mentor lo sugirió como forma de aprender una cadena de herramientas más pesada y técnica. <strong>Desde el primer boceto lo orienté hacia algo en lo que creía.</strong> Añadí las funciones que de verdad necesitaba, no las que pedía el ejercicio. Podría haberse quedado en algo desechable. <strong>Creció hasta ser una herramienta funcional de autoconocimiento.</strong>']
+    id:'store',
+    title:{
+      en:'A private drawer for every person',
+      no:'En privat skuff til hver person',
+      es:'Un cajón privado para cada persona'
+    },
+    term:{
+      en:'Postgres · row-level security',
+      no:'Postgres · radnivåsikkerhet',
+      es:'Postgres · seguridad a nivel de fila'
+    },
+    kid:{
+      en:'Imagine a huge cupboard with a locked drawer for every person. When you open the app, the cupboard checks your key and opens only your drawer.',
+      no:'Tenk deg et enormt skap med en låst skuff til hver person. Når du åpner appen, sjekker skapet nøkkelen din og åpner bare din skuff.',
+      es:'Imagina un armario enorme con un cajón cerrado con llave para cada persona. Cuando abres la aplicación, el armario comprueba tu llave y abre solo tu cajón.'
+    },
+    pro:{
+      en:'Entries live in Postgres on Supabase, with row-level security on every user table. Server routes use a privileged role, so each one limits its queries to the signed-in user.',
+      no:'Notatene ligger i Postgres på Supabase, med radnivåsikkerhet på alle brukertabeller. Serverrutene bruker en privilegert rolle, så hver av dem avgrenser spørringene til den innloggede brukeren.',
+      es:'Las entradas están en Postgres sobre Supabase, con seguridad a nivel de fila en todas las tablas de usuario. Las rutas del servidor usan un rol privilegiado, así que cada una limita sus consultas al usuario con sesión iniciada.'
+    },
+    built:{
+      en:'The first version kept entries in the browser, the cheapest way to test whether writing felt right. Once it did, I moved them into a database with accounts.',
+      no:'Den første versjonen lagret notatene i nettleseren, den billigste måten å teste om skrivingen føltes riktig. Da den gjorde det, flyttet jeg dem til en database med kontoer.',
+      es:'La primera versión guardaba las entradas en el navegador, la forma más barata de comprobar si escribir resultaba natural. Cuando funcionó, las pasé a una base de datos con cuentas.'
     }
   },
   {
-    id:'chatbot', nav:{en:'The quiet risk',no:'Den stille faren', es:'El riesgo silencioso'},
-    eyebrow:{en:'02 · The problem',no:'02 · Problemet', es:'02 · El problema'},
-    h:{en:'People are already treating a chatbot as a therapist that only agrees with them',
-       no:'Folk behandler allerede en chatbot som en terapeut som bare er enig med dem',
-       es:'La gente ya trata a un chatbot como un terapeuta que solo le da la razón'},
+    id:'embed',
+    title:{
+      en:'Finding an entry by what it means',
+      no:'Å finne et notat etter hva det betyr',
+      es:'Encontrar una entrada por lo que significa'
+    },
+    term:{
+      en:'Embeddings · pgvector',
+      no:'Embeddinger · pgvector',
+      es:'Embeddings · pgvector'
+    },
+    kid:{
+      en:'Picture a giant map where every diary page is a dot. Pages about similar things sit close together, even in different words. "Worn out after work" lands next to "exhausted from the office". Your question becomes a dot too, and the app looks nearby.',
+      no:'Se for deg et kjempestort kart der hver dagbokside er en prikk. Sider om lignende ting ligger nær hverandre, selv med ulike ord. «Utslitt etter jobb» havner ved siden av «helt ferdig etter kontoret». Spørsmålet ditt blir også en prikk, og appen ser i nærheten.',
+      es:'Imagina un mapa gigante donde cada página del diario es un punto. Las páginas sobre cosas parecidas quedan cerca, aunque usen palabras distintas. «Agotada después del trabajo» aparece junto a «rendida tras la oficina». Tu pregunta también se convierte en un punto, y la aplicación mira alrededor.'
+    },
+    pro:{
+      en:'Each entry becomes one 1,536-dimension vector from OpenAI\'s text-embedding-3-small, stored in pgvector and compared by cosine similarity. Entries are short, so there is no chunking.',
+      no:'Hvert notat blir én vektor med 1&nbsp;536 dimensjoner fra OpenAIs text-embedding-3-small, lagret i pgvector og sammenlignet med cosinuslikhet. Notatene er korte, så de deles ikke opp.',
+      es:'Cada entrada se convierte en un vector de 1536 dimensiones con text-embedding-3-small de OpenAI, guardado en pgvector y comparado por similitud de coseno. Las entradas son cortas, así que no se fragmentan.'
+    },
+    built:{
+      en:'Saving an entry must never fail because an AI service is down. So a database trigger only flags changed text, and a job running every two minutes computes the embeddings. If a run fails, the next one retries.',
+      no:'Å lagre et notat skal aldri mislykkes fordi en KI-tjeneste er nede. Derfor merker en databasetrigger bare endret tekst, og en jobb som kjører hvert andre minutt, beregner embeddingene. Hvis en kjøring feiler, prøver den neste igjen.',
+      es:'Guardar una entrada nunca debe fallar porque un servicio de IA esté caído. Por eso un disparador de la base de datos solo marca el texto modificado, y una tarea cada dos minutos calcula los embeddings. Si una ejecución falla, la siguiente lo reintenta.'
+    }
+  },
+  {
+    id:'hybrid',
+    title:{
+      en:'Searching in two ways at once',
+      no:'Å søke på to måter samtidig',
+      es:'Buscar de dos maneras a la vez'
+    },
+    term:{
+      en:'Hybrid search · trigrams · RRF',
+      no:'Hybridsøk · trigrammer · RRF',
+      es:'Búsqueda híbrida · trigramas · RRF'
+    },
+    kid:{
+      en:'Two detectives look for the same page. One understands what you mean. The other checks the exact letters. Then they put their lists together, and a page that both of them found moves up.',
+      no:'To detektiver leter etter samme side. Den ene forstår hva du mener. Den andre sjekker de nøyaktige bokstavene. Så legger de listene sammen, og en side begge fant, flytter opp.',
+      es:'Dos detectives buscan la misma página. Una entiende lo que quieres decir. El otro comprueba las letras exactas. Luego juntan sus listas, y una página que han encontrado los dos sube de puesto.'
+    },
+    pro:{
+      en:'The top 30 entries by cosine similarity and the top 30 by trigram similarity are merged with Reciprocal Rank Fusion (k = 20). A search for "that argument" can find an entry that never uses the word.',
+      no:'De 30 beste notatene etter cosinuslikhet og de 30 beste etter trigramlikhet slås sammen med Reciprocal Rank Fusion (k = 20). Et søk etter «den krangelen» kan finne et notat som aldri bruker ordet.',
+      es:'Las 30 mejores entradas por similitud de coseno y las 30 mejores por similitud de trigramas se combinan con Reciprocal Rank Fusion (k = 20). Una búsqueda de «aquella discusión» puede encontrar una entrada que nunca usa esa palabra.'
+    },
+    built:{
+      en:'Most demo entries are in Polish, and the database has no Polish dictionary. Trigrams compare small groups of letters, so they work in any language and cope with word endings and typos.',
+      no:'De fleste demonotatene er på polsk, og databasen har ingen polsk ordbok. Trigrammer sammenligner små grupper av bokstaver, så de virker på alle språk og takler ordendelser og skrivefeil.',
+      es:'La mayoría de las entradas de demostración están en polaco, y la base de datos no tiene diccionario polaco. Los trigramas comparan pequeños grupos de letras, así que funcionan en cualquier idioma y toleran terminaciones y erratas.'
+    }
+  },
+  {
+    id:'floor',
+    title:{
+      en:'Knowing when nothing matches',
+      no:'Å vite når ingenting passer',
+      es:'Saber cuándo nada coincide'
+    },
+    term:{
+      en:'Similarity threshold · evaluation',
+      no:'Likhetsterskel · evaluering',
+      es:'Umbral de similitud · evaluación'
+    },
+    kid:{
+      en:'If you ask for a page that does not exist, a bad helper brings you something anyway, and you believe it. So we drew a line: a page that is not similar enough stays on the shelf.',
+      no:'Hvis du ber om en side som ikke finnes, kommer en dårlig hjelper med noe likevel, og du tror på det. Derfor tegnet vi en strek: en side som ikke er lik nok, blir stående i hylla.',
+      es:'Si pides una página que no existe, un mal ayudante te trae algo de todos modos, y tú te lo crees. Por eso trazamos una línea: una página que no se parece lo suficiente se queda en la estantería.'
+    },
+    pro:{
+      en:'Vector search always returns the nearest entries, even for nonsense. In the demo journal, gibberish scored up to 0.21 and real questions about 0.37 or higher, so the threshold went to 0.30.',
+      no:'Vektorsøk returnerer alltid de nærmeste notatene, selv for tull. I demodagboken fikk vrøvl opptil 0,21, og ekte spørsmål rundt 0,37 eller høyere, så terskelen ble satt til 0,30.',
+      es:'La búsqueda vectorial siempre devuelve las entradas más cercanas, incluso para un sinsentido. En el diario de demostración, un galimatías llegó a 0,21 y las preguntas reales a unos 0,37 o más, así que el umbral se fijó en 0,30.'
+    },
+    built:{
+      en:'The first value, 0.15, would have handed 13% of the journal to the model for a nonsense query. I calibrated it once, with Claude Code, on a demo journal of 228 entries.',
+      no:'Den første verdien, 0,15, ville gitt modellen 13% av dagboken ved et meningsløst søk. Jeg kalibrerte den én gang, med Claude Code, på en demodagbok med 228 notater.',
+      es:'El primer valor, 0,15, habría entregado al modelo el 13 % del diario con una búsqueda sin sentido. Lo calibré una vez, con Claude Code, sobre un diario de demostración de 228 entradas.'
+    }
+  },
+  {
+    id:'rag',
+    title:{
+      en:'Looking things up before answering',
+      no:'Å slå opp før det svares',
+      es:'Consultar antes de responder'
+    },
+    term:{
+      en:'RAG · context design',
+      no:'RAG · kontekstdesign',
+      es:'RAG · diseño del contexto'
+    },
+    kid:{
+      en:'Before the Companion answers, a helper goes to the shelf and brings the pages that fit your question. It puts them on the desk, and the Companion answers from what is on the desk.',
+      no:'Før Companion svarer, går en hjelper til hylla og henter sidene som passer til spørsmålet ditt. Hjelperen legger dem på pulten, og Companion svarer ut fra det som ligger på pulten.',
+      es:'Antes de que el Companion responda, un ayudante va a la estantería y trae las páginas que encajan con tu pregunta. Las deja sobre la mesa, y el Companion responde a partir de lo que hay en la mesa.'
+    },
+    pro:{
+      en:'Retrieval-augmented generation. For a question through the API or MCP, the server embeds it, runs hybrid search and builds the context from the focus day, the last seven days and up to 12 matching entries. If search fails, the Companion still answers from recent entries.',
+      no:'Retrieval-augmented generation. Når et spørsmål kommer gjennom API-et eller MCP, lager serveren en embedding av det, kjører hybridsøk og bygger konteksten fra dagen i fokus, de siste sju dagene og opptil 12 notater som passer. Hvis søket feiler, svarer Companion likevel ut fra de nyeste notatene.',
+      es:'Generación aumentada por recuperación (RAG). Cuando una pregunta llega por la API o por MCP, el servidor calcula su embedding, ejecuta la búsqueda híbrida y construye el contexto con el día en foco, los últimos siete días y hasta 12 entradas relacionadas. Si la búsqueda falla, el Companion responde igualmente con las entradas recientes.'
+    },
+    built:{
+      en:'A test question about something from seven months earlier got an answer from the last two weeks, because only those entries were in context. Adding search then pushed the current week out, so recent and relevant entries became two separate sets.',
+      no:'Et testspørsmål om noe fra sju måneder tidligere fikk svar fra de siste to ukene, fordi bare de notatene var i konteksten. Da søket kom inn, dyttet det den inneværende uken ut, så nye og relevante notater ble to separate sett.',
+      es:'Una pregunta de prueba sobre algo de siete meses atrás recibió una respuesta basada en las dos últimas semanas, porque solo esas entradas estaban en el contexto. Al añadir la búsqueda, la semana actual quedó fuera, así que las entradas recientes y las relevantes pasaron a ser dos conjuntos separados.'
+    }
+  },
+  {
+    id:'guard',
+    title:{
+      en:'Keeping the AI in its place',
+      no:'Å holde KI-en på plass',
+      es:'Mantener la IA en su lugar'
+    },
+    term:{
+      en:'System prompts · guardrails',
+      no:'Systemprompter · sikkerhetsgrenser',
+      es:'Prompts de sistema · salvaguardas'
+    },
+    kid:{
+      en:'The Companion carries a card with rules. Do not pretend to be a doctor. Only talk about what this person wrote. If someone sounds in danger, stop chatting and show who can really help.',
+      no:'Companion har et kort med regler. Ikke lat som du er lege. Snakk bare om det denne personen har skrevet. Hvis noen høres ut som de er i fare, slutt å prate og vis hvem som virkelig kan hjelpe.',
+      es:'El Companion lleva una tarjeta con reglas. No finjas ser médico. Habla solo de lo que esta persona ha escrito. Si alguien parece estar en peligro, deja de conversar y muestra quién puede ayudar de verdad.'
+    },
+    pro:{
+      en:'The system prompt forbids diagnoses and labels, and grounds replies in the person\'s entries. Prompts live on the server, so a browser cannot inject its own. A keyword check runs before the model is called.',
+      no:'Systemprompten forbyr diagnoser og merkelapper og forankrer svarene i personens notater. Promptene ligger på serveren, så en nettleser ikke kan sette inn sin egen. En nøkkelordsjekk kjører før modellen kalles.',
+      es:'El prompt de sistema prohíbe diagnósticos y etiquetas, y ancla las respuestas en las entradas de la persona. Los prompts están en el servidor, así que un navegador no puede inyectar el suyo. Una comprobación de palabras clave se ejecuta antes de llamar al modelo.'
+    },
+    built:{
+      en:'I kept the crisis check simple and independent of the model. When a message in English or Norwegian signals a crisis, the app skips the AI and shows emergency numbers in the conversation.',
+      no:'Jeg holdt krisesjekken enkel og uavhengig av modellen. Når en melding på engelsk eller norsk tyder på krise, hopper appen over KI-en og viser nødnumre i samtalen.',
+      es:'Mantuve la comprobación de crisis simple e independiente del modelo. Cuando un mensaje en inglés o noruego indica una crisis, la aplicación omite la IA y muestra los números de emergencia en la conversación.'
+    }
+  },
+  {
+    id:'models',
+    title:{
+      en:'An engine that can be swapped',
+      no:'En motor som kan byttes',
+      es:'Un motor que se puede cambiar'
+    },
+    term:{
+      en:'Model abstraction',
+      no:'Modellabstraksjon',
+      es:'Abstracción del modelo'
+    },
+    kid:{
+      en:'The AI is like the engine in a car. Newer engines keep coming out, so the car is built to let you change the engine without rebuilding the whole car.',
+      no:'KI-en er som motoren i en bil. Det kommer stadig nye motorer, så bilen er bygget slik at du kan bytte motor uten å bygge om hele bilen.',
+      es:'La IA es como el motor de un coche. Siempre salen motores nuevos, así que el coche está hecho para poder cambiar el motor sin reconstruir todo el vehículo.'
+    },
+    pro:{
+      en:'Chat and embedding clients sit in one module: Grok for replies, OpenAI for embeddings. Changing the chat model is a one-line edit. Changing the embedding model means recomputing every stored vector.',
+      no:'Klientene for chat og embeddinger ligger i én modul: Grok for svar, OpenAI for embeddinger. Å bytte chatmodell er en endring på én linje. Å bytte embeddingmodell betyr at alle lagrede vektorer må beregnes på nytt.',
+      es:'Los clientes de chat y de embeddings están en un solo módulo: Grok para las respuestas y OpenAI para los embeddings. Cambiar el modelo de chat es editar una línea. Cambiar el de embeddings obliga a recalcular todos los vectores guardados.'
+    },
+    built:{
+      en:'On the day the Companion launched, the provider retired the model I had chosen. Since then, each model name lives in one place.',
+      no:'Samme dag som Companion ble lansert, trakk leverandøren tilbake modellen jeg hadde valgt. Siden da står hvert modellnavn på ett sted.',
+      es:'El mismo día en que se lanzó el Companion, el proveedor retiró el modelo que había elegido. Desde entonces, cada nombre de modelo está en un solo lugar.'
+    }
+  },
+  {
+    id:'mcp',
+    title:{
+      en:'A universal plug for AI assistants',
+      no:'Et universalstøpsel for KI-assistenter',
+      es:'Un enchufe universal para asistentes de IA'
+    },
+    term:{
+      en:'Model Context Protocol (MCP)',
+      no:'Model Context Protocol (MCP)',
+      es:'Model Context Protocol (MCP)'
+    },
+    kid:{
+      en:'MCP is a universal plug for AI assistants. The journal has one socket and a list of what it can do, so an assistant like Claude can plug in and say "write this down" or "find that page".',
+      no:'MCP er et universalstøpsel for KI-assistenter. Dagboken har én stikkontakt og en liste over hva den kan gjøre, så en assistent som Claude kan plugge seg inn og si «skriv dette ned» eller «finn den siden».',
+      es:'MCP es un enchufe universal para asistentes de IA. El diario tiene una sola toma y una lista de lo que sabe hacer, así que un asistente como Claude puede conectarse y decir «apunta esto» o «busca esa página».'
+    },
+    pro:{
+      en:'A stateless MCP server over Streamable HTTP exposes six tools, such as create_entry, search_entries and ask_companion. Each has a typed schema, and the HTTP API and MCP share the same functions and rules.',
+      no:'En tilstandsløs MCP-server over Streamable HTTP gir tilgang til seks verktøy, blant annet create_entry, search_entries og ask_companion. Hvert har et typet skjema, og HTTP-API-et og MCP deler de samme funksjonene og reglene.',
+      es:'Un servidor MCP sin estado sobre Streamable HTTP expone seis herramientas, como create_entry, search_entries y ask_companion. Cada una tiene un esquema tipado, y la API HTTP y MCP comparten las mismas funciones y reglas.'
+    },
+    built:{
+      en:'Tool descriptions turned out to be design work, with a model as the reader. The search tool tells it how to read the scores and that weak matches can come back. I use this connection myself: Claude can add an entry to my journal and read it back.',
+      no:'Verktøybeskrivelsene viste seg å være designarbeid, med en modell som leser. Søkeverktøyet forteller den hvordan poengsummene skal leses, og at svake treff kan komme tilbake. Jeg bruker denne koblingen selv: Claude kan legge til et notat i dagboken min og lese det tilbake.',
+      es:'Las descripciones de las herramientas resultaron ser trabajo de diseño, con un modelo como lector. La herramienta de búsqueda le explica cómo leer las puntuaciones y que pueden volver coincidencias débiles. Yo misma uso esta conexión: Claude puede añadir una entrada a mi diario y volver a leerla.'
+    }
+  },
+  {
+    id:'oauth',
+    title:{
+      en:'A guest pass, never your password',
+      no:'Et gjestepass, aldri passordet ditt',
+      es:'Un pase de invitado, nunca tu contraseña'
+    },
+    term:{
+      en:'OAuth 2.1 · PKCE',
+      no:'OAuth 2.1 · PKCE',
+      es:'OAuth 2.1 · PKCE'
+    },
+    kid:{
+      en:'You would not give a stranger your house keys, so you give the assistant a guest pass. It works for one hour. If someone steals an old pass and tries to use it, the whole set stops working.',
+      no:'Du ville ikke gitt en fremmed husnøklene dine, så du gir assistenten et gjestepass. Det virker i én time. Hvis noen stjeler et gammelt pass og prøver å bruke det, slutter hele settet å virke.',
+      es:'No le darías las llaves de casa a un desconocido, así que le das al asistente un pase de invitado. Funciona durante una hora. Si alguien roba un pase antiguo e intenta usarlo, todo el conjunto deja de funcionar.'
+    },
+    pro:{
+      en:'The journal is its own OAuth 2.1 authorisation server, with dynamic client registration, a consent screen and PKCE. Access tokens last one hour, refresh tokens rotate on every use, and replaying a used one revokes the chain.',
+      no:'Dagboken er sin egen OAuth 2.1-autorisasjonsserver, med dynamisk klientregistrering, en samtykkeskjerm og PKCE. Tilgangstokener varer én time, oppdateringstokener roteres ved hver bruk, og gjenbruk av et brukt token tilbakekaller kjeden.',
+      es:'El diario es su propio servidor de autorización OAuth 2.1, con registro dinámico de clientes, pantalla de consentimiento y PKCE. Los tokens de acceso duran una hora, los de actualización rotan en cada uso, y reutilizar uno ya usado revoca la cadena.'
+    },
+    built:{
+      en:'Claude\'s connectors do not accept a pasted API key, so connecting the journal needed a real authorisation flow. I specified the behaviour and the threat, a stolen token, and Claude Code wrote the implementation.',
+      no:'Claude-koblingene godtar ikke en innlimt API-nøkkel, så for å koble til dagboken trengtes en ekte autorisasjonsflyt. Jeg spesifiserte oppførselen og trusselen, et stjålet token, og Claude Code skrev implementasjonen.',
+      es:'Los conectores de Claude no aceptan una clave de API pegada, así que conectar el diario exigía un flujo de autorización real. Especifiqué el comportamiento y la amenaza, un token robado, y Claude Code escribió la implementación.'
+    }
+  }
+];
+
+const SECTIONS = [
+  {
+    id:'origin',
+    nav:{
+      en:'The origin',
+      no:'Opphavet',
+      es:'El origen'
+    },
+    eyebrow:{
+      en:'01 · Origin',
+      no:'01 · Opphav',
+      es:'01 · Origen'
+    },
+    h:{
+      en:'A course exercise became a product with a point of view',
+      no:'En kursøvelse ble et produkt med et ståsted',
+      es:'Un ejercicio de curso se convirtió en un producto con punto de vista'
+    },
     body:{
-      en:['Therapy is seen as expensive, or hard to trust. So people improvise. <strong>More and more of them bring their mental health to a general-purpose chatbot.</strong> It knows nothing about their week. The risk is quiet. <strong>These tools affirm rather than ground or challenge.</strong> They can state things with a confidence they have not earned.'],
-      no:['Terapi oppfattes som dyrt, eller vanskelig å stole på. Så folk improviserer. <strong>Flere og flere tar den mentale helsen sin til en generell chatbot.</strong> Den vet ingenting om uken deres. Faren er stille. <strong>Slike verktøy bekrefter heller enn å jorde eller utfordre.</strong> De kan uttale ting med en trygghet de ikke har dekning for.'],
-      es:['La terapia se percibe como cara, o difícil de fiar. Así que la gente improvisa. <strong>Cada vez más personas llevan su salud mental a un chatbot de propósito general.</strong> No sabe nada de su semana. El riesgo es silencioso. <strong>Estas herramientas afirman en lugar de anclar o cuestionar.</strong> Pueden decir cosas con una seguridad que no se han ganado.']
+      en:[
+        'It started as a course project, suggested by a mentor as a way to learn a more technical toolchain. I steered it toward something I believed in and kept building after the course ended.'
+      ],
+      no:[
+        'Det startet som et kursprosjekt, foreslått av en mentor som en måte å lære et mer teknisk verktøysett på. Jeg styrte det mot noe jeg trodde på, og fortsatte å bygge etter at kurset var over.'
+      ],
+      es:[
+        'Empezó como un proyecto de curso, propuesto por un mentor para aprender herramientas más técnicas. Lo orienté hacia algo en lo que creía y seguí construyéndolo cuando terminó el curso.'
+      ]
+    }
+  },
+  {
+    id:'chatbot',
+    nav:{
+      en:'The quiet risk',
+      no:'Den stille faren',
+      es:'El riesgo silencioso'
+    },
+    eyebrow:{
+      en:'02 · The problem',
+      no:'02 · Problemet',
+      es:'02 · El problema'
+    },
+    h:{
+      en:'People are already treating a chatbot as a therapist that only agrees with them',
+      no:'Folk behandler allerede en chatbot som en terapeut som bare er enig med dem',
+      es:'La gente ya trata a un chatbot como un terapeuta que solo le da la razón'
+    },
+    body:{
+      en:[
+        'Therapy can feel expensive or hard to trust, so more people bring their mental health to a general-purpose chatbot. It knows nothing about their week. It tends to agree with them, and it can sound more certain than it should.'
+      ],
+      no:[
+        'Terapi kan føles dyrt eller vanskelig å stole på, så flere tar den psykiske helsen sin til en generell chatbot. Den vet ingenting om uken deres. Den er ofte enig med dem og kan høres sikrere ut enn den burde.'
+      ],
+      es:[
+        'La terapia puede parecer cara o generar desconfianza, así que cada vez más personas llevan su salud mental a un chatbot generalista. No sabe nada de su semana. Tiende a darles la razón y puede sonar más seguro de lo que debería.'
+      ]
     },
     stats:{
-      src:{en:'US survey of people with an ongoing mental health condition. Sentio University, 2025.',
-           no:'Amerikansk undersøkelse blant personer med en pågående psykisk lidelse. Sentio University, 2025.',
-           es:'Encuesta estadounidense a personas con un problema de salud mental en curso. Sentio University, 2025.'},
+      src:{
+        en:'US survey of people with an ongoing mental health condition. Sentio University, 2025.',
+        no:'Amerikansk undersøkelse blant personer med en pågående psykisk lidelse. Sentio University, 2025.',
+        es:'Encuesta estadounidense a personas con un problema de salud mental en curso. Sentio University, 2025.'
+      },
       items:[
-        {fig:'~49%', lab:{en:'use a general-purpose language model for mental-health support',
-                          no:'bruker en generell språkmodell til støtte for psykisk helse',
-                          es:'usan un modelo de lenguaje de propósito general como apoyo para su salud mental'}}
+        {
+          fig:'~49%',
+          lab:{
+            en:'use a general-purpose language model for mental-health support',
+            no:'bruker en generell språkmodell til støtte for psykisk helse',
+            es:'usan un modelo de lenguaje de propósito general como apoyo para su salud mental'
+          }
+        }
       ]
     },
     assets:['chatbot']
   },
   {
-    id:'extremes', nav:{en:'Two extremes',no:'To ytterpunkter', es:'Dos extremos'},
-    eyebrow:{en:'03 · The landscape',no:'03 · Landskapet', es:'03 · El panorama'},
-    h:{en:'Most journaling apps are either an empty text box or a mood-emoji tracker',
-       no:'De fleste dagbokapper er enten en tom tekstboks eller en emojiteller for humør',
-       es:'La mayoría de las apps de diario son o una caja de texto vacía o un contador de emojis de ánimo'},
-    body:{
-      en:['The tools made for reflection sit at two extremes. The blank page gives you nowhere to start. <strong>The mood tracker shrinks a whole day to one tapped face.</strong> It never says anything back. <strong>Neither closes the loop between writing and understanding.</strong> That loop is the only reason to keep a journal.'],
-      no:['Verktøyene som er laget for refleksjon, havner på to ytterpunkter. Den blanke siden gir deg ingen steder å begynne. <strong>Humørtelleren krymper en hel dag til ett trykket ansikt.</strong> Den sier aldri noe tilbake. <strong>Ingen av dem lukker sløyfen mellom å skrive og å forstå.</strong> Den sløyfen er hele grunnen til å føre dagbok.'],
-      es:['Las herramientas pensadas para reflexionar se sitúan en dos extremos. La página en blanco no te da por dónde empezar. <strong>El registro de ánimo reduce un día entero a una carita pulsada.</strong> Nunca responde nada. <strong>Ninguna de las dos cierra el círculo entre escribir y entender.</strong> Ese círculo es la única razón de llevar un diario.']
-    }
-  },
-  {
-    id:'norway', nav:{en:'The Norwegian frame',no:'Den norske rammen', es:'El marco noruego'},
-    eyebrow:{en:'04 · Context',no:'04 · Kontekst', es:'04 · Contexto'},
-    h:{en:'In a country that funds mental health heavily, it is still the costliest condition',
-       no:'I et land som finansierer psykisk helse tungt, er den fortsatt den dyreste tilstanden',
-       es:'En un país que financia la salud mental con generosidad, sigue siendo la enfermedad más costosa'},
-    body:{
-      en:['Norway spends more on mental health than almost any country. <strong>It is still the single costliest condition there</strong>, close to three percent of GDP. Care exists. Access is uneven. The everyday layer, the one with low stakes, is thin. <strong>There is room before and beside professional care</strong> for something cheap and private. Something that helps a person notice their own patterns.'],
-      no:['Norge bruker mer på psykisk helse enn nesten noe annet land. <strong>Den er likevel den enkeltvis dyreste tilstanden her</strong>, nær tre prosent av BNP. Hjelpen finnes. Tilgangen er ujevn. Hverdagslaget, det med lav innsats, er tynt. <strong>Det er rom før og ved siden av profesjonell hjelp</strong> for noe rimelig og privat. Noe som hjelper et menneske å legge merke til sine egne mønstre.'],
-      es:['Noruega gasta en salud mental más que casi cualquier otro país. <strong>Aun así sigue siendo la enfermedad individual más costosa allí</strong>, cerca del tres por ciento del PIB. La atención existe. El acceso es desigual. La capa cotidiana, la de bajo riesgo, es fina. <strong>Hay sitio antes y al lado de la atención profesional</strong> para algo barato y privado. Algo que ayude a una persona a fijarse en sus propios patrones.']
+    id:'extremes',
+    nav:{
+      en:'Two extremes',
+      no:'To ytterpunkter',
+      es:'Dos extremos'
     },
-    stats:{
-      src:{en:'Public Norwegian sources. Illustrative, 2026.',
-           no:'Offentlige norske kilder. Illustrerende, 2026.',
-           es:'Fuentes públicas noruegas. Ilustrativo, 2026.'},
-      items:[
-        {fig:'~3%',  lab:{en:'of GDP: mental disorders, the single costliest condition in Norway',
-                          no:'av BNP: psykiske lidelser, den enkeltvis dyreste tilstanden i Norge',
-                          es:'del PIB: los trastornos mentales, la enfermedad individual más costosa de Noruega'}},
-        {fig:'~20%', lab:{en:'of new depression diagnoses referred to specialised care',
-                          no:'av nye depresjonsdiagnoser henvist til spesialisthelsetjenesten',
-                          es:'de los nuevos diagnósticos de depresión derivados a atención especializada'}}
+    eyebrow:{
+      en:'03 · The landscape',
+      no:'03 · Landskapet',
+      es:'03 · El panorama'
+    },
+    h:{
+      en:'Most journaling apps are either an empty text box or a mood-emoji tracker',
+      no:'De fleste dagbokapper er enten en tom tekstboks eller en emojiteller for humør',
+      es:'La mayoría de las apps de diario son o una caja de texto vacía o un contador de emojis de ánimo'
+    },
+    body:{
+      en:[
+        'The blank page gives you nowhere to start. The mood tracker shrinks a whole day to one tapped face and never says anything back. Neither helps you understand what you wrote.'
+      ],
+      no:[
+        'Den tomme siden gir deg ikke noe sted å begynne. Humørsporeren krymper en hel dag til ett trykk på et ansikt og svarer aldri. Ingen av dem hjelper deg å forstå det du skrev.'
+      ],
+      es:[
+        'La página en blanco no te da por dónde empezar. El registro de ánimo reduce un día entero a una carita pulsada y nunca responde. Ninguno te ayuda a entender lo que has escrito.'
       ]
     }
   },
   {
-    id:'firstbuild', nav:{en:'The first build',no:'Første versjon', es:'La primera versión'},
-    eyebrow:{en:'05 · Diagnosis',no:'05 · Diagnose', es:'05 · Diagnóstico'},
-    h:{en:'The first build made the same mistake it set out to fix',
-       no:'Første versjon gjorde den samme feilen den skulle rette opp',
-       es:'La primera versión cometió el mismo error que pretendía corregir'},
+    id:'norway',
+    nav:{
+      en:'The Norwegian frame',
+      no:'Den norske rammen',
+      es:'El marco noruego'
+    },
+    eyebrow:{
+      en:'04 · Context',
+      no:'04 · Kontekst',
+      es:'04 · Contexto'
+    },
+    h:{
+      en:'In a country that funds mental health heavily, it is still the costliest condition',
+      no:'I et land som finansierer psykisk helse tungt, er den fortsatt den dyreste tilstanden',
+      es:'En un país que financia la salud mental con generosidad, sigue siendo la enfermedad más costosa'
+    },
     body:{
-      en:['The first version worked. <strong>It had never really been designed.</strong> Writing, mood rating and tagging were crammed onto one screen. No focus. No payoff for the effort. <strong>It was the exact shape of the problem</strong>, staring back at me.'],
-      no:['Den første versjonen fungerte. <strong>Den hadde egentlig aldri blitt designet.</strong> Skriving, humørvurdering og merking var klemt inn på én skjerm. Ingen fokus. Ingen belønning for innsatsen. <strong>Den var selve formen på problemet</strong>, og stirret tilbake på meg.'],
-      es:['La primera versión funcionaba. <strong>En realidad nunca se había diseñado.</strong> Escritura, valoración del ánimo y etiquetas, apretadas en una sola pantalla. Sin foco. Sin recompensa por el esfuerzo. <strong>Era la forma exacta del problema</strong>, devolviéndome la mirada.']
+      en:[
+        'Norway spends more on mental health than almost any country. <strong>It is still the single costliest condition there</strong>, close to three percent of GDP. Care exists. Access is uneven. The everyday layer, the one with low stakes, is thin. <strong>There is room before and beside professional care</strong> for something cheap and private. Something that helps a person notice their own patterns.'
+      ],
+      no:[
+        'Norge bruker mer på psykisk helse enn nesten noe annet land. <strong>Den er likevel den enkeltvis dyreste tilstanden her</strong>, nær tre prosent av BNP. Hjelpen finnes. Tilgangen er ujevn. Hverdagslaget, det med lav innsats, er tynt. <strong>Det er rom før og ved siden av profesjonell hjelp</strong> for noe rimelig og privat. Noe som hjelper et menneske å legge merke til sine egne mønstre.'
+      ],
+      es:[
+        'Noruega gasta en salud mental más que casi cualquier otro país. <strong>Aun así sigue siendo la enfermedad individual más costosa allí</strong>, cerca del tres por ciento del PIB. La atención existe. El acceso es desigual. La capa cotidiana, la de bajo riesgo, es fina. <strong>Hay sitio antes y al lado de la atención profesional</strong> para algo barato y privado. Algo que ayude a una persona a fijarse en sus propios patrones.'
+      ]
+    },
+    stats:{
+      src:{
+        en:'Public Norwegian sources. Illustrative, 2026.',
+        no:'Offentlige norske kilder. Illustrerende, 2026.',
+        es:'Fuentes públicas noruegas. Ilustrativo, 2026.'
+      },
+      items:[
+        {
+          fig:'~3%',
+          lab:{
+            en:'of GDP: mental disorders, the single costliest condition in Norway',
+            no:'av BNP: psykiske lidelser, den enkeltvis dyreste tilstanden i Norge',
+            es:'del PIB: los trastornos mentales, la enfermedad individual más costosa de Noruega'
+          }
+        },
+        {
+          fig:'~20%',
+          lab:{
+            en:'of new depression diagnoses referred to specialised care',
+            no:'av nye depresjonsdiagnoser henvist til spesialisthelsetjenesten',
+            es:'de los nuevos diagnósticos de depresión derivados a atención especializada'
+          }
+        }
+      ]
+    }
+  },
+  {
+    id:'firstbuild',
+    nav:{
+      en:'The first build',
+      no:'Første versjon',
+      es:'La primera versión'
+    },
+    eyebrow:{
+      en:'05 · Diagnosis',
+      no:'05 · Diagnose',
+      es:'05 · Diagnóstico'
+    },
+    h:{
+      en:'The first version worked, but it asked for too much at once',
+      no:'Den første versjonen fungerte, men ba om for mye på én gang',
+      es:'La primera versión funcionaba, pero pedía demasiado a la vez'
+    },
+    body:{
+      en:[
+        'Writing, mood rating and tagging all sat on one screen. There was no focus while writing, and nothing came back for the effort.'
+      ],
+      no:[
+        'Skriving, humørvurdering og merking lå på samme skjerm. Det var ingen ro til å skrive, og ingenting kom tilbake for innsatsen.'
+      ],
+      es:[
+        'Escribir, valorar el ánimo y etiquetar estaban en la misma pantalla. No había concentración al escribir y el esfuerzo no devolvía nada.'
+      ]
     },
     assets:['before']
   },
   {
-    id:'rule', nav:{en:'One rule',no:'Én regel', es:'Una regla'},
-    eyebrow:{en:'06 · Guiding policy',no:'06 · Styrende prinsipp', es:'06 · Principio rector'},
-    h:{en:'One rule held the scope: an adjunct, never a replacement',
-       no:'Én regel holdt omfanget: et supplement, aldri en erstatning',
-       es:'Una regla sostuvo el alcance: un complemento, nunca un sustituto'},
+    id:'rule',
+    nav:{
+      en:'One rule',
+      no:'Én regel',
+      es:'Una regla'
+    },
+    eyebrow:{
+      en:'06 · Guiding policy',
+      no:'06 · Styrende prinsipp',
+      es:'06 · Principio rector'
+    },
+    h:{
+      en:'One rule set the scope: support care, never replace it',
+      no:'Én regel satte rammen: støtte omsorg, aldri erstatte den',
+      es:'Una regla marcó el alcance: apoyar la atención, nunca sustituirla'
+    },
     body:{
-      en:['Every decision ran through one commitment. Complement care and self-knowledge. <strong>Never impersonate a therapist.</strong> Each reflection carries the same line: <strong>patterns in your own words, not a diagnosis</strong>.'],
-      no:['Hver beslutning gikk gjennom én forpliktelse. Utfyll hjelp og selvinnsikt. <strong>Utgi deg aldri for å være en terapeut.</strong> Hver refleksjon bærer den samme linjen: <strong>mønstre med dine egne ord, ikke en diagnose</strong>.'],
-      es:['Cada decisión pasó por un único compromiso. Complementar la atención y el autoconocimiento. <strong>Nunca hacerse pasar por un terapeuta.</strong> Cada reflexión lleva la misma línea: <strong>patrones con tus propias palabras, no un diagnóstico</strong>.']
+      en:[
+        'The journal helps people notice their own patterns and never imitates a therapist. Each reflection carries the same line: patterns in your own words, not a diagnosis.'
+      ],
+      no:[
+        'Dagboken hjelper folk å legge merke til egne mønstre og etterligner aldri en terapeut. Hver refleksjon har samme linje: mønstre med dine egne ord, ikke en diagnose.'
+      ],
+      es:[
+        'El diario ayuda a las personas a notar sus propios patrones y nunca imita a un terapeuta. Cada reflexión lleva la misma frase: patrones con tus propias palabras, no un diagnóstico.'
+      ]
     },
     sub:{
-      h:{en:'The evidence base was the partner',no:'Kunnskapsgrunnlaget var partneren', es:'La base de evidencia fue la socia'},
-      body:{
-        en:['The design does not invent its own claims. It defers to validated psychology and cites it.'],
-        no:['Designet finner ikke opp sine egne påstander. Det bøyer seg for validert psykologi og siterer den.'],
-        es:['El diseño no inventa sus propias afirmaciones. Se remite a psicología validada y la cita.']
+      h:{
+        en:'Built on established psychology',
+        no:'Bygget på etablert psykologi',
+        es:'Basado en psicología consolidada'
       },
       list:{
-        en:['<strong>Russell’s circumplex model of affect</strong>, for mood.',
-            '<strong>Pennebaker’s expressive-writing research</strong>, for the language reflection.',
-            '<strong>CBT vocabulary</strong>, for the prompts.',
-            '<strong>Low-validity personality quizzes refused</strong>, such as MBTI and the Enneagram.'],
-        no:['<strong>Russells sirkumpleksmodell for affekt</strong>, for humør.',
-            '<strong>Pennebakers forskning på ekspressiv skriving</strong>, for språkrefleksjonen.',
-            '<strong>KAT-vokabular</strong>, for spørsmålene.',
-            '<strong>Personlighetstester med lav validitet avvist</strong>, som MBTI og Enneagrammet.'],
-        es:['<strong>El modelo circumplejo del afecto de Russell</strong>, para el estado de ánimo.',
-         '<strong>La investigación de Pennebaker sobre escritura expresiva</strong>, para la reflexión sobre el lenguaje.',
-         '<strong>El vocabulario de la TCC</strong>, para las preguntas.',
-         '<strong>Rechazados los tests de personalidad de baja validez</strong>, como el MBTI y el Eneagrama.'],
+        en:[
+          'Russell’s circumplex model of affect, for mood',
+          'Pennebaker’s expressive-writing research, for the language reflection',
+          'CBT vocabulary, for the prompts',
+          'No low-validity personality quizzes, such as MBTI or the Enneagram'
+        ],
+        no:[
+          'Russells sirkumpleksmodell for følelser, for humør',
+          'Pennebakers forskning på ekspressiv skriving, for språkrefleksjonen',
+          'KAT-vokabular, for skriveforslagene',
+          'Ingen personlighetstester med lav validitet, som MBTI eller Enneagrammet'
+        ],
+        es:[
+          'El modelo circumplejo del afecto de Russell, para el ánimo',
+          'La investigación de Pennebaker sobre escritura expresiva, para la reflexión sobre el lenguaje',
+          'Vocabulario de la TCC, para las propuestas de escritura',
+          'Sin tests de personalidad de baja validez, como el MBTI o el Eneagrama'
+        ],
         type:'ul'
       },
       assets:['principle']
     }
   },
   {
-    id:'flow', nav:{en:'Write, then rate',no:'Skriv, så vurder', es:'Escribe, luego valora'},
-    eyebrow:{en:'07 · The build',no:'07 · Løsningen', es:'07 · La solución'},
-    h:{en:'A focused two-step flow: write first, rate later',
-       no:'En fokusert totrinnsflyt: skriv først, vurder etterpå',
-       es:'Un flujo enfocado en dos pasos: primero escribe, valora después'},
-    body:{
-      en:['<strong>Writing and judging are different mental modes. So they were separated.</strong> Step one is a distraction-free editor and nothing else. Step two comes only after the writing. It asks for mood and themes. One home, one task. The navigation and the clutter came out. <strong>Nothing floats over the writing surface.</strong>'],
-      no:['<strong>Å skrive og å vurdere er ulike mentale modus. Så de ble skilt.</strong> Steg én er en distraksjonsfri editor og ingenting annet. Steg to kommer først etter skrivingen. Det ber om humør og temaer. Ett hjem, én oppgave. Navigasjonen og rotet forsvant. <strong>Ingenting flyter over skriveflaten.</strong>'],
-      es:['<strong>Escribir y juzgar son modos mentales distintos. Así que se separaron.</strong> El paso uno es un editor sin distracciones y nada más. El paso dos llega solo después de escribir. Pide estado de ánimo y temas. Un único inicio, una única tarea. La navegación y el desorden desaparecieron. <strong>Nada flota sobre la superficie de escritura.</strong>']
+    id:'flow',
+    nav:{
+      en:'Write, then rate',
+      no:'Skriv, så vurder',
+      es:'Escribe, luego valora'
     },
-    assets:['flow','home']
+    eyebrow:{
+      en:'07 · The build',
+      no:'07 · Løsningen',
+      es:'07 · La solución'
+    },
+    h:{
+      en:'A focused two-step flow: write first, rate later',
+      no:'En fokusert totrinnsflyt: skriv først, vurder etterpå',
+      es:'Un flujo enfocado en dos pasos: primero escribe, valora después'
+    },
+    body:{
+      en:[
+        'Writing and judging are different mental modes, so they became two steps. Step one is a distraction-free editor. Step two asks for mood and themes.'
+      ],
+      no:[
+        'Å skrive og å vurdere er ulike mentale moduser, så de ble to trinn. Trinn én er en editor uten forstyrrelser. Trinn to spør om humør og temaer.'
+      ],
+      es:[
+        'Escribir y juzgar son modos mentales distintos, así que se convirtieron en dos pasos. El primero es un editor sin distracciones. El segundo pregunta por el ánimo y los temas.'
+      ]
+    },
+    assets:['flow', 'home']
   },
   {
-    id:'grid', nav:{en:'Two axes',no:'To akser', es:'Dos ejes'},
-    eyebrow:{en:'08 · Component',no:'08 · Komponent', es:'08 · Componente'},
-    h:{en:'Mood became two axes, because calm and exhausted are not the same low',
-       no:'Humør ble to akser, fordi rolig og utmattet ikke er det samme lave',
-       es:'El ánimo pasó a tener dos ejes, porque estar en calma y estar agotado no son el mismo bajón'},
+    id:'grid',
+    nav:{
+      en:'Two axes',
+      no:'To akser',
+      es:'Dos ejes'
+    },
+    eyebrow:{
+      en:'08 · Component',
+      no:'08 · Komponent',
+      es:'08 · Componente'
+    },
+    h:{
+      en:'Mood became two axes, because calm and exhausted are not the same low',
+      no:'Humør ble to akser, fordi rolig og utmattet ikke er det samme lave',
+      es:'El ánimo pasó a tener dos ejes, porque estar en calma y estar agotado no son el mismo bajón'
+    },
     body:{
-      en:['<strong>A single sad-to-happy scale hides half of how a day feels.</strong> Calm and exhausted both score low. They are not the same day. The emoji gave way to <strong>an Affect Grid</strong>: a square where one axis is mood and the other is energy, drawn from Russell’s circumplex. One placed dot captures both at once. Pleasant or heavy. Wired or worn out.'],
-      no:['<strong>En enkelt skala fra trist til glad skjuler halvparten av hvordan en dag føles.</strong> Rolig og utmattet skårer begge lavt. De er ikke samme dag. Emojien vek for <strong>et Affect Grid</strong>: en firkant der den ene aksen er humør og den andre er energi, hentet fra Russells sirkumpleks. Én plassert prikk fanger begge på én gang. Behagelig eller tungt. Oppspilt eller utslitt.'],
-      es:['<strong>Una única escala de triste a feliz esconde la mitad de cómo se siente un día.</strong> En calma y agotado puntúan bajo las dos. No son el mismo día. El emoji dejó paso a <strong>un Affect Grid</strong>: un cuadrado donde un eje es el estado de ánimo y el otro la energía, tomado del modelo circumplejo de Russell. Un solo punto colocado captura ambos a la vez. Agradable o pesado. Acelerado o exhausto.']
+      en:[
+        'On a single sad-to-happy scale, calm and exhausted both score low, but they are very different days. So the emoji gave way to an Affect Grid, based on Russell’s circumplex: one axis for mood, one for energy, and one dot to capture both.'
+      ],
+      no:[
+        'På én skala fra trist til glad får både rolig og utslitt lav score, men det er svært ulike dager. Derfor ble emojien erstattet av et Affect Grid, basert på Russells sirkumpleksmodell: én akse for humør, én for energi og én prikk som fanger begge.'
+      ],
+      es:[
+        'En una sola escala de triste a feliz, la calma y el agotamiento puntúan bajo, pero son días muy distintos. Por eso el emoji dio paso a una Affect Grid, basada en el modelo circumplejo de Russell: un eje para el ánimo, otro para la energía y un punto que recoge ambos.'
+      ]
     },
     assets:['grid']
   },
   {
-    id:'dictation', nav:{en:'Voice, rebuilt',no:'Stemme, bygd om', es:'Voz, reconstruida'},
-    eyebrow:{en:'09 · Iteration',no:'09 · Iterasjon', es:'09 · Iteración'},
-    h:{en:'Dictation worked in Chrome and nowhere else, so it was rebuilt',
-       no:'Diktering fungerte i Chrome og ingen andre steder, så den ble bygget om',
-       es:'El dictado funcionaba en Chrome y en ningún otro sitio, así que se reconstruyó'},
+    id:'dictation',
+    nav:{
+      en:'Voice, rebuilt',
+      no:'Stemme, bygd om',
+      es:'Voz, reconstruida'
+    },
+    eyebrow:{
+      en:'09 · Iteration',
+      no:'09 · Iterasjon',
+      es:'09 · Iteración'
+    },
+    h:{
+      en:'Dictation worked in Chrome and nowhere else, so it was rebuilt',
+      no:'Diktering fungerte i Chrome og ingen andre steder, så den ble bygget om',
+      es:'El dictado funcionaba en Chrome y en ningún otro sitio, así que se reconstruyó'
+    },
     body:{
-      en:['Voice input was added to lower the barrier to writing. The first version sat on the browser’s built-in speech API. <strong>It failed silently outside Chrome.</strong> It was torn out. <strong>The rebuild records audio and transcribes it server-side with Whisper.</strong> That works everywhere, including mobile. A small, honest loop: build, test, adapt, with a concrete cause.'],
-      no:['Taleinnput ble lagt til for å senke terskelen for å skrive. Den første versjonen satt på nettleserens innebygde tale-API. <strong>Den feilet stille utenfor Chrome.</strong> Den ble revet ut. <strong>Den nye versjonen tar opp lyd og transkriberer den på serversiden med Whisper.</strong> Det fungerer overalt, også på mobil. En liten, ærlig sløyfe: bygg, test, tilpass, med en konkret årsak.'],
-      es:['La entrada por voz se añadió para bajar la barrera de la escritura. La primera versión se apoyaba en la API de voz integrada del navegador. <strong>Fallaba en silencio fuera de Chrome.</strong> Se arrancó. <strong>La nueva versión graba audio y lo transcribe en el servidor con Whisper.</strong> Eso funciona en todas partes, también en el móvil. Un pequeño ciclo honesto: construir, probar, adaptar, con una causa concreta.']
+      en:[
+        'The first version used the browser’s speech API, which failed silently outside Chrome. The rebuild records audio and transcribes it on the server with Whisper, so dictation works everywhere, including on phones.'
+      ],
+      no:[
+        'Den første versjonen brukte nettleserens tale-API, som feilet uten varsel utenfor Chrome. Den nye versjonen tar opp lyd og transkriberer den på serveren med Whisper, så diktering virker overalt, også på mobil.'
+      ],
+      es:[
+        'La primera versión usaba la API de voz del navegador, que fallaba sin avisar fuera de Chrome. La nueva graba el audio y lo transcribe en el servidor con Whisper, así que el dictado funciona en todas partes, también en el móvil.'
+      ]
     }
   },
   {
-    id:'betweenlines', nav:{en:'Between the lines',no:'Mellom linjene', es:'Entre líneas'},
-    eyebrow:{en:'10 · The payoff',no:'10 · Belønningen', es:'10 · La recompensa'},
-    h:{en:'It reads between the lines only when asked',
-       no:'Den leser mellom linjene bare når den blir bedt om det',
-       es:'Lee entre líneas solo cuando se le pide'},
-    body:{
-      en:['The reward for journaling is the Between the Lines card. By default it shows <strong>a plain-language conclusion computed on the device</strong>. This week against last, next to a swipeable mood-and-energy trend. No model is called to produce it.',
-          'The deeper AI reflection is <strong>one deliberate tap away, and opt-in every time</strong>. By default no entry is sent off for reflection. What every entry does get is a search embedding, so it can be found later by meaning.',
-          'The entries live in the writer’s own account. <strong>The line this product defends is consent, not secrecy.</strong> Nothing is read for reflection that was not explicitly offered up. That is what personvern and GDPR actually ask for.'],
-      no:['Belønningen for å føre dagbok er «Mellom linjene»-kortet. Som standard viser det <strong>en konklusjon i klarspråk, beregnet på enheten</strong>. Denne uken mot forrige, ved siden av en sveipbar humør- og energitrend. Ingen modell kalles for å lage den.',
-          'Den dypere KI-refleksjonen er <strong>ett bevisst trykk unna, og opt-in hver gang</strong>. Som standard sendes ingen notater til refleksjon. Det eneste hvert notat får, er en embedding til søk, slik at det kan finnes igjen etter mening.',
-          'Notatene ligger på skribentens egen konto. <strong>Grensen dette produktet forsvarer, er samtykke, ikke hemmelighold.</strong> Ingenting leses til refleksjon uten at det er gitt fra seg med vilje. Det er det personvern og GDPR faktisk ber om.'],
-      es:['La recompensa por escribir el diario es la tarjeta Entre líneas. Por defecto muestra <strong>una conclusión en lenguaje llano calculada en el dispositivo</strong>. Esta semana frente a la anterior, junto a una tendencia deslizable de ánimo y energía. No se llama a ningún modelo para producirla.',
-          'La reflexión más profunda con IA está <strong>a un toque deliberado, y es opcional cada vez</strong>. Por defecto no se envía ninguna entrada a reflexión. Lo que sí recibe cada entrada es un embedding de búsqueda, para poder encontrarla después por su significado.',
-          'Las entradas viven en la propia cuenta de quien escribe. <strong>La línea que este producto defiende es el consentimiento, no el secreto.</strong> Nada se lee para reflexionar si no se ha ofrecido de forma explícita. Eso es lo que la privacidad y el RGPD piden en realidad.']
+    id:'betweenlines',
+    nav:{
+      en:'Between the lines',
+      no:'Mellom linjene',
+      es:'Entre líneas'
     },
-    assets:['card','trend']
+    eyebrow:{
+      en:'10 · The payoff',
+      no:'10 · Belønningen',
+      es:'10 · La recompensa'
+    },
+    h:{
+      en:'It reads between the lines only when asked',
+      no:'Den leser mellom linjene bare når den blir bedt om det',
+      es:'Lee entre líneas solo cuando se le pide'
+    },
+    body:{
+      en:[
+        'The reward for journaling is the Between the Lines card. By default it compares this week with the last, next to a mood and energy trend, with no language model involved.',
+        'A deeper AI reflection is one deliberate tap away. Every entry does get a search embedding, so it can be found later by meaning.'
+      ],
+      no:[
+        'Belønningen for å skrive dagbok er Mellom linjene-kortet. Som standard sammenligner det denne uken med forrige, ved siden av en trend for humør og energi, uten noen språkmodell.',
+        'En dypere KI-refleksjon er ett bevisst trykk unna. Hvert notat får en embedding for søk, så det kan finnes igjen etter betydning.'
+      ],
+      es:[
+        'La recompensa por escribir es la tarjeta Entre líneas. Por defecto compara esta semana con la anterior, junto a una tendencia de ánimo y energía, sin ningún modelo de lenguaje.',
+        'Una reflexión más profunda con IA está a un toque deliberado. Cada entrada recibe un embedding de búsqueda, para poder encontrarla después por su significado.'
+      ]
+    },
+    assets:['card', 'trend']
   },
   {
-    id:'companion', nav:{en:'The Companion',no:'Companion', es:'El Companion'},
-    eyebrow:{en:'11 · The Companion',no:'11 · Companion', es:'11 · El Companion'},
-    h:{en:'The Companion answers the chatbot problem instead of ignoring it',
-       no:'Companion svarer på chatbotproblemet i stedet for å overse det',
-       es:'El Companion responde al problema del chatbot en lugar de ignorarlo'},
-    body:{
-      en:['A journal that reads between the lines invites an obvious next wish: someone to talk to about it. The product does not pretend that wish away. <strong>It ships a conversation built the other way round from the generic chatbot.</strong> The Companion opens from the page. It quotes what the week actually says. <strong>It hands a question back before it answers one.</strong> When the language crosses a crisis threshold, <strong>it drops the conversation and shows Norway’s real help lines</strong>, right in the thread. The same rule as everywhere else: an adjunct, never a therapist. Only now it can hold a conversation without breaking it.'],
-      no:['En dagbok som leser mellom linjene, inviterer til et åpenbart neste ønske: noen å snakke med om det. Produktet later ikke som ønsket ikke finnes. <strong>Det leverer en samtale bygget motsatt vei av den generiske chatboten.</strong> Companion åpner fra siden. Den siterer det uken faktisk sier. <strong>Den gir et spørsmål tilbake før den svarer på ett.</strong> Når språket krysser en kriseterskel, <strong>slipper den samtalen og viser Norges virkelige hjelpelinjer</strong>, rett i tråden. Samme regel som overalt ellers: et supplement, aldri en terapeut. Bare at den nå kan holde en samtale uten å bryte den.'],
-      es:['Un diario que lee entre líneas invita a un siguiente deseo evidente: alguien con quien hablar de ello. El producto no finge que ese deseo no existe. <strong>Incluye una conversación construida al revés que el chatbot genérico.</strong> El Companion se abre desde la página. Cita lo que la semana dice de verdad. <strong>Devuelve una pregunta antes de responder a ninguna.</strong> Cuando el lenguaje cruza un umbral de crisis, <strong>abandona la conversación y muestra las líneas de ayuda reales de Noruega</strong>, ahí mismo en el hilo. La misma regla que en todo lo demás: un complemento, nunca un terapeuta. Solo que ahora puede sostener una conversación sin romperla.']
+    id:'companion',
+    nav:{
+      en:'The Companion',
+      no:'Companion',
+      es:'El Companion'
     },
-    assets:['companion'],
-    close:{
-      en:'The reply to a chatbot that always agrees is not silence. It is a companion that asks back.',
-      no:'Svaret på en chatbot som alltid er enig, er ikke stillhet. Det er en companion som spør tilbake.',
-      es:'La respuesta a un chatbot que siempre da la razón no es el silencio. Es un compañero que pregunta de vuelta.'
-    }
+    eyebrow:{
+      en:'11 · The Companion',
+      no:'11 · Companion',
+      es:'11 · El Companion'
+    },
+    h:{
+      en:'The Companion is built the opposite way from a generic chatbot',
+      no:'Companion er bygget motsatt av en generisk chatbot',
+      es:'El Companion está construido al revés que un chatbot genérico'
+    },
+    body:{
+      en:[
+        'It opens from your page and quotes what your week actually says. It asks a question back before it answers one. When a message in English or Norwegian signals a crisis, it stops the conversation and shows emergency numbers.'
+      ],
+      no:[
+        'Den åpner fra siden din og siterer det uken din faktisk handler om. Den stiller et spørsmål tilbake før den svarer på ett. Når en melding på engelsk eller norsk tyder på krise, stopper den samtalen og viser nødnumre.'
+      ],
+      es:[
+        'Se abre desde tu página y cita lo que realmente dice tu semana. Devuelve una pregunta antes de responder a otra. Cuando un mensaje en inglés o noruego indica una crisis, detiene la conversación y muestra los números de emergencia.'
+      ]
+    },
+    assets:['companion']
   },
   {
-    id:'clickable', nav:{en:'A shipped product',no:'Et lansert produkt', es:'Un producto publicado'},
-    eyebrow:{en:'12 · Delivery',no:'12 · Leveranse', es:'12 · Entrega'},
-    h:{en:'From a course project to a product with accounts, payments and an API',
-       no:'Fra kursprosjekt til et produkt med kontoer, betaling og et API',
-       es:'De un proyecto de curso a un producto con cuentas, pagos y una API'},
-    body:{
-      en:['The point of the technical layer is <strong>a design that ships, not just a mockup</strong>. The course version ran on React and TypeScript, a Tiptap editor and Vercel serverless functions. Whisper did the dictation. Grok models wrote the reflections and the Companion’s replies.',
-          '<strong>What it became after the course is the part worth reading.</strong> Entries moved into a Postgres database behind real accounts. Search became hybrid: meaning through pgvector embeddings, wording through trigrams. So “that argument in July” finds the entry that never used the word. Subscriptions run on Stripe with idempotent webhooks.',
-          'Then the journal grew <strong>an OAuth 2.1 authorisation server and an MCP server</strong>. An AI assistant can read and write it on the owner’s behalf. Dynamic client registration. PKCE. Refresh tokens that rotate. A reused token invalidates its whole chain.',
-          '<strong>AI was the accelerator throughout. The judgement was mine.</strong> What to build. When it was genuinely done. Which shortcut to refuse. Every decision in that repository is one I can defend.'],
-      no:['Poenget med det tekniske laget er <strong>et design som lanseres, ikke bare en mockup</strong>. Kursversjonen kjørte på React og TypeScript, en Tiptap-editor og Vercel serverless-funksjoner. Whisper tok dikteringen. Grok-modeller skrev refleksjonene og Companions svar.',
-          '<strong>Det den ble etter kurset, er den delen som er verdt å lese.</strong> Notatene flyttet inn i en Postgres-database bak ekte kontoer. Søket ble hybrid: mening gjennom pgvector-embeddinger, ordlyd gjennom trigrammer. Så «den krangelen i juli» finner notatet som aldri brukte ordet. Abonnementene kjører på Stripe med idempotente webhooks.',
-          'Så fikk dagboken <strong>en OAuth 2.1-autorisasjonsserver og en MCP-server</strong>. En KI-assistent kan lese og skrive den på eierens vegne. Dynamisk klientregistrering. PKCE. Refresh-tokens som roterer. Et gjenbrukt token ugyldiggjør hele kjeden.',
-          '<strong>KI var akseleratoren hele veien. Vurderingen var min.</strong> Hva som skulle bygges. Når det faktisk var ferdig. Hvilken snarvei som skulle avvises. Hver beslutning i det repositoriet er en jeg kan forsvare.'],
-      es:['El sentido de la capa técnica es <strong>un diseño que se publica, no solo una maqueta</strong>. La versión del curso corría sobre React y TypeScript, un editor Tiptap y funciones serverless de Vercel. Whisper hacía el dictado. Los modelos Grok escribían las reflexiones y las respuestas del Companion.',
-          '<strong>En lo que se convirtió después del curso está la parte que merece la pena leer.</strong> Las entradas pasaron a una base de datos Postgres detrás de cuentas reales. La búsqueda se volvió híbrida: significado mediante embeddings de pgvector, redacción mediante trigramas. Así «aquella discusión de julio» encuentra la entrada que nunca usó esa palabra. Las suscripciones funcionan sobre Stripe con webhooks idempotentes.',
-          'Luego el diario ganó <strong>un servidor de autorización OAuth 2.1 y un servidor MCP</strong>. Un asistente de IA puede leerlo y escribirlo en nombre de su dueño. Registro dinámico de clientes. PKCE. Refresh tokens que rotan. Un token reutilizado invalida toda su cadena.',
-          '<strong>La IA fue el acelerador en todo momento. El criterio fue mío.</strong> Qué construir. Cuándo estaba terminado de verdad. Qué atajo rechazar. Cada decisión de ese repositorio es una que puedo defender.']
+    id:'clickable',
+    nav:{
+      en:'How the AI works',
+      no:'Slik virker KI-en',
+      es:'Cómo funciona la IA'
     },
-    assets:['showcase','inhands'],
+    eyebrow:{
+      en:'12 · How it works',
+      no:'12 · Slik virker det',
+      es:'12 · Cómo funciona'
+    },
+    h:{
+      en:'The same system, explained to a ten-year-old, to a professional, and as it was built',
+      no:'Samme system, forklart for en tiåring, for fagfolk og slik det ble bygget',
+      es:'El mismo sistema, explicado a alguien de diez años, a profesionales y tal como se construyó'
+    },
+    body:{
+      en:[
+        'AI products affect people who will never read the code, so <strong>being able to explain the system is part of building it</strong>. Each part below has three explanations. Choose one, or read all three.'
+      ],
+      no:[
+        'KI-produkter påvirker folk som aldri kommer til å lese koden, så <strong>det å kunne forklare systemet er en del av å bygge det</strong>. Hver del nedenfor har tre forklaringer. Velg én, eller les alle tre.'
+      ],
+      es:[
+        'Los productos con IA afectan a personas que nunca leerán el código, así que <strong>saber explicar el sistema forma parte de construirlo</strong>. Cada parte tiene tres explicaciones. Elige una o lee las tres.'
+      ]
+    },
+    assets:['systemmap'],
+    explain:EXPLAIN,
+    sub:{
+      h:{
+        en:'Who did what',
+        no:'Hvem gjorde hva',
+        es:'Quién hizo qué'
+      },
+      body:{
+        en:[
+          'I wrote the requirements, worked out the architecture with Claude Code, made the product and safety decisions, and checked the results in the running product. <strong>Claude Code wrote most of the code.</strong> I am a designer who builds, and I can explain every part above. The journal has no real users yet.'
+        ],
+        no:[
+          'Jeg skrev kravene, utarbeidet arkitekturen sammen med Claude Code, tok produkt- og sikkerhetsbeslutningene og kontrollerte resultatene i det kjørende produktet. <strong>Claude Code skrev mesteparten av koden.</strong> Jeg er en designer som bygger, og jeg kan forklare hver del ovenfor. Dagboken har ingen ekte brukere ennå.'
+        ],
+        es:[
+          'Escribí los requisitos, definí la arquitectura con Claude Code, tomé las decisiones de producto y de seguridad, y comprobé los resultados en el producto en funcionamiento. <strong>Claude Code escribió la mayor parte del código.</strong> Soy una diseñadora que construye y puedo explicar cada parte. El diario aún no tiene usuarios reales.'
+        ]
+      },
+      assets:['showcase', 'inhands']
+    },
     close:{
       en:'Not a mockup to imagine, a product to open.',
       no:'Ikke en mockup å forestille seg, et produkt å åpne.',
@@ -1098,18 +1729,35 @@ const SECTIONS = [
     }
   },
   {
-    id:'access', nav:{en:'Reachable',no:'Tilgjengelig', es:'Accesible'},
-    eyebrow:{en:'13 · Accessibility',no:'13 · Tilgjengelighet', es:'13 · Accesibilidad'},
-    h:{en:'The component that defines this product is the one most likely to lock someone out',
-       no:'Komponenten som definerer dette produktet, er den som lettest stenger noen ute',
-       es:'El componente que define este producto es el que más probablemente deje a alguien fuera'},
+    id:'access',
+    nav:{
+      en:'Reachable',
+      no:'Tilgjengelig',
+      es:'Accesible'
+    },
+    eyebrow:{
+      en:'13 · Accessibility',
+      no:'13 · Tilgjengelighet',
+      es:'13 · Accesibilidad'
+    },
+    h:{
+      en:'The component that defines this product is the one most likely to lock someone out',
+      no:'Komponenten som definerer dette produktet, er den som lettest stenger noen ute',
+      es:'El componente que define este producto es el que más probablemente deje a alguien fuera'
+    },
     body:{
-      en:['A square you drag a dot into is a pointer-only idea. And the two-axis grid is the heart of the product. <strong>It ships as a slider.</strong> Focusable. Driven by the arrow keys. It announces its position in words, “pleasant, low energy”, not as coordinates nobody can picture.',
-          'The Companion had the quieter version of the same bug. Its typing indicator carried an aria-label on a plain div. A plain div announces nothing. For a screen reader the wait was simply silence. <strong>It became a live region instead.</strong> Motion follows the system’s reduced-motion setting throughout.'],
-      no:['En firkant du drar en prikk inn i, er en idé som forutsetter en peker. Og rutenettet med to akser er hjertet i produktet. <strong>Det leveres som en slider.</strong> Fokuserbart. Styrt med piltastene. Det melder fra om posisjonen sin med ord, «behagelig, lav energi», ikke som koordinater ingen klarer å se for seg.',
-          'Companion hadde den stillere varianten av samme feil. Skriveindikatoren bar en aria-label på en vanlig div. En vanlig div annonserer ingenting. For en skjermleser var ventingen rett og slett stillhet. <strong>Den ble et live-område i stedet.</strong> Bevegelse følger systemets innstilling for redusert bevegelse hele veien.'],
-      es:['Un cuadrado en el que arrastras un punto es una idea solo para puntero. Y la cuadrícula de dos ejes es el corazón del producto. <strong>Se publica como un slider.</strong> Enfocable. Manejado con las flechas del teclado. Anuncia su posición en palabras, «agradable, energía baja», no como coordenadas que nadie puede imaginar.',
-          'El Companion tenía la versión más silenciosa del mismo fallo. Su indicador de escritura llevaba un aria-label en un div corriente. Un div corriente no anuncia nada. Para un lector de pantalla la espera era simplemente silencio. <strong>Pasó a ser una región en vivo.</strong> El movimiento sigue en todo momento el ajuste de movimiento reducido del sistema.']
+      en:[
+        'A square you drag a dot into only works with a pointer, and it is the heart of this product. So it also works as a slider: focusable, driven by the arrow keys, and announcing its position in words, such as “pleasant, low energy”.',
+        'The Companion had a quieter bug: its typing indicator said nothing to a screen reader, so the wait was pure silence. It became a live region.'
+      ],
+      no:[
+        'Et kvadrat du drar en prikk inn i, virker bare med pekeenhet, og det er hjertet i dette produktet. Derfor fungerer det også som en glidebryter: det kan få fokus, styres med piltastene og sier posisjonen sin med ord, for eksempel «behagelig, lav energi».',
+        'Companion hadde en stillere feil: skriveindikatoren sa ingenting til en skjermleser, så ventetiden var bare stillhet. Den ble en live-region.'
+      ],
+      es:[
+        'Un cuadrado en el que arrastras un punto solo funciona con un puntero, y es el corazón de este producto. Por eso también funciona como un control deslizante: recibe el foco, se maneja con las flechas y anuncia su posición con palabras, como «agradable, poca energía».',
+        'El Companion tenía un fallo más discreto: su indicador de escritura no decía nada al lector de pantalla, así que la espera era puro silencio. Se convirtió en una región activa.'
+      ]
     },
     close:{
       en:'An automated scan catches the contrast. It does not catch a grid that only answers to a mouse.',
@@ -1118,61 +1766,77 @@ const SECTIONS = [
     }
   },
   {
-    id:'reflection', nav:{en:'What it taught',no:'Hva det lærte', es:'Lo que enseñó'},
-    eyebrow:{en:'14 · Lessons',no:'14 · Lærdom', es:'14 · Lecciones'},
-    h:{en:'What the project taught, and where it goes next',
-       no:'Hva prosjektet lærte, og hvor det går videre',
-       es:'Lo que enseñó el proyecto, y hacia dónde va'},
-    body:{
-      en:['<strong>Building it, rather than only drawing it, made every trade-off concrete.</strong>'],
-      no:['<strong>Å bygge det, i stedet for bare å tegne det, gjorde hver avveining konkret.</strong>'],
-      es:['<strong>Construirlo, en lugar de solo dibujarlo, hizo concreta cada decisión de compromiso.</strong>']
+    id:'reflection',
+    nav:{
+      en:'What it taught',
+      no:'Hva det lærte',
+      es:'Lo que enseñó'
+    },
+    eyebrow:{
+      en:'14 · Lessons',
+      no:'14 · Lærdom',
+      es:'14 · Lecciones'
+    },
+    h:{
+      en:'What the project taught, and where it goes next',
+      no:'Hva prosjektet lærte, og hvor det går videre',
+      es:'Lo que enseñó el proyecto, y hacia dónde va'
     },
     list:{
-      en:['<strong>Subtraction did more than addition.</strong> The navigation, the clutter and the crude single mood axis all came out.',
-          '<strong>Constraints from the evidence base sharpened the work.</strong> They did not narrow it.',
-          '<strong>The most honest feature is also the most trustworthy.</strong> On demand, clearly labelled, never pretending to diagnose.',
-          '<strong>With no real users yet, every choice is still a hypothesis.</strong> Real journalers are the next test.'],
-      no:['<strong>Å trekke fra gjorde mer enn å legge til.</strong> Navigasjonen, rotet og den grovkornede enkeltaksen for humør forsvant alle.',
-          '<strong>Begrensninger fra kunnskapsgrunnlaget skjerpet arbeidet.</strong> De snevret det ikke inn.',
-          '<strong>Den mest ærlige funksjonen er også den mest til å stole på.</strong> På forespørsel, tydelig merket, uten å late som den diagnostiserer.',
-          '<strong>Uten ekte brukere ennå er hvert valg fortsatt en hypotese.</strong> Ekte dagbokskrivere er neste test.'],
-      es:['<strong>Quitar hizo más que añadir.</strong> La navegación, el desorden y el tosco eje único de ánimo salieron todos.',
-       '<strong>Las restricciones de la base de evidencia afinaron el trabajo.</strong> No lo estrecharon.',
-       '<strong>La función más honesta es también la más fiable.</strong> Bajo demanda, claramente etiquetada, sin fingir nunca que diagnostica.',
-       '<strong>Sin usuarios reales todavía, cada decisión sigue siendo una hipótesis.</strong> Las personas que escriben diarios de verdad son la siguiente prueba.'],
+      en:[
+        '<strong>Removing things helped more than adding them.</strong> The navigation, the clutter and the single mood scale all came out.',
+        '<strong>People can trust an AI feature that is on demand</strong>, clearly labelled and never diagnoses.',
+        '<strong>With no real users yet, every choice is still a hypothesis.</strong> Testing with people who keep a journal comes next.'
+      ],
+      no:[
+        '<strong>Å fjerne ting hjalp mer enn å legge til.</strong> Navigasjonen, rotet og den enkle humørskalaen forsvant.',
+        '<strong>Folk kan stole på en KI-funksjon som brukes ved behov</strong>, er tydelig merket og aldri stiller diagnoser.',
+        '<strong>Uten ekte brukere er hvert valg fortsatt en hypotese.</strong> Neste trinn er å teste med folk som skriver dagbok.'
+      ],
+      es:[
+        '<strong>Quitar cosas ayudó más que añadirlas.</strong> La navegación, el desorden y la escala única de ánimo desaparecieron.',
+        '<strong>La gente puede confiar en una función de IA que se usa a petición</strong>, está claramente etiquetada y nunca diagnostica.',
+        '<strong>Sin usuarios reales, cada decisión sigue siendo una hipótesis.</strong> Lo siguiente es probarlo con personas que escriben un diario.'
+      ],
       type:'ul'
-    },
-    close:{
-      en:'The product will keep developing: real journalers first, then deeper analysis of language over time.',
-      no:'Produktet vil fortsette å utvikle seg: ekte dagbokskrivere først, deretter dypere analyse av språk over tid.',
-      es:'El producto seguirá desarrollándose: primero personas reales que escriben, después un análisis más profundo del lenguaje a lo largo del tiempo.'
     }
   },
   {
-    id:'sources', nav:{en:'Sources',no:'Kilder', es:'Fuentes'},
-    eyebrow:{en:'15 · Sources',no:'15 · Kilder', es:'15 · Fuentes'},
-    h:{en:'The public material behind the framing',
-       no:'Det offentlige materialet bak innrammingen',
-       es:'El material público detrás del planteamiento'},
-    body:{
-      en:['Cited as references, not claimed as fieldwork. US usage data and Norwegian market context are kept separate. <strong>Re-verify the figures against the primary texts before any public use.</strong>'],
-      no:['Sitert som referanser, ikke framstilt som feltarbeid. Amerikanske bruksdata og norsk markedskontekst holdes atskilt. <strong>Verifiser tallene på nytt mot primærtekstene før eventuell offentlig bruk.</strong>'],
-      es:['Citado como referencia, no presentado como trabajo de campo. Los datos de uso estadounidenses y el contexto de mercado noruego se mantienen separados. <strong>Vuelve a verificar las cifras contra los textos primarios antes de cualquier uso público.</strong>']
+    id:'sources',
+    nav:{
+      en:'Sources',
+      no:'Kilder',
+      es:'Fuentes'
+    },
+    eyebrow:{
+      en:'15 · Sources',
+      no:'15 · Kilder',
+      es:'15 · Fuentes'
+    },
+    h:{
+      en:'The public material behind the framing',
+      no:'Det offentlige materialet bak innrammingen',
+      es:'El material público detrás del planteamiento'
     },
     list:{
-      en:['<strong>Sentio University (2025).</strong> Survey of people with an ongoing mental health condition; about half use language models for mental-health support.',
-          '<strong>Healthline; Toronto Metropolitan University; Psychiatric Times (2025 to 2026).</strong> Expert warnings that chatbots affirm rather than challenge, can state false information confidently, and are an adjunct, not a replacement.',
-          '<strong>Norwegian GP-DEP Study; NCDNOR.</strong> Depression treatment and referral patterns in Norwegian general practice, and uneven access to specialised care.',
-          '<strong>ScienceDirect welfare-state review (2024).</strong> Mental disorders as the costliest condition in Norway, close to three percent of GDP.'],
-      no:['<strong>Sentio University (2025).</strong> Undersøkelse blant personer med en pågående psykisk lidelse; om lag halvparten bruker språkmodeller til støtte for psykisk helse.',
-          '<strong>Healthline; Toronto Metropolitan University; Psychiatric Times (2025 til 2026).</strong> Ekspertadvarsler om at chatboter bekrefter heller enn å utfordre, kan uttale feilinformasjon med trygghet, og er et supplement, ikke en erstatning.',
-          '<strong>Norsk GP-DEP-studie; NCDNOR.</strong> Behandlings- og henvisningsmønstre for depresjon i norsk allmennpraksis, og ujevn tilgang til spesialisthelsetjenesten.',
-          '<strong>ScienceDirect-gjennomgang av velferdsstaten (2024).</strong> Psykiske lidelser som den dyreste tilstanden i Norge, nær tre prosent av BNP.'],
-      es:['<strong>Sentio University (2025).</strong> Encuesta a personas con un problema de salud mental en curso; alrededor de la mitad usa modelos de lenguaje como apoyo para su salud mental.',
-       '<strong>Healthline; Toronto Metropolitan University; Psychiatric Times (2025 a 2026).</strong> Advertencias de expertos de que los chatbots afirman en lugar de cuestionar, pueden decir información falsa con seguridad, y son un complemento, no un sustituto.',
-       '<strong>Estudio noruego GP-DEP; NCDNOR.</strong> Patrones de tratamiento y derivación de la depresión en la atención primaria noruega, y acceso desigual a la atención especializada.',
-       '<strong>Revisión sobre el estado del bienestar en ScienceDirect (2024).</strong> Los trastornos mentales como la enfermedad más costosa de Noruega, cerca del tres por ciento del PIB.'],
+      en:[
+        '<strong>Sentio University (2025).</strong> Survey of people with an ongoing mental health condition; about half use language models for mental-health support.',
+        '<strong>Healthline; Toronto Metropolitan University; Psychiatric Times (2025 to 2026).</strong> Expert warnings that chatbots affirm rather than challenge, can state false information confidently, and are an adjunct, not a replacement.',
+        '<strong>Norwegian GP-DEP Study; NCDNOR.</strong> Depression treatment and referral patterns in Norwegian general practice, and uneven access to specialised care.',
+        '<strong>ScienceDirect welfare-state review (2024).</strong> Mental disorders as the costliest condition in Norway, close to three percent of GDP.'
+      ],
+      no:[
+        '<strong>Sentio University (2025).</strong> Undersøkelse blant personer med en pågående psykisk lidelse; om lag halvparten bruker språkmodeller til støtte for psykisk helse.',
+        '<strong>Healthline; Toronto Metropolitan University; Psychiatric Times (2025 til 2026).</strong> Ekspertadvarsler om at chatboter bekrefter heller enn å utfordre, kan uttale feilinformasjon med trygghet, og er et supplement, ikke en erstatning.',
+        '<strong>Norsk GP-DEP-studie; NCDNOR.</strong> Behandlings- og henvisningsmønstre for depresjon i norsk allmennpraksis, og ujevn tilgang til spesialisthelsetjenesten.',
+        '<strong>ScienceDirect-gjennomgang av velferdsstaten (2024).</strong> Psykiske lidelser som den dyreste tilstanden i Norge, nær tre prosent av BNP.'
+      ],
+      es:[
+        '<strong>Sentio University (2025).</strong> Encuesta a personas con un problema de salud mental en curso; alrededor de la mitad usa modelos de lenguaje como apoyo para su salud mental.',
+        '<strong>Healthline; Toronto Metropolitan University; Psychiatric Times (2025 a 2026).</strong> Advertencias de expertos de que los chatbots afirman en lugar de cuestionar, pueden decir información falsa con seguridad, y son un complemento, no un sustituto.',
+        '<strong>Estudio noruego GP-DEP; NCDNOR.</strong> Patrones de tratamiento y derivación de la depresión en la atención primaria noruega, y acceso desigual a la atención especializada.',
+        '<strong>Revisión sobre el estado del bienestar en ScienceDirect (2024).</strong> Los trastornos mentales como la enfermedad más costosa de Noruega, cerca del tres por ciento del PIB.'
+      ],
       type:'ul'
     }
   }
@@ -1243,6 +1907,34 @@ function glanceHTML(g){
     </div>`;
 }
 
+/* The three-way explainer in section 12. The choice survives a language switch. */
+let explainLevel = 'kid';
+try{ const q = new URLSearchParams(location.search).get('level'); if(LEVELS.some(l => l.id === q)) explainLevel = q; }catch(e){}
+
+function explainHTML(items, L){
+  const opts = LEVELS.map(l => `<label><input type="radio" name="lvl" value="${l.id}"${l.id === explainLevel ? ' checked' : ''}><span>${l.label[L]}</span></label>`).join('');
+  const tag = id => LEVELS.find(l => l.id === id).label[L];
+  const cards = items.map((x, i) => `<article class="ex" id="ex-${x.id}">
+      <div class="ex-h"><span class="ex-n">${String(i + 1).padStart(2, '0')}</span><div><h3>${x.title[L]}</h3><p class="ex-term">${x.term[L]}</p></div></div>
+      ${['kid', 'pro', 'built'].map(k => `<div class="ex-l" data-l="${k}"><p class="ex-tag">${tag(k)}</p><p>${x[k][L]}</p></div>`).join('')}
+    </article>`).join('');
+  return `<div class="col"><div class="explain" data-level="${explainLevel}">
+    <fieldset class="lvl"><legend>${LEVEL_LEGEND[L]}</legend><div class="lvl-o">${opts}</div></fieldset>
+    ${cards}
+  </div></div>`;
+}
+
+document.addEventListener('change', e => {
+  if(e.target.name !== 'lvl') return;
+  const root = e.target.closest('.explain');
+  const bar = root.querySelector('.lvl').getBoundingClientRect().bottom;
+  const anchor = [...root.querySelectorAll('.ex')].find(c => c.getBoundingClientRect().bottom > bar + 8);
+  const before = anchor ? anchor.getBoundingClientRect().top : 0;
+  explainLevel = e.target.value;
+  root.dataset.level = explainLevel;
+  if(anchor) window.scrollBy({top: anchor.getBoundingClientRect().top - before, behavior: 'instant'});
+});
+
 function render(L){
   const t = T[L] || T.en;
 
@@ -1277,6 +1969,7 @@ function render(L){
     inner += `</div>`;
     /* primary assets */
     if(s.assets) inner += s.assets.map(id=>assetHTML(id, L)).join('');
+    if(s.explain) inner += explainHTML(s.explain, L);
     /* subsection */
     if(s.sub){
       inner += `<div class="col"><h3 class="sh">${s.sub.h[L]}</h3>`;
